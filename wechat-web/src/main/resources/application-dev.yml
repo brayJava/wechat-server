@@ -1,0 +1,15 @@
+server:
+  port: 8081
+
+
+spring:
+  application:
+      name: wechat-root
+
+  # MySQL
+datasource:
+      url: jdbc:mysql://47.94.14.194:3306/baili?useUnicode=true&characterEncoding=utf8
+      username: root
+      password: root
+      driver-class-name: com.mysql.jdbc.Driver
+      type: com.alibaba.druid.pool.DruidDataSource
