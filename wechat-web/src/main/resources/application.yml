@@ -16,4 +16,4 @@ info:
 
 logging:
   config: classpath:logback-spring.xml
-#  level: INFO
+  level: INFO
