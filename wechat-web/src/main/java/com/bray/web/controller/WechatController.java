@@ -1,6 +1,7 @@
 package com.bray.web.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,8 +31,8 @@ public class WechatController {
     /**
      * 内容跳转
      */
-    @RequestMapping("/story")
-    ModelAndView story() {
+    @RequestMapping("/story/{id}/{code}")
+    ModelAndView story(@PathVariable String id,@PathVariable String code) {
         return new ModelAndView("order/story","errorCode","00000");
 
     }

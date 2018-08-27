@@ -69,6 +69,17 @@
                 <artifactId>quartz-jobs</artifactId>
                 <version>2.2.1</version>
             </dependency>
+            <!--微信授权-->
+            <dependency>
+                <groupId>com.foxinmy</groupId>
+                <artifactId>weixin4j-mp</artifactId>
+                <version>1.7.6</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>1.1.10</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
