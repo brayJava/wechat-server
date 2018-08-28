@@ -11,6 +11,8 @@ public class WyDomain {
 
     private String type;
 
+    private Integer status;
+
     private Date createTime;
 
     private Date updateTime;
@@ -45,6 +47,14 @@ public class WyDomain {
 
     public void setType(String type) {
         this.type = type == null ? null : type.trim();
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Date getCreateTime() {

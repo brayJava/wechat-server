@@ -32,10 +32,12 @@ public interface WyDomainMapper {
     @Insert({
         "insert into wy_domain (id, domain, ",
         "domain_from, type, ",
-        "create_time, update_time)",
+        "status, create_time, ",
+        "update_time)",
         "values (#{id,jdbcType=INTEGER}, #{domain,jdbcType=VARCHAR}, ",
         "#{domainFrom,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, ",
-        "#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})"
+        "#{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{updateTime,jdbcType=TIMESTAMP})"
     })
     int insert(WyDomain record);
 
@@ -48,6 +50,7 @@ public interface WyDomainMapper {
         @Result(column="domain", property="domain", jdbcType=JdbcType.VARCHAR),
         @Result(column="domain_from", property="domainFrom", jdbcType=JdbcType.VARCHAR),
         @Result(column="type", property="type", jdbcType=JdbcType.VARCHAR),
+        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -55,7 +58,7 @@ public interface WyDomainMapper {
 
     @Select({
         "select",
-        "id, domain, domain_from, type, create_time, update_time",
+        "id, domain, domain_from, type, status, create_time, update_time",
         "from wy_domain",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -64,6 +67,7 @@ public interface WyDomainMapper {
         @Result(column="domain", property="domain", jdbcType=JdbcType.VARCHAR),
         @Result(column="domain_from", property="domainFrom", jdbcType=JdbcType.VARCHAR),
         @Result(column="type", property="type", jdbcType=JdbcType.VARCHAR),
+        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -83,6 +87,7 @@ public interface WyDomainMapper {
         "set domain = #{domain,jdbcType=VARCHAR},",
           "domain_from = #{domainFrom,jdbcType=VARCHAR},",
           "type = #{type,jdbcType=VARCHAR},",
+          "status = #{status,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "update_time = #{updateTime,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"

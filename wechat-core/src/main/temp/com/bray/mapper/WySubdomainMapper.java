@@ -32,10 +32,12 @@ public interface WySubdomainMapper {
     @Insert({
         "insert into wy_subdomain (id, domain_id, ",
         "sub_domain, type, ",
-        "create_time, update_time)",
+        "status, create_time, ",
+        "update_time)",
         "values (#{id,jdbcType=INTEGER}, #{domainId,jdbcType=INTEGER}, ",
         "#{subDomain,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, ",
-        "#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})"
+        "#{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{updateTime,jdbcType=TIMESTAMP})"
     })
     int insert(WySubdomain record);
 
@@ -48,6 +50,7 @@ public interface WySubdomainMapper {
         @Result(column="domain_id", property="domainId", jdbcType=JdbcType.INTEGER),
         @Result(column="sub_domain", property="subDomain", jdbcType=JdbcType.VARCHAR),
         @Result(column="type", property="type", jdbcType=JdbcType.VARCHAR),
+        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -55,7 +58,7 @@ public interface WySubdomainMapper {
 
     @Select({
         "select",
-        "id, domain_id, sub_domain, type, create_time, update_time",
+        "id, domain_id, sub_domain, type, status, create_time, update_time",
         "from wy_subdomain",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -64,6 +67,7 @@ public interface WySubdomainMapper {
         @Result(column="domain_id", property="domainId", jdbcType=JdbcType.INTEGER),
         @Result(column="sub_domain", property="subDomain", jdbcType=JdbcType.VARCHAR),
         @Result(column="type", property="type", jdbcType=JdbcType.VARCHAR),
+        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -83,6 +87,7 @@ public interface WySubdomainMapper {
         "set domain_id = #{domainId,jdbcType=INTEGER},",
           "sub_domain = #{subDomain,jdbcType=VARCHAR},",
           "type = #{type,jdbcType=VARCHAR},",
+          "status = #{status,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "update_time = #{updateTime,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"

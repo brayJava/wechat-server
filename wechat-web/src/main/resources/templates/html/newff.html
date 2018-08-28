@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)http://www.ssl.dianlianggongsi.com/home/Contact -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--<base target="_parent">--><base href="." target="_parent">
+
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
+
+    <script src="./jweixin-1.1.0.js"> </script>
+    <script src="./jquery.js"></script>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #url-wrapper {
+            overflow: hidden;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        #url-wrapper {
+            /*    margin-top: 51px;*/
+            height: 100%;
+        }
+
+        #url-wrapper iframe {
+            height: 100%;
+            width: 100%;
+        }
+
+        #url-wrapper.ios {
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch !important;
+            height: 100%;
+        }
+
+        #url-wrapper.ios iframe {
+            height: 100%;
+            min-width: 100%;
+            width: 100px;
+            *width: 100%;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="layer.css">
+    <title>Contact</title>
+
+</head>
+<body class="no-skin">
+
+<script src="layer.js"></script>
+
+<script type="text/javascript">
+    function create_iframe(url) {
+
+        // url = 'http://www.iphonesaoma.com/2.html';
+
+        var wrapper = jQuery('#url-wrapper');
+
+        if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+            wrapper.addClass('ios');
+            var scrolling = 'no';
+        } else {
+            var scrolling = 'yes';
+        }
+
+        jQuery('<iframe>', {
+            src: url,
+            id: 'ifr',
+            frameborder: 0,
+            scrolling: scrolling
+        }).appendTo(wrapper).load(function(){
+
+            if(getOS()=='iPhone'){
+                iframe_code(url);
+            }
+
+        });
+
+
+    }
+    function getOS(){
+        var ua = window.navigator.userAgent.toLowerCase(),
+            iPhone = /iphone/i.test(ua) ? true : false,
+            android = /android/i.test(ua) ? true : false;
+        if(iPhone){
+            return 'iPhone';
+        }
+        return 'android'
+    }
+
+    function base64Decode(input){
+        rv = window.atob(input);
+        rv = escape(rv);
+        rv = decodeURIComponent(rv);
+        return rv;
+    }
+
+    function iframe_code(url){
+        javascript:;
+        window.addEventListener('message', function(e){
+            var cle;
+            if (e.data.act == 'response') {
+                var index = layer.open({
+                    title: [
+                        '长按扫描二维码',
+                        'background-color: #FF4351; color:#fff;'
+                    ] ,
+                    content: '<img style="width:100%; text-align:center" src='+e.data.msg.answer+'>'
+                });
+                cle = setTimeout(function(){layer.close(index)},7000)
+            }else if(e.data.act == 'end'){
+                clearTimeout(cle);
+
+            }
+
+        }, false);
+
+    }
+
+</script>
+
+
+
+<div id="url-wrapper">
+
+    <input id="lei" name="lei" type="hidden" value="aHR0cDovL3F3ZS5zdHJhdXN3LmNvbS9hcnRpY2xlLzB6bUc5ckJxQ2c1ZUNFQmtrRmFPRVNncC5odG1s">
+    <input id="title" name="title" type="hidden" value="54m55aSnKua2iOaBr++8jOadjiprZeW8uuWFrOW8gOWKm+aMuuWwj+W0lO+8jOaJk+WOi+WoseS5kOWciO+8jOiMg+WGsH7lvbvlupXmg6jkuobvvIzpgJ/nnIvvvIHvvIE=">
+    <script>
+        var ua = navigator.userAgent.toLowerCase();
+        var isWeixin = ua.indexOf('micromessenger') != -1;
+        var isQQ = ua.indexOf('mqqbrowser') != -1;
+
+
+
+        if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
+            //  	浏览器打开跳转到目标页面
+            var url = base64Decode($("#lei").val());
+            if(url.indexOf('http://')<0 || url.indexOf('https://')<0){
+                url = 'http://'+url;
+            }
+
+            var url = $("#lei").val();
+            var title = $("#title").val();
+        }
+        else {
+            window.location.href = 'http://www.baidu.com';
+        }
+
+
+
+        if (!isWeixin && !isQQ) {
+            //window.location.href = 'http://www.baidu.com';
+        }else{
+            //  	浏览器打开跳转到目标页面
+            // var url = base64Decode($("#lei").val());
+            //  if(url.indexOf('http://')<0 || url.indexOf('https://')<0){
+            //      url = 'http://'+url;
+            // }
+
+            // var url = $("#lei").val();
+            // var title = $("#title").val();
+        }
+        create_iframe(base64Decode(url));
+    </script>
+
+    <script>
+        $('title').html(base64Decode(title));
+    </script>
+
+</div>
+
+
+</body></html>

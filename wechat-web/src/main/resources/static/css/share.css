@@ -1,0 +1,67 @@
+.bbfds {
+    background: url(/images/f4cc5f9d213a40f09ff34dfa94e33878.gif) 100% 100% no-repeat;
+    width: 200px;
+    height: 200px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    margin: auto;
+    z-index: 9988;
+}
+
+* {
+    font-family: open sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+    padding: 0;
+    margin: 0
+}
+
+body,html {
+    width: 100%;
+    height: 100%
+}
+
+body>a {
+    display: none;
+}
+
+#loaQ {
+    -webkit-animation: change 2s linear infinite;
+    background: url(/images/bcbe13d7232e4c2fbbffc9fd49a4a862.gif) 100% 100% no-repeat;
+    width: 200px;
+    height: 200px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    margin: auto;
+    z-index: 9988;
+}
+
+@-webkit-keyframes change {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    50% {
+        -webkit-transform: rotate(180deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+.aacs {
+    visibility: visible;
+    background: #333;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+}
+/* 抢先 隐藏 iframe */
+body iframe {display: none;}

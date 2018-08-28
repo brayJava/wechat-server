@@ -57,6 +57,10 @@ public class WySubdomainSqlProvider {
             VALUES("type", "#{type,jdbcType=VARCHAR}");
         }
         
+        if (record.getStatus() != null) {
+            VALUES("status", "#{status,jdbcType=INTEGER}");
+        }
+        
         if (record.getCreateTime() != null) {
             VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
@@ -78,6 +82,7 @@ public class WySubdomainSqlProvider {
         SELECT("domain_id");
         SELECT("sub_domain");
         SELECT("type");
+        SELECT("status");
         SELECT("create_time");
         SELECT("update_time");
         FROM("wy_subdomain");
@@ -113,6 +118,10 @@ public class WySubdomainSqlProvider {
             SET("type = #{record.type,jdbcType=VARCHAR}");
         }
         
+        if (record.getStatus() != null) {
+            SET("status = #{record.status,jdbcType=INTEGER}");
+        }
+        
         if (record.getCreateTime() != null) {
             SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
@@ -133,6 +142,7 @@ public class WySubdomainSqlProvider {
         SET("domain_id = #{record.domainId,jdbcType=INTEGER}");
         SET("sub_domain = #{record.subDomain,jdbcType=VARCHAR}");
         SET("type = #{record.type,jdbcType=VARCHAR}");
+        SET("status = #{record.status,jdbcType=INTEGER}");
         SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         
@@ -155,6 +165,10 @@ public class WySubdomainSqlProvider {
         
         if (record.getType() != null) {
             SET("type = #{type,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getStatus() != null) {
+            SET("status = #{status,jdbcType=INTEGER}");
         }
         
         if (record.getCreateTime() != null) {

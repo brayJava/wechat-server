@@ -57,6 +57,10 @@ public class WyDomainSqlProvider {
             VALUES("type", "#{type,jdbcType=VARCHAR}");
         }
         
+        if (record.getStatus() != null) {
+            VALUES("status", "#{status,jdbcType=INTEGER}");
+        }
+        
         if (record.getCreateTime() != null) {
             VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
@@ -78,6 +82,7 @@ public class WyDomainSqlProvider {
         SELECT("domain");
         SELECT("domain_from");
         SELECT("type");
+        SELECT("status");
         SELECT("create_time");
         SELECT("update_time");
         FROM("wy_domain");
@@ -113,6 +118,10 @@ public class WyDomainSqlProvider {
             SET("type = #{record.type,jdbcType=VARCHAR}");
         }
         
+        if (record.getStatus() != null) {
+            SET("status = #{record.status,jdbcType=INTEGER}");
+        }
+        
         if (record.getCreateTime() != null) {
             SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
@@ -133,6 +142,7 @@ public class WyDomainSqlProvider {
         SET("domain = #{record.domain,jdbcType=VARCHAR}");
         SET("domain_from = #{record.domainFrom,jdbcType=VARCHAR}");
         SET("type = #{record.type,jdbcType=VARCHAR}");
+        SET("status = #{record.status,jdbcType=INTEGER}");
         SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         
@@ -155,6 +165,10 @@ public class WyDomainSqlProvider {
         
         if (record.getType() != null) {
             SET("type = #{type,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getStatus() != null) {
+            SET("status = #{status,jdbcType=INTEGER}");
         }
         
         if (record.getCreateTime() != null) {
