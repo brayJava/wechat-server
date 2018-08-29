@@ -8,7 +8,7 @@ spring:
 
   # MySQL
 datasource:
-      url: jdbc:mysql://123.206.195.72:3306/bray?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false
+      url: jdbc:mysql://localhost:3306/bray?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false
       username: root
       password: wzy5789778
       driver-class-name: com.mysql.jdbc.Driver
