@@ -8,6 +8,7 @@ import com.bray.util.Base64Util;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -74,6 +75,7 @@ public class WechatController {
         long millis = Clock.systemDefaultZone().millis();
         //获取分享主域名
         List<WySubdomain> wySubdomains = (List<WySubdomain>) WebConst.domainMap.get(domainType);
+        if(CollectionUtils.isEmpty(wySubdomains)) return "";
         String[] wySubs = wySubdomains.stream().map(wySubdomain -> wySubdomain.getSubDomain())
                 .collect(Collectors.toList()).toArray(new String[wySubdomains.size()]);
         int v = (int)Math.random() * wySubs.length;
