@@ -6,7 +6,7 @@ spring:
   application:
       name: wechat-root
 
-  # MySQL
+# MySQL
 datasource:
       url: jdbc:mysql://localhost:3306/bray?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false
       username: root

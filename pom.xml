@@ -11,6 +11,7 @@
     <modules>
         <module>wechat-web</module>
         <module>wechat-core</module>
+        <module>wechat-admin</module>
     </modules>
     <name>wechat-root</name>
 
