@@ -1,4 +1,4 @@
-package com.bray.web.model.Vo;
+package com.bray.model.Vo;
 
 import lombok.Data;
 

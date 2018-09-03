@@ -12,7 +12,6 @@ import javax.servlet.annotation.WebListener;
  */
 //@SpringBootApplication(exclude={DataSourceAutoConfiguration.class,HibernateJpaAutoConfiguration.class})
 @SpringBootApplication
-//@ComponentScan(basePackages = {"com.bray","com.bray.model"})
 @WebListener
 public class Application {
 

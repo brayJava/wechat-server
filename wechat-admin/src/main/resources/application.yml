@@ -1,6 +1,15 @@
 spring:
   profiles:
-    active: dev     # 本地环境
+    active: dev
+#  thymeleaf属性定义
+  thymeleaf:
+#    mode: LEGACYHTML5
+    cache: false
+    suffix: .html
+    encoding: utf-8
+#    content-type: text/html
+
+# 本地环境
 #    active: dev       # 环境
 #    active: test      # 开发测试环境
 #    active: pre       # 预发环境
@@ -17,3 +26,9 @@ info:
 logging:
   config: classpath:logback-spring.xml
   level: INFO
+
+#微信授权接口
+weixin4j:
+  id: wx72a8b1f0f4767b1c
+  secret: f8e86309bd692e4343d913728ab6e218
+  cache: FILE

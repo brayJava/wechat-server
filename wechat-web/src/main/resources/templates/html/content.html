@@ -149,7 +149,10 @@
         th:src="@{/js/jweixin-1.2.0.js}"></script>
 <script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 
-<script type="text/javascript">
+<script th:inline="javascript">
+    var share_url = [[${share_url}]];
+    var data = [[${signature}]];
+    var signatureJson = JSON.parse(data);
     //背景音乐停止与播放
     var image_src = ""
     var is_show_share = false
@@ -186,7 +189,7 @@
         if (scrollTop > 0.5 * scrollHeight) {
             bottomView.style.display = ''
         } else {
-            bottomView.style.display = 'none'
+            // bottomView.style.display = 'none'
         }
     });
     $('#likeNum').html(Number.parseInt(Math.random() * 15000) + 5000);
@@ -211,43 +214,43 @@
             $icon.removeClass("praised");
         }
     });
-    // window.PREFIX_URL = "http://"+window.location.host+"/";
-    // 		    wx.config({
-    //                         debug: false,
-    // 						appId: 'wx4bc9d5a570b218dc',
-    // 						timestamp: '{$signPackage.timestamp}',
-    // 						nonceStr: '{$signPackage.nonceStr}',
-    // 						signature: '{$signPackage.signature}',
-    // 						jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage','error']
-    //                        });
-    //
-    //                  wx.ready(function () {
-    //                               wx.onMenuShareTimeline({
-    //                                            title: '特大喜-讯：8月20日即将全面实行、与你有关、全民速-看',
-    //                                            link: 'http://www.zwwglgg.cn/home/Order/share',
-    //                                            imgUrl: 'https://wx2.sinaimg.cn/large/aef5916dgy1ftwibeuh1nj201q01emwy.jpg',
-    //                                            success: function () {
-    //
-    //                                                    },
-    //                                            cancel: function () {
-    //
-    //                                                    }
-    //                                                      });
-    //                               wx.onMenuShareAppMessage({
-    //                                            title: '特大喜-讯：8月20日即将全面实行、与你有关、全民速-看',
-    //                                            desc: '特大喜-讯：8月20日即将全面实行、与你有关、全民速-看',
-    //                                            link: 'http://www.zwwglgg.cn/home/Order/share',
-    //                                            imgUrl: 'https://wx2.sinaimg.cn/large/aef5916dgy1ftwibeuh1nj201q01emwy.jpg',
-    //                                            type: '',
-    //                                            dataUrl: '',
-    //                                            success: function () {
-    //
-    //                                                   },
-    //                                            cancel: function () {
-    //
-    //                                                  }
-    //                                                   });
-    //                              })
+    window.PREFIX_URL = "http://"+window.location.host+"/";
+    wx.config({
+                debug: false,
+                appId: 'wxeb909a64d096f6ec',
+                timestamp: signatureJson.timestamp,
+                nonceStr: signatureJson.noncestr,
+                signature: signatureJson.signature,
+                jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage','error']
+               });
+
+     wx.ready(function () {
+              wx.onMenuShareTimeline({
+                           title: '特大喜-讯：8月20日即将全面实行、与你有关、全民速-看',
+                           link: share_url,
+                           imgUrl: 'https://wx2.sinaimg.cn/large/aef5916dgy1ftwibeuh1nj201q01emwy.jpg',
+                           success: function () {
+
+                                   },
+                           cancel: function () {
+
+                                   }
+                                     });
+              wx.onMenuShareAppMessage({
+                       title: '特大喜-讯：8月20日即将全面实行、与你有关、全民速-看',
+                       desc: '特大喜-讯：8月20日即将全面实行、与你有关、全民速-看',
+                       link: share_url,
+                       imgUrl: 'https://wx2.sinaimg.cn/large/aef5916dgy1ftwibeuh1nj201q01emwy.jpg',
+                       type: '',
+                       dataUrl: '',
+                       success: function () {
+
+                              },
+                       cancel: function () {
+
+                        }
+              });
+        })
 </script>
 
 <script>

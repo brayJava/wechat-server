@@ -14,110 +14,27 @@
           th:href="@{/css/font.css}" />
 	<link rel="stylesheet" href="../../static/css/xadmin.css"
           th:href="@{/css/xadmin.css}" />
-    <!--<link rel="stylesheet" href="../../static/lib/h-ui.admin/css/H-ui.admin.css"-->
-          <!--th:href="@{/lib/h-ui.admin/css/H-ui.admin.css}" />-->
-    <!--<link rel="stylesheet" href="../../static/lib/h-ui.admin/css/H-ui.login.css"-->
-          <!--th:href="@{/lib/h-ui.admin/css/H-ui.login.css}" />-->
-    <link rel="stylesheet" href="../../static/lib/Hui-iconfont/1.0.8/iconfont.css"
-          th:href="@{/lib/Hui-iconfont/1.0.8/iconfont.css}" />
-    <link rel="stylesheet" href="../../static/lib/h-ui.admin/skin/default/skin.css"
-          th:href="@{/lib/h-ui.admin/skin/default/skin.css}" id="skin" />
-    <link rel="stylesheet" href="../../static/lib/h-ui.admin/css/style.css"
-          th:href="@{/lib/h-ui.admin/css/style.css}"/>
-    <link rel="stylesheet" href="../../static/lib/h-ui/css/H-ui.css"
-          th:href="@{/lib/h-ui/css/H-ui.css}" />
     <script type="text/javascript" src="../../static/js/jquery-1.8.0.js"
             th:src="@{/js/jquery-1.8.0.js}"></script>
     <script src="../../static/lib/layui/layui.js" charset="utf-8"
             th:src="@{/lib/layui/layui.js}"></script>
     <script type="text/javascript" src="../../static/js/xadmin.js"
             th:src="@{/js/xadmin.js}"></script>
-    <script type="text/javascript" src="../../static/lib/h-ui/js/H-ui.js"
-            th:src="@{/lib/h-ui/js/H-ui.js}"></script>
-    <script type="text/javascript" src="../../static/lib/h-ui.admin/js/H-ui.admin.js"
-            th:src="@{/lib/h-ui.admin/js/H-ui.admin.js}"></script>
-    <script type="text/javascript" src="../../static/lib/jquery.validation/1.14.0/jquery.validate.js"
-            th:src="@{/lib/jquery.validation/1.14.0/jquery.validate.js}"></script>
-    <script type="text/javascript" src="../../static/lib/jquery.validation/1.14.0/validate-methods.js"
-            th:src="@{/lib/jquery.validation/1.14.0/validate-methods.js}"></script>
-    <script type="text/javascript" src="../../static/lib/jquery.validation/1.14.0/messages_zh.js"
-            th:src="@{/lib/jquery.validation/1.14.0/messages_zh.js}"></script>
 </head>
 <body class="login-bg">
     <div class="login layui-anim layui-anim-up">
-        <div class="message">wechat-server1.0-登录</div>
+        <div class="message">wechat-server V1.0登录</div>
         <div id="darkbannerwrap"></div>
-        <span id="errorshow" hidden="hidden" style="color: #c62b26;text-align: center;font-weight: bold">账号或密码不正确</span>
+        <span th:if="${errorCode} == 'error'" style="font-weight: bold;color: #c81623">账号或密码不正确！</span>
         <br/>
-        <form method="post" class="layui-form" id="form-submit">
+        <form method="post" class="layui-form" th:action="@{/verify-login}">
             <input name="username" placeholder="用户名"  type="text" lay-verify="required" class="layui-input" />
             <hr class="hr15" />
-            <input name="password" lay-verify="required" placeholder="密码"  type="password" class="layui-input" />
-            <hr class="hr15" />
-            <input value="登录"  lay-filter="login" style="width:100%;" type="submit" />
+            <input name="password" lay-verify="required" placeholder="密码"  type="password" class="layui-input"/>
+            <hr class="hr15"/>
+            <input value="登录" lay-submit="" lay-filter="login" style="width:100%;" type="submit"/>
             <hr class="hr20" />
         </form>
     </div>
-    <script>
-        $(function(){
-            $('.skin-minimal input').iCheck({
-                checkboxClass: 'icheckbox-blue',
-                radioClass: 'iradio-blue',
-                increaseArea: '20%'
-            });
-
-            $("#form-submit").validate({
-                rules:{
-                    username:{
-                        required:true,
-                    },
-                    password:{
-                        required:true,
-                    }
-                },
-                onkeyup:false,
-                focusCleanup:true,
-                success:"valid",
-                submitHandler:function(form){
-                    $(form).ajaxSubmit({
-                        type:'post',
-                        url:'verify-login',
-                        async:false,
-                        success: function(data){
-                            if(data.errorCode == "error") {
-                                $("#errorshow").show();
-                            }
-                            // layer.alert('修改成功', {icon: 1},function (index) {
-                            //     var obj = {
-                            //         "idcardNum":$('#idcardNum').val(),
-                            //         "licenseType":$('#licenseType').val(),
-                            //         "licenseCode":$('#licenseCode').val()
-                            //     }
-                            //     parent.GetValue(obj);
-                            //     //关闭父模块弹出框
-                            //     var index = parent.layer.getFrameIndex(window.name);
-                            //     parent.layer.close(index);
-                            //     // update_reload();
-                            // });
-                        },
-                        error: function(XmlHttpRequest, textStatus, errorThrown){
-                            layer.msg('error!',{icon:1,time:1000});
-                        }
-                    });
-                }
-            });
-        });
-    </script>
-    <!-- 底部结束 -->
-    <script>
-    //百度统计可去掉
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-      var s = document.getElementsByTagName("script")[0]; 
-      s.parentNode.insertBefore(hm, s);
-    })();
-    </script>
 </body>
 </html>

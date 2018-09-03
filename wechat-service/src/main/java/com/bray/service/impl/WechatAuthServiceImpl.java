@@ -12,10 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
-
 /**
  * @Author:wuzhiyuan
- * @Description:
+ * @Description: 获取签字符串
  * @Date: Created in 10:04 2018/8/15
  * @Modified By:
  */

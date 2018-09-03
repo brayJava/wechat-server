@@ -4,8 +4,10 @@ import com.bray.config.WebConst;
 import com.bray.dto.UrlConstant;
 import com.bray.model.WyDomain;
 import com.bray.model.WySubdomain;
+import com.bray.service.impl.WechatAuthServiceImpl;
 import com.bray.util.Base64Util;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
@@ -27,6 +29,9 @@ import java.util.stream.Collectors;
 @Controller
 @Slf4j
 public class WechatController {
+
+    @Autowired
+    private WechatAuthServiceImpl wechatAuthService;
     /**
      * 首页跳转
      */
@@ -47,6 +52,9 @@ public class WechatController {
         String shareUrl = nextUrlBuild(timstamp,WebConst.SUB_SHARE_DOMAIN,UrlConstant.PATH_JUMP_RUL);
         //base64编码
         model.addAttribute(UrlConstant.SHARE_URL, Base64Util.encode(shareUrl));
+        //放置签名信息
+        String signature = wechatAuthService.signature("http://www.baidu.com");
+        model.addAttribute("signature",signature);
         log.info("----------分享链接为：{}",shareUrl);
         return "html/content";
     }

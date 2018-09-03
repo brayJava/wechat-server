@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<head th:replace="/common/common_header :: common_header">
+    <title>子域名管理</title>
+    <!--<link rel="stylesheet" href="css/index.css" />-->
+</head>
+<body>
+<div class="x-body">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label for="subdomain" class="layui-form-label">
+                <span class="x-red">*</span>子域名
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="subdomain" name="subdomain"  lay-verify="required"
+                       autocomplete="off" class="layui-input"/>
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="suffix_domain"></span>
+                <span class="x-red">*</span>域名格式如 qqqa.zabgl.cn
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span class="x-red">*</span>域名类型</label>
+            <div class="layui-input-block">
+                <!--<input type="checkbox" name="like1[write]" lay-skin="primary" title="分享域名" checked=""/>-->
+                <!--<input type="checkbox" name="like1[read]" lay-skin="primary" title="普通域名"/>-->
+                <input type="radio" name="domainType" lay-filter="erweima" value="1" title="二域域名" required="" checked=""/>
+                <input type="radio" name="domainType" lay-filter="erweima" value="2" title="多级域名" required=""/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="L_repass" class="layui-form-label" />
+            <button type="button" class="layui-btn" lay-filter="add" lay-submit="">
+                增加
+            </button>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    var domain_id = 0;
+    var subdomain_id = 0;
+    layui.use(['form','layer'], function() {
+        $ = layui.jquery;
+        var form = layui.form
+            ,layer = layui.layer;
+        //注意：1.submit监听一个filter过滤事件，要在提交标签中加上
+        //     2.当button没有添加type="button" 会自动提交表单刷新
+        form.on('submit(add)', function (data) {
+            data.field.subdomain = $("#subdomain").val()+'.'+$(".suffix_domain").text();
+            data.field.domainId = domain_id;
+            data.field.subdomainId = subdomain_id;
+            $.ajax({
+                url: '/domain/subdomain-add',
+                async: false,
+                data: data.field,
+                dataType: "json",
+                type: 'post',
+                success: function (data) {
+                    // alert('chnegogn')
+                    layer.alert("操作成功", {icon: 1}, function (index) {
+                        layer.close(index);
+                        //关闭当前frame
+                        parent.layer.close(index);
+                        window.parent.location.reload(true);
+                    });
+                },
+                error: function (XmlHttpRequest, textStatus, errorThrown) {
+                    layer.msg('error!', {icon: 1, time: 1000});
+                }
+            });
+        });
+    });
+    function child(title,_this,id) {
+        var tr_this = $(_this).closest('tr');
+        var domain = tr_this.find('.domain').text();
+        var arrs = domain.split(".");
+        var suffix_domain = arrs[arrs.length-2]+'.'+arrs[arrs.length-1]
+        //前缀
+        var prefix_domain = arrs[0];
+        $(".suffix_domain").text(suffix_domain);
+        if('编辑' == title) {
+            $("#subdomain").val(prefix_domain);
+            subdomain_id = id;
+        } else {
+            //赋值主域名id
+            if($(tr_this).hasClass("primary_doamin")) {
+                domain_id = tr_this.attr('cate-id');
+            } else if($(tr_this).hasClass("sub_domain")) {
+                domain_id = tr_this.attr('fid');
+            }
+        }
+
+    }
+</script>
+</body>
+
+</html>
+

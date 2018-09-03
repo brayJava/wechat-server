@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<head th:replace="/common/common_header :: common_header">
+    <title>域名管理</title>
+    <!--<link rel="stylesheet" href="css/index.css" />-->
+</head>
+
+<body>
+<div class="x-body">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label for="domain" class="layui-form-label">
+                <span class="x-red">*</span>域名
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="domain" name="domain"  lay-verify="required"
+                       autocomplete="off" class="layui-input"/>
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>域名格式如 www.zabgl.cn
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="domainFrom" class="layui-form-label">
+                <span class="x-red">*</span>域名来源
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="domainFrom" name="domainFrom" lay-verify="required"
+                       autocomplete="off" class="layui-input"/>
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>域名购买服务商
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span class="x-red">*</span>域名类型</label>
+            <div class="layui-input-block">
+                <!--<input type="checkbox" name="like1[write]" lay-skin="primary" title="分享域名" checked=""/>-->
+                <!--<input type="checkbox" name="like1[read]" lay-skin="primary" title="普通域名"/>-->
+                <input type="radio" name="domainType" lay-filter="erweima" value="1" title="分享域名" checked=""/>
+                <input type="radio" name="domainType" lay-filter="erweima" value="2" title="普通域名" />
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="L_repass" class="layui-form-label" />
+            <button  type="button" class="layui-btn"  lay-filter="add" lay-submit="" id="domainAdd">
+                增加
+            </button>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    var domain_id = 0;
+    layui.use(['form','layer'], function() {
+        $ = layui.jquery;
+        var form = layui.form
+            ,layer = layui.layer;
+        //注意：1.submit监听一个filter过滤事件，要在提交标签中加上
+        //     2.当button没有添加type="button" 会自动提交表单刷新
+        form.on('submit(add)', function (data) {
+            data.field.domainId = domain_id;
+            $.ajax({
+                url: '/domain/domain-add',
+                async: false,
+                data: data.field,
+                dataType: "json",
+                type: 'post',
+                success: function (data) {
+                    // alert('chnegogn')
+                    layer.alert("操作成功", {icon: 1}, function (index) {
+                        layer.close(index);
+                        //关闭当前frame
+                        parent.layer.close(index);
+                        window.parent.location.reload(true);
+                    });
+                },
+                error: function (XmlHttpRequest, textStatus, errorThrown) {
+                    layer.msg('error!', {icon: 1, time: 1000});
+                }
+            });
+        });
+    });
+    function child(title,_this,id) {
+        var tr_this = $(_this).closest('tr')
+        if('编辑'== title) {
+            domain_id = id;
+            $('#domain').val((tr_this.find('.domain').text()));
+            $('#domainFrom').val((tr_this.find('.domainFrom').text()));
+            if(json == 1) {
+                $("input[name='domainType'][value='1']").attr("checked","true");
+            } else {
+                $("input[name='domainType'][value='2']").attr("checked","true");
+            }
+        }
+    }
+</script>
+</body>
+
+</html>

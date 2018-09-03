@@ -12,6 +12,7 @@
         <module>wechat-web</module>
         <module>wechat-core</module>
         <module>wechat-admin</module>
+        <module>wechat-service</module>
     </modules>
     <name>wechat-root</name>
 
@@ -48,6 +49,11 @@
                 <artifactId>druid</artifactId>
                 <version>1.0.18</version>
             </dependency>
+            <!--<dependency>-->
+                <!--<groupId>com.alibaba</groupId>-->
+                <!--<artifactId>druid-spring-boot-starter</artifactId>-->
+                <!--<version>1.1.1</version>-->
+            <!--</dependency>-->
             <dependency>
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper</artifactId>
@@ -80,6 +86,11 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid</artifactId>
                 <version>1.1.10</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sourceforge.nekohtml</groupId>
+                <artifactId>nekohtml</artifactId>
+                <version>1.9.22</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

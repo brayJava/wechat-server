@@ -1,12 +1,10 @@
 package com.bray.web.controller;
 
-import com.alibaba.fastjson.JSONObject;
-import com.bray.web.model.Vo.LoginModelVo;
+import com.bray.model.Vo.LoginModelVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @Author:wuzhiyuan
@@ -22,18 +20,14 @@ public class LoginController {
     public String login() {
         return "/login/login";
     }
-
+    /**
+     * 用户登入校验
+     * @param loginModelVo
+     * @return
+     */
     @RequestMapping("/verify-login")
-    @ResponseBody
-    public JSONObject login(LoginModelVo loginModelVo,Model model) {
-
-//        if("wzy".equals(loginModelVo.getUsername()) && "wzy".equals(loginModelVo.getPassword())) {
-//            return "SUCCESS";
-//        }
+    public String login(LoginModelVo loginModelVo, Model model) {
         model.addAttribute("errorCode","error");
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("errorCode","error");
-        return jsonObject;
+        return "/login/login";
     }
-
 }

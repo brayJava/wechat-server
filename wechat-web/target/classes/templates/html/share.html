@@ -11,84 +11,25 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <script src="../../static/js/jquery-1.8.0.js"
             th:src="@{/js/jquery-1.8.0.js}"></script>
-    <style type="text/css">
-        .bbfds {
-            background: url(/images/f4cc5f9d213a40f09ff34dfa94e33878.gif) 100% 100% no-repeat;
-            width: 200px;
-            height: 200px;
-            position: fixed;
-            top: 0px;
-            left: 0px;
-            right: 0px;
-            bottom: 0px;
-            margin: auto;
-            z-index: 9988;
-        }
-
-        * {
-            font-family: open sans,Helvetica Neue,Helvetica,Arial,sans-serif;
-            padding: 0;
-            margin: 0
-        }
-
-        body,html {
-            width: 100%;
-            height: 100%
-        }
-
-        body>a {
-            display: none;
-        }
-
-        #loaQ {
-            -webkit-animation: change 2s linear infinite;
-            background: url(/images/bcbe13d7232e4c2fbbffc9fd49a4a862.gif) 100% 100% no-repeat;
-            width: 200px;
-            height: 200px;
-            position: fixed;
-            top: 0px;
-            left: 0px;
-            right: 0px;
-            bottom: 0px;
-            margin: auto;
-            z-index: 9988;
-        }
-
-        @-webkit-keyframes change {
-            0% {
-                -webkit-transform: rotate(0deg);
-            }
-
-            50% {
-                -webkit-transform: rotate(180deg);
-            }
-
-            100% {
-                -webkit-transform: rotate(360deg);
-            }
-        }
-
-        .aacs {
-            visibility: visible;
-            background: #333;
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            top: 0px;
-            left: 0px;
-        }
-        /* 抢先 隐藏 iframe */
-        body iframe {display: none;}
-    </style>
+    <link rel="stylesheet" type="text/css" href="../../static/css/share.css"
+          th:href="@{/css/share.css}"/>
 </head>
 <title>请稍候</title>
 <body>
 <div class="aacs"><div id="loaQ" ></div><div class="bbfds"></div></div>
 
-<script type="text/javascript">
-    setTimeout("location.replace('http://www.zwwglgg.cn/wechat/content')",1312);
+<script th:inline="javascript">
+    var content_url = [[${content_url}]];
+    // setTimeout("location.replace('http://www.zwwglgg.cn/wechat/content')",1312);
+    setTimeout("location.replace(base64Decode(content_url))",1312);
 </script>
 <script type="text/javascript">
+    function base64Decode(input){
+        rv = window.atob(input);
+        rv = escape(rv);
+        rv = decodeURIComponent(rv);
+        return rv;
+    }
     var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1273937953'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1273937953%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
     var del_times = 0, deTimer = null;
     function adGo() {

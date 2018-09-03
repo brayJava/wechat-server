@@ -22,7 +22,7 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--路径-->
             <FileNamePattern>
-                wechat-logs/info-logs/%d{yyyy-MM-dd}/%d{yyyy-MM-dd}.log
+                /wechat-logs/info-logs/%d{yyyy-MM-dd}/%d{yyyy-MM-dd}.log
             </FileNamePattern>
         </rollingPolicy>
     </appender>
@@ -42,11 +42,14 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--路径-->
             <FileNamePattern>
-                wechat-logs/error-logs/%d{yyyy-MM-dd}/%d{yyyy-MM-dd}.log
+                ./wechat-logs/error-logs/%d{yyyy-MM-dd}/%d{yyyy-MM-dd}.log
             </FileNamePattern>
         </rollingPolicy>
         <append>true</append>
     </appender>
+    <logger name="com.bray" level="INFO" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
     <root level="info">
         <appender-ref ref="console" />
         <appender-ref ref="fileInfoLog" />
