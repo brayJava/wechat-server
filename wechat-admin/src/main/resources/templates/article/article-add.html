@@ -330,7 +330,7 @@
                 swf: 'lib/webuploader/0.1.5/Uploader.swf',
                 chunked: false,
                 chunkSize: 512 * 1024,
-                server: 'http://localhost:8082/article/img-upload/',
+                server: 'http://47.92.5.215:8082/article/img-upload/',
                 // runtimeOrder: 'flash',
 
                 // accept: {
@@ -417,7 +417,7 @@
                             img = $('<img src="' + src + '"/>');
                             $wrap.empty().append(img);
                         } else {
-                            $.ajax('http://localhost:8082/article/img-upload/', {
+                            $.ajax('http://47.92.5.215:8082/article/img-upload/', {
                                 method: 'POST',
                                 data: src,
                                 dataType: 'json'

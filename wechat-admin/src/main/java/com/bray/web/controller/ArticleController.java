@@ -37,7 +37,7 @@ public class ArticleController {
     }
     /**
      * 文章编辑上传
-     * @param httpServletRequest
+     * @param httpServletRequest、
      * @return
      */
     @RequestMapping("/img-upload")

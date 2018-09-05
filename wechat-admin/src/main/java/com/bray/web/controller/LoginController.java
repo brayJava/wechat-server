@@ -18,7 +18,7 @@ public class LoginController {
 
     @RequestMapping("/login")
     public String login() {
-        return "/login/login";
+        return "login/login";
     }
     /**
      * 用户登入校验
