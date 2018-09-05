@@ -41,7 +41,7 @@ public class DomainController {
         List<PrimarySubDomain> primarySubDomainList =
                 (List<PrimarySubDomain>) domainService.queryAllEffectiveDomain();
         model.addAttribute(WebConst.ALL_DOMAIN,primarySubDomainList);
-        return "/domain/domain";
+        return "domain/domain";
     }
     /**
      * 域名添加跳转
@@ -49,7 +49,7 @@ public class DomainController {
      */
     @RequestMapping("/add")
     public String addjump() {
-        return "/domain/domain-add";
+        return "domain/domain-add";
     }
     /**
      * 主域名添加
@@ -68,7 +68,7 @@ public class DomainController {
      */
     @RequestMapping("/sub-add")
     public String subAddjump() {
-        return "/domain/subdomain-add";
+        return "domain/subdomain-add";
     }
     /**
      *  子域名添加

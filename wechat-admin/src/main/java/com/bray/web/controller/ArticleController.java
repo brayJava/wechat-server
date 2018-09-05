@@ -33,7 +33,7 @@ public class ArticleController {
     @RequestMapping("/jump")
     public String jump() {
 
-        return "/article/article-add";
+        return "article/article-add";
     }
     /**
      * 文章编辑上传

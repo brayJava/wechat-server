@@ -28,6 +28,6 @@ public class LoginController {
     @RequestMapping("/verify-login")
     public String login(LoginModelVo loginModelVo, Model model) {
         model.addAttribute("errorCode","error");
-        return "/login/login";
+        return "login/login";
     }
 }

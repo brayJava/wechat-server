@@ -17,6 +17,6 @@ public class IndexController {
 
     @RequestMapping("/home")
     public String home() {
-        return "/index/index";
+        return "index/index";
     }
 }
