@@ -18,7 +18,7 @@ import java.util.Date;
 
 /**
  * @Author:wuzhiyuan
- * @Description:
+ * @Description: 域名处理逻辑
  * @Date: Created in 15:21 2018/9/1
  * @Modified By:
  */
@@ -26,7 +26,6 @@ import java.util.Date;
 @Service
 @Transactional
 public class DomainAdminServiceImpl implements IDomainAdminService {
-
     @Resource
     private WyDomainMapper wyDomainMapper;
     @Resource

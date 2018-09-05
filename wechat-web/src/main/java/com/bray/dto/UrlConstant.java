@@ -8,6 +8,10 @@ package com.bray.dto;
  */
 public interface UrlConstant {
     /**
+     * 图片服务器端口号
+     */
+    String PORT = "801";
+    /**
      * 分享链接
      */
     String SHARE_URL = "share_url";
@@ -22,7 +26,7 @@ public interface UrlConstant {
     /**
      * 内容链接跳转
      */
-    String PATH_CONTENT_URL = "/wechat/content/";
+    String PATH_CONTENT_URL = "/wechat/random-content/";
     /**
      * 分享链接跳转
      */

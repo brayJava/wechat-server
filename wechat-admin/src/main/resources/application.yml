@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: online
 #  thymeleaf属性定义
   thymeleaf:
 #    mode: LEGACYHTML5

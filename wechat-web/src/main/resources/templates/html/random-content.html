@@ -1,0 +1,255 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="apple-touch-fullscreen" content="yes"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta charset="utf-8"/>
+
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+    <title>特大喜-讯：8月20日即将全面实行、与你有关、全民速-看</title>
+</head>
+
+<script>
+
+    var hrefurl = "";
+    if (hrefurl.length == 0) {
+        function clickfh() {
+            location.href = '';
+        }
+    } else {
+        function clickfh() {
+            location.href = '';
+        }
+
+        window.onhashchange = function () {
+            jp();
+        };
+
+        function hh() {
+            history.pushState(history.length + 1, "app", "#pt_" + new Date().getTime());
+        }
+
+        function jp() {
+            location.href = ''
+        }
+
+        window.onload = function () {
+            if (sessionStorage.isAT) {
+                chkwvs = function () {
+                };
+                player.onplaying = function () {
+                    if (!sessionStorage.pt) {
+                        sessionStorage.pt = new Date().getTime();
+                    }
+                };
+                sessionStorage.removeItem("isAT");
+            }
+            setTimeout('hh();', 100);
+        }
+    }</script>
+<body style="margin:0px auto;width:100%;max-width:685px;padding-bottom:0px;">
+<link rel="stylesheet" href="../../static/css/content.css" type="text/css"
+      th:href="@{/css/content.css}"/>
+<div class="item_wrap rel" style="padding: 0px;">
+    <ul style="list-style-type:none;">
+        <audio id='myaudio' loop='loop' preload='auto' autoplay='autoplay'>
+            <source src='http://dl.stream.qqmusic.qq.com/C400003vYunL3xOXiM.m4a?vkey=F16BE69A31B7753F69D7FB879ABCDCD2253E61AB90A9F07CA3DBBD3DD4C9D02735699DF34A0B23DD2E8E65618B1FD71CB704EAA30D1EB8CA&amp;guid=5119412828&amp;uin=0&amp;fromtag=66'
+                    th:src="${article.wyArticleImgs.bgmUrl}" type='audio/mp3'/>
+        </audio>
+        <img id='audio_image' class='div1' onclick='swap_music()'
+             src='https://pub-files.jinshuju.net/di/20180816170857_69e004' style='width: 30px;'/>
+        <a href="javascript: clickfh();"> <img class='div3' th:src="@{/picture/621f27fe9abf42adbe77d23123ef65eb.gif}"
+                                               style='width: 30px;'/></a>
+        <!--div class='share_btn' onclick="show_share_view()">
+        <span class='share_span'> 分
+           <a  style="display:none;" >sadadadadasdas</a>
+        享</span></div-->
+        <li class="i_pri" style="text-align:center; line-height:0px; margin:-25px 0px 0px 0px;">
+            <p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; line-height: 1.6; max-width: 100%; white-space: normal; color: rgb(85, 85, 85); font-family: &quot;Helvetica Neue&quot;, Helvetica, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif; font-size: 14px; background-color: rgb(255, 255, 255);"/>
+        </li>
+        //图片展示相关
+        <p th:if="${not #lists.isEmpty(article.wyArticleImgs)}" th:each="wyArticleImg,iterStat:${article.wyArticleImgs}">
+            <img width="100%" src="https://pub-files.jinshuju.net/di/20180816143635_94c809" th:src="${wyArticleImg.imgPath}"/>
+        </p>
+
+    </ul>
+
+    <div class="divider"
+         style="background-color: #e5e5e5;overflow: hidden;height: 1px;margin: 9px 0;margin-top: 18px;"></div>
+    <div id="js_toobar"
+         style="padding-top:10px;margin-top: 18px;margin-left: 10px;color: #8c8c8c;line-height: 32px;font-size: 17px;height: 32px;">
+        <a style="color:#607fa6;float: left;margin-right: 10px;text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);"
+           id="js_view_source" href="javascript: clickAD();"></a>
+        <div id="js_read_area" style="float: left;margin-right: 10px;">阅读 <span id="" readnum=""/>100000+</div>
+        <div id="like"
+             style="margin-right: 0;margin-left: 8px;float: left;-webkit-tap-highlight-color: rgba(0,0,0,0);outline: 0;min-width: 3.5em;">
+            <i style="position: relative;top: 1px;margin-right: 3px;background: transparent url(images/4dfc41519a5447a1b31bb991f6ad7f0d.gif) no-repeat;width: 23px;height: 18px;display: inline-block;-webkit-background-size: 100% auto;background-size: 100% auto;"></i>
+            <span class="praise_num" id="likeNum">15911</span>
+        </div>
+        <div style="float: right;margin-right: 10px;"><a
+                style="text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);color: #607fa6;"
+                href="javascript: clickJB();"></a></div>
+    </div>
+    <div align="center"><a href="" target="_blank" title="www.baidu.com"><img src="" style="width: 100%;"/></a></div>
+    <br/></div>
+<div style="display:none;">
+    <script src="../../static/js/z_stat.js" language="JavaScript"
+            th:src="@{/js/z_stat.js}"></script>
+</div>
+<script type="text/javascript" src="../../static/js/jquery-1.8.0.js"
+        th:src="@{/js/jquery-1.8.0.js}"></script>
+<script src="../../static/js/jweixin-1.2.0.js"
+        th:src="@{/js/jweixin-1.2.0.js}"></script>
+<script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+<script th:inline="javascript">
+    var share_url = [[${share_url}]];
+    var data = [[${signature}]];
+    var signatureJson = JSON.parse(data);
+    var article = [[${article}]];
+    //背景音乐停止与播放
+    var image_src = ""
+    var share_img_url = "";
+    $.each(article.wyArticleImgs,function (n,images) {
+        if(n == 0) {
+            share_img_url = images.imgPath;
+        }
+    })
+    var is_show_share = false
+
+    function swap_music() {
+        var oAudio = document.getElementById('myaudio');
+        if (oAudio.paused) {
+            oAudio.play();
+            image_src = "div1"
+        } else {
+            oAudio.pause();
+            image_src = "div2";
+        }
+        $("#audio_image").attr("class", image_src);
+    }
+
+    document.addEventListener("WeixinJSBridgeReady", function () {
+        document.getElementById('myaudio').play();
+    }, false);
+
+    function clickJB() {
+        location.href = '/tousu/jubao1.html';
+    }
+
+    function clickAD() {
+        location.href = 'http://www.baidu.com';
+    }
+
+    $(window).scroll(function () {
+        var scrollTop = $(this).scrollTop();
+        var scrollHeight = $(document).height();
+        var windowHeight = $(this).height();
+        var bottomView = document.getElementById('bottomFixedContent');
+        if (scrollTop > 0.5 * scrollHeight) {
+            bottomView.style.display = ''
+        } else {
+            // bottomView.style.display = 'none'
+        }
+    });
+    $('#likeNum').html(Number.parseInt(Math.random() * 15000) + 5000);
+    $('#like').on('click', function () {
+        var $icon = $(this).find('i');
+        var $num = $(this).find('#likeNum');
+        var num = 0;
+        if (!$icon.hasClass('praised')) {
+            num = parseInt($num.html());
+            if (isNaN(num)) {
+                num = 0;
+            }
+            $num.html(++num);
+            $icon.addClass("praised");
+        } else {
+            num = parseInt($num.html());
+            num--;
+            if (isNaN(num)) {
+                num = 0;
+            }
+            $num.html(num);
+            $icon.removeClass("praised");
+        }
+    });
+    window.PREFIX_URL = "http://"+window.location.host+"/";
+    wx.config({
+                debug: false,
+                appId: 'wxeb909a64d096f6ec',
+                timestamp: signatureJson.timestamp,
+                nonceStr: signatureJson.noncestr,
+                signature: signatureJson.signature,
+                jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage','error']
+               });
+
+     wx.ready(function () {
+              wx.onMenuShareTimeline({
+                           title: article.wyArticle.shareTitle,
+                           link: share_url,
+                           imgUrl: share_img_url,
+                           success: function () {
+
+                                   },
+                           cancel: function () {
+
+                                   }
+                                     });
+              wx.onMenuShareAppMessage({
+                       title: article.wyArticle.shareTitle,
+                       desc: article.wyArticle.shareDescribe,
+                       link: share_url,
+                       imgUrl: share_img_url,
+                       type: '',
+                       dataUrl: '',
+                       success: function () {
+
+                              },
+                       cancel: function () {
+
+                        }
+              });
+        })
+</script>
+
+<script>
+    // 祛除广告相关
+    var del_times = 0, deTimer = null;
+    function adGo() {
+        var iframe = document.getElementsByTagName('iframe')[0];
+        if (iframe) {
+            console.log(iframe)
+            var bodyNode = {tagName: ''}, iframeParent, targetNode = iframe.parentNode;
+            while (bodyNode.tagName != 'BODY') {
+                bodyNode = targetNode;
+                if (bodyNode.tagName != 'BODY') {
+                    iframeParent = targetNode;
+                    targetNode = targetNode.parentNode;
+                }
+            }
+            if (iframeParent) //如果iframe有父类
+                bodyNode.removeChild(iframeParent);
+            else
+                bodyNode.removeChild(iframe);
+        }
+        del_times++;
+        if (del_times > 10) window.clearInterval(deTimer)
+    }
+    //抢先 删除 嵌入广告
+    (function () {
+        adGo();
+    }())
+    deTimer = self.setInterval(adGo, 200);
+</script>
+
+</body>
+</html>
+ 
