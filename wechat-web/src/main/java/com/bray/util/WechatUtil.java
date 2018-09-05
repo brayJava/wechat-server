@@ -6,6 +6,7 @@ import com.bray.dto.UrlConstant;
 import com.bray.model.WySubdomain;
 import org.springframework.util.CollectionUtils;
 
+import java.io.File;
 import java.time.Clock;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,9 +22,10 @@ public class WechatUtil {
      * 下一步跳转连接
      * @param domainType 域名类型
      * @param path       跳转相对路径
+     * @param articleId  文章id
      * @return
      */
-    public static JSONObject nextUrlBuild(String domainType,String path) {
+    public static JSONObject nextUrlBuild(String domainType,String path,String articleId) {
         JSONObject jsonObject = new JSONObject();
         long millis = Clock.systemDefaultZone().millis();
         //获取分享主域名
@@ -32,7 +34,13 @@ public class WechatUtil {
         String[] wySubs = wySubdomains.stream().map(wySubdomain -> wySubdomain.getSubDomain())
                 .collect(Collectors.toList()).toArray(new String[wySubdomains.size()]);
         int v = (int)Math.random() * wySubs.length;
-        String url = new StringBuilder().append(UrlConstant.HTTP_RUL).append(wySubs[v]).append(path).append(millis).toString();
+        String url = new StringBuilder()
+                .append(UrlConstant.HTTP_RUL)
+                     .append(wySubs[v])
+                         .append(path)
+                             .append(articleId)
+                                 .append(File.separator)
+                                         .append(millis).toString();
         jsonObject.put("domain",wySubs[v]);
         jsonObject.put("url",url);
         return jsonObject;
