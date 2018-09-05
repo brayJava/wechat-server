@@ -41,10 +41,10 @@ public class WechatController {
     /**
      * 首页跳转
      */
-    @RequestMapping("/jump/{temstamp}")
-    String index(@PathVariable String temstamp, Model model) {
+    @RequestMapping("/jump/{articleId}/{temstamp}")
+    String index(@PathVariable String articleId,@PathVariable String temstamp, Model model) {
         //获取内容跳转链接
-        JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_COMMON_DOMAIN, UrlConstant.PATH_CONTENT_URL);
+        JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_COMMON_DOMAIN, UrlConstant.PATH_CONTENT_URL,articleId);
         String contentUrl = String.valueOf(jsonObject.get("url"));
         //base64编码
         model.addAttribute(UrlConstant.CONTENT_URL, Base64Util.encode(contentUrl));
@@ -54,9 +54,9 @@ public class WechatController {
     /**
      * 内容跳转
      */
-    @RequestMapping("/content/{timstamp}")
-    String content(@PathVariable String timstamp,Model model) {
-        JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_SHARE_DOMAIN, UrlConstant.PATH_JUMP_RUL);
+    @RequestMapping("/content/{articleId}/{timstamp}")
+    String content(@PathVariable String articleId, String timstamp,Model model) {
+        JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_SHARE_DOMAIN, UrlConstant.PATH_JUMP_RUL,articleId);
         String shareUrl = String.valueOf(jsonObject.get("url"));
         //base64编码
         model.addAttribute(UrlConstant.SHARE_URL, Base64Util.encode(shareUrl));
@@ -69,15 +69,15 @@ public class WechatController {
     /**
      * 内容跳转
      */
-    @RequestMapping("/random-content/{article}")
-    String randomContent(@PathVariable String article,Model model) {
-        JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_SHARE_DOMAIN, UrlConstant.PATH_JUMP_RUL);
+    @RequestMapping("/random-content/{articleId}/{timstamp}")
+    String randomContent(@PathVariable String articleId,String timstamp,Model model) {
+        JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_SHARE_DOMAIN, UrlConstant.PATH_JUMP_RUL,articleId);
         String shareUrl = String.valueOf(jsonObject.get("url"));
         String domain = String.valueOf(jsonObject.get("domain"));
         //放置签名信息
         String signature = wechatAuthService.signature("http://www.baidu.com");
         //获取图片相关信息
-        ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(article);
+        ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
         articleWithImages.getWyArticleImgs().stream().peek(wyArticleImg ->
                 wyArticleImg.setImgPath(UrlConstant.HTTP_RUL+domain+":"+UrlConstant.PORT+ File.separator+wyArticleImg.getImgPath())).collect(Collectors.toList());
         //base64编码
