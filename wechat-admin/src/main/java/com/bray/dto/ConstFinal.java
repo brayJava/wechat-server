@@ -14,5 +14,5 @@ public interface ConstFinal {
     String WIN_ROOT_PATH = "C:\\Users\\吴志远\\Desktop\\img\\";
 
     //图片保存路径(linux路径)
-    String LINUX_ROOT_PATH = "/home/www/images";
+    String LINUX_ROOT_PATH = "/home/www/images/";
 }
