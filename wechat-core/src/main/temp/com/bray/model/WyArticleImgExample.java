@@ -305,6 +305,76 @@ public class WyArticleImgExample {
             return (Criteria) this;
         }
 
+        public Criteria andThirdImgPathIsNull() {
+            addCriterion("third_img_path is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andThirdImgPathIsNotNull() {
+            addCriterion("third_img_path is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andThirdImgPathEqualTo(String value) {
+            addCriterion("third_img_path =", value, "thirdImgPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andThirdImgPathNotEqualTo(String value) {
+            addCriterion("third_img_path <>", value, "thirdImgPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andThirdImgPathGreaterThan(String value) {
+            addCriterion("third_img_path >", value, "thirdImgPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andThirdImgPathGreaterThanOrEqualTo(String value) {
+            addCriterion("third_img_path >=", value, "thirdImgPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andThirdImgPathLessThan(String value) {
+            addCriterion("third_img_path <", value, "thirdImgPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andThirdImgPathLessThanOrEqualTo(String value) {
+            addCriterion("third_img_path <=", value, "thirdImgPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andThirdImgPathLike(String value) {
+            addCriterion("third_img_path like", value, "thirdImgPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andThirdImgPathNotLike(String value) {
+            addCriterion("third_img_path not like", value, "thirdImgPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andThirdImgPathIn(List<String> values) {
+            addCriterion("third_img_path in", values, "thirdImgPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andThirdImgPathNotIn(List<String> values) {
+            addCriterion("third_img_path not in", values, "thirdImgPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andThirdImgPathBetween(String value1, String value2) {
+            addCriterion("third_img_path between", value1, value2, "thirdImgPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andThirdImgPathNotBetween(String value1, String value2) {
+            addCriterion("third_img_path not between", value1, value2, "thirdImgPath");
+            return (Criteria) this;
+        }
+
         public Criteria andStatusIsNull() {
             addCriterion("status is null");
             return (Criteria) this;

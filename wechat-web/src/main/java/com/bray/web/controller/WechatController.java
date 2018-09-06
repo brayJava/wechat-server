@@ -73,14 +73,10 @@ public class WechatController {
      * 内容跳转
      */
     @RequestMapping("/random-content/{articleId}/{timstamp}")
-    String randomContent(@PathVariable String articleId,String timstamp,Model model, HttpServletRequest request) {
+    String randomContent(@PathVariable String articleId,@PathVariable String timstamp,Model model, HttpServletRequest request) {
         JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_SHARE_DOMAIN, UrlConstant.PATH_JUMP_RUL,articleId);
         String shareUrl = String.valueOf(jsonObject.get("url"));
         String domain = String.valueOf(jsonObject.get("domain"));
-//        //放置签名信息
-//        String requestURI = request.getRequestURI();
-//        String server_path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + requestURI;
-//        String signature = wechatAuthService.signature(server_path);
         //获取图片相关信息
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
         if(!Objects.isNull(articleWithImages) && articleWithImages.getWyArticle() != null) {
@@ -94,6 +90,22 @@ public class WechatController {
 //        model.addAttribute("signature",signature);
         log.info("----------分享链接为：{}",shareUrl);
         return "html/random-content";
+    }
+    /**
+     * 内容跳转
+     */
+    @RequestMapping("/random-content-other/{articleId}/{timstamp}")
+    String randomContentOther(@PathVariable String articleId,@PathVariable String timstamp,Model model, HttpServletRequest request) {
+        JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_SHARE_DOMAIN, UrlConstant.PATH_JUMP_RUL,articleId);
+        String shareUrl = String.valueOf(jsonObject.get("url"));
+        //获取图片相关信息
+        ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
+        //base64编码
+        model.addAttribute(UrlConstant.SHARE_URL, Base64Util.encode(shareUrl));
+        model.addAttribute("article",articleWithImages);
+//        model.addAttribute("signature",signature);
+        log.info("----------分享链接为：{}",shareUrl);
+        return "html/random-content-other";
     }
     /**
      * 内容跳转

@@ -4,6 +4,7 @@ import com.bray.dto.EffectiveType;
 import com.bray.mapper.WyArticleImgMapper;
 import com.bray.mapper.WyArticleMapper;
 import com.bray.model.Vo.ArticleModelVo;
+import com.bray.model.Vo.ArticleOtherModelVo;
 import com.bray.model.WyArticle;
 import com.bray.model.WyArticleImg;
 import com.bray.service.IArticleAdminService;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.Date;
 /**
  * @Author:wuzhiyuan
@@ -77,6 +79,47 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
             e.printStackTrace();
         }
     }
-
-
+    /**
+     * 第二种添加文章方式
+     */
+    @Override
+    public void insertOtherArticleImg(Object obj) {
+        String articleId = GUIDUtil.buildMd5GUID();
+        ArticleOtherModelVo articleOtherModelVo = (ArticleOtherModelVo) obj;
+        WyArticle wyArticle = new WyArticle();
+        wyArticle.setId(articleId);
+        wyArticle.setTitle(articleOtherModelVo.getTitle());
+        wyArticle.setBgmUrl(articleOtherModelVo.getBgmUrl());
+        wyArticle.setAuthor(articleOtherModelVo.getAuthor());
+        wyArticle.setShareTitle(articleOtherModelVo.getShareTitle());
+        wyArticle.setShareDescribe(articleOtherModelVo.getShareDescribe());
+        wyArticle.setIsOrderImg("1".equals(articleOtherModelVo.getOrderImg()) ? true : false);
+        wyArticle.setIsPublish("1".equals(articleOtherModelVo.getOrderImg()) ? true : false);
+        wyArticle.setStatus(EffectiveType.EFFECTIVE_YES);
+        wyArticle.setCreateTime(new Date());
+        wyArticle.setUpdateTime(new Date());
+        try {
+            wyArticleMapper.insertSelective(wyArticle);
+        } catch (Exception e) {
+            log.error("-----------文章添加失败----------");
+            e.printStackTrace();
+        }
+        if(articleOtherModelVo.getOuterImgUrl().length > 0) {
+            String[] outerImgUrls = articleOtherModelVo.getOuterImgUrl();
+            Arrays.stream(outerImgUrls).forEach(outerImgUrl -> {
+                WyArticleImg wyArticleImg = new WyArticleImg();
+                wyArticleImg.setThirdImgPath(outerImgUrl);
+                wyArticleImg.setStatus(EffectiveType.EFFECTIVE_YES);
+                wyArticleImg.setArticleId(articleId);
+                wyArticleImg.setUpdateTime(new Date());
+                wyArticleImg.setCreateTime(new Date());
+                try {
+                    wyArticleImgMapper.insertSelective(wyArticleImg);
+                } catch (Exception e) {
+                    log.error("-----------关联图片添加失败----------");
+                    e.printStackTrace();
+                }
+            });
+        }
+    }
 }

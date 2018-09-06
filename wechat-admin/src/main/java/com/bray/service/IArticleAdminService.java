@@ -9,13 +9,18 @@ package com.bray.service;
 public interface IArticleAdminService {
     /**
      * 插入文章
-     * @param articleModelVo
+     * @param obj
      */
-    String insertArticle(Object articleModelVo);
+    String insertArticle(Object obj);
     /**
      * 插入文章图片
      * @param articleId
      * @param imgPath
      */
     void insertArticleImg(String articleId,String imgPath);
+    /**
+     * 插入文章图片
+     * @param obj
+     */
+    void insertOtherArticleImg(Object obj);
 }

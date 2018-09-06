@@ -9,6 +9,8 @@ public class WyArticleImg {
 
     private String imgPath;
 
+    private String thirdImgPath;
+
     private Integer status;
 
     private Date createTime;
@@ -37,6 +39,14 @@ public class WyArticleImg {
 
     public void setImgPath(String imgPath) {
         this.imgPath = imgPath == null ? null : imgPath.trim();
+    }
+
+    public String getThirdImgPath() {
+        return thirdImgPath;
+    }
+
+    public void setThirdImgPath(String thirdImgPath) {
+        this.thirdImgPath = thirdImgPath == null ? null : thirdImgPath.trim();
     }
 
     public Integer getStatus() {

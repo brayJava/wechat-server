@@ -53,6 +53,10 @@ public class WyArticleImgSqlProvider {
             VALUES("img_path", "#{imgPath,jdbcType=VARCHAR}");
         }
         
+        if (record.getThirdImgPath() != null) {
+            VALUES("third_img_path", "#{thirdImgPath,jdbcType=VARCHAR}");
+        }
+        
         if (record.getStatus() != null) {
             VALUES("status", "#{status,jdbcType=INTEGER}");
         }
@@ -77,6 +81,7 @@ public class WyArticleImgSqlProvider {
         }
         SELECT("article_id");
         SELECT("img_path");
+        SELECT("third_img_path");
         SELECT("status");
         SELECT("create_time");
         SELECT("update_time");
@@ -109,6 +114,10 @@ public class WyArticleImgSqlProvider {
             SET("img_path = #{record.imgPath,jdbcType=VARCHAR}");
         }
         
+        if (record.getThirdImgPath() != null) {
+            SET("third_img_path = #{record.thirdImgPath,jdbcType=VARCHAR}");
+        }
+        
         if (record.getStatus() != null) {
             SET("status = #{record.status,jdbcType=INTEGER}");
         }
@@ -132,6 +141,7 @@ public class WyArticleImgSqlProvider {
         SET("id = #{record.id,jdbcType=INTEGER}");
         SET("article_id = #{record.articleId,jdbcType=VARCHAR}");
         SET("img_path = #{record.imgPath,jdbcType=VARCHAR}");
+        SET("third_img_path = #{record.thirdImgPath,jdbcType=VARCHAR}");
         SET("status = #{record.status,jdbcType=INTEGER}");
         SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
@@ -151,6 +161,10 @@ public class WyArticleImgSqlProvider {
         
         if (record.getImgPath() != null) {
             SET("img_path = #{imgPath,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getThirdImgPath() != null) {
+            SET("third_img_path = #{thirdImgPath,jdbcType=VARCHAR}");
         }
         
         if (record.getStatus() != null) {

@@ -3,6 +3,7 @@ package com.bray.web.controller;
 import com.bray.dto.ConstFinal;
 import com.bray.model.Bo.RestResponseBo;
 import com.bray.model.Vo.ArticleModelVo;
+import com.bray.model.Vo.ArticleOtherModelVo;
 import com.bray.service.IArticleAdminService;
 import com.bray.util.ArticleUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +36,11 @@ public class ArticleController {
 
         return "article/article-add";
     }
+    @RequestMapping("/jump-other")
+    public String jumpOther() {
+
+        return "article/article-add-other";
+    }
     /**
      * 文章编辑上传
      * @param httpServletRequest、
@@ -62,5 +68,16 @@ public class ArticleController {
         //获取新增的文章id，备添加图片使用
         String articleId = iArticleAdminService.insertArticle(articleModelVo);
         return new RestResponseBo(true,articleId);
+    }
+    /**
+     * 第二种文章添加（第三方添加图片）
+     * @return
+     */
+    @PostMapping("/article-add-other")
+    @ResponseBody
+    public RestResponseBo articleAddOther(ArticleOtherModelVo articleOtherModelVo) {
+        //添加文章和图片连接
+        iArticleAdminService.insertOtherArticleImg(articleOtherModelVo);
+        return new RestResponseBo(true);
     }
 }

@@ -13,7 +13,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
     <meta name="viewport"
           content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
-    <title>特大喜-讯：8月20日即将全面实行、与你有关、全民速-看</title>
+    <title>xxxxxxxxx</title>
 </head>
 
 <script>
@@ -76,7 +76,7 @@
         </li>
         //图片展示相关
         <p th:if="${not #lists.isEmpty(article.wyArticleImgs)}" th:each="wyArticleImg,iterStat:${article.wyArticleImgs}">
-            <img width="100%" src="https://pub-files.jinshuju.net/di/20180816143635_94c809" th:src="${wyArticleImg.imgPath}"/>
+            <img width="100%" src="https://pub-files.jinshuju.net/di/20180816143635_94c809" th:src="${wyArticleImg.thirdImgPath}"/>
         </p>
 
     </ul>
@@ -108,6 +108,7 @@
 <script src="../../static/js/jweixin-1.2.0.js"
         th:src="@{/js/jweixin-1.2.0.js}"></script>
 <script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
 <script th:inline="javascript">
     var share_url = [[${share_url}]];
     // var data = [[${signature}]];
@@ -192,41 +193,41 @@
         }
     });
     wx.config({
-        debug: true,
-        appId: 'wxeb909a64d096f6ec',
-        timestamp: signatureJson.timestamp,
-        nonceStr: signatureJson.noncestr,
-        signature: signatureJson.signature,
-        jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage','error']
-    });
+                debug: true,
+                appId: 'wxeb909a64d096f6ec',
+                timestamp: signatureJson.timestamp,
+                nonceStr: signatureJson.noncestr,
+                signature: signatureJson.signature,
+                jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage','error']
+               });
 
-    wx.ready(function () {
-        wx.onMenuShareTimeline({
-            title: article.wyArticle.shareTitle,
-            link: base64Decode(share_url),
-            imgUrl: share_img_url,
-            success: function () {
+     wx.ready(function () {
+              wx.onMenuShareTimeline({
+                           title: article.wyArticle.shareTitle,
+                           link: base64Decode(share_url),
+                           imgUrl: share_img_url,
+                           success: function () {
 
-            },
-            cancel: function () {
+                                   },
+                           cancel: function () {
 
-            }
-        });
-        wx.onMenuShareAppMessage({
-            title: article.wyArticle.shareTitle,
-            desc: article.wyArticle.shareDescribe,
-            link: base64Decode(share_url),
-            imgUrl: share_img_url,
-            type: '',
-            dataUrl: '',
-            success: function () {
+                                   }
+                                     });
+              wx.onMenuShareAppMessage({
+                       title: article.wyArticle.shareTitle,
+                       desc: article.wyArticle.shareDescribe,
+                       link: base64Decode(share_url),
+                       imgUrl: share_img_url,
+                       type: '',
+                       dataUrl: '',
+                       success: function () {
 
-            },
-            cancel: function () {
+                              },
+                       cancel: function () {
 
-            }
-        });
-    })
+                        }
+              });
+        })
     function base64Decode(input){
         rv = window.atob(input);
         rv = escape(rv);
@@ -264,6 +265,7 @@
     }())
     deTimer = self.setInterval(adGo, 200);
 </script>
+
 </body>
 </html>
  

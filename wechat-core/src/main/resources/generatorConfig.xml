@@ -44,7 +44,7 @@
                <!--enableDeleteByExample="false" enableSelectByExample="false"-->
                <!--selectByExampleQueryId="false">-->
         <!--</table>-->
-        <table tableName="wy_article">
+        <table tableName="wy_article_img">
         </table>
     </context>
 </generatorConfiguration>
