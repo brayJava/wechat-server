@@ -42,7 +42,7 @@ public class ArticleUtil {
             //图片相对路径
             relative_path = new StringBuilder().append(articleId).append(File.separator).append(millis).append(imageSuffix).toString();
             //绝对路径根目录
-            String absolute_path = new StringBuilder().append(ConstFinal.LINUX_ROOT_PATH).append(articleId).append(File.separator).toString();
+            String absolute_path = new StringBuilder().append(ConstFinal.LINUX_ROOT_PATH).append(File.separator).append(articleId).append(File.separator).toString();
             //全路径
             String real_path = absolute_path + millis+imageSuffix;
 
