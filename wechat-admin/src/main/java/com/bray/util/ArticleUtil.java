@@ -50,9 +50,12 @@ public class ArticleUtil {
             if(!f.exists()) {
                 f.mkdirs();
             }
+            File realFile = new File(real_path);
+            //赋予文件可执行权限
+            realFile.setExecutable(true,false);
             try {
                 log.info("--------图片路径{}",real_path);
-                file.transferTo(new File(real_path));
+                file.transferTo(realFile);
             } catch (IOException e) {
                 e.printStackTrace();
             }
