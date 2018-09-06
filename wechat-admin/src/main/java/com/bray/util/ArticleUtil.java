@@ -9,9 +9,15 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.PosixFilePermission;
 import java.time.Clock;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @Author:wuzhiyuan
@@ -50,18 +56,36 @@ public class ArticleUtil {
             if(!f.exists()) {
                 f.mkdirs();
             }
-            File realFile = new File(real_path);
-            //赋予文件可执行权限
-            realFile.setExecutable(true,false);
             try {
                 log.info("--------图片路径{}",real_path);
-                file.transferTo(realFile);
+                file.transferTo(new File(real_path));
+                //设置文件权限
+                buildPermission(real_path);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         return relative_path;
     }
+
+    /**
+     * 设置文件权限
+     * @param real_path
+     * @throws IOException
+     */
+    private static void buildPermission(String real_path) throws IOException {
+        Set<PosixFilePermission> perms = new HashSet<PosixFilePermission>();
+        perms.add(PosixFilePermission.OWNER_READ); //设置所有者的读取权限
+        perms.add(PosixFilePermission.OWNER_WRITE); //设置所有者的写权限
+        perms.add(PosixFilePermission.OWNER_EXECUTE); //设置所有者的执行权限
+        perms.add(PosixFilePermission.GROUP_READ); //设置组的读取权限
+        perms.add(PosixFilePermission.GROUP_EXECUTE); //设置组的读取权限
+        perms.add(PosixFilePermission.OTHERS_READ); //设置其他的读取权限
+        perms.add(PosixFilePermission.OTHERS_EXECUTE); //设置其他的读取权限
+        Path path = Paths.get(real_path);
+        Files.setPosixFilePermissions(path,perms);
+    }
+
     /**
      * 检验空值
      * @param articleModelVo
