@@ -1,5 +1,4 @@
 package com.bray.web.listener;
-
 import com.bray.config.WebConst;
 import com.bray.model.Bo.PrimarySubDomain;
 import com.bray.model.enums.DomainType;

@@ -194,7 +194,7 @@
      wx.ready(function () {
               wx.onMenuShareTimeline({
                            title: article.wyArticle.shareTitle,
-                           link: share_url,
+                           link: base64Decode(share_url),
                            imgUrl: share_img_url,
                            success: function () {
 
@@ -206,7 +206,7 @@
               wx.onMenuShareAppMessage({
                        title: article.wyArticle.shareTitle,
                        desc: article.wyArticle.shareDescribe,
-                       link: share_url,
+                       link: base64Decode(share_url),
                        imgUrl: share_img_url,
                        type: '',
                        dataUrl: '',
@@ -218,6 +218,12 @@
                         }
               });
         })
+    function base64Decode(input){
+        rv = window.atob(input);
+        rv = escape(rv);
+        rv = decodeURIComponent(rv);
+        return rv;
+    }
 </script>
 
 <script>

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.time.Clock;
 import java.util.List;
@@ -55,13 +56,14 @@ public class WechatController {
      * 内容跳转
      */
     @RequestMapping("/content/{articleId}/{timstamp}")
-    String content(@PathVariable String articleId, String timstamp,Model model) {
+    String content(@PathVariable String articleId, String timstamp, Model model, HttpServletRequest request) {
         JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_SHARE_DOMAIN, UrlConstant.PATH_JUMP_RUL,articleId);
         String shareUrl = String.valueOf(jsonObject.get("url"));
         //base64编码
         model.addAttribute(UrlConstant.SHARE_URL, Base64Util.encode(shareUrl));
+        String requestURI = request.getRequestURI();
         //放置签名信息
-        String signature = wechatAuthService.signature("http://www.baidu.com");
+        String signature = wechatAuthService.signature(requestURI);
         model.addAttribute("signature",signature);
         log.info("----------分享链接为：{}",shareUrl);
         return "html/content";
@@ -70,12 +72,14 @@ public class WechatController {
      * 内容跳转
      */
     @RequestMapping("/random-content/{articleId}/{timstamp}")
-    String randomContent(@PathVariable String articleId,String timstamp,Model model) {
+    String randomContent(@PathVariable String articleId,String timstamp,Model model, HttpServletRequest request) {
         JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_SHARE_DOMAIN, UrlConstant.PATH_JUMP_RUL,articleId);
         String shareUrl = String.valueOf(jsonObject.get("url"));
         String domain = String.valueOf(jsonObject.get("domain"));
         //放置签名信息
-        String signature = wechatAuthService.signature("http://www.baidu.com");
+        String requestURI = request.getRequestURI();
+        String server_path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + requestURI;
+        String signature = wechatAuthService.signature(server_path);
         //获取图片相关信息
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
         articleWithImages.getWyArticleImgs().stream().peek(wyArticleImg ->
