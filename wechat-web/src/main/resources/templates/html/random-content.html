@@ -183,7 +183,7 @@
     });
     window.PREFIX_URL = "http://"+window.location.host+"/";
     $.ajax({
-        url: window.PREFIX_URL+'/weixin/signature',
+        url: window.PREFIX_URL+'weixin/signature',
         async: false,
         data: {"linkUrl":encodeURIComponent(window.location.href.split('#')[0])},
         dataType: "json",
