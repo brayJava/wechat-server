@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.time.Clock;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 /**
  * @Author:wuzhiyuan
@@ -76,18 +77,21 @@ public class WechatController {
         JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_SHARE_DOMAIN, UrlConstant.PATH_JUMP_RUL,articleId);
         String shareUrl = String.valueOf(jsonObject.get("url"));
         String domain = String.valueOf(jsonObject.get("domain"));
-        //放置签名信息
-        String requestURI = request.getRequestURI();
-        String server_path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + requestURI;
-        String signature = wechatAuthService.signature(server_path);
+//        //放置签名信息
+//        String requestURI = request.getRequestURI();
+//        String server_path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + requestURI;
+//        String signature = wechatAuthService.signature(server_path);
         //获取图片相关信息
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
-        articleWithImages.getWyArticleImgs().stream().peek(wyArticleImg ->
-                wyArticleImg.setImgPath(UrlConstant.HTTP_RUL+domain+":"+UrlConstant.PORT+ File.separator+wyArticleImg.getImgPath())).collect(Collectors.toList());
+        if(!Objects.isNull(articleWithImages) && articleWithImages.getWyArticle() != null) {
+            articleWithImages.getWyArticleImgs().stream().peek(wyArticleImg ->
+                    wyArticleImg.setImgPath(UrlConstant.HTTP_RUL+domain+":"+UrlConstant.PORT
+                            + File.separator+wyArticleImg.getImgPath())).collect(Collectors.toList());
+        }
         //base64编码
         model.addAttribute(UrlConstant.SHARE_URL, Base64Util.encode(shareUrl));
         model.addAttribute("article",articleWithImages);
-        model.addAttribute("signature",signature);
+//        model.addAttribute("signature",signature);
         log.info("----------分享链接为：{}",shareUrl);
         return "html/random-content";
     }

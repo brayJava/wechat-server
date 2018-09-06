@@ -10,6 +10,7 @@ import com.bray.model.WyArticleImg;
 import com.bray.model.WyArticleImgExample;
 import com.bray.service.IArticleService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.util.List;
@@ -41,6 +42,7 @@ public class ArticleServiceImpl implements IArticleService{
             wyArticleExample.createCriteria().andIdEqualTo(articleId).andStatusEqualTo(EffectiveType.EFFECTIVE_YES);
             //获取文章属性
             List<WyArticle> wyArticles = wyArticleMapper.selectByExample(wyArticleExample);
+            if(CollectionUtils.isEmpty(wyArticles)) return new ArticleWithImages();
             articleWithImages.setWyArticle(wyArticles.get(0));
             //获取文章对应图片
             WyArticleImgExample wyArticleImgExample = new WyArticleImgExample();

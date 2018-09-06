@@ -111,8 +111,8 @@
 
 <script th:inline="javascript">
     var share_url = [[${share_url}]];
-    var data = [[${signature}]];
-    var signatureJson = JSON.parse(data);
+    // var data = [[${signature}]];
+    var signatureJson = {};
     var article = [[${article}]];
     //背景音乐停止与播放
     var image_src = ""
@@ -182,6 +182,16 @@
         }
     });
     window.PREFIX_URL = "http://"+window.location.host+"/";
+    $.ajax({
+        url: window.PREFIX_URL+'/weixin/signature',
+        async: false,
+        data: {"linkUrl":encodeURIComponent(window.location.href.split('#')[0])},
+        dataType: "json",
+        type: 'post',
+        success: function (data) {
+            signatureJson = data;
+        }
+    });
     wx.config({
                 debug: true,
                 appId: 'wxeb909a64d096f6ec',
