@@ -26,7 +26,7 @@ public interface UrlConstant {
     /**
      * 内容链接跳转
      */
-    String PATH_CONTENT_URL = "/wechat/random-content/";
+    String PATH_CONTENT_URL = "/wechat/random-content-other/";
     /**
      * 分享链接跳转
      */

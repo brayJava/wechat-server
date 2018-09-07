@@ -9,7 +9,7 @@ spring:
 # health monitor
 info:
   app:
-    name: "wechat-web"
+    name: "@project.name@"
     description: "Parent pom providing dependency and plugin management for applications
 		built with Maven"
     version: "1.0-SNAPSHOT"
