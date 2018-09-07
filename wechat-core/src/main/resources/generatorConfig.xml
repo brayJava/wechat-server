@@ -13,7 +13,7 @@
         
         <!-- 数据库连接 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://123.206.195.72:3306/bray"
+                        connectionURL="jdbc:mysql://122.114.68.113:3306/bray"
                         userId="root"
                         password="wzy5789778">
         </jdbcConnection>
@@ -44,7 +44,7 @@
                <!--enableDeleteByExample="false" enableSelectByExample="false"-->
                <!--selectByExampleQueryId="false">-->
         <!--</table>-->
-        <table tableName="wy_article_img">
+        <table tableName="wy_article">
         </table>
     </context>
 </generatorConfiguration>

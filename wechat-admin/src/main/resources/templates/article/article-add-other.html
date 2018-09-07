@@ -49,6 +49,12 @@
         </div>
         <div class="row cl">
             <div class="formControls col-10">
+                <span class="c-red">*</span><strong>分享图片连接：</strong>
+                <input type="text" class="input-text" value="" placeholder="" id="share_img_url" name="shareImgUrl" lay-verify="required" />
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="formControls col-10">
                 <span class="c-red">*</span><strong>分享描述：</strong>
                 <input type="text" class="input-text" value="" placeholder="" id="share_describe" name="shareDescribe" lay-verify="required" />
             </div>
@@ -123,6 +129,9 @@
                     required:true,
                 },
                 shareDescribe:{
+                    required:true,
+                },
+                shareImgUrl:{
                     required:true,
                 },
                 author:{

@@ -15,6 +15,8 @@ public class WyArticle {
 
     private String shareDescribe;
 
+    private String shareImgUrl;
+
     private Boolean isOrderImg;
 
     private String connectPrimaryDomain;
@@ -75,6 +77,14 @@ public class WyArticle {
 
     public void setShareDescribe(String shareDescribe) {
         this.shareDescribe = shareDescribe == null ? null : shareDescribe.trim();
+    }
+
+    public String getShareImgUrl() {
+        return shareImgUrl;
+    }
+
+    public void setShareImgUrl(String shareImgUrl) {
+        this.shareImgUrl = shareImgUrl == null ? null : shareImgUrl.trim();
     }
 
     public Boolean getIsOrderImg() {

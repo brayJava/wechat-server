@@ -19,6 +19,8 @@ public class ArticleOtherModelVo {
 
     private String shareDescribe;
 
+    private String shareImgUrl;
+
     private String author;
 
     private String orderImg;

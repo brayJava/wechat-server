@@ -65,6 +65,10 @@ public class WyArticleSqlProvider {
             VALUES("share_describe", "#{shareDescribe,jdbcType=VARCHAR}");
         }
         
+        if (record.getShareImgUrl() != null) {
+            VALUES("share_img_url", "#{shareImgUrl,jdbcType=VARCHAR}");
+        }
+        
         if (record.getIsOrderImg() != null) {
             VALUES("is_order_img", "#{isOrderImg,jdbcType=BIT}");
         }
@@ -108,6 +112,7 @@ public class WyArticleSqlProvider {
         SELECT("author");
         SELECT("share_title");
         SELECT("share_describe");
+        SELECT("share_img_url");
         SELECT("is_order_img");
         SELECT("connect_primary_domain");
         SELECT("connect_common_domain");
@@ -156,6 +161,10 @@ public class WyArticleSqlProvider {
             SET("share_describe = #{record.shareDescribe,jdbcType=VARCHAR}");
         }
         
+        if (record.getShareImgUrl() != null) {
+            SET("share_img_url = #{record.shareImgUrl,jdbcType=VARCHAR}");
+        }
+        
         if (record.getIsOrderImg() != null) {
             SET("is_order_img = #{record.isOrderImg,jdbcType=BIT}");
         }
@@ -198,6 +207,7 @@ public class WyArticleSqlProvider {
         SET("author = #{record.author,jdbcType=VARCHAR}");
         SET("share_title = #{record.shareTitle,jdbcType=VARCHAR}");
         SET("share_describe = #{record.shareDescribe,jdbcType=VARCHAR}");
+        SET("share_img_url = #{record.shareImgUrl,jdbcType=VARCHAR}");
         SET("is_order_img = #{record.isOrderImg,jdbcType=BIT}");
         SET("connect_primary_domain = #{record.connectPrimaryDomain,jdbcType=VARCHAR}");
         SET("connect_common_domain = #{record.connectCommonDomain,jdbcType=VARCHAR}");
@@ -233,6 +243,10 @@ public class WyArticleSqlProvider {
         
         if (record.getShareDescribe() != null) {
             SET("share_describe = #{shareDescribe,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getShareImgUrl() != null) {
+            SET("share_img_url = #{shareImgUrl,jdbcType=VARCHAR}");
         }
         
         if (record.getIsOrderImg() != null) {

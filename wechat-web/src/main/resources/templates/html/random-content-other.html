@@ -95,7 +95,7 @@
         </div>
         <div style="float: right;margin-right: 10px;"><a
                 style="text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);color: #607fa6;"
-                href="javascript: clickJB();"></a></div>
+                href="javascript: clickJB();">投诉</a></div>
     </div>
     <div align="center"><a href="" target="_blank" title="www.baidu.com"><img src="" style="width: 100%;"/></a></div>
     <br/></div>
@@ -116,12 +116,6 @@
     var article = [[${article}]];
     //背景音乐停止与播放
     var image_src = ""
-    var share_img_url = "";
-    $.each(article.wyArticleImgs,function (n,images) {
-        if(n == 0) {
-            share_img_url = images.imgPath;
-        }
-    })
 
     $('title').html(article.wyArticle.title);
     function swap_music() {
@@ -141,7 +135,7 @@
     }, false);
 
     function clickJB() {
-        location.href = '/tousu/jubao1.html';
+        location.href = '/ts.html';
     }
 
     function clickAD() {
@@ -205,7 +199,7 @@
               wx.onMenuShareTimeline({
                            title: article.wyArticle.shareTitle,
                            link: base64Decode(share_url),
-                           imgUrl: share_img_url,
+                           imgUrl: article.shareImgUrl,
                            success: function () {
 
                                    },
@@ -217,7 +211,7 @@
                        title: article.wyArticle.shareTitle,
                        desc: article.wyArticle.shareDescribe,
                        link: base64Decode(share_url),
-                       imgUrl: share_img_url,
+                       imgUrl: article.shareImgUrl,
                        type: '',
                        dataUrl: '',
                        success: function () {

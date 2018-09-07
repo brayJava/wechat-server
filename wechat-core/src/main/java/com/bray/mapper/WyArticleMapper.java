@@ -33,16 +33,16 @@ public interface WyArticleMapper {
         "insert into wy_article (id, title, ",
         "bgm_url, author, ",
         "share_title, share_describe, ",
-        "is_order_img, connect_primary_domain, ",
-        "connect_common_domain, is_publish, ",
-        "status, create_time, ",
+        "share_img_url, is_order_img, ",
+        "connect_primary_domain, connect_common_domain, ",
+        "is_publish, status, create_time, ",
         "update_time)",
         "values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, ",
         "#{bgmUrl,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, ",
         "#{shareTitle,jdbcType=VARCHAR}, #{shareDescribe,jdbcType=VARCHAR}, ",
-        "#{isOrderImg,jdbcType=BIT}, #{connectPrimaryDomain,jdbcType=VARCHAR}, ",
-        "#{connectCommonDomain,jdbcType=VARCHAR}, #{isPublish,jdbcType=BIT}, ",
-        "#{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{shareImgUrl,jdbcType=VARCHAR}, #{isOrderImg,jdbcType=BIT}, ",
+        "#{connectPrimaryDomain,jdbcType=VARCHAR}, #{connectCommonDomain,jdbcType=VARCHAR}, ",
+        "#{isPublish,jdbcType=BIT}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
         "#{updateTime,jdbcType=TIMESTAMP})"
     })
     int insert(WyArticle record);
@@ -58,6 +58,7 @@ public interface WyArticleMapper {
         @Result(column="author", property="author", jdbcType=JdbcType.VARCHAR),
         @Result(column="share_title", property="shareTitle", jdbcType=JdbcType.VARCHAR),
         @Result(column="share_describe", property="shareDescribe", jdbcType=JdbcType.VARCHAR),
+        @Result(column="share_img_url", property="shareImgUrl", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_order_img", property="isOrderImg", jdbcType=JdbcType.BIT),
         @Result(column="connect_primary_domain", property="connectPrimaryDomain", jdbcType=JdbcType.VARCHAR),
         @Result(column="connect_common_domain", property="connectCommonDomain", jdbcType=JdbcType.VARCHAR),
@@ -70,8 +71,9 @@ public interface WyArticleMapper {
 
     @Select({
         "select",
-        "id, title, bgm_url, author, share_title, share_describe, is_order_img, connect_primary_domain, ",
-        "connect_common_domain, is_publish, status, create_time, update_time",
+        "id, title, bgm_url, author, share_title, share_describe, share_img_url, is_order_img, ",
+        "connect_primary_domain, connect_common_domain, is_publish, status, create_time, ",
+        "update_time",
         "from wy_article",
         "where id = #{id,jdbcType=VARCHAR}"
     })
@@ -82,6 +84,7 @@ public interface WyArticleMapper {
         @Result(column="author", property="author", jdbcType=JdbcType.VARCHAR),
         @Result(column="share_title", property="shareTitle", jdbcType=JdbcType.VARCHAR),
         @Result(column="share_describe", property="shareDescribe", jdbcType=JdbcType.VARCHAR),
+        @Result(column="share_img_url", property="shareImgUrl", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_order_img", property="isOrderImg", jdbcType=JdbcType.BIT),
         @Result(column="connect_primary_domain", property="connectPrimaryDomain", jdbcType=JdbcType.VARCHAR),
         @Result(column="connect_common_domain", property="connectCommonDomain", jdbcType=JdbcType.VARCHAR),
@@ -108,6 +111,7 @@ public interface WyArticleMapper {
           "author = #{author,jdbcType=VARCHAR},",
           "share_title = #{shareTitle,jdbcType=VARCHAR},",
           "share_describe = #{shareDescribe,jdbcType=VARCHAR},",
+          "share_img_url = #{shareImgUrl,jdbcType=VARCHAR},",
           "is_order_img = #{isOrderImg,jdbcType=BIT},",
           "connect_primary_domain = #{connectPrimaryDomain,jdbcType=VARCHAR},",
           "connect_common_domain = #{connectCommonDomain,jdbcType=VARCHAR},",

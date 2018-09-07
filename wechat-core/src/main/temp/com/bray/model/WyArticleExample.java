@@ -525,6 +525,76 @@ public class WyArticleExample {
             return (Criteria) this;
         }
 
+        public Criteria andShareImgUrlIsNull() {
+            addCriterion("share_img_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareImgUrlIsNotNull() {
+            addCriterion("share_img_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareImgUrlEqualTo(String value) {
+            addCriterion("share_img_url =", value, "shareImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareImgUrlNotEqualTo(String value) {
+            addCriterion("share_img_url <>", value, "shareImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareImgUrlGreaterThan(String value) {
+            addCriterion("share_img_url >", value, "shareImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareImgUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("share_img_url >=", value, "shareImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareImgUrlLessThan(String value) {
+            addCriterion("share_img_url <", value, "shareImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareImgUrlLessThanOrEqualTo(String value) {
+            addCriterion("share_img_url <=", value, "shareImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareImgUrlLike(String value) {
+            addCriterion("share_img_url like", value, "shareImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareImgUrlNotLike(String value) {
+            addCriterion("share_img_url not like", value, "shareImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareImgUrlIn(List<String> values) {
+            addCriterion("share_img_url in", values, "shareImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareImgUrlNotIn(List<String> values) {
+            addCriterion("share_img_url not in", values, "shareImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareImgUrlBetween(String value1, String value2) {
+            addCriterion("share_img_url between", value1, value2, "shareImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareImgUrlNotBetween(String value1, String value2) {
+            addCriterion("share_img_url not between", value1, value2, "shareImgUrl");
+            return (Criteria) this;
+        }
+
         public Criteria andIsOrderImgIsNull() {
             addCriterion("is_order_img is null");
             return (Criteria) this;

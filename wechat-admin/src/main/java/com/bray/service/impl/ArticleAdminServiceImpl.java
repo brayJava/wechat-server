@@ -93,6 +93,7 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
         wyArticle.setAuthor(articleOtherModelVo.getAuthor());
         wyArticle.setShareTitle(articleOtherModelVo.getShareTitle());
         wyArticle.setShareDescribe(articleOtherModelVo.getShareDescribe());
+        wyArticle.setShareImgUrl(articleOtherModelVo.getShareImgUrl());
         wyArticle.setIsOrderImg(ConstFinal.ARTICLE_STATUS.equals(articleOtherModelVo.getOrderImg()) ? true : false);
         wyArticle.setIsPublish((ConstFinal.ARTICLE_STATUS.equals(articleOtherModelVo.getOrderImg()) ? true : false));
         wyArticle.setStatus(EffectiveType.EFFECTIVE_YES);
