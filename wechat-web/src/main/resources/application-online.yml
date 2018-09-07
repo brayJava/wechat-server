@@ -4,7 +4,17 @@ server:
 
 spring:
   application:
-      name: wechat-root
+    name: wechat-root
+  session:
+    store-type: redis
+  redis:
+    host: localhost
+    port: 6380
+    password: liming5789778
+    database: 0
+    timeout: 0
+
+
 
 # MySQL
 datasource:
