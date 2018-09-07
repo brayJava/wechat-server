@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,5 +53,19 @@ public class ArticleServiceImpl implements IArticleService{
         }
 
         return articleWithImages;
+    }
+    /**
+     * 查询所有文章
+     * @return
+     */
+    @Override
+    public  List<WyArticle> queryAllEffectiveArticle() {
+
+        WyArticleExample wyArticleExample = new WyArticleExample();
+        wyArticleExample.createCriteria().andStatusEqualTo(EffectiveType.EFFECTIVE_YES);
+        wyArticleExample.setOrderByClause("update_time desc");
+        List<WyArticle> wyArticles = wyArticleMapper.selectByExample(wyArticleExample);
+        if(CollectionUtils.isEmpty(wyArticles)) return new ArrayList<WyArticle>();
+        return wyArticles;
     }
 }

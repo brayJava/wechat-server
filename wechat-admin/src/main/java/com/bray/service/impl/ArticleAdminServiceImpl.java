@@ -1,5 +1,6 @@
 package com.bray.service.impl;
 
+import com.bray.dto.ConstFinal;
 import com.bray.dto.EffectiveType;
 import com.bray.mapper.WyArticleImgMapper;
 import com.bray.mapper.WyArticleMapper;
@@ -26,7 +27,6 @@ import java.util.Date;
 @Slf4j
 @Transactional
 public class ArticleAdminServiceImpl implements IArticleAdminService {
-
     @Resource
     private WyArticleMapper wyArticleMapper;
     @Resource
@@ -46,8 +46,8 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
         wyArticle.setAuthor(article.getAuthor());
         wyArticle.setShareTitle(article.getShareTitle());
         wyArticle.setShareDescribe(article.getShareDecribe());
-        wyArticle.setIsOrderImg("1".equals(article.getWhetherOrderImg()) ? true : false);
-        wyArticle.setIsPublish("1".equals(article.getWhetherPublish()) ? true : false);
+        wyArticle.setIsOrderImg((ConstFinal.ARTICLE_STATUS.equals(article.getWhetherOrderImg()) ? true : false));
+        wyArticle.setIsPublish((ConstFinal.ARTICLE_STATUS.equals(article.getWhetherPublish()) ? true : false));
         wyArticle.setStatus(EffectiveType.EFFECTIVE_YES);
         wyArticle.setCreateTime(new Date());
         wyArticle.setUpdateTime(new Date());
@@ -93,8 +93,8 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
         wyArticle.setAuthor(articleOtherModelVo.getAuthor());
         wyArticle.setShareTitle(articleOtherModelVo.getShareTitle());
         wyArticle.setShareDescribe(articleOtherModelVo.getShareDescribe());
-        wyArticle.setIsOrderImg("1".equals(articleOtherModelVo.getOrderImg()) ? true : false);
-        wyArticle.setIsPublish("1".equals(articleOtherModelVo.getOrderImg()) ? true : false);
+        wyArticle.setIsOrderImg(ConstFinal.ARTICLE_STATUS.equals(articleOtherModelVo.getOrderImg()) ? true : false);
+        wyArticle.setIsPublish((ConstFinal.ARTICLE_STATUS.equals(articleOtherModelVo.getOrderImg()) ? true : false));
         wyArticle.setStatus(EffectiveType.EFFECTIVE_YES);
         wyArticle.setCreateTime(new Date());
         wyArticle.setUpdateTime(new Date());

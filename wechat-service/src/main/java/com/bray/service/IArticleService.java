@@ -1,6 +1,8 @@
 package com.bray.service;
 
 import com.bray.model.Bo.ArticleWithImages;
+import com.bray.model.WyArticle;
+import java.util.List;
 
 /**
  * @Author:wuzhiyuan
@@ -15,4 +17,9 @@ public interface IArticleService {
      * @return
      */
     ArticleWithImages queryCurrentArticle(String articleId);
+    /**
+     * 查询所有文章
+     * @return
+     */
+    List<WyArticle> queryAllEffectiveArticle();
 }

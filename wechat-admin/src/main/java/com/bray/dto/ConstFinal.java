@@ -15,4 +15,6 @@ public interface ConstFinal {
 
     //图片保存路径(linux路径)
     String LINUX_ROOT_PATH = "/home/www/images/";
+    //文章的各种状态
+    String ARTICLE_STATUS = "1";
 }

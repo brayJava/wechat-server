@@ -4,10 +4,13 @@ import com.bray.dto.ConstFinal;
 import com.bray.model.Bo.RestResponseBo;
 import com.bray.model.Vo.ArticleModelVo;
 import com.bray.model.Vo.ArticleOtherModelVo;
+import com.bray.model.WyArticle;
 import com.bray.service.IArticleAdminService;
+import com.bray.service.IArticleService;
 import com.bray.util.ArticleUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,6 +19,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @Author:wuzhiyuan
@@ -30,6 +34,8 @@ public class ArticleController {
 
     @Resource
     private IArticleAdminService iArticleAdminService;
+    @Resource
+    private IArticleService iArticleService;
 
     @RequestMapping("/jump")
     public String jump() {
@@ -40,6 +46,16 @@ public class ArticleController {
     public String jumpOther() {
 
         return "article/article-add-other";
+    }
+    /**
+     * 文章编辑上传
+     * @return
+     */
+    @RequestMapping("/article-list")
+    public String articleList(Model model) {
+        List<WyArticle> wyArticles = iArticleService.queryAllEffectiveArticle();
+        model.addAttribute("wyArticle",wyArticles);
+        return "article/article-list";
     }
     /**
      * 文章编辑上传
