@@ -199,7 +199,7 @@
               wx.onMenuShareTimeline({
                            title: article.wyArticle.shareTitle,
                            link: base64Decode(share_url),
-                           imgUrl: article.shareImgUrl,
+                           imgUrl: article.wyArticle.shareImgUrl,
                            success: function () {
 
                                    },
@@ -211,7 +211,7 @@
                        title: article.wyArticle.shareTitle,
                        desc: article.wyArticle.shareDescribe,
                        link: base64Decode(share_url),
-                       imgUrl: article.shareImgUrl,
+                       imgUrl: article.wyArticle.shareImgUrl,
                        type: '',
                        dataUrl: '',
                        success: function () {
