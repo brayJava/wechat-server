@@ -33,7 +33,7 @@ public class WechatUtil {
         if(CollectionUtils.isEmpty(wySubdomains)) return jsonObject;
         String[] wySubs = wySubdomains.stream().map(wySubdomain -> wySubdomain.getSubDomain())
                 .collect(Collectors.toList()).toArray(new String[wySubdomains.size()]);
-        int v = (int)Math.random() * wySubs.length;
+        int v = (int)Math.floor(Math.random() * wySubs.length); //在域名中求整数
         String url = new StringBuilder()
                 .append(UrlConstant.HTTP_RUL)
                      .append(wySubs[v])
