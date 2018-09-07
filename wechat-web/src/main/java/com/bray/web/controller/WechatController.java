@@ -48,6 +48,7 @@ public class WechatController {
         //获取内容跳转链接
         JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_COMMON_DOMAIN, UrlConstant.PATH_CONTENT_URL,articleId);
         String contentUrl = String.valueOf(jsonObject.get("url"));
+        contentUrl = "http://www.kdxny67.cn/wechat/random-content-other/"+articleId+"/"+Clock.systemDefaultZone().millis();
         //base64编码
         model.addAttribute(UrlConstant.CONTENT_URL, Base64Util.encode(contentUrl));
         log.info("----------内容链接为：{}",contentUrl);
@@ -77,13 +78,7 @@ public class WechatController {
         JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_SHARE_DOMAIN, UrlConstant.PATH_JUMP_RUL,articleId);
         String shareUrl = String.valueOf(jsonObject.get("url"));
         String domain = String.valueOf(jsonObject.get("domain"));
-        //获取图片相关信息
-        ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
-        if(!Objects.isNull(articleWithImages) && articleWithImages.getWyArticle() != null) {
-            articleWithImages.getWyArticleImgs().stream().peek(wyArticleImg ->
-                    wyArticleImg.setImgPath(UrlConstant.HTTP_RUL+domain+":"+UrlConstant.PORT
-                            + File.separator+wyArticleImg.getImgPath())).collect(Collectors.toList());
-        }
+        ArticleWithImages articleWithImages = getArticleWithImages(articleId, domain);
         //base64编码
         model.addAttribute(UrlConstant.SHARE_URL, Base64Util.encode(shareUrl));
         model.addAttribute("article",articleWithImages);
@@ -120,5 +115,16 @@ public class WechatController {
     @RequestMapping("/order")
     String order() {
         return "order/order";
+    }
+
+    private ArticleWithImages getArticleWithImages(@PathVariable String articleId, String domain) {
+        //获取图片相关信息
+        ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
+        if(!Objects.isNull(articleWithImages) && articleWithImages.getWyArticle() != null) {
+            articleWithImages.getWyArticleImgs().stream().peek(wyArticleImg ->
+                    wyArticleImg.setImgPath(UrlConstant.HTTP_RUL+domain+":"+UrlConstant.PORT
+                            + File.separator+wyArticleImg.getImgPath())).collect(Collectors.toList());
+        }
+        return articleWithImages;
     }
 }
