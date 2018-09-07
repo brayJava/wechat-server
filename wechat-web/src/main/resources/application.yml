@@ -6,6 +6,12 @@ spring:
 #    active: pre       # 预发环境
 #    active: online    # 生产环境
 
+thymeleaf:
+#    mode: LEGACYHTML5
+    cache: false
+    suffix: .html
+    encoding: utf-8
+    content-type: text/html
 # health monitor
 info:
   app:
