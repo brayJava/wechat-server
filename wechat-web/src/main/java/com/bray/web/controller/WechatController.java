@@ -48,7 +48,7 @@ public class WechatController {
         //获取内容跳转链接
         JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_COMMON_DOMAIN, UrlConstant.PATH_CONTENT_URL,articleId);
         String contentUrl = String.valueOf(jsonObject.get("url"));
-        contentUrl = "http://www.kdxny67.cn/wechat/random-content-other/"+articleId+"/"+Clock.systemDefaultZone().millis();
+//        contentUrl = "http://www.kdxny67.cn/wechat/random-content-other/"+articleId+"/"+Clock.systemDefaultZone().millis();
         //base64编码
         model.addAttribute(UrlConstant.CONTENT_URL, Base64Util.encode(contentUrl));
         log.info("----------内容链接为：{}",contentUrl);

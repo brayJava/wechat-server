@@ -1,8 +1,9 @@
 package com.bray.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class WyArticleImg {
+public class WyArticleImg implements Serializable{
     private Integer id;
 
     private String articleId;

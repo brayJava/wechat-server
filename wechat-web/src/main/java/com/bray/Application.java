@@ -2,6 +2,8 @@ package com.bray;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
+
 import javax.servlet.annotation.WebListener;
 /**
  *
@@ -9,6 +11,7 @@ import javax.servlet.annotation.WebListener;
 //@SpringBootApplication(exclude={DataSourceAutoConfiguration.class,HibernateJpaAutoConfiguration.class})
 @SpringBootApplication
 @WebListener
+@ServletComponentScan(basePackages = {"com.bray.web.filter"})
 public class Application {
 
     public static void main(String[] args) {

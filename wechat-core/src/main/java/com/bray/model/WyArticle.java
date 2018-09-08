@@ -1,8 +1,9 @@
 package com.bray.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class WyArticle {
+public class WyArticle implements Serializable{
     private String id;
 
     private String title;

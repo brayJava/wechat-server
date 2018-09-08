@@ -4,6 +4,7 @@ import com.bray.model.WyArticle;
 import com.bray.model.WyArticleImg;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  * @Modified By:
  */
 @Data
-public class ArticleWithImages {
+public class ArticleWithImages implements Serializable{
 
     private WyArticle wyArticle;
 

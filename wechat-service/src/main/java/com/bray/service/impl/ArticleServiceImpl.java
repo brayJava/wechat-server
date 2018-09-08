@@ -1,5 +1,7 @@
 package com.bray.service.impl;
 
+import com.bray.aop.annotation.QueryCache;
+import com.bray.dto.ConstatFinal;
 import com.bray.dto.EffectiveType;
 import com.bray.mapper.WyArticleImgMapper;
 import com.bray.mapper.WyArticleMapper;
@@ -36,6 +38,7 @@ public class ArticleServiceImpl implements IArticleService{
      * @return
      */
     @Override
+    @QueryCache(serviceType = ConstatFinal.AUTHOR)
     public ArticleWithImages queryCurrentArticle(String articleId) {
         ArticleWithImages articleWithImages = new ArticleWithImages();
         if(!StringUtils.isEmpty(articleId)) {
