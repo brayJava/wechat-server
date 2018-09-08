@@ -28,7 +28,7 @@ public class RedisCache {
      * @return
      */
     public Object getRedisValueByKey(String redisKey) {
-        Jedis jedis = jedisPool.getResource();
+        Jedis jedis = this.getJedis();
         byte[] bytes = jedis.get(redisKey.getBytes());
         if(bytes != null) {
             return SerializeUtil.reverseSerializeObj(bytes);
@@ -41,7 +41,7 @@ public class RedisCache {
      * @param object   存储value值，为序列化对象
      */
     public String saveDataToRedis(String redisKey ,Object object) {
-        Jedis jedis = jedisPool.getResource();
+        Jedis jedis = this.getJedis();
         String code = jedis.set(redisKey.getBytes(), SerializeUtil.serializeObj(object));
 //        String code = jedis.set(redisKey, JSONObject.toJSON(object).toString());
         //设置过期时间(为30天)
@@ -54,8 +54,8 @@ public class RedisCache {
      * @return
      */
     public Long deleteDataOfRedis(String redisKey) {
-        Jedis jedis = jedisPool.getResource();
-        Long del = jedis.del(redisKey.getBytes());
+        Jedis jedis = this.getJedis();
+        Long del = jedis.del(redisKey);
         return del;
     }
     /**
@@ -65,7 +65,7 @@ public class RedisCache {
      * @return
      */
     public String updateDataOfRedis(String redisKey,Object object) {
-        Jedis jedis = jedisPool.getResource();
+        Jedis jedis = this.getJedis();
         if(jedis.exists(redisKey.getBytes())) {
             //先删除redis的key值
             jedis.del(redisKey.getBytes());
@@ -77,5 +77,24 @@ public class RedisCache {
         //设置过期时间(为30天)
         jedis.expire(redisKey.getBytes(),EXPIRE_TIME);
         return code;
+    }
+
+    /**
+     * 获取jedis失败则释放jedis放入池中
+     * @return
+     */
+    private Jedis getJedis() {
+        Jedis jedis = null;
+        try {
+            jedis = jedisPool.getResource();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        } finally {
+            if(jedis != null ) {
+                //获取连接失败时，应该返回给pool,否则每次发生异常将导致一个jedis对象没有被回收。
+                jedisPool.returnBrokenResource(jedis);
+            }
+        }
+        return jedis;
     }
 }
