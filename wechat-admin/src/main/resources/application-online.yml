@@ -2,9 +2,28 @@ server:
   port: 8088
 
 
-spring:
+pring:
   application:
       name: wechat-root
+  session:
+      store-type: redis
+  redis:
+      host: localhost
+      port: 6380
+      password: liming5789778
+      database: 0
+      timeout: 0
+  jedis:
+      pool:
+          host: localhost
+          port: 6380
+          password: liming5789778
+          timeout: 0
+          maxTotal: 100
+          config:
+              maxTotal: 100
+              maxIdle: 10
+              maxWaitMillis: 100000
 
 # MySQL
 datasource:
