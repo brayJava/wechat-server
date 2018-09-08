@@ -2,7 +2,7 @@ server:
   port: 8088
 
 
-pring:
+spring:
   application:
       name: wechat-root
   session:
