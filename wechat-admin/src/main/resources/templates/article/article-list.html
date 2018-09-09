@@ -30,42 +30,41 @@
       <xblock>
         <!--<button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>-->
         <button class="layui-btn"><i class="layui-icon"></i>添加</button>
-        <span class="x-right" style="line-height:40px">共有数据：88 条</span>
+        <!--<span class="x-right" style="line-height:40px">共有数据：88 条</span>-->
       </xblock>
       <table class="layui-table">
         <thead>
           <tr>
-            <th>
-              <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
-            </th>
             <th>ID</th>
-            <th>登录名</th>
-            <th>手机</th>
-            <th>邮箱</th>
-            <th>角色</th>
-            <th>加入时间</th>
-            <th>状态</th>
+            <th>文章作者</th>
+            <th>文章标题</th>
+            <th>时间</th>
+            <th>文章状态</th>
+            <th>修改文章图片</th>
             <th>操作</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>
-              <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
-            </td>
-            <td>1</td>
-            <td>admin</td>
-            <td>18925139194</td>
-            <td>113664000@qq.com</td>
-            <td>超级管理员</td>
-            <td>2017-01-01 11:11:42</td>
+          <tr th:if="${not #lists.isEmpty(wyArticles)}" th:each="wyArticle,iterStat:${wyArticles}">
+            <td class="article-id" th:text="${wyArticle.id}"></td>
+            <td class="author" th:text="${wyArticle.getAuthor()}"></td>
+            <td class="title" th:text="${wyArticle.getTitle()}"></td>
+            <td class="updateTime" th:text="${#dates.format(wyArticle.getUpdateTime(),'yyyy/MM/dd HH:mm:ss')}"></td>
             <td class="td-status">
-              <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
+                <span th:if="${wyArticle.isPublish}" th:text="已发布" class="layui-btn layui-btn-normal layui-btn-mini ispublish">  </span>
+                <span th:unless= "${wyArticle.isPublish} " th:text="已下架" class="layui-btn layui-btn-normal layui-btn-mini layui-btn-disabled ispublish"> </span>
+            </td>
+            <td>
+              <button class="btn btn-default" style="color: #5a98de" onclick="'article_img_edit(this,\''+${wyArticle.id}+'\')'">点击修改</button>
+            </td>
             <td class="td-manage">
-              <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
+              <a th:if="${wyArticle.isPublish}" onclick="member_stop(this,'10001')" href="javascript:;"  title="发布">
+              <i class="layui-icon">&#xe601;</i>
+             </a>
+              <a th:unless="${wyArticle.isPublish}" onclick="member_stop(this,'10001')" href="javascript:;"  title="下架">
                 <i class="layui-icon">&#xe601;</i>
               </a>
-              <a title="编辑"  onclick="x_admin_show('编辑','admin-edit.html')" href="javascript:;">
+              <a title="编辑"  th:onclick="'article_edit(this,\''+${wyArticle.id}+'\')'" href="javascript:;">
                 <i class="layui-icon">&#xe642;</i>
               </a>
               <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
@@ -87,7 +86,18 @@
       </div>
 
     </div>
-    <script>
+    <script th:inline="javascript">
+      var articles = [[${wyArticles}]];
+      var global_article = {};
+      function article_edit(_this,articleId) {
+          $.each(articles,function (index,article) {
+              if(article.id == articleId) {
+                  global_article = article;
+                  return;
+              }
+          })
+          x_admin_show('编辑','/article/jump-article-edit','','',_this,global_article);
+      }
       layui.use('laydate', function(){
         var laydate = layui.laydate;
         
@@ -104,23 +114,26 @@
 
        /*用户-停用*/
       function member_stop(obj,id){
-          layer.confirm('确认要停用吗？',function(index){
+          var confirmValue = '';
+          if($(obj).attr('title')=='发布') confirmValue = '您确定要下架吗';
+          if($(obj).attr('title')=='下架') confirmValue = '您确定要发布吗';
+          layer.confirm(confirmValue,function(index){
 
-              if($(obj).attr('title')=='启用'){
+              if($(obj).attr('title')=='发布'){
 
                 //发异步把用户状态进行更改
-                $(obj).attr('title','停用')
+                $(obj).attr('title','下架')
                 $(obj).find('i').html('&#xe62f;');
 
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-                layer.msg('已停用!',{icon: 5,time:1000});
+                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已下架');
+                layer.msg('已下架!',{icon: 5,time:1000});
 
               }else{
-                $(obj).attr('title','启用')
+                $(obj).attr('title','发布')
                 $(obj).find('i').html('&#xe601;');
 
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!',{icon: 5,time:1000});
+                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已发布');
+                layer.msg('已发布!',{icon: 6,time:1000});
               }
               
           });
@@ -134,9 +147,6 @@
               layer.msg('已删除!',{icon:1,time:1000});
           });
       }
-
-
-
       function delAll (argument) {
 
         var data = tableCheck.getData();
@@ -147,13 +157,11 @@
             $(".layui-form-checked").not('.header').parents('tr').remove();
         });
       }
+      function article_img_edit(_this,articleId) {
+          x_admin_show('修改图片',"/article/article-img-edit",'','',_this,articleId);
+      }
     </script>
-    <script>var _hmt = _hmt || []; (function() {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-      })();</script>
+  
   </body>
 
 </html>

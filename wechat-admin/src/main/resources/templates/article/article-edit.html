@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/js/html5.min.js"></script>
+    <script type="text/javascript" src="/js/respond.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/js/PIE_IE678.js"></script>
+    <script type="text/javascript" src="/lib/layui/layui.js" charset="utf-8" ></script>
+    <![endif]-->
+    <link href="/lib/h-ui/css/H-ui.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/lib/h-ui.admin/css/H-ui.admin.css" rel="stylesheet" type="text/css"/>
+    <link href="/lib/icheck/icheck.css" rel="stylesheet" type="text/css"/>
+    <link href="/lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <link href="/lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css"/>
+    <link href="/lib/layui/css/layui.css" rel="stylesheet" type="text/css"/>
+    <!--[if IE 6]>
+    <script type="text/javascript" src="/js/DD_belatedPNG_0.0.8a-min.js"></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>文章编辑</title>
+</head>
+<body>
+<div class="pd-20">
+    <form action="" method="post" class="form form-horizontal" id="form-article-add">
+        <div class="row cl">
+            <div class="formControls col-10">
+                <span class="c-red">*</span><strong>文章ID：</strong>
+                <input type="text" class="input-text" value="" placeholder="" id="articleId" name="articleId" lay-verify="required" />
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="formControls col-10">
+                <span class="c-red">*</span><strong>文章作者：</strong>
+                <input type="text" class="input-text" value="" placeholder="" id="author" name="author" lay-verify="required" />
+            </div>
+        </div>
+        <div class="row cl">
+            <!--<label class="form-label"><span class="c-red">*</span>文章标题：</label>-->
+            <div class="formControls col-10">
+                <span class="c-red">*</span><strong>文章标题：</strong>
+                <input type="text" class="input-text" value="" placeholder="" id="title" name="title" lay-verify="required" />
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="formControls col-10">
+                <span class="c-red">*</span><strong>背景音乐连接：</strong>
+                <input type="text" class="input-text" value="" placeholder="" id="bgmUrl" name="bgmUrl" lay-verify="required" />
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="formControls col-10">
+                <span class="c-red">*</span><strong>分享标题：</strong>
+                <input type="text" class="input-text" value="" placeholder="" id="share_title" name="shareTitle" lay-verify="required" />
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="formControls col-10">
+                <span class="c-red">*</span><strong>分享图片连接：</strong>
+                <input type="text" class="input-text" value="" placeholder="" id="share_img_url" name="shareImgUrl" lay-verify="required" />
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="formControls col-10">
+                <span class="c-red">*</span><strong>分享描述：</strong>
+                <input type="text" class="input-text" value="" placeholder="" id="share_describe" name="shareDescribe" lay-verify="required" />
+            </div>
+        </div>
+        <div class="row cl">
+            <br/>
+            <label>&nbsp;&nbsp;&nbsp;<strong>是否展示订单图：</strong>
+                <input type="radio" name="orderImg" lay-filter="erweima" value="1" title="是" checked=""/>是
+                <input type="radio" name="orderImg" lay-filter="erweima" value="0" title="否" />否
+            </label>
+        </div>
+        <div class="row cl">
+            <div class="col-10 col-offset-2">
+                <input class="btn btn-primary radius" type="submit" value="修改并发布文章" />
+                <button onClick="layer_close();" class="btn btn-default radius" type="button">
+                    &nbsp;&nbsp;取消&nbsp;&nbsp;
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="/js/jquery-1.8.0.js"></script>
+<!--<script type="text/javascript" src="/js/layer.js"></script>-->
+<script type="text/javascript" src="/lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="/lib/icheck/jquery.icheck.min.js"></script>
+<script type="text/javascript" src="/lib/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript" src="/lib/webuploader/0.1.5/webuploader.min.js"></script>
+<script type="text/javascript" src="/lib/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="/lib/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script src="../../static/lib/layui/layui.js" charset="utf-8"
+        th:src="@{/lib/layui/layui.js}"></script>
+<script type="text/javascript" src="../../static/js/xadmin.js"
+        th:src="@{/js/xadmin.js}"></script>
+<script type="text/javascript" >
+    $(function(){
+            $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+        $("#form-article-add").validate({
+            rules:{
+                title:{
+                    required:true,
+                },
+                bgmUrl:{
+                    required:true,
+                },
+                shareTitle:{
+                    required:true,
+                },
+                shareDescribe:{
+                    required:true,
+                },
+                shareImgUrl:{
+                    required:true,
+                },
+                author:{
+                    required:true,
+                },
+                outerImgUrl:{
+                    required:true,
+                },
+
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(form){
+                $(form).ajaxSubmit({
+                    type:'post',
+                    url:'/article/article-edit',
+                    async:false,
+                    success: function(data){
+                        // layer.msg('添加成功!',{icon:1,time:1000});
+                        layer.alert('修改成功', {icon: 1},function (index) {
+                            layer.close(index);
+                            parent.layer.close(index);
+                            window.parent.location.reload(true);
+                        });
+                    },
+                    error: function(XmlHttpRequest, textStatus, errorThrown){
+                        layer.msg('error!',{icon:1,time:1000});
+                    }
+                });
+            }
+        });
+    });
+    function addThirdImgUrl() {
+        $("#third-img-url").append($("#third-img-url div:first-child").clone(true))
+    }
+    function delContent(_this) {
+        $(_this).parent().remove();
+    }
+    function child(title,_this,arcitle) {
+        $("#articleId").val(arcitle.id);
+        $("#title").val(arcitle.title);
+        $("#bgmUrl").val(arcitle.bgmUrl);
+        $("#share_title").val(arcitle.shareTitle);
+        $("#share_img_url").val(arcitle.shareImgUrl);
+        $("#share_describe").val(arcitle.shareDescribe);
+        $("#author").val(arcitle.author);
+        if(arcitle.isOrderImg) {
+            $("input[name='orderImg'][value='1']").attr("checked",true);
+        } else {
+            $("input[name='orderImg'][value='0']").attr("checked",true);
+        }
+    }
+</script>
+</body>
+</html>

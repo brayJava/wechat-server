@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/js/html5.min.js"></script>
+    <script type="text/javascript" src="/js/respond.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/js/PIE_IE678.js"></script>
+    <script type="text/javascript" src="/lib/layui/layui.js" charset="utf-8" ></script>
+    <![endif]-->
+    <link href="/lib/h-ui/css/H-ui.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/lib/h-ui.admin/css/H-ui.admin.css" rel="stylesheet" type="text/css"/>
+    <link href="/lib/icheck/icheck.css" rel="stylesheet" type="text/css"/>
+    <link href="/lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <link href="/lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css"/>
+    <link href="/lib/layui/css/layui.css" rel="stylesheet" type="text/css"/>
+    <!--[if IE 6]>
+    <script type="text/javascript" src="/js/DD_belatedPNG_0.0.8a-min.js"></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>文章编辑</title>
+</head>
+<body>
+<div class="pd-20">
+    <form action="" method="post" class="form form-horizontal" id="form-article-add">
+        <div class="row cl">
+            <!--<label class="form-label"><span class="c-red">*</span>文章标题：</label>-->
+            <div class="formControls col-10">
+                <span class="c-red">*</span><strong>文章标题：</strong>
+                <input type="text" class="input-text" value="" placeholder="" id="title" name="title" lay-verify="required" />
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="formControls col-10">
+                <span class="c-red">*</span><strong>背景音乐连接：</strong>
+                <input type="text" class="input-text" value="" placeholder="" id="bgmUrl" name="bgmUrl" lay-verify="required" />
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="formControls col-10">
+                <span class="c-red">*</span><strong>分享标题：</strong>
+                <input type="text" class="input-text" value="" placeholder="" id="share_title" name="shareTitle" lay-verify="required" />
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="formControls col-10">
+                <span class="c-red">*</span><strong>分享图片连接：</strong>
+                <input type="text" class="input-text" value="" placeholder="" id="share_img_url" name="shareImgUrl" lay-verify="required" />
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="formControls col-10">
+                <span class="c-red">*</span><strong>分享描述：</strong>
+                <input type="text" class="input-text" value="" placeholder="" id="share_describe" name="shareDescribe" lay-verify="required" />
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="formControls col-2">
+                <span class="c-red">*</span><strong>文章作者：</strong>
+                <input type="text" class="input-text" value="" placeholder="如：王安石" id="author" name="author" lay-verify="required" />
+            </div>
+            <br/>
+            <label>&nbsp;&nbsp;&nbsp;<strong>是否展示订单图：</strong>
+                <input type="radio" name="orderImg" lay-filter="erweima" value="1" title="是" checked=""/>是
+                <input type="radio" name="orderImg" lay-filter="erweima" value="2" title="否" />否
+            </label>
+        </div>
+        <br/>
+        &nbsp;<button type="button" class="layui-btn layui-btn-warm layui-btn-xs"
+                            style="background-color: #5a98de" onclick="addThirdImgUrl()">+ 添加外部图片</button>
+        <div class="row cl" id = "third-img-url">
+            <div class="formControls col-10">
+                <span class="c-red">*</span><strong>外部图片连接：</strong>
+                <input type="text" class="input-text" value="" placeholder="" name="outerImgUrl" lay-verify="required" />
+                <input type="button" name="del" value="删除" class="c-red" onclick="delContent(this)"/>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-10 col-offset-2">
+                <!--<button type="button" class="btn btn-primary uploadBtn" lay-filter="add" lay-submit=""><i-->
+                        <!--class="Hui-iconfont">&#xe632;</i> 保存并发布文章-->
+                <!--</button>-->
+                <input class="btn btn-primary radius" type="submit" value="保存并发布文章" />
+                <!--<button onClick="article_save();" class="btn btn-secondary radius" type="button"><i-->
+                        <!--class="Hui-iconfont">&#xe632;</i> 保存草稿-->
+                <!--</button>-->
+                <button onClick="layer_close();" class="btn btn-default radius" type="button">
+                    &nbsp;&nbsp;取消&nbsp;&nbsp;
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="/js/jquery-1.8.0.js"></script>
+<!--<script type="text/javascript" src="/js/layer.js"></script>-->
+<script type="text/javascript" src="/lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="/lib/icheck/jquery.icheck.min.js"></script>
+<script type="text/javascript" src="/lib/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript" src="/lib/webuploader/0.1.5/webuploader.min.js"></script>
+<script type="text/javascript" src="/lib/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="/lib/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script src="../../static/lib/layui/layui.js" charset="utf-8"
+        th:src="@{/lib/layui/layui.js}"></script>
+<script type="text/javascript" src="../../static/js/xadmin.js"
+        th:src="@{/js/xadmin.js}"></script>
+<script type="text/javascript" >
+    $(function(){
+            $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+        $("#form-article-add").validate({
+            rules:{
+                title:{
+                    required:true,
+                },
+                bgmUrl:{
+                    required:true,
+                },
+                shareTitle:{
+                    required:true,
+                },
+                shareDescribe:{
+                    required:true,
+                },
+                shareImgUrl:{
+                    required:true,
+                },
+                author:{
+                    required:true,
+                },
+                outerImgUrl:{
+                    required:true,
+                },
+
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(form){
+                $(form).ajaxSubmit({
+                    type:'post',
+                    url:'/article/article-add-other',
+                    async:false,
+                    success: function(data){
+                        // layer.msg('添加成功!',{icon:1,time:1000});
+                        layer.alert('添加成功', {icon: 1},function (index) {
+                            layer.close(index);
+                            parent.layer.close(index);
+                            location.reload();
+                        });
+                    },
+                    error: function(XmlHttpRequest, textStatus, errorThrown){
+                        layer.msg('error!',{icon:1,time:1000});
+                    }
+                });
+            }
+        });
+    });
+    function addThirdImgUrl() {
+        $("#third-img-url").append($("#third-img-url div:first-child").clone(true))
+    }
+    function delContent(_this) {
+        $(_this).parent().remove();
+    }
+</script>
+</body>
+</html>

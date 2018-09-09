@@ -123,4 +123,30 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
             });
         }
     }
+    /**
+     * 文章修改
+     * @param obj
+     */
+    @Override
+    public void updateArticle(Object obj) {
+
+        ArticleOtherModelVo articleOtherModelVo = (ArticleOtherModelVo) obj;
+        WyArticle wyArticle = new WyArticle();
+        wyArticle.setId(articleOtherModelVo.getArticleId());
+        wyArticle.setTitle(articleOtherModelVo.getTitle());
+        wyArticle.setBgmUrl(articleOtherModelVo.getBgmUrl());
+        wyArticle.setAuthor(articleOtherModelVo.getAuthor());
+        wyArticle.setShareTitle(articleOtherModelVo.getShareTitle());
+        wyArticle.setShareDescribe(articleOtherModelVo.getShareDescribe());
+        wyArticle.setShareImgUrl(articleOtherModelVo.getShareImgUrl());
+        wyArticle.setIsOrderImg(ConstFinal.ARTICLE_STATUS.equals(articleOtherModelVo.getOrderImg()) ? true : false);
+        wyArticle.setUpdateTime(new Date());
+        try {
+            wyArticleMapper.updateByPrimaryKeySelective(wyArticle);
+        } catch (Exception e) {
+            log.error("--------------文章更新失败------------");
+            e.printStackTrace();
+        }
+
+    }
 }

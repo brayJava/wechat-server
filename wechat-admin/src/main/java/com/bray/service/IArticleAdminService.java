@@ -23,4 +23,8 @@ public interface IArticleAdminService {
      * @param obj
      */
     void insertOtherArticleImg(Object obj);
+    /**
+     * 修改文章
+     */
+    void updateArticle(Object obj);
 }

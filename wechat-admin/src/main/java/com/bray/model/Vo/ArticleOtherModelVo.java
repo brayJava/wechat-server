@@ -25,5 +25,7 @@ public class ArticleOtherModelVo {
 
     private String orderImg;
 
+    private String articleId;
+
     private String[] outerImgUrl;
 }

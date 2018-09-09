@@ -42,20 +42,50 @@ public class ArticleController {
 
         return "article/article-add";
     }
+
+    /**
+     * 跳随机界面
+     * @return
+     */
     @RequestMapping("/jump-other")
     public String jumpOther() {
 
         return "article/article-add-other";
     }
     /**
-     * 文章编辑上传
+     * 跳编辑界面
+     * @return
+     */
+    @RequestMapping("/jump-article-edit")
+    public String jumpArticleEdit() {
+
+        return "article/article-edit";
+    }
+//    /**
+//     * 修改文章图片
+//     */
+//    @RequestMapping("/article/article-img-edit")
+//    public String articleImgEdit() {
+//
+//    }
+    /**
+     * 文章列表展示
      * @return
      */
     @RequestMapping("/article-list")
     public String articleList(Model model) {
         List<WyArticle> wyArticles = iArticleService.queryAllEffectiveArticle();
-        model.addAttribute("wyArticle",wyArticles);
+        model.addAttribute("wyArticles",wyArticles);
         return "article/article-list";
+    }
+    /**
+     * 文章修改
+     * @return
+     */
+    @RequestMapping("/article-edit")
+    public RestResponseBo articleEdit(ArticleOtherModelVo articleOtherModelVo) {
+        iArticleAdminService.updateArticle(articleOtherModelVo);
+        return RestResponseBo.ok();
     }
     /**
      * 文章编辑上传
