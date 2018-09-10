@@ -1,8 +1,9 @@
 package com.bray.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class WySubdomain {
+public class WySubdomain implements Serializable{
     private Integer id;
 
     private Integer domainId;

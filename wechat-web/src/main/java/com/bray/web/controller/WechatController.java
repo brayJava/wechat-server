@@ -5,9 +5,8 @@ import com.bray.config.WebConst;
 import com.bray.dto.ConstFinal;
 import com.bray.dto.UrlConstant;
 import com.bray.model.Bo.ArticleWithImages;
-import com.bray.model.WyDomain;
-import com.bray.model.WySubdomain;
 import com.bray.service.IArticleService;
+import com.bray.service.IDomainWebService;
 import com.bray.service.impl.WechatAuthServiceImpl;
 import com.bray.util.Base64Util;
 import com.bray.util.WechatUtil;
@@ -15,15 +14,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.time.Clock;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 /**
@@ -40,13 +38,16 @@ public class WechatController {
     private WechatAuthServiceImpl wechatAuthService;
     @Autowired
     private IArticleService iArticleService;
+    @Resource
+    private IDomainWebService iDomainWebService;
     /**
      * 首页跳转
      */
     @RequestMapping("/jump/{articleId}/{temstamp}")
     String index(@PathVariable String articleId,@PathVariable String temstamp, Model model) {
+        Map<String,Object> domainMap = (HashMap<String,Object>)iDomainWebService.queryDomainByredisServer(ConstFinal.DOMAIN_MAP);
         //获取内容跳转链接
-        JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_COMMON_DOMAIN, UrlConstant.PATH_CONTENT_URL,articleId);
+        JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_COMMON_DOMAIN, UrlConstant.PATH_CONTENT_URL,articleId, domainMap);
         String contentUrl = String.valueOf(jsonObject.get("url"));
 //        contentUrl = "http://www.kdxny67.cn/wechat/random-content-other/"+articleId+"/"+Clock.systemDefaultZone().millis();
         //base64编码
@@ -59,7 +60,8 @@ public class WechatController {
      */
     @RequestMapping("/content/{articleId}/{timstamp}")
     String content(@PathVariable String articleId, String timstamp, Model model, HttpServletRequest request) {
-        JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_SHARE_DOMAIN, UrlConstant.PATH_JUMP_RUL,articleId);
+        Map<String,Object> domainMap = (HashMap<String,Object>)iDomainWebService.queryDomainByredisServer(ConstFinal.DOMAIN_MAP);
+        JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_SHARE_DOMAIN, UrlConstant.PATH_JUMP_RUL,articleId, domainMap);
         String shareUrl = String.valueOf(jsonObject.get("url"));
         //base64编码
         model.addAttribute(UrlConstant.SHARE_URL, Base64Util.encode(shareUrl));
@@ -75,7 +77,8 @@ public class WechatController {
      */
     @RequestMapping("/random-content/{articleId}/{timstamp}")
     String randomContent(@PathVariable String articleId,@PathVariable String timstamp,Model model, HttpServletRequest request) {
-        JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_SHARE_DOMAIN, UrlConstant.PATH_JUMP_RUL,articleId);
+        Map<String,Object> domainMap = (HashMap<String,Object>)iDomainWebService.queryDomainByredisServer(ConstFinal.DOMAIN_MAP);
+        JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_SHARE_DOMAIN, UrlConstant.PATH_JUMP_RUL,articleId, domainMap);
         String shareUrl = String.valueOf(jsonObject.get("url"));
         String domain = String.valueOf(jsonObject.get("domain"));
         ArticleWithImages articleWithImages = getArticleWithImages(articleId, domain);
@@ -91,7 +94,9 @@ public class WechatController {
      */
     @RequestMapping("/random-content-other/{articleId}/{timstamp}")
     String randomContentOther(@PathVariable String articleId,@PathVariable String timstamp,Model model, HttpServletRequest request) {
-        JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_SHARE_DOMAIN, UrlConstant.PATH_JUMP_RUL,articleId);
+        //获取域名集合map
+        Map<String,Object> domainMap = (HashMap<String,Object>)iDomainWebService.queryDomainByredisServer(ConstFinal.DOMAIN_MAP);
+        JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_SHARE_DOMAIN, UrlConstant.PATH_JUMP_RUL,articleId,domainMap);
         String shareUrl = String.valueOf(jsonObject.get("url"));
         //获取图片相关信息
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);

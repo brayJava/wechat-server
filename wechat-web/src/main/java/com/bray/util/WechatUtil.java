@@ -9,6 +9,7 @@ import org.springframework.util.CollectionUtils;
 import java.io.File;
 import java.time.Clock;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -23,13 +24,14 @@ public class WechatUtil {
      * @param domainType 域名类型
      * @param path       跳转相对路径
      * @param articleId  文章id
+     * @param domainMap
      * @return
      */
-    public static JSONObject nextUrlBuild(String domainType,String path,String articleId) {
+    public static JSONObject nextUrlBuild(String domainType, String path, String articleId, Map<String, Object> domainMap) {
         JSONObject jsonObject = new JSONObject();
         long millis = Clock.systemDefaultZone().millis();
         //获取分享主域名
-        List<WySubdomain> wySubdomains = (List<WySubdomain>) WebConst.domainMap.get(domainType);
+        List<WySubdomain> wySubdomains = (List<WySubdomain>) domainMap.get(domainType);
         if(CollectionUtils.isEmpty(wySubdomains)) return jsonObject;
         String[] wySubs = wySubdomains.stream().map(wySubdomain -> wySubdomain.getSubDomain())
                 .collect(Collectors.toList()).toArray(new String[wySubdomains.size()]);

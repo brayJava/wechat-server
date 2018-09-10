@@ -10,6 +10,8 @@ public interface ConstFinal {
 
     String ARTICLE_ID = "articleId";
 
+    String DOMAIN_MAP = "domain_map";
+
     //图片保存路径 (window路径)
     String WIN_ROOT_PATH = "C:\\Users\\吴志远\\Desktop\\img\\";
 

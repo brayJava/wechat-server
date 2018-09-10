@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Field;
 import java.time.Clock;
@@ -88,9 +89,15 @@ public class RedisAspect {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        String redisKey = null;
         String serviceType = queryCache.serviceType();
-        String redisKey = new StringBuilder().append(serviceType).append(":")
-                .append(fieldValue).toString();
+        if(!StringUtils.isEmpty(serviceType)) {
+            redisKey = new StringBuilder().append(serviceType).append(":")
+                    .append(fieldValue).toString();
+        } else {
+            redisKey = fieldValue;
+        }
+
         return redisKey;
     }
 }
