@@ -31,7 +31,8 @@ public class WechatUtil {
         JSONObject jsonObject = new JSONObject();
         long millis = Clock.systemDefaultZone().millis();
         //获取分享主域名
-        List<WySubdomain> wySubdomains = (List<WySubdomain>) domainMap.get(domainType);
+//        List<WySubdomain> wySubdomains = (List<WySubdomain>) domainMap.get(domainType);
+        List<WySubdomain> wySubdomains = (List<WySubdomain>) WebConst.domainMap.get(domainType);
         if(CollectionUtils.isEmpty(wySubdomains)) return jsonObject;
         String[] wySubs = wySubdomains.stream().map(wySubdomain -> wySubdomain.getSubDomain())
                 .collect(Collectors.toList()).toArray(new String[wySubdomains.size()]);
