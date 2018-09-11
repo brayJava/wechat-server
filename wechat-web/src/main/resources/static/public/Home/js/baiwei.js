@@ -212,7 +212,7 @@
                 type: 'post',
                 success: function (data) {
                     // alert('chnegogn')
-                    layer.alert("提交成功，请耐心等待发货！！", {icon: 1}, function (index) {
+                    layer.alert("恭喜下单成功，请耐心等待发货！！", {icon: 1}, function (index) {
                         layer.close(index);
                         //关闭当前frame
                         parent.layer.close(index);

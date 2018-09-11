@@ -107,14 +107,6 @@ public class WechatController {
         log.info("----------分享链接为：{}",shareUrl);
         return "html/random-content-other";
     }
-    /**
-     * 内容跳转
-     */
-    @RequestMapping("/story/{id}/{code}")
-    String story(@PathVariable String id,@PathVariable String code) {
-        return "order/story";
-    }
-
     private ArticleWithImages getArticleWithImages(@PathVariable String articleId, String domain) {
         //获取图片相关信息
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);

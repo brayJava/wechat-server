@@ -1,7 +1,5 @@
 package com.bray.model;
 
-import java.math.BigDecimal;
-
 public class WyOrder {
     private Integer id;
 
@@ -11,7 +9,7 @@ public class WyOrder {
 
     private String title;
 
-    private BigDecimal price;
+    private Double price;
 
     private String province;
 
@@ -67,12 +65,11 @@ public class WyOrder {
         this.title = title == null ? null : title.trim();
     }
 
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
+    }
+    public Double getPrice() {
+        return price;
     }
 
     public String getProvince() {
