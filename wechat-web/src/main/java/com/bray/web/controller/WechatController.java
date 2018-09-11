@@ -47,7 +47,7 @@ public class WechatController {
     String index(@PathVariable String articleId,@PathVariable String temstamp, Model model) {
         Map<String,Object> domainMap = (HashMap<String,Object>)iDomainWebService.queryDomainByredisServer(ConstFinal.DOMAIN_MAP);
         //获取内容跳转链接
-        JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_COMMON_DOMAIN, UrlConstant.PATH_CONTENT_URL,articleId, domainMap);
+        JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_COMMON_DOMAIN, UrlConstant.PATH_CONTENT_URL,articleId,domainMap);
         String contentUrl = String.valueOf(jsonObject.get("url"));
 //        contentUrl = "http://www.kdxny67.cn/wechat/random-content-other/"+articleId+"/"+Clock.systemDefaultZone().millis();
         //base64编码
@@ -113,13 +113,6 @@ public class WechatController {
     @RequestMapping("/story/{id}/{code}")
     String story(@PathVariable String id,@PathVariable String code) {
         return "order/story";
-    }
-    /**
-     * 订单跳转
-     */
-    @RequestMapping("/order")
-    String order() {
-        return "order/order";
     }
 
     private ArticleWithImages getArticleWithImages(@PathVariable String articleId, String domain) {
