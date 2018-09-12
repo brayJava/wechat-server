@@ -109,7 +109,7 @@ public class DomainAdminServiceImpl implements IDomainAdminService {
     public void deleteDomain(int id) {
         WyDomain wyDomain = new WyDomain();
         wyDomain.setId(id);
-        wyDomain.setStatus(EffectiveType.EFFECTIVE_NO);
+        wyDomain.setIsDel(EffectiveType.EFFECTIVE_NO);
         try {
             wyDomainMapper.updateByPrimaryKeySelective(wyDomain);
         } catch (RuntimeException e) {
@@ -142,6 +142,22 @@ public class DomainAdminServiceImpl implements IDomainAdminService {
             redisCache.deleteDataOfRedis(ConstatFinal.DOMAIN_MAP);
         } catch (Exception e) {
             log.error("------redis key({})删除失败",ConstatFinal.DOMAIN_MAP);
+            e.printStackTrace();
+        }
+    }
+    /**
+     * 更新线上域名信息
+     */
+    @Override
+    public void updateStatus(int status,int domainId) {
+        WyDomain wyDomain = new WyDomain();
+        wyDomain.setId(domainId);
+        wyDomain.setStatus(status);
+        wyDomain.setUpdateTime(new Date());
+        try {
+            wyDomainMapper.updateByPrimaryKeySelective(wyDomain);
+        } catch (Exception e) {
+            log.error("----------域名状态更新失败");
             e.printStackTrace();
         }
     }

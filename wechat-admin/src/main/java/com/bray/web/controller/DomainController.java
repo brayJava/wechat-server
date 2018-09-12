@@ -103,5 +103,13 @@ public class DomainController {
         iDomainAdminService.updateProd();
         return RestResponseBo.ok();
     }
-
+    /**
+     * 更新域名状态
+     */
+    @RequestMapping("/update-status")
+    @ResponseBody
+    public RestResponseBo updateStatus(int status,int domainId) {
+        iDomainAdminService.updateStatus(status,domainId);
+        return RestResponseBo.ok();
+    }
 }

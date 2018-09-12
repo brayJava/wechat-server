@@ -39,7 +39,7 @@
             <th width="50">域名类型</th>
             <th width="150">域名名称</th>
             <th width="120">创建时间</th>
-            <th width="60">域名来源</th>
+            <th width="60">域名状态</th>
             <th width="220">操作</th>
         </tr>
         </thead>
@@ -59,11 +59,19 @@
                     <td>
                         <span class="editable-text" th:text="${#dates.format(primarySubDomain.wyDomain.createTime,'yyyy/MM/dd HH:mm:ss')}"></span>
                     </td>
-                    <td>
+                    <td class="td-status">
                         <!--<input type="checkbox" name="switch" lay-text="开启|停用" checked="" lay-skin="switch"/>-->
-                        <span th:text="${primarySubDomain.wyDomain.domainFrom}" class = "domainFrom"></span>
+                        <!--<span th:text="${primarySubDomain.wyDomain.domainFrom}" class = "domainFrom"></span>-->
+                        <span th:if="${primarySubDomain.wyDomain.status} == 1 " class="layui-btn layui-btn-normal layui-btn-mini ispublish">已启用</span>
+                        <span th:if="${primarySubDomain.wyDomain.status} == -1 " class="layui-btn layui-btn-normal layui-btn-mini layui-btn-disabled ispublish">已停用</span>
                     </td>
                     <td class="td-manage">
+                        <button  th:if="${primarySubDomain.wyDomain.status} == 1 " class="layui-btn layui-btn layui-btn-xs"  th:onclick="'javascript:member_stop(this,'+${primarySubDomain.wyDomain.id}+')'" title="启用">
+                            <i class="layui-icon">&#xe642;</i>操作
+                        </button>
+                        <button  th:if="${primarySubDomain.wyDomain.status} == -1 " class="layui-btn layui-btn layui-btn-xs"  th:onclick="'javascript:member_stop(this,'+${primarySubDomain.wyDomain.id}+')'"  title="停用">
+                            <i class="layui-icon">&#xe642;</i>操作
+                        </button>
                         <button class="layui-btn layui-btn layui-btn-xs" th:onclick="'javascript:x_admin_show(\'编辑\',\' /domain/add \',\'\',\'\',this,'+${primarySubDomain.wyDomain.id}+')'"  href="javascript:;">
                             <i class="layui-icon">&#xe642;</i>编辑
                         </button>
@@ -169,6 +177,60 @@
             error: function (XmlHttpRequest, textStatus, errorThrown) {
                 layer.msg('error!', {icon: 1, time: 1000});
             }
+        });
+    }
+    /*用户-停用*/
+    function member_stop(obj,domainId){
+        var confirmValue = '';
+        if($(obj).attr('title')=='启用') confirmValue = '您确定要停用吗';
+        if($(obj).attr('title')=='停用') confirmValue = '您确定要启用吗';
+        layer.confirm(confirmValue,function(index){
+
+            if($(obj).attr('title')=='启用'){
+
+                //发异步把用户状态进行更改
+                $(obj).attr('title','停用')
+                $(obj).find('i').html('&#xe62f;');
+
+                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
+                $.ajax({
+                    url: '/domain/update-status',
+                    async: false,
+                    data:{"status":-1,"domainId":domainId},
+                    type: 'post',
+                    success: function (data) {
+                        layer.alert('状态已更新!!',{icon: 1, time: 2000},function (index) {
+                            location.reload(location.href);
+                        })
+                    },
+                    error: function (XmlHttpRequest, textStatus, errorThrown) {
+                        layer.msg('error!', {icon: 1, time: 1000});
+                    }
+                });
+                // layer.msg('停用!',{icon: 5,time:1000});
+
+            }else{
+                $(obj).attr('title','启用')
+                $(obj).find('i').html('&#xe601;');
+
+                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
+                $.ajax({
+                    url: '/domain/update-status',
+                    async: false,
+                    data:{"status":1,"domainId":domainId},
+                    type: 'post',
+                    success: function (data) {
+                        layer.alert('状态已更新!!',{icon: 1, time: 2000},function (index) {
+                            location.reload(location.href);
+                        })
+                    },
+                    error: function (XmlHttpRequest, textStatus, errorThrown) {
+                        layer.msg('error!', {icon: 1, time: 1000});
+                    }
+                });
+                // layer.msg('已启用!',{icon: 6,time:1000});
+            }
+
         });
     }
 </script>

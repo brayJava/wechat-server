@@ -1,0 +1,302 @@
+2018/09/12-17:10 [main] INFO  org.springframework.web.context.support.GenericWebApplicationContext -- Refreshing org.springframework.web.context.support.GenericWebApplicationContext@2ce6c6ec: startup date [Wed Sep 12 17:10:41 CST 2018]; root of context hierarchy
+2018/09/12-17:10 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate -- Multiple Spring Data modules found, entering strict repository configuration mode!
+2018/09/12-17:10 [main] WARN  org.springframework.web.context.support.GenericWebApplicationContext -- Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'enableRedisKeyspaceNotificationsInitializer' defined in class path resource [org/springframework/session/data/redis/config/annotation/web/http/RedisHttpSessionConfiguration.class]: Invocation of init method failed; nested exception is org.springframework.data.redis.RedisConnectionFailureException: Cannot get Jedis connection; nested exception is redis.clients.jedis.exceptions.JedisConnectionException: Could not get a resource from the pool
+2018/09/12-17:10 [main] INFO  org.springframework.boot.autoconfigure.logging.AutoConfigurationReportLoggingInitializer -- 
+
+Error starting ApplicationContext. To display the auto-configuration report re-run your application with 'debug' enabled.
+2018/09/12-17:10 [main] ERROR org.springframework.boot.SpringApplication -- Application startup failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'enableRedisKeyspaceNotificationsInitializer' defined in class path resource [org/springframework/session/data/redis/config/annotation/web/http/RedisHttpSessionConfiguration.class]: Invocation of init method failed; nested exception is org.springframework.data.redis.RedisConnectionFailureException: Cannot get Jedis connection; nested exception is redis.clients.jedis.exceptions.JedisConnectionException: Could not get a resource from the pool
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1628)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:761)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:543)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:693)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:360)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:303)
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:120)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:98)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:116)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
+	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:189)
+	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:131)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:230)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:228)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:287)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:289)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:247)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:94)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:191)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:68)
+	at com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:47)
+	at com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:242)
+	at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:70)
+Caused by: org.springframework.data.redis.RedisConnectionFailureException: Cannot get Jedis connection; nested exception is redis.clients.jedis.exceptions.JedisConnectionException: Could not get a resource from the pool
+	at org.springframework.data.redis.connection.jedis.JedisConnectionFactory.fetchJedisConnector(JedisConnectionFactory.java:204)
+	at org.springframework.data.redis.connection.jedis.JedisConnectionFactory.getConnection(JedisConnectionFactory.java:348)
+	at org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration$EnableRedisKeyspaceNotificationsInitializer.afterPropertiesSet(RedisHttpSessionConfiguration.java:249)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1687)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1624)
+	... 39 common frames omitted
+Caused by: redis.clients.jedis.exceptions.JedisConnectionException: Could not get a resource from the pool
+	at redis.clients.util.Pool.getResource(Pool.java:53)
+	at redis.clients.jedis.JedisPool.getResource(JedisPool.java:226)
+	at redis.clients.jedis.JedisPool.getResource(JedisPool.java:16)
+	at org.springframework.data.redis.connection.jedis.JedisConnectionFactory.fetchJedisConnector(JedisConnectionFactory.java:194)
+	... 43 common frames omitted
+Caused by: redis.clients.jedis.exceptions.JedisConnectionException: java.net.ConnectException: Connection refused: connect
+	at redis.clients.jedis.Connection.connect(Connection.java:207)
+	at redis.clients.jedis.BinaryClient.connect(BinaryClient.java:93)
+	at redis.clients.jedis.BinaryJedis.connect(BinaryJedis.java:1767)
+	at redis.clients.jedis.JedisFactory.makeObject(JedisFactory.java:106)
+	at org.apache.commons.pool2.impl.GenericObjectPool.create(GenericObjectPool.java:868)
+	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:435)
+	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:363)
+	at redis.clients.util.Pool.getResource(Pool.java:49)
+	... 46 common frames omitted
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:85)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at redis.clients.jedis.Connection.connect(Connection.java:184)
+	... 53 common frames omitted
+2018/09/12-17:10 [main] ERROR org.springframework.test.context.TestContextManager -- Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@43a0cee9] to prepare test instance [com.bray.RedisServerTest@7157413e]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
+	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:189)
+	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:131)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:230)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:228)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:287)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:289)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:247)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:94)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:191)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:68)
+	at com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:47)
+	at com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:242)
+	at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:70)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'enableRedisKeyspaceNotificationsInitializer' defined in class path resource [org/springframework/session/data/redis/config/annotation/web/http/RedisHttpSessionConfiguration.class]: Invocation of init method failed; nested exception is org.springframework.data.redis.RedisConnectionFailureException: Cannot get Jedis connection; nested exception is redis.clients.jedis.exceptions.JedisConnectionException: Could not get a resource from the pool
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1628)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:761)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:543)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:693)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:360)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:303)
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:120)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:98)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:116)
+	... 24 common frames omitted
+Caused by: org.springframework.data.redis.RedisConnectionFailureException: Cannot get Jedis connection; nested exception is redis.clients.jedis.exceptions.JedisConnectionException: Could not get a resource from the pool
+	at org.springframework.data.redis.connection.jedis.JedisConnectionFactory.fetchJedisConnector(JedisConnectionFactory.java:204)
+	at org.springframework.data.redis.connection.jedis.JedisConnectionFactory.getConnection(JedisConnectionFactory.java:348)
+	at org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration$EnableRedisKeyspaceNotificationsInitializer.afterPropertiesSet(RedisHttpSessionConfiguration.java:249)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1687)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1624)
+	... 39 common frames omitted
+Caused by: redis.clients.jedis.exceptions.JedisConnectionException: Could not get a resource from the pool
+	at redis.clients.util.Pool.getResource(Pool.java:53)
+	at redis.clients.jedis.JedisPool.getResource(JedisPool.java:226)
+	at redis.clients.jedis.JedisPool.getResource(JedisPool.java:16)
+	at org.springframework.data.redis.connection.jedis.JedisConnectionFactory.fetchJedisConnector(JedisConnectionFactory.java:194)
+	... 43 common frames omitted
+Caused by: redis.clients.jedis.exceptions.JedisConnectionException: java.net.ConnectException: Connection refused: connect
+	at redis.clients.jedis.Connection.connect(Connection.java:207)
+	at redis.clients.jedis.BinaryClient.connect(BinaryClient.java:93)
+	at redis.clients.jedis.BinaryJedis.connect(BinaryJedis.java:1767)
+	at redis.clients.jedis.JedisFactory.makeObject(JedisFactory.java:106)
+	at org.apache.commons.pool2.impl.GenericObjectPool.create(GenericObjectPool.java:868)
+	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:435)
+	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:363)
+	at redis.clients.util.Pool.getResource(Pool.java:49)
+	... 46 common frames omitted
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:85)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at redis.clients.jedis.Connection.connect(Connection.java:184)
+	... 53 common frames omitted
+2018/09/12-17:14 [main] INFO  org.springframework.web.context.support.GenericWebApplicationContext -- Refreshing org.springframework.web.context.support.GenericWebApplicationContext@77cf3f8b: startup date [Wed Sep 12 17:14:48 CST 2018]; root of context hierarchy
+2018/09/12-17:14 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate -- Multiple Spring Data modules found, entering strict repository configuration mode!
+2018/09/12-17:15 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter -- Looking for @ControllerAdvice: org.springframework.web.context.support.GenericWebApplicationContext@77cf3f8b: startup date [Wed Sep 12 17:14:48 CST 2018]; root of context hierarchy
+2018/09/12-17:15 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/article/jump]}" onto public java.lang.String com.bray.web.controller.ArticleController.jump()
+2018/09/12-17:15 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/article/jump-other]}" onto public java.lang.String com.bray.web.controller.ArticleController.jumpOther()
+2018/09/12-17:15 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/article/jump-article-edit]}" onto public java.lang.String com.bray.web.controller.ArticleController.jumpArticleEdit()
+2018/09/12-17:15 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/article/article-list]}" onto public java.lang.String com.bray.web.controller.ArticleController.articleList(org.springframework.ui.Model)
+2018/09/12-17:15 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/article/img-upload]}" onto public com.bray.model.Bo.RestResponseBo com.bray.web.controller.ArticleController.imageupdate(javax.servlet.http.HttpServletRequest)
+2018/09/12-17:15 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/article/article-add],methods=[POST]}" onto public com.bray.model.Bo.RestResponseBo com.bray.web.controller.ArticleController.articleAdd(com.bray.model.Vo.ArticleModelVo)
+2018/09/12-17:15 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/article/article-edit]}" onto public com.bray.model.Bo.RestResponseBo com.bray.web.controller.ArticleController.articleEdit(com.bray.model.Vo.ArticleOtherModelVo)
+2018/09/12-17:15 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/article/article-add-other],methods=[POST]}" onto public com.bray.model.Bo.RestResponseBo com.bray.web.controller.ArticleController.articleAddOther(com.bray.model.Vo.ArticleOtherModelVo)
+2018/09/12-17:15 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/domain/domain-add]}" onto public com.bray.model.Bo.RestResponseBo com.bray.web.controller.DomainController.add(com.bray.model.Vo.DomainModelVo)
+2018/09/12-17:15 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/domain/delete]}" onto public com.bray.model.Bo.RestResponseBo com.bray.web.controller.DomainController.delete(int,java.lang.String)
+2018/09/12-17:15 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/domain/show]}" onto public java.lang.String com.bray.web.controller.DomainController.doamin(org.springframework.ui.Model)
+2018/09/12-17:15 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/domain/add]}" onto public java.lang.String com.bray.web.controller.DomainController.addjump()
+2018/09/12-17:15 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/domain/subdomain-add]}" onto public com.bray.model.Bo.RestResponseBo com.bray.web.controller.DomainController.subAdd(com.bray.model.Vo.SubDomainModelVo)
+2018/09/12-17:15 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/domain/sub-add]}" onto public java.lang.String com.bray.web.controller.DomainController.subAddjump()
+2018/09/12-17:15 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/index/home]}" onto public java.lang.String com.bray.web.controller.IndexController.home()
+2018/09/12-17:15 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/login]}" onto public java.lang.String com.bray.web.controller.LoginController.login()
+2018/09/12-17:15 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/verify-login]}" onto public java.lang.String com.bray.web.controller.LoginController.login(com.bray.model.Vo.LoginModelVo,org.springframework.ui.Model)
+2018/09/12-17:15 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018/09/12-17:15 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018/09/12-17:15 [main] INFO  org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping -- Root mapping to handler '/'
+2018/09/12-17:15 [main] INFO  org.springframework.web.servlet.handler.SimpleUrlHandlerMapping -- Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018/09/12-17:15 [main] INFO  org.springframework.web.servlet.handler.SimpleUrlHandlerMapping -- Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018/09/12-17:15 [main] INFO  org.springframework.web.servlet.handler.SimpleUrlHandlerMapping -- Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018/09/12-17:15 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/env/{name:.*}],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EnvironmentMvcEndpoint.value(java.lang.String)
+2018/09/12-17:15 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/env || /env.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:15 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/loggers/{name:.*}],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.LoggersMvcEndpoint.get(java.lang.String)
+2018/09/12-17:15 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/loggers/{name:.*}],methods=[POST],consumes=[application/vnd.spring-boot.actuator.v1+json || application/json],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.LoggersMvcEndpoint.set(java.lang.String,java.util.Map<java.lang.String, java.lang.String>)
+2018/09/12-17:15 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/loggers || /loggers.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:15 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/info || /info.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:15 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/heapdump || /heapdump.json],methods=[GET],produces=[application/octet-stream]}" onto public void org.springframework.boot.actuate.endpoint.mvc.HeapdumpMvcEndpoint.invoke(boolean,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws java.io.IOException,javax.servlet.ServletException
+2018/09/12-17:15 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/health || /health.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.HealthMvcEndpoint.invoke(javax.servlet.http.HttpServletRequest,java.security.Principal)
+2018/09/12-17:15 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/configprops || /configprops.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:15 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/dump || /dump.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:15 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/autoconfig || /autoconfig.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:15 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/trace || /trace.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:15 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/beans || /beans.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:15 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/mappings || /mappings.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:15 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/metrics/{name:.*}],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.MetricsMvcEndpoint.value(java.lang.String)
+2018/09/12-17:15 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/metrics || /metrics.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:15 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/auditevents || /auditevents.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public org.springframework.http.ResponseEntity<?> org.springframework.boot.actuate.endpoint.mvc.AuditEventsMvcEndpoint.findByPrincipalAndAfterAndType(java.lang.String,java.util.Date,java.lang.String)
+2018/09/12-17:15 [main] INFO  org.springframework.context.support.DefaultLifecycleProcessor -- Starting beans in phase 2147483647
+2018/09/12-17:15 [main] INFO  org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor -- No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2018/09/12-17:15 [Thread-6] INFO  org.springframework.web.context.support.GenericWebApplicationContext -- Closing org.springframework.web.context.support.GenericWebApplicationContext@77cf3f8b: startup date [Wed Sep 12 17:14:48 CST 2018]; root of context hierarchy
+2018/09/12-17:15 [Thread-6] INFO  org.springframework.context.support.DefaultLifecycleProcessor -- Stopping beans in phase 2147483647
+2018/09/12-17:19 [main] INFO  org.springframework.web.context.support.GenericWebApplicationContext -- Refreshing org.springframework.web.context.support.GenericWebApplicationContext@2ce6c6ec: startup date [Wed Sep 12 17:19:24 CST 2018]; root of context hierarchy
+2018/09/12-17:19 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate -- Multiple Spring Data modules found, entering strict repository configuration mode!
+2018/09/12-17:19 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter -- Looking for @ControllerAdvice: org.springframework.web.context.support.GenericWebApplicationContext@2ce6c6ec: startup date [Wed Sep 12 17:19:24 CST 2018]; root of context hierarchy
+2018/09/12-17:19 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/article/jump-article-edit]}" onto public java.lang.String com.bray.web.controller.ArticleController.jumpArticleEdit()
+2018/09/12-17:19 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/article/article-list]}" onto public java.lang.String com.bray.web.controller.ArticleController.articleList(org.springframework.ui.Model)
+2018/09/12-17:19 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/article/article-edit]}" onto public com.bray.model.Bo.RestResponseBo com.bray.web.controller.ArticleController.articleEdit(com.bray.model.Vo.ArticleOtherModelVo)
+2018/09/12-17:19 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/article/jump-other]}" onto public java.lang.String com.bray.web.controller.ArticleController.jumpOther()
+2018/09/12-17:19 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/article/jump]}" onto public java.lang.String com.bray.web.controller.ArticleController.jump()
+2018/09/12-17:19 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/article/img-upload]}" onto public com.bray.model.Bo.RestResponseBo com.bray.web.controller.ArticleController.imageupdate(javax.servlet.http.HttpServletRequest)
+2018/09/12-17:19 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/article/article-add],methods=[POST]}" onto public com.bray.model.Bo.RestResponseBo com.bray.web.controller.ArticleController.articleAdd(com.bray.model.Vo.ArticleModelVo)
+2018/09/12-17:19 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/article/article-add-other],methods=[POST]}" onto public com.bray.model.Bo.RestResponseBo com.bray.web.controller.ArticleController.articleAddOther(com.bray.model.Vo.ArticleOtherModelVo)
+2018/09/12-17:19 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/domain/domain-add]}" onto public com.bray.model.Bo.RestResponseBo com.bray.web.controller.DomainController.add(com.bray.model.Vo.DomainModelVo)
+2018/09/12-17:19 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/domain/delete]}" onto public com.bray.model.Bo.RestResponseBo com.bray.web.controller.DomainController.delete(int,java.lang.String)
+2018/09/12-17:19 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/domain/show]}" onto public java.lang.String com.bray.web.controller.DomainController.doamin(org.springframework.ui.Model)
+2018/09/12-17:19 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/domain/add]}" onto public java.lang.String com.bray.web.controller.DomainController.addjump()
+2018/09/12-17:19 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/domain/sub-add]}" onto public java.lang.String com.bray.web.controller.DomainController.subAddjump()
+2018/09/12-17:19 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/domain/subdomain-add]}" onto public com.bray.model.Bo.RestResponseBo com.bray.web.controller.DomainController.subAdd(com.bray.model.Vo.SubDomainModelVo)
+2018/09/12-17:19 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/index/home]}" onto public java.lang.String com.bray.web.controller.IndexController.home()
+2018/09/12-17:19 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/login]}" onto public java.lang.String com.bray.web.controller.LoginController.login()
+2018/09/12-17:19 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/verify-login]}" onto public java.lang.String com.bray.web.controller.LoginController.login(com.bray.model.Vo.LoginModelVo,org.springframework.ui.Model)
+2018/09/12-17:19 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018/09/12-17:19 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018/09/12-17:19 [main] INFO  org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping -- Root mapping to handler '/'
+2018/09/12-17:19 [main] INFO  org.springframework.web.servlet.handler.SimpleUrlHandlerMapping -- Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018/09/12-17:19 [main] INFO  org.springframework.web.servlet.handler.SimpleUrlHandlerMapping -- Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018/09/12-17:19 [main] INFO  org.springframework.web.servlet.handler.SimpleUrlHandlerMapping -- Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018/09/12-17:19 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/loggers/{name:.*}],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.LoggersMvcEndpoint.get(java.lang.String)
+2018/09/12-17:19 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/loggers/{name:.*}],methods=[POST],consumes=[application/vnd.spring-boot.actuator.v1+json || application/json],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.LoggersMvcEndpoint.set(java.lang.String,java.util.Map<java.lang.String, java.lang.String>)
+2018/09/12-17:19 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/loggers || /loggers.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:19 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/trace || /trace.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:19 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/heapdump || /heapdump.json],methods=[GET],produces=[application/octet-stream]}" onto public void org.springframework.boot.actuate.endpoint.mvc.HeapdumpMvcEndpoint.invoke(boolean,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws java.io.IOException,javax.servlet.ServletException
+2018/09/12-17:19 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/metrics/{name:.*}],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.MetricsMvcEndpoint.value(java.lang.String)
+2018/09/12-17:19 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/metrics || /metrics.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:19 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/dump || /dump.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:19 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/configprops || /configprops.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:19 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/mappings || /mappings.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:19 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/health || /health.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.HealthMvcEndpoint.invoke(javax.servlet.http.HttpServletRequest,java.security.Principal)
+2018/09/12-17:19 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/env/{name:.*}],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EnvironmentMvcEndpoint.value(java.lang.String)
+2018/09/12-17:19 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/env || /env.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:19 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/info || /info.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:19 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/autoconfig || /autoconfig.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:19 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/auditevents || /auditevents.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public org.springframework.http.ResponseEntity<?> org.springframework.boot.actuate.endpoint.mvc.AuditEventsMvcEndpoint.findByPrincipalAndAfterAndType(java.lang.String,java.util.Date,java.lang.String)
+2018/09/12-17:19 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/beans || /beans.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:19 [main] INFO  org.springframework.context.support.DefaultLifecycleProcessor -- Starting beans in phase 2147483647
+2018/09/12-17:19 [main] INFO  org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor -- No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2018/09/12-17:19 [Thread-6] INFO  org.springframework.web.context.support.GenericWebApplicationContext -- Closing org.springframework.web.context.support.GenericWebApplicationContext@2ce6c6ec: startup date [Wed Sep 12 17:19:24 CST 2018]; root of context hierarchy
+2018/09/12-17:19 [Thread-6] INFO  org.springframework.context.support.DefaultLifecycleProcessor -- Stopping beans in phase 2147483647
+2018/09/12-17:28 [main] INFO  org.springframework.web.context.support.GenericWebApplicationContext -- Refreshing org.springframework.web.context.support.GenericWebApplicationContext@2ce6c6ec: startup date [Wed Sep 12 17:28:52 CST 2018]; root of context hierarchy
+2018/09/12-17:28 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate -- Multiple Spring Data modules found, entering strict repository configuration mode!
+2018/09/12-17:29 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter -- Looking for @ControllerAdvice: org.springframework.web.context.support.GenericWebApplicationContext@2ce6c6ec: startup date [Wed Sep 12 17:28:52 CST 2018]; root of context hierarchy
+2018/09/12-17:29 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/article/img-upload]}" onto public com.bray.model.Bo.RestResponseBo com.bray.web.controller.ArticleController.imageupdate(javax.servlet.http.HttpServletRequest)
+2018/09/12-17:29 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/article/article-edit]}" onto public com.bray.model.Bo.RestResponseBo com.bray.web.controller.ArticleController.articleEdit(com.bray.model.Vo.ArticleOtherModelVo)
+2018/09/12-17:29 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/article/article-add],methods=[POST]}" onto public com.bray.model.Bo.RestResponseBo com.bray.web.controller.ArticleController.articleAdd(com.bray.model.Vo.ArticleModelVo)
+2018/09/12-17:29 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/article/jump-other]}" onto public java.lang.String com.bray.web.controller.ArticleController.jumpOther()
+2018/09/12-17:29 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/article/jump-article-edit]}" onto public java.lang.String com.bray.web.controller.ArticleController.jumpArticleEdit()
+2018/09/12-17:29 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/article/jump]}" onto public java.lang.String com.bray.web.controller.ArticleController.jump()
+2018/09/12-17:29 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/article/article-list]}" onto public java.lang.String com.bray.web.controller.ArticleController.articleList(org.springframework.ui.Model)
+2018/09/12-17:29 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/article/article-add-other],methods=[POST]}" onto public com.bray.model.Bo.RestResponseBo com.bray.web.controller.ArticleController.articleAddOther(com.bray.model.Vo.ArticleOtherModelVo)
+2018/09/12-17:29 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/domain/domain-add]}" onto public com.bray.model.Bo.RestResponseBo com.bray.web.controller.DomainController.add(com.bray.model.Vo.DomainModelVo)
+2018/09/12-17:29 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/domain/delete]}" onto public com.bray.model.Bo.RestResponseBo com.bray.web.controller.DomainController.delete(int,java.lang.String)
+2018/09/12-17:29 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/domain/subdomain-add]}" onto public com.bray.model.Bo.RestResponseBo com.bray.web.controller.DomainController.subAdd(com.bray.model.Vo.SubDomainModelVo)
+2018/09/12-17:29 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/domain/add]}" onto public java.lang.String com.bray.web.controller.DomainController.addjump()
+2018/09/12-17:29 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/domain/show]}" onto public java.lang.String com.bray.web.controller.DomainController.doamin(org.springframework.ui.Model)
+2018/09/12-17:29 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/domain/sub-add]}" onto public java.lang.String com.bray.web.controller.DomainController.subAddjump()
+2018/09/12-17:29 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/index/home]}" onto public java.lang.String com.bray.web.controller.IndexController.home()
+2018/09/12-17:29 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/login]}" onto public java.lang.String com.bray.web.controller.LoginController.login()
+2018/09/12-17:29 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/verify-login]}" onto public java.lang.String com.bray.web.controller.LoginController.login(com.bray.model.Vo.LoginModelVo,org.springframework.ui.Model)
+2018/09/12-17:29 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018/09/12-17:29 [main] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -- Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018/09/12-17:29 [main] INFO  org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping -- Root mapping to handler '/'
+2018/09/12-17:29 [main] INFO  org.springframework.web.servlet.handler.SimpleUrlHandlerMapping -- Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018/09/12-17:29 [main] INFO  org.springframework.web.servlet.handler.SimpleUrlHandlerMapping -- Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018/09/12-17:29 [main] INFO  org.springframework.web.servlet.handler.SimpleUrlHandlerMapping -- Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018/09/12-17:29 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/heapdump || /heapdump.json],methods=[GET],produces=[application/octet-stream]}" onto public void org.springframework.boot.actuate.endpoint.mvc.HeapdumpMvcEndpoint.invoke(boolean,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws java.io.IOException,javax.servlet.ServletException
+2018/09/12-17:29 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/dump || /dump.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:29 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/health || /health.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.HealthMvcEndpoint.invoke(javax.servlet.http.HttpServletRequest,java.security.Principal)
+2018/09/12-17:29 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/auditevents || /auditevents.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public org.springframework.http.ResponseEntity<?> org.springframework.boot.actuate.endpoint.mvc.AuditEventsMvcEndpoint.findByPrincipalAndAfterAndType(java.lang.String,java.util.Date,java.lang.String)
+2018/09/12-17:29 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/loggers/{name:.*}],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.LoggersMvcEndpoint.get(java.lang.String)
+2018/09/12-17:29 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/loggers/{name:.*}],methods=[POST],consumes=[application/vnd.spring-boot.actuator.v1+json || application/json],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.LoggersMvcEndpoint.set(java.lang.String,java.util.Map<java.lang.String, java.lang.String>)
+2018/09/12-17:29 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/loggers || /loggers.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:29 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/mappings || /mappings.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:29 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/beans || /beans.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:29 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/trace || /trace.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:29 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/env/{name:.*}],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EnvironmentMvcEndpoint.value(java.lang.String)
+2018/09/12-17:29 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/env || /env.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:29 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/info || /info.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:29 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/configprops || /configprops.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:29 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/metrics/{name:.*}],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.MetricsMvcEndpoint.value(java.lang.String)
+2018/09/12-17:29 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/metrics || /metrics.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:29 [main] INFO  org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping -- Mapped "{[/autoconfig || /autoconfig.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018/09/12-17:29 [main] INFO  org.springframework.context.support.DefaultLifecycleProcessor -- Starting beans in phase 2147483647
+2018/09/12-17:29 [main] INFO  org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor -- No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2018/09/12-17:29 [Thread-6] INFO  org.springframework.web.context.support.GenericWebApplicationContext -- Closing org.springframework.web.context.support.GenericWebApplicationContext@2ce6c6ec: startup date [Wed Sep 12 17:28:52 CST 2018]; root of context hierarchy
+2018/09/12-17:29 [Thread-6] INFO  org.springframework.context.support.DefaultLifecycleProcessor -- Stopping beans in phase 2147483647

@@ -29,4 +29,8 @@ public interface IDomainAdminService {
      * 更新线上域名信息
      */
     void updateProd();
+    /**
+     * 更新域名状态
+     */
+    void updateStatus(int status,int domainId);
 }

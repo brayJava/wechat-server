@@ -1,9 +1,8 @@
 package com.bray.model;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class WyDomain implements Serializable{
+public class WyDomain {
     private Integer id;
 
     private String domain;
@@ -13,6 +12,8 @@ public class WyDomain implements Serializable{
     private String type;
 
     private Integer status;
+
+    private Integer isDel;
 
     private Date createTime;
 
@@ -56,6 +57,14 @@ public class WyDomain implements Serializable{
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getIsDel() {
+        return isDel;
+    }
+
+    public void setIsDel(Integer isDel) {
+        this.isDel = isDel;
     }
 
     public Date getCreateTime() {
