@@ -9,6 +9,7 @@ import com.foxinmy.weixin4j.mp.WeixinProxy;
 import com.foxinmy.weixin4j.token.TokenManager;
 import com.foxinmy.weixin4j.type.TicketType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -23,6 +24,8 @@ public class WechatAuthServiceImpl implements IWechatAuthService {
 
     @Autowired
     private WeixinProxy weixinProxy;
+    @Value("${weixin4j.id}")
+    private String appId;
 
     @Override
     public String signature(String linkUrl) {
@@ -43,6 +46,7 @@ public class WechatAuthServiceImpl implements IWechatAuthService {
         jsonObject.put("noncestr",noncestr);
         jsonObject.put("timestamp",String.valueOf(timestamp));
         jsonObject.put("accesstoken",ticketManagerCache.getAccessToken());
+        jsonObject.put("theAppId",this.appId);
         return jsonObject.toJSONString();
     }
 }
