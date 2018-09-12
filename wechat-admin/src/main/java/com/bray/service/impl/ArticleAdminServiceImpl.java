@@ -1,6 +1,9 @@
 package com.bray.service.impl;
 
+import com.bray.aop.annotation.QueryCache;
+import com.bray.aop.cache.RedisCache;
 import com.bray.dto.ConstFinal;
+import com.bray.dto.ConstatFinal;
 import com.bray.dto.EffectiveType;
 import com.bray.mapper.WyArticleImgMapper;
 import com.bray.mapper.WyArticleMapper;
@@ -31,6 +34,8 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
     private WyArticleMapper wyArticleMapper;
     @Resource
     private WyArticleImgMapper wyArticleImgMapper;
+    @Resource
+    private RedisCache redisCache;
     /**
      * 新增文章
      * @param articleModelVo
@@ -149,4 +154,16 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
         }
 
     }
+    /**
+     * 刷新文章
+     */
+    public void articleRefresh(String articleId) {
+        try {
+            redisCache.deleteDataOfRedis(ConstatFinal.AUTHOR+":"+articleId);
+        } catch (Exception e) {
+            log.error("-------文章redis更新");
+            e.printStackTrace();
+        }
+    }
+
 }

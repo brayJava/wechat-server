@@ -27,4 +27,8 @@ public interface IArticleAdminService {
      * 修改文章
      */
     void updateArticle(Object obj);
+    /**
+     * 更新文章至线上
+     */
+    void articleRefresh(String id);
 }
