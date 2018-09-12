@@ -26,6 +26,6 @@ logging:
 
 #微信授权接口
 weixin4j:
-  id: wx0681fdab518445d4
-  secret: 851f53d92cc351f29f4e9486637e29a1
+  id: wxfdd42e830e431893
+  secret: 902211bd94c8bc20e0801b669fbe9fe4
   cache: FILE
