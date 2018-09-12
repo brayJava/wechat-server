@@ -7,6 +7,8 @@ package com.bray.dto;
  * @Modified By:
  */
 public interface ConstatFinal {
-
+    //redis key 值相关
     String AUTHOR = "LM";
+
+    String DOMAIN_MAP = "domain_map";
 }

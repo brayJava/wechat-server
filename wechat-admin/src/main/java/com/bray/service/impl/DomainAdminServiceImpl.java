@@ -1,5 +1,7 @@
 package com.bray.service.impl;
 
+import com.bray.aop.cache.RedisCache;
+import com.bray.dto.ConstatFinal;
 import com.bray.dto.EffectiveType;
 import com.bray.mapper.WyDomainMapper;
 import com.bray.mapper.WySubdomainMapper;
@@ -30,6 +32,8 @@ public class DomainAdminServiceImpl implements IDomainAdminService {
     private WyDomainMapper wyDomainMapper;
     @Resource
     private WySubdomainMapper wySubdomainMapper;
+    @Resource
+    private RedisCache redisCache;
     /**
      * 主域名添加
      * @param domain
@@ -108,7 +112,7 @@ public class DomainAdminServiceImpl implements IDomainAdminService {
         wyDomain.setStatus(EffectiveType.EFFECTIVE_NO);
         try {
             wyDomainMapper.updateByPrimaryKeySelective(wyDomain);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             log.error("----------删除域名失败----------");
             e.printStackTrace();
         }
@@ -124,9 +128,22 @@ public class DomainAdminServiceImpl implements IDomainAdminService {
         wySubdomain.setStatus(EffectiveType.EFFECTIVE_NO);
         try {
             wySubdomainMapper.updateByPrimaryKeySelective(wySubdomain);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             log.error("----------删除子域名失败----------");
             e.printStackTrace();
         }
     }
+    /**
+     * 更新线上域名信息
+     */
+    @Override
+    public void updateProd() {
+        try {
+            redisCache.deleteDataOfRedis(ConstatFinal.DOMAIN_MAP);
+        } catch (Exception e) {
+            log.error("------redis key({})删除失败",ConstatFinal.DOMAIN_MAP);
+            e.printStackTrace();
+        }
+    }
+
 }

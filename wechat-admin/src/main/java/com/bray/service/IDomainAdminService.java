@@ -25,4 +25,8 @@ public interface IDomainAdminService {
      * @param id   域名id
      */
     void deleteSubdomain(int id);
+    /**
+     * 更新线上域名信息
+     */
+    void updateProd();
 }

@@ -15,9 +15,9 @@
         <a>
           <cite>域名分类</cite></a>
       </span>
-    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
-       href="javascript:location.replace(location.href);" title="刷新">
-        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="updateProd()"
+         title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ更新线上</i></a>
 </div>
 <div class="x-body">
     <!--<div class="layui-row">-->
@@ -152,6 +152,23 @@
             //捉到所有被选中的，发异步进行删除
             layer.msg('删除成功', {icon: 1});
             $(".layui-form-checked").not('.header').parents('tr').remove();
+        });
+    }
+    //更新线上redis同步
+    function updateProd() {
+        //发异步删除数据
+        $.ajax({
+            url: '/domain/update-prod',
+            async: false,
+            type: 'post',
+            success: function (data) {
+                layer.alert('已同步线上数据!',{icon: 1, time: 2000},function (index) {
+                    location.reload(location.href);
+                })
+            },
+            error: function (XmlHttpRequest, textStatus, errorThrown) {
+                layer.msg('error!', {icon: 1, time: 1000});
+            }
         });
     }
 </script>

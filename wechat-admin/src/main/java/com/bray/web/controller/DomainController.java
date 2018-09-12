@@ -94,4 +94,13 @@ public class DomainController {
         }
         return RestResponseBo.ok();
     }
+    /**
+     * 更新线上域名设置
+     */
+    @RequestMapping("/update-prod")
+    @ResponseBody
+    public RestResponseBo updateProd(){
+        iDomainAdminService.updateProd();
+        return RestResponseBo.ok();
+    }
 }

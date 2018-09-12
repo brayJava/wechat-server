@@ -17,4 +17,6 @@ public interface ConstFinal {
     String LINUX_ROOT_PATH = "/home/www/images/";
     //文章的各种状态
     String ARTICLE_STATUS = "1";
+
+    String DOMAIN_MAP = "domain_map";
 }
