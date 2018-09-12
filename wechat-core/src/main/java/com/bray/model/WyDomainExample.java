@@ -1,10 +1,11 @@
 package com.bray.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class WyDomainExample {
+public class WyDomainExample implements Serializable {
     protected String orderByClause;
 
     protected boolean distinct;

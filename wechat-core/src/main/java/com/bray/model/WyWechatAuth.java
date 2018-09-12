@@ -1,8 +1,9 @@
 package com.bray.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class WyWechatAuth {
+public class WyWechatAuth implements Serializable {
     private Integer id;
 
     private String weixinId;
