@@ -126,4 +126,14 @@ public class ArticleController {
         iArticleAdminService.insertOtherArticleImg(articleOtherModelVo);
         return new RestResponseBo(true);
     }
+    /**
+     * 刷新文章
+     * @return
+     */
+    @RequestMapping("/refresh-prod")
+    @ResponseBody
+    public RestResponseBo articleRefresh(String articleId){
+        iArticleAdminService.articleRefresh(articleId);
+        return RestResponseBo.ok();
+    }
 }

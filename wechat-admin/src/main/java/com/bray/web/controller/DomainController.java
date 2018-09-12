@@ -103,4 +103,5 @@ public class DomainController {
         iDomainAdminService.updateProd();
         return RestResponseBo.ok();
     }
+
 }
