@@ -8,14 +8,14 @@ spring:
   session:
       store-type: redis
   redis:
-      host: 123.206.195.72
+      host: 122.114.68.113
       port: 6380
       password: liming5789778
       database: 0
       timeout: 0
   jedis:
       pool:
-          host: 123.206.195.72
+          host: 122.114.68.113
           port: 6380
           password: liming5789778
           timeout: 0
@@ -26,7 +26,7 @@ spring:
               maxWaitMillis: 100000
 # MySQL
 datasource:
-      url: jdbc:mysql://123.206.195.72:3306/bray?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false
+      url: jdbc:mysql://122.114.68.113:3306/bray?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false
       username: root
       password: wzy5789778
       driver-class-name: com.mysql.jdbc.Driver
