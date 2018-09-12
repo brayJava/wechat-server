@@ -31,42 +31,42 @@ import java.util.Objects;
 @Service
 public class WechatAuthServiceImpl implements IWechatAuthService {
 
-    @Autowired
-    private WeixinProxy weixinProxy;
-    @Value("${weixin4j.id}")
-    private String appId;
+//    @Autowired
+//    private WeixinProxy weixinProxy;
+//    @Value("${weixin4j.id}")
+//    private String appId;
     @Resource
     private WyWechatAuthMapper wyWechatAuthMapper;
 
     @Override
     public String signature(String linkUrl) {
-//        WyWechatAuthExample wyWechatAuthExample = new WyWechatAuthExample();
-//        wyWechatAuthExample.createCriteria().andStatusEqualTo(EffectiveType.EFFECTIVE_YES);
-//        wyWechatAuthExample.setOrderByClause("update_time desc limit 1");
-//        List<WyWechatAuth> wyWechatAuths = wyWechatAuthMapper.selectByExample(wyWechatAuthExample);
+        WyWechatAuthExample wyWechatAuthExample = new WyWechatAuthExample();
+        wyWechatAuthExample.createCriteria().andStatusEqualTo(EffectiveType.EFFECTIVE_YES);
+        wyWechatAuthExample.setOrderByClause("update_time desc limit 1");
+        List<WyWechatAuth> wyWechatAuths = wyWechatAuthMapper.selectByExample(wyWechatAuthExample);
         JSONObject jsonObject = new JSONObject();
-//        if(!CollectionUtils.isEmpty(wyWechatAuths)) {
-//            WyWechatAuth wyWechatAuth = wyWechatAuths.get(0);
-//            WeixinProxy weixinProxy = new WeixinProxy(new WeixinAccount(wyWechatAuth.getWeixinId()
-//                    ,wyWechatAuth.getWeixinSecret()),new FileCacheStorager<Token>());
-        TokenManager ticketManager = weixinProxy.getTicketManager(TicketType.jsapi);
-        Token ticketManagerCache = null;
-        try {
-            ticketManagerCache = ticketManager.getCache();
-        } catch (WeixinException e) {
-            e.printStackTrace();
-        }
-        if(Objects.isNull(ticketManagerCache)) return "{}";
-        Integer timestamp = Integer.valueOf(String.valueOf(ticketManagerCache.getCreateTime()/1000));
-        String noncestr = WeixinJSAuthorization.getNoncestr(17);
-        String signature = WeixinJSAuthorization.getSignature(ticketManagerCache.getAccessToken(), timestamp.toString(), noncestr, linkUrl);
+        if(!CollectionUtils.isEmpty(wyWechatAuths)) {
+            WyWechatAuth wyWechatAuth = wyWechatAuths.get(0);
+            WeixinProxy weixinProxy = new WeixinProxy(new WeixinAccount(wyWechatAuth.getWeixinId()
+                    ,wyWechatAuth.getWeixinSecret()),new FileCacheStorager<Token>());
+            TokenManager ticketManager = weixinProxy.getTicketManager(TicketType.jsapi);
+            Token ticketManagerCache = null;
+            try {
+                ticketManagerCache = ticketManager.getCache();
+            } catch (WeixinException e) {
+                e.printStackTrace();
+            }
+            if(Objects.isNull(ticketManagerCache)) return "{}";
+            Integer timestamp = Integer.valueOf(String.valueOf(ticketManagerCache.getCreateTime()/1000));
+            String noncestr = WeixinJSAuthorization.getNoncestr(17);
+            String signature = WeixinJSAuthorization.getSignature(ticketManagerCache.getAccessToken(), timestamp.toString(), noncestr, linkUrl);
 
-        jsonObject.put("signature",signature);
-        jsonObject.put("noncestr",noncestr);
-        jsonObject.put("timestamp",String.valueOf(timestamp));
-        jsonObject.put("accesstoken",ticketManagerCache.getAccessToken());
-        jsonObject.put("theAppId",appId);
-//        }
+            jsonObject.put("signature",signature);
+            jsonObject.put("noncestr",noncestr);
+            jsonObject.put("timestamp",String.valueOf(timestamp));
+            jsonObject.put("accesstoken",ticketManagerCache.getAccessToken());
+            jsonObject.put("theAppId",wyWechatAuth.getWeixinId());
+        }
         return jsonObject.toJSONString();
     }
 }

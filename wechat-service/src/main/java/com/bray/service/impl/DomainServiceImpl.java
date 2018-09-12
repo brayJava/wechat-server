@@ -42,7 +42,9 @@ public class DomainServiceImpl extends DomainBaseService
      */
     public Object queryAllEffectiveDomain() {
         WyDomainExample wyDomainExample = new WyDomainExample();
-        wyDomainExample.createCriteria().andIsDelEqualTo(EffectiveType.EFFECTIVE_YES);
+        wyDomainExample.createCriteria()
+                .andIsDelEqualTo(EffectiveType.EFFECTIVE_YES)
+                .andStatusEqualTo(EffectiveType.EFFECTIVE_YES);
         wyDomainExample.setOrderByClause("update_time desc");
         List<WyDomain> wyDomains = wyDomainMapper.selectByExample(wyDomainExample);
         List<PrimarySubDomain> primarySubDomainList = new ArrayList<>();
@@ -54,7 +56,8 @@ public class DomainServiceImpl extends DomainBaseService
                         .andDomainIdEqualTo(wyDomain.getId());
                 wySubdomainExample.setOrderByClause(" create_time desc ");
                 List<WySubdomain> wySubdomains = wySubdomainMapper.selectByExample(wySubdomainExample);
-                PrimarySubDomain primarySubDomain = PrimarySubDomain.builder().wyDomain(wyDomain).wySubdomainList(wySubdomains).build();
+                PrimarySubDomain primarySubDomain = PrimarySubDomain.builder()
+                        .wyDomain(wyDomain).wySubdomainList(wySubdomains).build();
                 primarySubDomainList.add(primarySubDomain);
             });
         }

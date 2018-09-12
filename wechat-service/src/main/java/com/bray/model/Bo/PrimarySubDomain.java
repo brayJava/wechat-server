@@ -5,6 +5,7 @@ import com.bray.model.WySubdomain;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ import java.util.List;
  */
 @Builder
 @Data
-public class PrimarySubDomain {
+public class PrimarySubDomain implements Serializable {
 
     private WyDomain wyDomain;
 
