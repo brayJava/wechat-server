@@ -1,5 +1,6 @@
 package com.bray.service.impl;
 
+import com.bray.dto.ConstatFinal;
 import com.bray.dto.EffectiveType;
 import com.bray.model.Bo.PrimarySubDomain;
 import com.bray.model.WyDomain;
@@ -40,11 +41,17 @@ public class DomainServiceImpl extends DomainBaseService
      *查询所有有效域名{“主域名”：{"主域名"：primaryDomain,[{"子域名"：subDomain}]}}
      * @return
      */
-    public Object queryAllEffectiveDomain() {
+    public Object queryAllEffectiveDomain(String queryType) {
         WyDomainExample wyDomainExample = new WyDomainExample();
-        wyDomainExample.createCriteria()
-                .andIsDelEqualTo(EffectiveType.EFFECTIVE_YES)
-                .andStatusEqualTo(EffectiveType.EFFECTIVE_YES);
+        //如果是admin查询则返回所有没被删除的
+        if(ConstatFinal.QUERY_ADMIN.equals(queryType))
+             wyDomainExample.createCriteria().andIsDelEqualTo(EffectiveType.EFFECTIVE_YES);
+        //如果是web查询则返回所有有效且没被删除的
+        if(ConstatFinal.QUERY_WEB.equals(queryType)) {
+            wyDomainExample.createCriteria()
+                    .andIsDelEqualTo(EffectiveType.EFFECTIVE_YES)
+                    .andStatusEqualTo(EffectiveType.EFFECTIVE_YES);
+        }
         wyDomainExample.setOrderByClause("update_time desc");
         List<WyDomain> wyDomains = wyDomainMapper.selectByExample(wyDomainExample);
         List<PrimarySubDomain> primarySubDomainList = new ArrayList<>();

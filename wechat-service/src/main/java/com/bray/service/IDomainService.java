@@ -18,5 +18,5 @@ public interface IDomainService<T> {
      * 查询所有有效的域名
      * @return
      */
-    Object queryAllEffectiveDomain();
+    Object queryAllEffectiveDomain(String ServiceType);
 }

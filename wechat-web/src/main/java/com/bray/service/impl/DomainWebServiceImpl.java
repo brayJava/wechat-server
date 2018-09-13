@@ -2,6 +2,8 @@ package com.bray.service.impl;
 
 import com.bray.aop.annotation.QueryCache;
 import com.bray.config.WebConst;
+import com.bray.dto.ConstFinal;
+import com.bray.dto.ConstatFinal;
 import com.bray.model.Bo.PrimarySubDomain;
 import com.bray.model.enums.DomainType;
 import com.bray.service.IDomainService;
@@ -10,8 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-
-import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +41,7 @@ public class DomainWebServiceImpl implements IDomainWebService{
     public Object queryDomainByredisServer(String domainFlag) {
         //获取所有有效域名域名
         List<PrimarySubDomain> allEffectiveDomain =
-                (List<PrimarySubDomain>) domainService.queryAllEffectiveDomain();
+                (List<PrimarySubDomain>) domainService.queryAllEffectiveDomain(ConstatFinal.QUERY_WEB);
         if(!CollectionUtils.isEmpty(allEffectiveDomain)) {
             allEffectiveDomain.forEach(primarySubDomain -> {
                 String type = primarySubDomain.getWyDomain().getType();

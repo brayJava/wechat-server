@@ -1,6 +1,7 @@
 package com.bray.web.controller;
 
 import com.bray.config.WebConst;
+import com.bray.dto.ConstatFinal;
 import com.bray.dto.DomainType;
 import com.bray.model.Bo.PrimarySubDomain;
 import com.bray.model.Bo.RestResponseBo;
@@ -39,7 +40,7 @@ public class DomainController {
     public String doamin(Model model) {
         //查询所有有效域名
         List<PrimarySubDomain> primarySubDomainList =
-                (List<PrimarySubDomain>) domainService.queryAllEffectiveDomain();
+                (List<PrimarySubDomain>) domainService.queryAllEffectiveDomain(ConstatFinal.QUERY_ADMIN);
         model.addAttribute(WebConst.ALL_DOMAIN,primarySubDomainList);
         return "domain/domain";
     }

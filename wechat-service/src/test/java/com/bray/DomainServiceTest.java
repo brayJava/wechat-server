@@ -1,6 +1,7 @@
 package com.bray;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bray.dto.ConstatFinal;
 import com.bray.service.impl.DomainServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +28,7 @@ public class DomainServiceTest {
     @Test
     public void queryAllEffectiveDomain() {
 
-        Object o = domainService.queryAllEffectiveDomain();
+        Object o = domainService.queryAllEffectiveDomain(ConstatFinal.QUERY_ADMIN);
         System.out.println(JSONObject.toJSON(o).toString());
     }
 }

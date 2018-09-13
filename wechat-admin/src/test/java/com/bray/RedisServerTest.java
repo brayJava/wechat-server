@@ -33,7 +33,7 @@ public class RedisServerTest {
 //      redisCache.deleteDataOfRedis("test");
         Article article = new Article("wode","desw","http://localhsot","dfewf");
 //        redisCache.saveDataToRedis("redisTest",article);
-        Object redisTest = redisCache.getRedisValueByKey("redisTest");
+        Object redisTest = redisCache.getRedisValueByKey("domain_map");
         System.out.println(JSONObject.toJSONString(redisTest));
 
     }

@@ -11,4 +11,9 @@ public interface ConstatFinal {
     String AUTHOR = "LM";
 
     String DOMAIN_MAP = "domain_map";
+
+    //查询类型
+    String QUERY_ADMIN="query_admin";
+
+    String QUERY_WEB="query_web";
 }
