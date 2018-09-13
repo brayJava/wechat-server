@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
  * @Date: Created in 10:37 2018/8/15
  * @Modified By:
  */
-//@Configuration
+@Configuration
 public class WechatConfig {
 
     @Value("${weixin4j.cache}")
