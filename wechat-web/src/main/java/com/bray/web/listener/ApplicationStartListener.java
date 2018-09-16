@@ -1,5 +1,6 @@
 package com.bray.web.listener;
 import com.bray.config.WebConst;
+import com.bray.dto.ConstatFinal;
 import com.bray.model.Bo.PrimarySubDomain;
 import com.bray.model.enums.DomainType;
 import com.bray.service.impl.DomainServiceImpl;
@@ -30,7 +31,7 @@ public class ApplicationStartListener
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         //获取所有有效域名域名
         List<PrimarySubDomain> allEffectiveDomain =
-                (List<PrimarySubDomain>) domainService.queryAllEffectiveDomain();
+                (List<PrimarySubDomain>) domainService.queryAllEffectiveDomain(ConstatFinal.QUERY_WEB);
         if(!CollectionUtils.isEmpty(allEffectiveDomain)) {
             allEffectiveDomain.forEach(primarySubDomain -> {
                 String type = primarySubDomain.getWyDomain().getType();
