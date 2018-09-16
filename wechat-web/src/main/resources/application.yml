@@ -23,17 +23,14 @@ info:
 logging:
   config: classpath:logback-spring.xml
   level: INFO
-  level:
-    com:
-      bray:
-        service: DEBUG
-    org:
-      mybatis:
-        spring: DEBUG
-
-
-
-#微信授权接口
+#  level:
+#      com:
+#        bray:
+#           service: DEBUG
+#      org:
+#        mybatis:
+#           spring: DEBUG
+##微信授权接口
 #weixin4j:
 #  id: wxfdd42e830e431893
 #  secret: 902211bd94c8bc20e0801b669fbe9fe4
