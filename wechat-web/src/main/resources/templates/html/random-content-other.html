@@ -182,7 +182,7 @@
         url: window.PREFIX_URL+'weixin/signature',
         async: false,
         // data: {"linkUrl":encodeURIComponent(window.location.href.split('#')[0])},
-        data: {"linkUrl":encodeURIComponent(base64Decode(share_url))},
+        data: {"linkUrl":encodeURIComponent(base64Decode(share_url).split('#')[0])},
         dataType: "json",
         type: 'post',
         success: function (data) {
