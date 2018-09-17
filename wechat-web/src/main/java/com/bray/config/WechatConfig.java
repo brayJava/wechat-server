@@ -44,18 +44,18 @@ public class WechatConfig {
      */
     @Bean
     public WeixinProxy initWeixinProxy() {
-        WyWechatAuthExample wyWechatAuthExample = new WyWechatAuthExample();
-        wyWechatAuthExample.createCriteria().andStatusEqualTo(EffectiveType.EFFECTIVE_YES);
-        wyWechatAuthExample.setOrderByClause("update_time desc limit 1");
-        List<WyWechatAuth> wyWechatAuths = wyWechatAuthMapper.selectByExample(wyWechatAuthExample);
-        if(CollectionUtils.isEmpty(wyWechatAuths)) return null;
-        WyWechatAuth wyWechatAuth = wyWechatAuths.get(0);
-        log.info("-------授权类：{}", JSONObject.toJSONString(wyWechatAuth));
+//        WyWechatAuthExample wyWechatAuthExample = new WyWechatAuthExample();
+//        wyWechatAuthExample.createCriteria().andStatusEqualTo(EffectiveType.EFFECTIVE_YES);
+//        wyWechatAuthExample.setOrderByClause("update_time desc limit 1");
+//        List<WyWechatAuth> wyWechatAuths = wyWechatAuthMapper.selectByExample(wyWechatAuthExample);
+//        if(CollectionUtils.isEmpty(wyWechatAuths)) return null;
+//        WyWechatAuth wyWechatAuth = wyWechatAuths.get(0);
+//        log.info("-------授权类：{}", JSONObject.toJSONString(wyWechatAuth));
         WeixinProxy weixinProxy = null;
-        if("FILE".equals(wyWechatAuth.getWeixinCache())) {
-            weixinProxy = new WeixinProxy(new WeixinAccount(wyWechatAuth.getWeixinId(),wyWechatAuth.getWeixinSecret()),new FileCacheStorager<Token>());
+        if("FILE".equals(weixinCache)) {
+            weixinProxy = new WeixinProxy(new WeixinAccount(weixinId,weixinSecret),new FileCacheStorager<Token>());
         } else {
-            weixinProxy = new WeixinProxy(new WeixinAccount(wyWechatAuth.getWeixinId(),wyWechatAuth.getWeixinSecret()),new MemcacheCacheStorager<Token>());
+            weixinProxy = new WeixinProxy(new WeixinAccount(weixinId,weixinSecret),new MemcacheCacheStorager<Token>());
         }
         return weixinProxy;
     }
