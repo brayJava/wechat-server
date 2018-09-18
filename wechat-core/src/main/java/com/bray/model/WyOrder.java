@@ -1,8 +1,8 @@
 package com.bray.model;
 
-import java.io.Serializable;
+import java.util.Date;
 
-public class WyOrder implements Serializable {
+public class WyOrder {
     private Integer id;
 
     private String name;
@@ -10,6 +10,8 @@ public class WyOrder implements Serializable {
     private String phone;
 
     private String title;
+
+    private String size;
 
     private Double price;
 
@@ -34,6 +36,10 @@ public class WyOrder implements Serializable {
     private String email;
 
     private Integer age;
+
+    private Date createTime;
+
+    private Date updateTime;
 
     public Integer getId() {
         return id;
@@ -67,11 +73,20 @@ public class WyOrder implements Serializable {
         this.title = title == null ? null : title.trim();
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public String getSize() {
+        return size;
     }
+
+    public void setSize(String size) {
+        this.size = size == null ? null : size.trim();
+    }
+
     public Double getPrice() {
         return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public String getProvince() {
@@ -160,5 +175,21 @@ public class WyOrder implements Serializable {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

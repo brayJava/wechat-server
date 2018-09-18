@@ -3,8 +3,17 @@ package com.bray.mapper;
 import com.bray.model.WyOrder;
 import com.bray.model.WyOrderExample;
 import java.util.List;
-
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.DeleteProvider;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
 public interface WyOrderMapper {
@@ -22,25 +31,25 @@ public interface WyOrderMapper {
 
     @Insert({
         "insert into wy_order (id, name, ",
-        "phone, title, price, ",
-        "province, city, ",
-        "county, address, ",
+        "phone, title, size, ",
+        "price, province, ",
+        "city, county, address, ",
         "num, number, idnumber, ",
         "qq, wechat, email, ",
-        "age)",
+        "age, create_time, ",
+        "update_time)",
         "values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, ",
-        "#{phone,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, ",
-        "#{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, ",
-        "#{county,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, ",
+        "#{phone,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{size,jdbcType=VARCHAR}, ",
+        "#{price,jdbcType=DECIMAL}, #{province,jdbcType=VARCHAR}, ",
+        "#{city,jdbcType=VARCHAR}, #{county,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, ",
         "#{num,jdbcType=INTEGER}, #{number,jdbcType=INTEGER}, #{idnumber,jdbcType=VARCHAR}, ",
         "#{qq,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, ",
-        "#{age,jdbcType=INTEGER})"
+        "#{age,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{updateTime,jdbcType=TIMESTAMP})"
     })
-    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     int insert(WyOrder record);
 
     @InsertProvider(type=WyOrderSqlProvider.class, method="insertSelective")
-    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     int insertSelective(WyOrder record);
 
     @SelectProvider(type=WyOrderSqlProvider.class, method="selectByExample")
@@ -49,6 +58,7 @@ public interface WyOrderMapper {
         @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
         @Result(column="phone", property="phone", jdbcType=JdbcType.VARCHAR),
         @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
+        @Result(column="size", property="size", jdbcType=JdbcType.VARCHAR),
         @Result(column="price", property="price", jdbcType=JdbcType.DECIMAL),
         @Result(column="province", property="province", jdbcType=JdbcType.VARCHAR),
         @Result(column="city", property="city", jdbcType=JdbcType.VARCHAR),
@@ -60,14 +70,16 @@ public interface WyOrderMapper {
         @Result(column="qq", property="qq", jdbcType=JdbcType.VARCHAR),
         @Result(column="wechat", property="wechat", jdbcType=JdbcType.VARCHAR),
         @Result(column="email", property="email", jdbcType=JdbcType.VARCHAR),
-        @Result(column="age", property="age", jdbcType=JdbcType.INTEGER)
+        @Result(column="age", property="age", jdbcType=JdbcType.INTEGER),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
     })
     List<WyOrder> selectByExample(WyOrderExample example);
 
     @Select({
         "select",
-        "id, name, phone, title, price, province, city, county, address, num, number, ",
-        "idnumber, qq, wechat, email, age",
+        "id, name, phone, title, size, price, province, city, county, address, num, number, ",
+        "idnumber, qq, wechat, email, age, create_time, update_time",
         "from wy_order",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -76,6 +88,7 @@ public interface WyOrderMapper {
         @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
         @Result(column="phone", property="phone", jdbcType=JdbcType.VARCHAR),
         @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
+        @Result(column="size", property="size", jdbcType=JdbcType.VARCHAR),
         @Result(column="price", property="price", jdbcType=JdbcType.DECIMAL),
         @Result(column="province", property="province", jdbcType=JdbcType.VARCHAR),
         @Result(column="city", property="city", jdbcType=JdbcType.VARCHAR),
@@ -87,7 +100,9 @@ public interface WyOrderMapper {
         @Result(column="qq", property="qq", jdbcType=JdbcType.VARCHAR),
         @Result(column="wechat", property="wechat", jdbcType=JdbcType.VARCHAR),
         @Result(column="email", property="email", jdbcType=JdbcType.VARCHAR),
-        @Result(column="age", property="age", jdbcType=JdbcType.INTEGER)
+        @Result(column="age", property="age", jdbcType=JdbcType.INTEGER),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
     })
     WyOrder selectByPrimaryKey(Integer id);
 
@@ -105,6 +120,7 @@ public interface WyOrderMapper {
         "set name = #{name,jdbcType=VARCHAR},",
           "phone = #{phone,jdbcType=VARCHAR},",
           "title = #{title,jdbcType=VARCHAR},",
+          "size = #{size,jdbcType=VARCHAR},",
           "price = #{price,jdbcType=DECIMAL},",
           "province = #{province,jdbcType=VARCHAR},",
           "city = #{city,jdbcType=VARCHAR},",
@@ -116,7 +132,9 @@ public interface WyOrderMapper {
           "qq = #{qq,jdbcType=VARCHAR},",
           "wechat = #{wechat,jdbcType=VARCHAR},",
           "email = #{email,jdbcType=VARCHAR},",
-          "age = #{age,jdbcType=INTEGER}",
+          "age = #{age,jdbcType=INTEGER},",
+          "create_time = #{createTime,jdbcType=TIMESTAMP},",
+          "update_time = #{updateTime,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(WyOrder record);

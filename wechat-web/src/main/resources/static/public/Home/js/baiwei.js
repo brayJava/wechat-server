@@ -85,6 +85,7 @@
 			var number = parseInt($('input[name="number"]').val());
 			var num = parseInt($('input[name="num"]').val());
 			var sid = $('input[name="sid"]').val();
+            var size = $('input[name="size"]').val();
 
 			
 			var namereg = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
@@ -196,6 +197,7 @@
 				"name" :name,
 				"phone":phone,
 				"title":title,
+				"size":size,
 				"address":address,
 				"province":province,
 				"city":city,

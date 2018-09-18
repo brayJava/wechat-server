@@ -57,6 +57,10 @@ public class WyOrderSqlProvider {
             VALUES("title", "#{title,jdbcType=VARCHAR}");
         }
         
+        if (record.getSize() != null) {
+            VALUES("size", "#{size,jdbcType=VARCHAR}");
+        }
+        
         if (record.getPrice() != null) {
             VALUES("price", "#{price,jdbcType=DECIMAL}");
         }
@@ -105,6 +109,14 @@ public class WyOrderSqlProvider {
             VALUES("age", "#{age,jdbcType=INTEGER}");
         }
         
+        if (record.getCreateTime() != null) {
+            VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getUpdateTime() != null) {
+            VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
+        }
+        
         return SQL();
     }
 
@@ -118,6 +130,7 @@ public class WyOrderSqlProvider {
         SELECT("name");
         SELECT("phone");
         SELECT("title");
+        SELECT("size");
         SELECT("price");
         SELECT("province");
         SELECT("city");
@@ -130,6 +143,8 @@ public class WyOrderSqlProvider {
         SELECT("wechat");
         SELECT("email");
         SELECT("age");
+        SELECT("create_time");
+        SELECT("update_time");
         FROM("wy_order");
         applyWhere(example, false);
         
@@ -161,6 +176,10 @@ public class WyOrderSqlProvider {
         
         if (record.getTitle() != null) {
             SET("title = #{record.title,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getSize() != null) {
+            SET("size = #{record.size,jdbcType=VARCHAR}");
         }
         
         if (record.getPrice() != null) {
@@ -211,6 +230,14 @@ public class WyOrderSqlProvider {
             SET("age = #{record.age,jdbcType=INTEGER}");
         }
         
+        if (record.getCreateTime() != null) {
+            SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getUpdateTime() != null) {
+            SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
+        }
+        
         applyWhere(example, true);
         return SQL();
     }
@@ -223,6 +250,7 @@ public class WyOrderSqlProvider {
         SET("name = #{record.name,jdbcType=VARCHAR}");
         SET("phone = #{record.phone,jdbcType=VARCHAR}");
         SET("title = #{record.title,jdbcType=VARCHAR}");
+        SET("size = #{record.size,jdbcType=VARCHAR}");
         SET("price = #{record.price,jdbcType=DECIMAL}");
         SET("province = #{record.province,jdbcType=VARCHAR}");
         SET("city = #{record.city,jdbcType=VARCHAR}");
@@ -235,6 +263,8 @@ public class WyOrderSqlProvider {
         SET("wechat = #{record.wechat,jdbcType=VARCHAR}");
         SET("email = #{record.email,jdbcType=VARCHAR}");
         SET("age = #{record.age,jdbcType=INTEGER}");
+        SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         
         WyOrderExample example = (WyOrderExample) parameter.get("example");
         applyWhere(example, true);
@@ -255,6 +285,10 @@ public class WyOrderSqlProvider {
         
         if (record.getTitle() != null) {
             SET("title = #{title,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getSize() != null) {
+            SET("size = #{size,jdbcType=VARCHAR}");
         }
         
         if (record.getPrice() != null) {
@@ -303,6 +337,14 @@ public class WyOrderSqlProvider {
         
         if (record.getAge() != null) {
             SET("age = #{age,jdbcType=INTEGER}");
+        }
+        
+        if (record.getCreateTime() != null) {
+            SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getUpdateTime() != null) {
+            SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
         }
         
         WHERE("id = #{id,jdbcType=INTEGER}");

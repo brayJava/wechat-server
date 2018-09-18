@@ -4,6 +4,8 @@ import com.bray.model.Bo.RestResponseBo;
 import com.bray.model.Vo.OrderModelVo;
 import com.bray.service.IOrderWebService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +24,9 @@ import javax.annotation.Resource;
 public class WechatOrderController {
     @Resource
     private IOrderWebService iOrderWebService;
+
+    @Resource
+    private JavaMailSenderImpl javaMailSender;
     /**
      * 订单跳转
      */
@@ -41,7 +46,28 @@ public class WechatOrderController {
     @ResponseBody
     public RestResponseBo orderConfirm(OrderModelVo orderModelVo) {
         iOrderWebService.insert(orderModelVo);
+        //发送email
+        sendEmailWithOrder(orderModelVo);
         log.info("----订单数据...{}", JSONObject.toJSONString(orderModelVo));
         return RestResponseBo.ok();
+    }
+
+
+    private void sendEmailWithOrder(OrderModelVo orderModelVo) {
+        StringBuilder orderBuf = new StringBuilder();
+        orderBuf.append("------------新的订单------------- \n");
+        orderBuf.append("姓名："+orderModelVo.getName()+"\n");
+        orderBuf.append("电话："+orderModelVo.getPhone()+"\n");
+        orderBuf.append("城市："+orderModelVo.getProvince()+orderModelVo
+                .getCity()+orderModelVo.getCounty()+"\n");
+        orderBuf.append("地址："+orderModelVo.getAddress()+"\n");
+        orderBuf.append("商品类型："+orderModelVo.getTitle()+"\n");
+        orderBuf.append("尺寸大小："+orderModelVo.getSize());
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setSubject("有新的订单");
+        simpleMailMessage.setText(orderBuf.toString());
+        simpleMailMessage.setTo("1318134732@qq.com");
+        simpleMailMessage.setFrom("goodboy_bray@163.com");
+        javaMailSender.send(simpleMailMessage);
     }
 }

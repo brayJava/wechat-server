@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
+
 /**
  * @Author:wuzhiyuan
  * @Description: 订单详情
@@ -24,7 +26,6 @@ public class OrderWebServiceImpl implements IOrderWebService {
      */
     @Override
     public void insert(OrderModelVo orderModelVo) {
-
         WyOrder wyOrder = new WyOrder();
         wyOrder.setName(orderModelVo.getName());
         wyOrder.setPhone(orderModelVo.getPhone());
@@ -38,9 +39,12 @@ public class OrderWebServiceImpl implements IOrderWebService {
         wyOrder.setIdnumber(orderModelVo.getIdnumber());
         wyOrder.setQq(orderModelVo.getQq());
         wyOrder.setTitle(orderModelVo.getTitle());
+        wyOrder.setSize(orderModelVo.getSize());
         wyOrder.setWechat(orderModelVo.getWechat());
         wyOrder.setNum(orderModelVo.getNum());
         wyOrder.setNumber(orderModelVo.getNumber());
+        wyOrder.setCreateTime(new Date());
+        wyOrder.setUpdateTime(new Date());
         try {
             wyOrderMapper.insertSelective(wyOrder);
         } catch (Exception e) {

@@ -26,6 +26,10 @@ public class OrderModelVo {
      */
     private String title;
     /**
+     * 商品名称
+     */
+    private String size;
+    /**
      * 具体地址
      */
     private String address;
