@@ -76,7 +76,7 @@ public class WechatOrderController {
         simpleMailMessage.setFrom("goodboy_bray@163.com");
         Properties prop = new Properties();
         //解决ip与域名不匹配的问题
-        prop.put("mail.smtp.localhost","www.q8not.cn");
+        prop.put("mail.smtp.localhost","mail.163.com");
         prop.put("mail.smtp.auth", "false");
 //        prop.put("mail.smtp.port", "25");
         javaMailSender.setJavaMailProperties(prop);
