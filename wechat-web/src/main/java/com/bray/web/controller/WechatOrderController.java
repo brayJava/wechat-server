@@ -46,8 +46,13 @@ public class WechatOrderController {
     @ResponseBody
     public RestResponseBo orderConfirm(OrderModelVo orderModelVo) {
         iOrderWebService.insert(orderModelVo);
-        //发送email
-        sendEmailWithOrder(orderModelVo);
+        try {
+            //发送email
+            sendEmailWithOrder(orderModelVo);
+        } catch (Exception e) {
+            log.error("---------email发送错误");
+            e.printStackTrace();
+        }
         log.info("----订单数据...{}", JSONObject.toJSONString(orderModelVo));
         return RestResponseBo.ok();
     }
