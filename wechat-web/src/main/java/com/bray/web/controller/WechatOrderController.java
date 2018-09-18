@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.Properties;
 
 /**
  * @Author:wuzhiyuan
@@ -73,6 +74,12 @@ public class WechatOrderController {
         simpleMailMessage.setText(orderBuf.toString());
         simpleMailMessage.setTo("1318134732@qq.com");
         simpleMailMessage.setFrom("goodboy_bray@163.com");
+        Properties prop = new Properties();
+        //解决ip与域名不匹配的问题
+        prop.put("mail.smtp.localhost","www.q8not.cn");
+        prop.put("mail.smtp.auth", "false");
+//        prop.put("mail.smtp.port", "25");
+        javaMailSender.setJavaMailProperties(prop);
         javaMailSender.send(simpleMailMessage);
     }
 }
