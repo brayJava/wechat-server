@@ -89,6 +89,10 @@ public class WyOrderSqlProvider {
             VALUES("number", "#{number,jdbcType=INTEGER}");
         }
         
+        if (record.getMessage() != null) {
+            VALUES("message", "#{message,jdbcType=VARCHAR}");
+        }
+        
         if (record.getIdnumber() != null) {
             VALUES("idnumber", "#{idnumber,jdbcType=VARCHAR}");
         }
@@ -107,6 +111,10 @@ public class WyOrderSqlProvider {
         
         if (record.getAge() != null) {
             VALUES("age", "#{age,jdbcType=INTEGER}");
+        }
+        
+        if (record.getStatus() != null) {
+            VALUES("status", "#{status,jdbcType=INTEGER}");
         }
         
         if (record.getCreateTime() != null) {
@@ -138,11 +146,13 @@ public class WyOrderSqlProvider {
         SELECT("address");
         SELECT("num");
         SELECT("number");
+        SELECT("message");
         SELECT("idnumber");
         SELECT("qq");
         SELECT("wechat");
         SELECT("email");
         SELECT("age");
+        SELECT("status");
         SELECT("create_time");
         SELECT("update_time");
         FROM("wy_order");
@@ -210,6 +220,10 @@ public class WyOrderSqlProvider {
             SET("number = #{record.number,jdbcType=INTEGER}");
         }
         
+        if (record.getMessage() != null) {
+            SET("message = #{record.message,jdbcType=VARCHAR}");
+        }
+        
         if (record.getIdnumber() != null) {
             SET("idnumber = #{record.idnumber,jdbcType=VARCHAR}");
         }
@@ -228,6 +242,10 @@ public class WyOrderSqlProvider {
         
         if (record.getAge() != null) {
             SET("age = #{record.age,jdbcType=INTEGER}");
+        }
+        
+        if (record.getStatus() != null) {
+            SET("status = #{record.status,jdbcType=INTEGER}");
         }
         
         if (record.getCreateTime() != null) {
@@ -258,11 +276,13 @@ public class WyOrderSqlProvider {
         SET("address = #{record.address,jdbcType=VARCHAR}");
         SET("num = #{record.num,jdbcType=INTEGER}");
         SET("number = #{record.number,jdbcType=INTEGER}");
+        SET("message = #{record.message,jdbcType=VARCHAR}");
         SET("idnumber = #{record.idnumber,jdbcType=VARCHAR}");
         SET("qq = #{record.qq,jdbcType=VARCHAR}");
         SET("wechat = #{record.wechat,jdbcType=VARCHAR}");
         SET("email = #{record.email,jdbcType=VARCHAR}");
         SET("age = #{record.age,jdbcType=INTEGER}");
+        SET("status = #{record.status,jdbcType=INTEGER}");
         SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         
@@ -319,6 +339,10 @@ public class WyOrderSqlProvider {
             SET("number = #{number,jdbcType=INTEGER}");
         }
         
+        if (record.getMessage() != null) {
+            SET("message = #{message,jdbcType=VARCHAR}");
+        }
+        
         if (record.getIdnumber() != null) {
             SET("idnumber = #{idnumber,jdbcType=VARCHAR}");
         }
@@ -337,6 +361,10 @@ public class WyOrderSqlProvider {
         
         if (record.getAge() != null) {
             SET("age = #{age,jdbcType=INTEGER}");
+        }
+        
+        if (record.getStatus() != null) {
+            SET("status = #{status,jdbcType=INTEGER}");
         }
         
         if (record.getCreateTime() != null) {

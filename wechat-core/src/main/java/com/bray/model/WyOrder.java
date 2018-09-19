@@ -1,7 +1,6 @@
 package com.bray.model;
 
 import java.util.Date;
-
 public class WyOrder {
     private Integer id;
 
@@ -27,6 +26,8 @@ public class WyOrder {
 
     private Integer number;
 
+    private String message;
+
     private String idnumber;
 
     private String qq;
@@ -36,6 +37,8 @@ public class WyOrder {
     private String email;
 
     private Integer age;
+
+    private Integer status;
 
     private Date createTime;
 
@@ -137,6 +140,14 @@ public class WyOrder {
         this.number = number;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message == null ? null : message.trim();
+    }
+
     public String getIdnumber() {
         return idnumber;
     }
@@ -175,6 +186,14 @@ public class WyOrder {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Date getCreateTime() {

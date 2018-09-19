@@ -34,18 +34,18 @@ public interface WyOrderMapper {
         "phone, title, size, ",
         "price, province, ",
         "city, county, address, ",
-        "num, number, idnumber, ",
-        "qq, wechat, email, ",
-        "age, create_time, ",
-        "update_time)",
+        "num, number, message, ",
+        "idnumber, qq, wechat, ",
+        "email, age, status, ",
+        "create_time, update_time)",
         "values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, ",
         "#{phone,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{size,jdbcType=VARCHAR}, ",
         "#{price,jdbcType=DECIMAL}, #{province,jdbcType=VARCHAR}, ",
         "#{city,jdbcType=VARCHAR}, #{county,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, ",
-        "#{num,jdbcType=INTEGER}, #{number,jdbcType=INTEGER}, #{idnumber,jdbcType=VARCHAR}, ",
-        "#{qq,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, ",
-        "#{age,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{updateTime,jdbcType=TIMESTAMP})"
+        "#{num,jdbcType=INTEGER}, #{number,jdbcType=INTEGER}, #{message,jdbcType=VARCHAR}, ",
+        "#{idnumber,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, ",
+        "#{email,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, ",
+        "#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})"
     })
     int insert(WyOrder record);
 
@@ -66,11 +66,13 @@ public interface WyOrderMapper {
         @Result(column="address", property="address", jdbcType=JdbcType.VARCHAR),
         @Result(column="num", property="num", jdbcType=JdbcType.INTEGER),
         @Result(column="number", property="number", jdbcType=JdbcType.INTEGER),
+        @Result(column="message", property="message", jdbcType=JdbcType.VARCHAR),
         @Result(column="idnumber", property="idnumber", jdbcType=JdbcType.VARCHAR),
         @Result(column="qq", property="qq", jdbcType=JdbcType.VARCHAR),
         @Result(column="wechat", property="wechat", jdbcType=JdbcType.VARCHAR),
         @Result(column="email", property="email", jdbcType=JdbcType.VARCHAR),
         @Result(column="age", property="age", jdbcType=JdbcType.INTEGER),
+        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -79,7 +81,7 @@ public interface WyOrderMapper {
     @Select({
         "select",
         "id, name, phone, title, size, price, province, city, county, address, num, number, ",
-        "idnumber, qq, wechat, email, age, create_time, update_time",
+        "message, idnumber, qq, wechat, email, age, status, create_time, update_time",
         "from wy_order",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -96,11 +98,13 @@ public interface WyOrderMapper {
         @Result(column="address", property="address", jdbcType=JdbcType.VARCHAR),
         @Result(column="num", property="num", jdbcType=JdbcType.INTEGER),
         @Result(column="number", property="number", jdbcType=JdbcType.INTEGER),
+        @Result(column="message", property="message", jdbcType=JdbcType.VARCHAR),
         @Result(column="idnumber", property="idnumber", jdbcType=JdbcType.VARCHAR),
         @Result(column="qq", property="qq", jdbcType=JdbcType.VARCHAR),
         @Result(column="wechat", property="wechat", jdbcType=JdbcType.VARCHAR),
         @Result(column="email", property="email", jdbcType=JdbcType.VARCHAR),
         @Result(column="age", property="age", jdbcType=JdbcType.INTEGER),
+        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -128,11 +132,13 @@ public interface WyOrderMapper {
           "address = #{address,jdbcType=VARCHAR},",
           "num = #{num,jdbcType=INTEGER},",
           "number = #{number,jdbcType=INTEGER},",
+          "message = #{message,jdbcType=VARCHAR},",
           "idnumber = #{idnumber,jdbcType=VARCHAR},",
           "qq = #{qq,jdbcType=VARCHAR},",
           "wechat = #{wechat,jdbcType=VARCHAR},",
           "email = #{email,jdbcType=VARCHAR},",
           "age = #{age,jdbcType=INTEGER},",
+          "status = #{status,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "update_time = #{updateTime,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"
