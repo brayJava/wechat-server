@@ -37,6 +37,6 @@ logging:
 #  cache: FILE
 
 weixin4j:
-  id: wx8af2b78579077bd7
-  secret: 573dd07365ed7dd67933163944c92577
+  id: wxbb4ab7ed932865b4
+  secret: 85ff8381de984dba2e02067f5dbccb1d
   cache: FILE
