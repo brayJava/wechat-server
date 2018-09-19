@@ -35,6 +35,7 @@ public class OrderWebServiceImpl implements IOrderWebService {
         wyOrder.setCity(orderModelVo.getCity());
         wyOrder.setCounty(orderModelVo.getCounty());
         wyOrder.setProvince(orderModelVo.getProvince());
+        wyOrder.setMessage(orderModelVo.getMessage());
         wyOrder.setEmail(orderModelVo.getEmail());
         wyOrder.setIdnumber(orderModelVo.getIdnumber());
         wyOrder.setQq(orderModelVo.getQq());

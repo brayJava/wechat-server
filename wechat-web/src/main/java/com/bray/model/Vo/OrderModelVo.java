@@ -53,6 +53,10 @@ public class OrderModelVo {
      * 库存数量
      */
     private int number;
+    /**
+     * 留言
+     */
+    private String message;
     private String sid;
     private int age;
     private String height;
