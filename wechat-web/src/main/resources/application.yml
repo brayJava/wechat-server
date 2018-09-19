@@ -36,6 +36,7 @@ logging:
 #  secret: 902211bd94c8bc20e0801b669fbe9fe4
 #  cache: FILE
 
+
 weixin4j:
   id: wxbb4ab7ed932865b4
   secret: 85ff8381de984dba2e02067f5dbccb1d
