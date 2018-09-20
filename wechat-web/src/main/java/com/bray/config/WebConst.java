@@ -32,6 +32,10 @@ public class WebConst {
      */
     public static String SUB_COMMON_DOMAIN = "sub_common_domain";
     /**
+     * 非分享子域名（二级域名）
+     */
+    public static String RONDOM_COMMON_DOMAIN = "rondom_common_domain";
+    /**
      * 所有域名管理
      */
     public static String ALL_DOMAIN = "all_domain";

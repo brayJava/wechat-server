@@ -5,6 +5,7 @@ import com.bray.config.WebConst;
 import com.bray.dto.ConstFinal;
 import com.bray.dto.ConstatFinal;
 import com.bray.model.Bo.PrimarySubDomain;
+import com.bray.model.WySubdomain;
 import com.bray.model.enums.DomainType;
 import com.bray.service.IDomainService;
 import com.bray.service.IDomainWebService;
@@ -12,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +45,7 @@ public class DomainWebServiceImpl implements IDomainWebService{
         //获取所有有效域名域名
         List<PrimarySubDomain> allEffectiveDomain =
                 (List<PrimarySubDomain>) domainService.queryAllEffectiveDomain(ConstatFinal.QUERY_WEB);
+        List<WySubdomain> withoutShareDomains = new ArrayList<>();
         if(!CollectionUtils.isEmpty(allEffectiveDomain)) {
             allEffectiveDomain.forEach(primarySubDomain -> {
                 String type = primarySubDomain.getWyDomain().getType();
@@ -52,8 +56,11 @@ public class DomainWebServiceImpl implements IDomainWebService{
                 }else if(DomainType.COMMONDOMAIN.getType().equals(type)) {
                     //将内容相关的子域名放入缓存中
                     this.domainMap.put(WebConst.SUB_COMMON_DOMAIN,primarySubDomain.getWySubdomainList());
+                } else if (DomainType.WITHOUT_SHARE_DOMAIN.getType().equals(type)) {
+                    withoutShareDomains.addAll(primarySubDomain.getWySubdomainList());
                 }
             });
+            this.domainMap.put(WebConst.RONDOM_COMMON_DOMAIN,withoutShareDomains);
         }
         //将所有有效域名方法缓存中
         this.domainMap.put(WebConst.ALL_DOMAIN,allEffectiveDomain);

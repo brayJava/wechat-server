@@ -20,6 +20,10 @@ public interface UrlConstant {
      */
     String CONTENT_URL = "content_url";
     /**
+     * 非分享链接跳转
+     */
+    String WITH_OUT_SHARE = "withoutshare_url";
+    /**
      * http链接
      */
     String HTTP_RUL = "http://";
@@ -31,4 +35,8 @@ public interface UrlConstant {
      * 分享链接跳转
      */
     String PATH_JUMP_RUL = "/wechat/jump/";
+    /**
+     * 非分享功能跳转
+     */
+    String PATH_WITHOUT_SHARE_RUL = "/wechat/random-common/";
 }

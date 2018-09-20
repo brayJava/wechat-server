@@ -50,7 +50,10 @@
                       <strong><span th:text="${iterStat_1.count}"></span></strong>
                     </td>
                     <td>
-                        <span th:text="${primarySubDomain.wyDomain.type} == '1' ? '分享域名' : '普通域名' " class="type"></span>
+                        <!--<span th:text="${primarySubDomain.wyDomain.type} == '1' ? '分享域名' : '普通域名' " class="type"></span>-->
+                        <span th:if="${primarySubDomain.wyDomain.type} == '1' ">分享域名</span>
+                        <span th:if="${primarySubDomain.wyDomain.type} == '2' ">普通域名</span>
+                        <span th:if="${primarySubDomain.wyDomain.type} == '3' ">非分享域名</span>
                     </td>
                     <td>
                         <i class="layui-icon x-show" status='true'>&#xe623;</i>
