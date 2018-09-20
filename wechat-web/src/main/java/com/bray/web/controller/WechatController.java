@@ -115,14 +115,14 @@ public class WechatController {
         return "html/random-content-other";
     }
 
-    @RequestMapping("/jump/{articleId}/{timstamp}")
-    public String jumpOther(@PathVariable String articleId,@PathVariable String timstamp,Model model) {
-        //获取图片相关信息
-        ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
-        //base64编码
-        model.addAttribute("article",articleWithImages);
-        return "html/random-common";
-    }
+//    @RequestMapping("/jump/{articleId}/{timstamp}")
+//    public String jumpOther(@PathVariable String articleId,@PathVariable String timstamp,Model model) {
+//        //获取图片相关信息
+//        ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
+//        //base64编码
+//        model.addAttribute("article",articleWithImages);
+//        return "html/random-common";
+//    }
     /**
      * 无需强制分享普通界面
      */
