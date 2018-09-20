@@ -53,10 +53,8 @@ public class WechatAuthServiceImpl implements IWechatAuthService {
         log.info("-------签名数据为：{}",JSONObject.toJSONString(wyWechatAuths.get(0)));
         if(!CollectionUtils.isEmpty(wyWechatAuths)) {
                 WyWechatAuth wyWechatAuth = wyWechatAuths.get(0);
-//                WeixinProxy weixinProxy = new WeixinProxy(new WeixinAccount(wyWechatAuth.getWeixinId()
-//                        ,wyWechatAuth.getWeixinSecret()),new FileCacheStorager<Token>());
-            WeixinProxy weixinProxy = new WeixinProxy(new WeixinAccount(wyWechatAuth.getWeixinId()
-                        ,wyWechatAuth.getWeixinSecret()),new MemcacheCacheStorager<Token>());
+                WeixinProxy weixinProxy = new WeixinProxy(new WeixinAccount(wyWechatAuth.getWeixinId()
+                       ,wyWechatAuth.getWeixinSecret()),new FileCacheStorager<Token>());
             TokenManager ticketManager = weixinProxy.getTicketManager(TicketType.jsapi);
             Token ticketManagerCache = null;
             try {
