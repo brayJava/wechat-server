@@ -5,6 +5,7 @@ import com.foxinmy.weixin4j.cache.MemcacheCacheStorager;
 import com.foxinmy.weixin4j.model.Token;
 import com.foxinmy.weixin4j.model.WeixinAccount;
 import com.foxinmy.weixin4j.mp.WeixinProxy;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
  * @Date: Created in 10:37 2018/8/15
  * @Modified By:
  */
-@Configuration
+//@Configuration
 public class WechatConfig {
 
     @Value("${weixin4j.cache}")
@@ -29,7 +30,23 @@ public class WechatConfig {
      * @return
      */
     @Bean
+    @Qualifier("weixinProxy1")
     public WeixinProxy initWeixinProxy() {
+        WeixinProxy weixinProxy = null;
+        if("FILE".equals(weixinCache)) {
+            weixinProxy = new WeixinProxy(new WeixinAccount(weixinId,weixinSecret),new FileCacheStorager<Token>());
+        } else {
+            weixinProxy = new WeixinProxy(new WeixinAccount(weixinId,weixinSecret),new MemcacheCacheStorager<Token>());
+        }
+        return weixinProxy;
+    }
+    /**
+     * 实例化微信代理类
+     * @return
+     */
+    @Bean
+    @Qualifier("weixinProxy2")
+    public WeixinProxy initWeixin2Proxy() {
         WeixinProxy weixinProxy = null;
         if("FILE".equals(weixinCache)) {
             weixinProxy = new WeixinProxy(new WeixinAccount(weixinId,weixinSecret),new FileCacheStorager<Token>());
