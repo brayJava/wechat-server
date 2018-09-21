@@ -74,14 +74,14 @@
         享</span></div-->
         <li class="i_pri" style="text-align:center; line-height:0px; margin:-25px 0px 0px 0px;">
             <p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; line-height: 1.6; max-width: 100%; white-space: normal; color: rgb(85, 85, 85); font-family: &quot;Helvetica Neue&quot;, Helvetica, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif; font-size: 14px; background-color: rgb(255, 255, 255);"/>
+            //图片展示相关
+            <p style="text-align: center;" th:if="${not #lists.isEmpty(article.wyArticleImgs)}" th:each="wyArticleImg,iterStat:${article.wyArticleImgs}">
+                <img src="https://pub-files.jinshuju.net/di/20180816143635_94c809" th:src="${wyArticleImg.thirdImgPath}" width="685"/>
+            </p>
+            <a th:if="${article.wyArticle.isOrderImg}" href="http://kfp0h.cn/order/jump-story">
+                <img src="https://pub-files.jinshuju.net/di/20180905212132_c958fd" width="100%" />
+            </a>
         </li>
-        //图片展示相关
-        <p style="text-align: center;" th:if="${not #lists.isEmpty(article.wyArticleImgs)}" th:each="wyArticleImg,iterStat:${article.wyArticleImgs}">
-            <img width="100%" src="https://pub-files.jinshuju.net/di/20180816143635_94c809" th:src="${wyArticleImg.thirdImgPath}"/>
-        </p>
-        <a th:if="${article.wyArticle.isOrderImg}" href="http://kfp0h.cn/order/jump-story">
-            <img src="https://pub-files.jinshuju.net/di/20180905212132_c958fd" width="100%" />
-        </a>
     </ul>
 
     <div class="divider"
