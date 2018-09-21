@@ -24,29 +24,29 @@ import java.util.Map;
 @Slf4j
 public class ApplicationStartListener
         implements ApplicationListener<ContextRefreshedEvent>{
-    @Resource
-    private DomainServiceImpl domainService;
+//    @Resource
+//    private DomainServiceImpl domainService;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        //获取所有有效域名域名
-        List<PrimarySubDomain> allEffectiveDomain =
-                (List<PrimarySubDomain>) domainService.queryAllEffectiveDomain(ConstatFinal.QUERY_WEB);
-        if(!CollectionUtils.isEmpty(allEffectiveDomain)) {
-            allEffectiveDomain.forEach(primarySubDomain -> {
-                String type = primarySubDomain.getWyDomain().getType();
-                //盘判断是否是分享主域名
-                if(DomainType.SHAREDOMAIN.getType().equals(type)) {
-                    //将可分享主域名的子域名都添加到缓存中
-                    WebConst.domainMap.put(WebConst.SUB_SHARE_DOMAIN,primarySubDomain.getWySubdomainList());
-                }else if(DomainType.COMMONDOMAIN.getType().equals(type)) {
-                    //将内容相关的子域名放入缓存中
-                    WebConst.domainMap.put(WebConst.SUB_COMMON_DOMAIN,primarySubDomain.getWySubdomainList());
-                }
-            });
-        }
-        //将所有有效域名方法缓存中
-        WebConst.domainMap.put(WebConst.ALL_DOMAIN,allEffectiveDomain);
-        log.info("【----------------------域名缓存完毕------------------】");
+//        //获取所有有效域名域名
+//        List<PrimarySubDomain> allEffectiveDomain =
+//                (List<PrimarySubDomain>) domainService.queryAllEffectiveDomain(ConstatFinal.QUERY_WEB);
+//        if(!CollectionUtils.isEmpty(allEffectiveDomain)) {
+//            allEffectiveDomain.forEach(primarySubDomain -> {
+//                String type = primarySubDomain.getWyDomain().getType();
+//                //盘判断是否是分享主域名
+//                if(DomainType.SHAREDOMAIN.getType().equals(type)) {
+//                    //将可分享主域名的子域名都添加到缓存中
+//                    WebConst.domainMap.put(WebConst.SUB_SHARE_DOMAIN,primarySubDomain.getWySubdomainList());
+//                }else if(DomainType.COMMONDOMAIN.getType().equals(type)) {
+//                    //将内容相关的子域名放入缓存中
+//                    WebConst.domainMap.put(WebConst.SUB_COMMON_DOMAIN,primarySubDomain.getWySubdomainList());
+//                }
+//            });
+//        }
+//        //将所有有效域名方法缓存中
+//        WebConst.domainMap.put(WebConst.ALL_DOMAIN,allEffectiveDomain);
+        log.info("【----------------------系统启动完毕------------------】");
     }
 }

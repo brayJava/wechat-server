@@ -10,8 +10,9 @@ public interface IWechatAuthService {
     /**
      * 微信授权签名
      * @param linkUrl
+     * @param domainVerfiy
      * @return
      */
-    String signature(String linkUrl);
+    String signature(String linkUrl, String domainVerfiy);
 }
 

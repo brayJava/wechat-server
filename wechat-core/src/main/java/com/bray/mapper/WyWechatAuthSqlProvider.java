@@ -57,6 +57,10 @@ public class WyWechatAuthSqlProvider {
             VALUES("weixin_cache", "#{weixinCache,jdbcType=VARCHAR}");
         }
         
+        if (record.getBindDomains() != null) {
+            VALUES("bind_domains", "#{bindDomains,jdbcType=VARCHAR}");
+        }
+        
         if (record.getStatus() != null) {
             VALUES("status", "#{status,jdbcType=INTEGER}");
         }
@@ -82,6 +86,7 @@ public class WyWechatAuthSqlProvider {
         SELECT("weixin_id");
         SELECT("weixin_secret");
         SELECT("weixin_cache");
+        SELECT("bind_domains");
         SELECT("status");
         SELECT("create_time");
         SELECT("update_time");
@@ -118,6 +123,10 @@ public class WyWechatAuthSqlProvider {
             SET("weixin_cache = #{record.weixinCache,jdbcType=VARCHAR}");
         }
         
+        if (record.getBindDomains() != null) {
+            SET("bind_domains = #{record.bindDomains,jdbcType=VARCHAR}");
+        }
+        
         if (record.getStatus() != null) {
             SET("status = #{record.status,jdbcType=INTEGER}");
         }
@@ -142,6 +151,7 @@ public class WyWechatAuthSqlProvider {
         SET("weixin_id = #{record.weixinId,jdbcType=VARCHAR}");
         SET("weixin_secret = #{record.weixinSecret,jdbcType=VARCHAR}");
         SET("weixin_cache = #{record.weixinCache,jdbcType=VARCHAR}");
+        SET("bind_domains = #{record.bindDomains,jdbcType=VARCHAR}");
         SET("status = #{record.status,jdbcType=INTEGER}");
         SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
@@ -165,6 +175,10 @@ public class WyWechatAuthSqlProvider {
         
         if (record.getWeixinCache() != null) {
             SET("weixin_cache = #{weixinCache,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getBindDomains() != null) {
+            SET("bind_domains = #{bindDomains,jdbcType=VARCHAR}");
         }
         
         if (record.getStatus() != null) {

@@ -27,8 +27,7 @@ public class DomainServiceTest {
      */
     @Test
     public void queryAllEffectiveDomain() {
-
-        Object o = domainService.queryAllEffectiveDomain(ConstatFinal.QUERY_ADMIN);
+        Object o = domainService.queryAllEffectiveDomain(ConstatFinal.QUERY_ADMIN,"");
         System.out.println(JSONObject.toJSON(o).toString());
     }
 }

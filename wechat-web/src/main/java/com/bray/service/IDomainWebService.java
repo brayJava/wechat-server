@@ -12,5 +12,5 @@ public interface IDomainWebService {
      * @param domainFlag
      * @return
      */
-    Object queryDomainByredisServer(String domainFlag);
+    Object queryDomainByredisServer(String domainFlag,String articleId);
 }

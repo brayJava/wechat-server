@@ -41,10 +41,10 @@ public class DomainWebServiceImpl implements IDomainWebService{
      */
     @Override
     @QueryCache
-    public Object queryDomainByredisServer(String domainFlag) {
+    public Object queryDomainByredisServer(String domainFlag,String articleId) {
         //获取所有有效域名域名
         List<PrimarySubDomain> allEffectiveDomain =
-                (List<PrimarySubDomain>) domainService.queryAllEffectiveDomain(ConstatFinal.QUERY_WEB);
+                (List<PrimarySubDomain>) domainService.queryAllEffectiveDomain(ConstatFinal.QUERY_WEB,articleId);
         List<WySubdomain> withoutShareDomains = new ArrayList<>();
         if(!CollectionUtils.isEmpty(allEffectiveDomain)) {
             allEffectiveDomain.forEach(primarySubDomain -> {

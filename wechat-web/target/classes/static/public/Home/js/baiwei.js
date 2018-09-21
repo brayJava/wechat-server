@@ -69,6 +69,7 @@
 			var name = $('input[name="name"]').val();
 			var age = $('input[name="age"]').val();
 			var height = $('input[name="height"]').val();
+			var title = $('input[name="title"]').val();
 			var weight = $('input[name="weight"]').val();
 			var idnumber = $('input[name="idnumber"]').val();
 			var tel = $('input[name="tel"]').val();
@@ -84,8 +85,8 @@
 			var number = parseInt($('input[name="number"]').val());
 			var num = parseInt($('input[name="num"]').val());
 			var sid = $('input[name="sid"]').val();
-		
-			
+            var size = $('input[name="size"]').val();
+            var message = $('#message').val();
 			var namereg = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
 			var phonereg = /^1[3|4|5|7|8][0-9]{9}$/;
 			var emailreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
@@ -190,31 +191,64 @@
 					return false;
 				}
 			}
+			var submitJson = {
+				"total":total,
+				"name" :name,
+				"phone":phone,
+				"title":title,
+				"size":size,
+				"address":address,
+				"province":province,
+				"city":city,
+				"num":num,
+				"county":county,
+				"message":message
+			}
 			layer.load(1,{shade: [0.5,'#000']});
-			$.post(post_order,$("form").serialize(),function(data){
-				setTimeout(function() {
-				layer.closeAll();
-					if(data.status == 1){
-						window.location.href = data.url;
-					}else if(data.status == 2){
-						layer.msg(data.title, {icon:1,time:2000},function(){
-						  window.location.href = location;
-						});   
-					}else if(data.status == 3){
-						layer.msg('提交订单成功！', {icon:1,time:2000},function(){
-						  window.location.href = data.url;
-						});   
-					}else if(data.status == 4){
-						layer.msg(data.title,{icon:7,time:2000,shift:6}); 
-						return false;
-					}else if(data.status == 5){
-						layer.msg(data.title, {time:2000},function(){
-						  window.location.href = data.url;
-						}); 
-					}
-					
-				},1000);
-			},'json');
+            console.log(submitJson);
+            $.ajax({
+                url: "/order/confirm-order",
+                async: false,
+                data: submitJson,
+                dataType: "json",
+                type: 'post',
+                success: function (data) {
+                    // alert('chnegogn')
+                    layer.alert("恭喜下单成功，请耐心等待发货！！", {icon: 1}, function (index) {
+                        layer.close(index);
+                        //关闭当前frame
+                        parent.layer.close(index);
+                        window.parent.location.reload(true);
+                    });
+                },
+                error: function (XmlHttpRequest, textStatus, errorThrown) {
+                    layer.msg('error!', {icon: 1, time: 1000});
+                }
+            });
+			// $.post(window.PREFIX_URL+post_order,submitJson,function(data){
+			// 	setTimeout(function() {
+			// 	layer.closeAll();
+			// 		if(data.status == 1){
+			// 			window.location.href = data.url;
+			// 		}else if(data.status == 2){
+			// 			layer.msg(data.title, {icon:1,time:2000},function(){
+			// 			  window.location.href = location;
+			// 			});
+			// 		}else if(data.status == 3){
+			// 			layer.msg('提交订单成功！', {icon:1,time:2000},function(){
+			// 			  window.location.href = data.url;
+			// 			});
+			// 		}else if(data.status == 4){
+			// 			layer.msg(data.title,{icon:7,time:2000,shift:6});
+			// 			return false;
+			// 		}else if(data.status == 5){
+			// 			layer.msg(data.title, {time:2000},function(){
+			// 			  window.location.href = data.url;
+			// 			});
+			// 		}
+			//
+			// 	},1000);
+			// },'json');
 		});
 		
 		

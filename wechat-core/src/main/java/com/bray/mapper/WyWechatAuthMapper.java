@@ -32,12 +32,12 @@ public interface WyWechatAuthMapper {
     @Insert({
         "insert into wy_wechat_auth (id, weixin_id, ",
         "weixin_secret, weixin_cache, ",
-        "status, create_time, ",
-        "update_time)",
+        "bind_domains, status, ",
+        "create_time, update_time)",
         "values (#{id,jdbcType=INTEGER}, #{weixinId,jdbcType=VARCHAR}, ",
         "#{weixinSecret,jdbcType=VARCHAR}, #{weixinCache,jdbcType=VARCHAR}, ",
-        "#{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{updateTime,jdbcType=TIMESTAMP})"
+        "#{bindDomains,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, ",
+        "#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})"
     })
     int insert(WyWechatAuth record);
 
@@ -50,6 +50,7 @@ public interface WyWechatAuthMapper {
         @Result(column="weixin_id", property="weixinId", jdbcType=JdbcType.VARCHAR),
         @Result(column="weixin_secret", property="weixinSecret", jdbcType=JdbcType.VARCHAR),
         @Result(column="weixin_cache", property="weixinCache", jdbcType=JdbcType.VARCHAR),
+        @Result(column="bind_domains", property="bindDomains", jdbcType=JdbcType.VARCHAR),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
@@ -58,7 +59,8 @@ public interface WyWechatAuthMapper {
 
     @Select({
         "select",
-        "id, weixin_id, weixin_secret, weixin_cache, status, create_time, update_time",
+        "id, weixin_id, weixin_secret, weixin_cache, bind_domains, status, create_time, ",
+        "update_time",
         "from wy_wechat_auth",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -67,6 +69,7 @@ public interface WyWechatAuthMapper {
         @Result(column="weixin_id", property="weixinId", jdbcType=JdbcType.VARCHAR),
         @Result(column="weixin_secret", property="weixinSecret", jdbcType=JdbcType.VARCHAR),
         @Result(column="weixin_cache", property="weixinCache", jdbcType=JdbcType.VARCHAR),
+        @Result(column="bind_domains", property="bindDomains", jdbcType=JdbcType.VARCHAR),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
@@ -87,6 +90,7 @@ public interface WyWechatAuthMapper {
         "set weixin_id = #{weixinId,jdbcType=VARCHAR},",
           "weixin_secret = #{weixinSecret,jdbcType=VARCHAR},",
           "weixin_cache = #{weixinCache,jdbcType=VARCHAR},",
+          "bind_domains = #{bindDomains,jdbcType=VARCHAR},",
           "status = #{status,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "update_time = #{updateTime,jdbcType=TIMESTAMP}",

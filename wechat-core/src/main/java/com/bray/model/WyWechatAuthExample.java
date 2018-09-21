@@ -1,11 +1,10 @@
 package com.bray.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class WyWechatAuthExample implements Serializable {
+public class WyWechatAuthExample {
     protected String orderByClause;
 
     protected boolean distinct;
@@ -373,6 +372,76 @@ public class WyWechatAuthExample implements Serializable {
 
         public Criteria andWeixinCacheNotBetween(String value1, String value2) {
             addCriterion("weixin_cache not between", value1, value2, "weixinCache");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindDomainsIsNull() {
+            addCriterion("bind_domains is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindDomainsIsNotNull() {
+            addCriterion("bind_domains is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindDomainsEqualTo(String value) {
+            addCriterion("bind_domains =", value, "bindDomains");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindDomainsNotEqualTo(String value) {
+            addCriterion("bind_domains <>", value, "bindDomains");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindDomainsGreaterThan(String value) {
+            addCriterion("bind_domains >", value, "bindDomains");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindDomainsGreaterThanOrEqualTo(String value) {
+            addCriterion("bind_domains >=", value, "bindDomains");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindDomainsLessThan(String value) {
+            addCriterion("bind_domains <", value, "bindDomains");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindDomainsLessThanOrEqualTo(String value) {
+            addCriterion("bind_domains <=", value, "bindDomains");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindDomainsLike(String value) {
+            addCriterion("bind_domains like", value, "bindDomains");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindDomainsNotLike(String value) {
+            addCriterion("bind_domains not like", value, "bindDomains");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindDomainsIn(List<String> values) {
+            addCriterion("bind_domains in", values, "bindDomains");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindDomainsNotIn(List<String> values) {
+            addCriterion("bind_domains not in", values, "bindDomains");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindDomainsBetween(String value1, String value2) {
+            addCriterion("bind_domains between", value1, value2, "bindDomains");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindDomainsNotBetween(String value1, String value2) {
+            addCriterion("bind_domains not between", value1, value2, "bindDomains");
             return (Criteria) this;
         }
 

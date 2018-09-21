@@ -24,6 +24,10 @@ public interface UrlConstant {
      */
     String WITH_OUT_SHARE = "withoutshare_url";
     /**
+     * 域名名称
+     */
+    String DOMAIN_NAME = "domain_name";
+    /**
      * http链接
      */
     String HTTP_RUL = "http://";

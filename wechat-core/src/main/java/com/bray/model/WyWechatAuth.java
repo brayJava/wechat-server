@@ -3,7 +3,7 @@ package com.bray.model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class WyWechatAuth implements Serializable {
+public class WyWechatAuth implements Serializable{
     private Integer id;
 
     private String weixinId;
@@ -11,6 +11,8 @@ public class WyWechatAuth implements Serializable {
     private String weixinSecret;
 
     private String weixinCache;
+
+    private String bindDomains;
 
     private Integer status;
 
@@ -48,6 +50,14 @@ public class WyWechatAuth implements Serializable {
 
     public void setWeixinCache(String weixinCache) {
         this.weixinCache = weixinCache == null ? null : weixinCache.trim();
+    }
+
+    public String getBindDomains() {
+        return bindDomains;
+    }
+
+    public void setBindDomains(String bindDomains) {
+        this.bindDomains = bindDomains == null ? null : bindDomains.trim();
     }
 
     public Integer getStatus() {

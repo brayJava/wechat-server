@@ -40,7 +40,7 @@ public class DomainController {
     public String doamin(Model model) {
         //查询所有有效域名
         List<PrimarySubDomain> primarySubDomainList =
-                (List<PrimarySubDomain>) domainService.queryAllEffectiveDomain(ConstatFinal.QUERY_ADMIN);
+                (List<PrimarySubDomain>) domainService.queryAllEffectiveDomain(ConstatFinal.QUERY_ADMIN,"");
         model.addAttribute(WebConst.ALL_DOMAIN,primarySubDomainList);
         return "domain/domain";
     }

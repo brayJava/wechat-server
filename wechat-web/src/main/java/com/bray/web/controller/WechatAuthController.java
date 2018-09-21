@@ -23,13 +23,13 @@ public class WechatAuthController {
 
     @PostMapping("/signature")
     @ResponseBody
-    public String signature(String linkUrl) {
+    public String signature(String linkUrl,String domainVerfiy) {
         try {
             linkUrl = URLDecoder.decode(linkUrl, "UTF-8");
         } catch (UnsupportedEncodingException ex) {
             ex.printStackTrace();
         }
-        String signature = wechatAuthService.signature(linkUrl);
+        String signature = wechatAuthService.signature(linkUrl,domainVerfiy);
         return signature;
     }
 }
