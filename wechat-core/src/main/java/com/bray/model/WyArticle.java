@@ -20,6 +20,8 @@ public class WyArticle implements Serializable{
 
     private Boolean isOrderImg;
 
+    private String dataTransferUrl;
+
     private String connectPrimaryDomain;
 
     private String connectCommonDomain;
@@ -94,6 +96,14 @@ public class WyArticle implements Serializable{
 
     public void setIsOrderImg(Boolean isOrderImg) {
         this.isOrderImg = isOrderImg;
+    }
+
+    public String getDataTransferUrl() {
+        return dataTransferUrl;
+    }
+
+    public void setDataTransferUrl(String dataTransferUrl) {
+        this.dataTransferUrl = dataTransferUrl == null ? null : dataTransferUrl.trim();
     }
 
     public String getConnectPrimaryDomain() {

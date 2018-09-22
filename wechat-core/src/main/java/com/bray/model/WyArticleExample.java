@@ -1,11 +1,10 @@
 package com.bray.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class WyArticleExample implements Serializable {
+public class WyArticleExample {
     protected String orderByClause;
 
     protected boolean distinct;
@@ -653,6 +652,76 @@ public class WyArticleExample implements Serializable {
 
         public Criteria andIsOrderImgNotBetween(Boolean value1, Boolean value2) {
             addCriterion("is_order_img not between", value1, value2, "isOrderImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataTransferUrlIsNull() {
+            addCriterion("data_transfer_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataTransferUrlIsNotNull() {
+            addCriterion("data_transfer_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataTransferUrlEqualTo(String value) {
+            addCriterion("data_transfer_url =", value, "dataTransferUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataTransferUrlNotEqualTo(String value) {
+            addCriterion("data_transfer_url <>", value, "dataTransferUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataTransferUrlGreaterThan(String value) {
+            addCriterion("data_transfer_url >", value, "dataTransferUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataTransferUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("data_transfer_url >=", value, "dataTransferUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataTransferUrlLessThan(String value) {
+            addCriterion("data_transfer_url <", value, "dataTransferUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataTransferUrlLessThanOrEqualTo(String value) {
+            addCriterion("data_transfer_url <=", value, "dataTransferUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataTransferUrlLike(String value) {
+            addCriterion("data_transfer_url like", value, "dataTransferUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataTransferUrlNotLike(String value) {
+            addCriterion("data_transfer_url not like", value, "dataTransferUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataTransferUrlIn(List<String> values) {
+            addCriterion("data_transfer_url in", values, "dataTransferUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataTransferUrlNotIn(List<String> values) {
+            addCriterion("data_transfer_url not in", values, "dataTransferUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataTransferUrlBetween(String value1, String value2) {
+            addCriterion("data_transfer_url between", value1, value2, "dataTransferUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataTransferUrlNotBetween(String value1, String value2) {
+            addCriterion("data_transfer_url not between", value1, value2, "dataTransferUrl");
             return (Criteria) this;
         }
 

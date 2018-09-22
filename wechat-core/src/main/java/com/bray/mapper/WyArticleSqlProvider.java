@@ -73,6 +73,10 @@ public class WyArticleSqlProvider {
             VALUES("is_order_img", "#{isOrderImg,jdbcType=BIT}");
         }
         
+        if (record.getDataTransferUrl() != null) {
+            VALUES("data_transfer_url", "#{dataTransferUrl,jdbcType=VARCHAR}");
+        }
+        
         if (record.getConnectPrimaryDomain() != null) {
             VALUES("connect_primary_domain", "#{connectPrimaryDomain,jdbcType=VARCHAR}");
         }
@@ -114,6 +118,7 @@ public class WyArticleSqlProvider {
         SELECT("share_describe");
         SELECT("share_img_url");
         SELECT("is_order_img");
+        SELECT("data_transfer_url");
         SELECT("connect_primary_domain");
         SELECT("connect_common_domain");
         SELECT("is_publish");
@@ -169,6 +174,10 @@ public class WyArticleSqlProvider {
             SET("is_order_img = #{record.isOrderImg,jdbcType=BIT}");
         }
         
+        if (record.getDataTransferUrl() != null) {
+            SET("data_transfer_url = #{record.dataTransferUrl,jdbcType=VARCHAR}");
+        }
+        
         if (record.getConnectPrimaryDomain() != null) {
             SET("connect_primary_domain = #{record.connectPrimaryDomain,jdbcType=VARCHAR}");
         }
@@ -209,6 +218,7 @@ public class WyArticleSqlProvider {
         SET("share_describe = #{record.shareDescribe,jdbcType=VARCHAR}");
         SET("share_img_url = #{record.shareImgUrl,jdbcType=VARCHAR}");
         SET("is_order_img = #{record.isOrderImg,jdbcType=BIT}");
+        SET("data_transfer_url = #{record.dataTransferUrl,jdbcType=VARCHAR}");
         SET("connect_primary_domain = #{record.connectPrimaryDomain,jdbcType=VARCHAR}");
         SET("connect_common_domain = #{record.connectCommonDomain,jdbcType=VARCHAR}");
         SET("is_publish = #{record.isPublish,jdbcType=BIT}");
@@ -251,6 +261,10 @@ public class WyArticleSqlProvider {
         
         if (record.getIsOrderImg() != null) {
             SET("is_order_img = #{isOrderImg,jdbcType=BIT}");
+        }
+        
+        if (record.getDataTransferUrl() != null) {
+            SET("data_transfer_url = #{dataTransferUrl,jdbcType=VARCHAR}");
         }
         
         if (record.getConnectPrimaryDomain() != null) {
