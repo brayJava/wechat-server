@@ -99,19 +99,26 @@ public class WechatController {
      * 内容跳转
      */
     @RequestMapping("/random-content-other/{articleId}/{timstamp}")
-    public String randomContentOther(@PathVariable String articleId,@PathVariable String timstamp,Model model, HttpServletRequest request) {
+    public ModelAndView randomContentOther(@PathVariable String articleId,@PathVariable String timstamp,Model model, HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView();
         Map<String,Object> domainMap = (HashMap<String,Object>)
                 iDomainWebService.queryDomainByredisServer(getDomainFlag(articleId),articleId);
         JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_SHARE_DOMAIN, UrlConstant.PATH_JUMP_RUL,articleId,domainMap);
         //获取图片相关信息
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
+        //判断是否进行数据迁移
+        if(!StringUtils.isEmpty(articleWithImages.getWyArticle().getDataTransferUrl())) {
+            modelAndView = new ModelAndView("redirect:"+articleWithImages.getWyArticle().getDataTransferUrl());
+            return modelAndView;
+        }
         //base64编码
-        model.addAttribute(UrlConstant.SHARE_URL, Base64Util.encode(String.valueOf(jsonObject.get("url"))));
+        modelAndView.addObject(UrlConstant.SHARE_URL, Base64Util.encode(String.valueOf(jsonObject.get("url"))));
         String domain = getDomainName(jsonObject);
-        model.addAttribute(UrlConstant.DOMAIN_NAME, Base64Util.encode(domain));
-        model.addAttribute("article",articleWithImages);
+        modelAndView.addObject(UrlConstant.DOMAIN_NAME, Base64Util.encode(domain));
+        modelAndView.addObject("article",articleWithImages);
+        modelAndView.setViewName("html/random-content-other");
         log.info("----------分享链接为：{}",String.valueOf(jsonObject.get("url")));
-        return "html/random-content-other";
+        return modelAndView;
     }
     /**
      * 无需强制分享普通界面
