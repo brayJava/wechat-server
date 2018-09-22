@@ -7,6 +7,7 @@ import com.bray.model.Bo.PrimarySubDomain;
 import com.bray.model.Bo.RestResponseBo;
 import com.bray.model.Vo.DomainModelVo;
 import com.bray.model.Vo.SubDomainModelVo;
+import com.bray.service.IArticleService;
 import com.bray.service.IDomainAdminService;
 import com.bray.service.IDomainService;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -93,6 +96,16 @@ public class DomainController {
         } else if (DomainType.wysubdomain.name().equals(type)) {
             iDomainAdminService.deleteSubdomain(id);
         }
+        return RestResponseBo.ok();
+    }
+    /**
+     *  同步线上对于文章id域名
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/refresh-prod")
+    public RestResponseBo refreshProd(int id) {
+        iDomainAdminService.refreshDomainByArticleId(id);
         return RestResponseBo.ok();
     }
     /**

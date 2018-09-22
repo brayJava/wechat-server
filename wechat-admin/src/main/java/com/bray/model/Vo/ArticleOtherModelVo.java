@@ -26,6 +26,8 @@ public class ArticleOtherModelVo {
     private String orderImg;
 
     private String articleId;
+    //数据迁移连接
+    private String dataTransferUrl;
 
     private String[] outerImgUrl;
 }

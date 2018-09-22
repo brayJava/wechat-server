@@ -84,6 +84,9 @@
                         <button class="layui-btn-danger layui-btn layui-btn-xs"  th:onclick= "'javascript:member_del(this,'+${primarySubDomain.wyDomain.id}+',\'wydomain\')'"
                                 href="javascript:;"><i class="layui-icon">&#xe640;</i>删除
                         </button>
+                        <button class="layui-btn-danger layui-btn layui-btn-xs"  th:onclick= "'javascript:refresh_prod(this,'+${primarySubDomain.wyDomain.id}+')'"
+                                href="javascript:;"><i class="layui-icon">&#xe640;</i>刷新线上
+                        </button>
                     </td>
                 </tr>
                 <div th:if="${not #lists.isEmpty(primarySubDomain.wySubdomainList)}" th:each="subdomain,iterStat_2:${primarySubDomain.wySubdomainList}">
@@ -143,6 +146,28 @@
                 success: function (data) {
                     $(obj).parents("tr").remove();
                     layer.msg('已删除!', {icon: 1, time: 1000});
+                    if("wydomain" == type) {
+                      location.reload(true);
+                    }
+                },
+                error: function (XmlHttpRequest, textStatus, errorThrown) {
+                    layer.msg('error!', {icon: 1, time: 1000});
+                }
+            });
+
+        });
+    } /*刷新线上域名域*/
+    function refresh_prod(obj, id) {
+        layer.confirm('确认要同步线上吗？', function (index) {
+            //发异步删除数据
+            $.ajax({
+                url: '/domain/refresh-prod',
+                async: false,
+                data: {"id":id},
+                dataType: "json",
+                type: 'post',
+                success: function (data) {
+                    layer.msg('已同步线上!', {icon: 1, time: 1000});
                     if("wydomain" == type) {
                       location.reload(true);
                     }

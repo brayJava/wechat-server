@@ -144,8 +144,10 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
         wyArticle.setShareTitle(articleOtherModelVo.getShareTitle());
         wyArticle.setShareDescribe(articleOtherModelVo.getShareDescribe());
         wyArticle.setShareImgUrl(articleOtherModelVo.getShareImgUrl());
+        wyArticle.setDataTransferUrl(articleOtherModelVo.getDataTransferUrl());
         wyArticle.setIsOrderImg(ConstFinal.ARTICLE_STATUS.equals(articleOtherModelVo.getOrderImg()) ? true : false);
         wyArticle.setUpdateTime(new Date());
+        this.articleRefresh(articleOtherModelVo.getArticleId());
         try {
             wyArticleMapper.updateByPrimaryKeySelective(wyArticle);
         } catch (Exception e) {

@@ -1,5 +1,7 @@
 package com.bray.service;
 
+import com.bray.model.WyDomain;
+
 /**
  * @Author:wuzhiyuan
  * @Description: 域名相关接口
@@ -33,4 +35,10 @@ public interface IDomainAdminService {
      * 更新域名状态
      */
     void updateStatus(int status,int domainId);
+    /**
+     * 通过域名id查询对应文章id
+     * @param id
+     * @return
+     */
+    void refreshDomainByArticleId(int id);
 }

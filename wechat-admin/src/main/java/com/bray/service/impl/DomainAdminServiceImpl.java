@@ -17,6 +17,7 @@ import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @Author:wuzhiyuan
@@ -161,5 +162,23 @@ public class DomainAdminServiceImpl implements IDomainAdminService {
             e.printStackTrace();
         }
     }
+    /**
+     * 通过域名id更新对应文章域名域
+     * @param id 域名id8
+     */
+    @Override
+    public void refreshDomainByArticleId(int id) {
+        WyDomain wyDomain = wyDomainMapper.selectByPrimaryKey(id);
+        if(!Objects.isNull(wyDomain)) {
+            if(!StringUtils.isEmpty(wyDomain.getArticleId())) {
+                try {
+                    redisCache.deleteDataOfRedis(ConstatFinal.DOMAIN_MAP+"_"+wyDomain.getArticleId());
+                } catch (Exception e) {
+                    log.error("------redis key({})删除失败",ConstatFinal.DOMAIN_MAP+"_"+wyDomain.getArticleId());
+                    e.printStackTrace();
+                }
+            }
+        }
 
+    }
 }
