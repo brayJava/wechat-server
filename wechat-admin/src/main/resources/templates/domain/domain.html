@@ -70,10 +70,10 @@
                     </td>
                     <td class="td-manage">
                         <button  th:if="${primarySubDomain.wyDomain.status} == 1 " class="layui-btn layui-btn layui-btn-xs"  th:onclick="'javascript:member_stop(this,'+${primarySubDomain.wyDomain.id}+')'" title="启用">
-                            <i class="layui-icon">&#xe642;</i>停起用
+                            <i class="layui-icon">&#xe642;</i>停启用
                         </button>
                         <button  th:if="${primarySubDomain.wyDomain.status} == -1 " class="layui-btn layui-btn layui-btn-xs"  th:onclick="'javascript:member_stop(this,'+${primarySubDomain.wyDomain.id}+')'"  title="停用">
-                            <i class="layui-icon">&#xe642;</i>停起用
+                            <i class="layui-icon">&#xe642;</i>停启用
                         </button>
                         <button class="layui-btn layui-btn layui-btn-xs" th:onclick="'javascript:x_admin_show(\'编辑\',\' /domain/add \',\'\',\'\',this,'+${primarySubDomain.wyDomain.id}+')'"  href="javascript:;">
                             <i class="layui-icon">&#xe642;</i>编辑
@@ -84,8 +84,9 @@
                         <button class="layui-btn-danger layui-btn layui-btn-xs"  th:onclick= "'javascript:member_del(this,'+${primarySubDomain.wyDomain.id}+',\'wydomain\')'"
                                 href="javascript:;"><i class="layui-icon">&#xe640;</i>删除
                         </button>
-                        <button class="layui-btn layui-btn layui-btn-xs"  th:onclick= "'javascript:refresh_prod(this,'+${primarySubDomain.wyDomain.id}+')'"
-                                href="javascript:;"><i class="layui-icon">&#xe640;</i>刷新线上
+                        <br/>
+                        <button class="layui-btn layui-btn-xs"  th:onclick= "'javascript:refresh_prod(this,'+${primarySubDomain.wyDomain.id}+')'"
+                                href="javascript:;"><i class="layui-icon">&#xe642;</i>刷新线上
                         </button>
                     </td>
                 </tr>
