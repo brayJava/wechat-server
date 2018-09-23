@@ -725,6 +725,76 @@ public class WyArticleExample {
             return (Criteria) this;
         }
 
+        public Criteria andStatisticalIsNull() {
+            addCriterion("statistical is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatisticalIsNotNull() {
+            addCriterion("statistical is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatisticalEqualTo(String value) {
+            addCriterion("statistical =", value, "statistical");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatisticalNotEqualTo(String value) {
+            addCriterion("statistical <>", value, "statistical");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatisticalGreaterThan(String value) {
+            addCriterion("statistical >", value, "statistical");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatisticalGreaterThanOrEqualTo(String value) {
+            addCriterion("statistical >=", value, "statistical");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatisticalLessThan(String value) {
+            addCriterion("statistical <", value, "statistical");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatisticalLessThanOrEqualTo(String value) {
+            addCriterion("statistical <=", value, "statistical");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatisticalLike(String value) {
+            addCriterion("statistical like", value, "statistical");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatisticalNotLike(String value) {
+            addCriterion("statistical not like", value, "statistical");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatisticalIn(List<String> values) {
+            addCriterion("statistical in", values, "statistical");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatisticalNotIn(List<String> values) {
+            addCriterion("statistical not in", values, "statistical");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatisticalBetween(String value1, String value2) {
+            addCriterion("statistical between", value1, value2, "statistical");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatisticalNotBetween(String value1, String value2) {
+            addCriterion("statistical not between", value1, value2, "statistical");
+            return (Criteria) this;
+        }
+
         public Criteria andConnectPrimaryDomainIsNull() {
             addCriterion("connect_primary_domain is null");
             return (Criteria) this;

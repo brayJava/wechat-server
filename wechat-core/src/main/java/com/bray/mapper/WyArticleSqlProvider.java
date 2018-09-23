@@ -77,6 +77,10 @@ public class WyArticleSqlProvider {
             VALUES("data_transfer_url", "#{dataTransferUrl,jdbcType=VARCHAR}");
         }
         
+        if (record.getStatistical() != null) {
+            VALUES("statistical", "#{statistical,jdbcType=VARCHAR}");
+        }
+        
         if (record.getConnectPrimaryDomain() != null) {
             VALUES("connect_primary_domain", "#{connectPrimaryDomain,jdbcType=VARCHAR}");
         }
@@ -119,6 +123,7 @@ public class WyArticleSqlProvider {
         SELECT("share_img_url");
         SELECT("is_order_img");
         SELECT("data_transfer_url");
+        SELECT("statistical");
         SELECT("connect_primary_domain");
         SELECT("connect_common_domain");
         SELECT("is_publish");
@@ -178,6 +183,10 @@ public class WyArticleSqlProvider {
             SET("data_transfer_url = #{record.dataTransferUrl,jdbcType=VARCHAR}");
         }
         
+        if (record.getStatistical() != null) {
+            SET("statistical = #{record.statistical,jdbcType=VARCHAR}");
+        }
+        
         if (record.getConnectPrimaryDomain() != null) {
             SET("connect_primary_domain = #{record.connectPrimaryDomain,jdbcType=VARCHAR}");
         }
@@ -219,6 +228,7 @@ public class WyArticleSqlProvider {
         SET("share_img_url = #{record.shareImgUrl,jdbcType=VARCHAR}");
         SET("is_order_img = #{record.isOrderImg,jdbcType=BIT}");
         SET("data_transfer_url = #{record.dataTransferUrl,jdbcType=VARCHAR}");
+        SET("statistical = #{record.statistical,jdbcType=VARCHAR}");
         SET("connect_primary_domain = #{record.connectPrimaryDomain,jdbcType=VARCHAR}");
         SET("connect_common_domain = #{record.connectCommonDomain,jdbcType=VARCHAR}");
         SET("is_publish = #{record.isPublish,jdbcType=BIT}");
@@ -265,6 +275,10 @@ public class WyArticleSqlProvider {
         
         if (record.getDataTransferUrl() != null) {
             SET("data_transfer_url = #{dataTransferUrl,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getStatistical() != null) {
+            SET("statistical = #{statistical,jdbcType=VARCHAR}");
         }
         
         if (record.getConnectPrimaryDomain() != null) {

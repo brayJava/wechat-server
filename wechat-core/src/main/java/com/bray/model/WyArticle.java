@@ -22,6 +22,8 @@ public class WyArticle implements Serializable{
 
     private String dataTransferUrl;
 
+    private String statistical;
+
     private String connectPrimaryDomain;
 
     private String connectCommonDomain;
@@ -104,6 +106,14 @@ public class WyArticle implements Serializable{
 
     public void setDataTransferUrl(String dataTransferUrl) {
         this.dataTransferUrl = dataTransferUrl == null ? null : dataTransferUrl.trim();
+    }
+
+    public String getStatistical() {
+        return statistical;
+    }
+
+    public void setStatistical(String statistical) {
+        this.statistical = statistical == null ? null : statistical.trim();
     }
 
     public String getConnectPrimaryDomain() {
