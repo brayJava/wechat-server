@@ -104,27 +104,27 @@
     </div>
     <div align="center"><a href="" target="_blank" title="www.baidu.com"><img src="" style="width: 100%;"/></a></div>
     <br/></div>
-<div style="display:none;">
-    <script src="../../static/js/z_stat.js" language="JavaScript"
-            th:src="@{/js/z_stat.js}"></script>
-</div>
+<!--<div style="display:none;">-->
+    <!--<script src="../../static/js/z_stat.js" language="JavaScript"-->
+            <!--th:src="@{/js/z_stat.js}"></script>-->
+<!--</div>-->
 <script type="text/javascript" src="../../static/js/jquery-1.8.0.js"
         th:src="@{/js/jquery-1.8.0.js}"></script>
 <script src="../../static/js/jweixin-1.2.0.js"
         th:src="@{/js/jweixin-1.2.0.js}"></script>
 <script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-
+<div style="display:none" id="statistical">
+</div>
 <script th:inline="javascript">
     var share_url = [[${share_url}]];
     var domain_url = [[${domain_name}]];
     // var data = [[${signature}]];
     var signatureJson = {};
     var article = [[${article}]];
+    $("#statistical").append(article.wyArticle.statistical);
+    $('title').html(article.wyArticle.title);
     //背景音乐停止与播放
     var image_src = ""
-
-    $('title').html(article.wyArticle.title);
-
     function swap_music() {
         var oAudio = document.getElementById('myaudio');
         if (oAudio.paused) {
@@ -136,11 +136,9 @@
         }
         $("#audio_image").attr("class", image_src);
     }
-
     document.addEventListener("WeixinJSBridgeReady", function () {
         document.getElementById('myaudio').play();
     }, false);
-
     function clickJB() {
         location.href = '/ts.html';
     }
@@ -149,7 +147,6 @@
         // location.href = 'http://kfp0h.cn/order/jump-story';
         location.href = 'http://kfp0h.cn/story/newest-1837.html';
     }
-
     $(window).scroll(function () {
         var scrollTop = $(this).scrollTop();
         var scrollHeight = $(document).height();
@@ -233,7 +230,6 @@
             }
         });
     })
-
     function base64Decode(input) {
         rv = window.atob(input);
         rv = escape(rv);
@@ -241,7 +237,6 @@
         return rv;
     }
 </script>
-
 <script>
     // 祛除广告相关
     var del_times = 0, deTimer = null;
@@ -266,39 +261,12 @@
         del_times++;
         if (del_times > 10) window.clearInterval(deTimer)
     }
-
     //抢先 删除 嵌入广告
     (function () {
         adGo();
     }())
     deTimer = self.setInterval(adGo, 200);
-
 </script>
-<div style="display:none">
-    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-    document.write(unescape("%3Cspan id='cnzz_stat_icon_1274875275'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1274875275%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
-</div>
-<div style="display:none">
-    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274880657'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274880657%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script></div>
-<script>
-    var _hmt = _hmt || [];
-    (function () {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?323465d9c0ff78f9ebf2ade5c596cd05";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
-</script>
-<script>
-    var _hmt = _hmt || [];
-    (function () {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?2f3c12eaec179c0a4337bd01214366be";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
-</script>
-
 </body>
 </html>
  
