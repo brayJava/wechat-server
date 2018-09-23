@@ -24,11 +24,11 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label for="domainFrom" class="layui-form-label">
-                <span class="x-red">*</span>域名来源
+            <label for="articleId" class="layui-form-label">
+                <span class="x-red">*</span>文章ID
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="domainFrom" name="domainFrom" lay-verify="required"
+                <input type="text" id="articleId" name="articleId" lay-verify="required"
                        autocomplete="off" class="layui-input"/>
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -90,11 +90,14 @@
         if('编辑'== title) {
             domain_id = id;
             $('#domain').val((tr_this.find('.domain').text()));
-            $('#domainFrom').val((tr_this.find('.domainFrom').text()));
-            if(json == 1) {
-                $("input[name='domainType'][value='1']").attr("checked","true");
-            } else {
-                $("input[name='domainType'][value='2']").attr("checked","true");
+            $('#articleId').val((tr_this.find('.articleId').text()));
+            var domainType = (tr_this.find('.domainType').attr('type'));
+            if(domainType == '1') {
+                $("input[name='domainType']").eq(0).attr("checked",true);
+            } else if(domainType == '2'){
+                $("input[name='domainType']").eq(1).attr("checked",true);
+            } else if(domainType == '3') {
+                $("input[name='domainType']").eq(2).attr("checked",true);
             }
         }
     }

@@ -35,12 +35,12 @@
     <table class="layui-table layui-form">
         <thead>
         <tr>
-            <th width="30">序列</th>
+            <th width="5">序列</th>
             <th width="50">域名类型</th>
             <th width="100">域名名称</th>
-            <th width="30">创建时间</th>
-            <th width="40">域名状态</th>
-            <th width="380">操作</th>
+            <th width="90">文章id</th>
+            <th width="20">域名状态</th>
+            <th width="365">操作</th>
         </tr>
         </thead>
         <tbody class="x-cate">
@@ -51,16 +51,17 @@
                     </td>
                     <td>
                         <!--<span th:text="${primarySubDomain.wyDomain.type} == '1' ? '分享域名' : '普通域名' " class="type"></span>-->
-                        <span th:if="${primarySubDomain.wyDomain.type} == '1' ">分享域名</span>
-                        <span th:if="${primarySubDomain.wyDomain.type} == '2' ">普通域名</span>
-                        <span th:if="${primarySubDomain.wyDomain.type} == '3' ">非分享域名</span>
+                        <span class="domainType" th:if="${primarySubDomain.wyDomain.type} == '1' " th:type="${primarySubDomain.wyDomain.type}">分享域名</span>
+                        <span class="domainType" th:if="${primarySubDomain.wyDomain.type} == '2' " th:type="${primarySubDomain.wyDomain.type}">普通域名</span>
+                        <span class="domainType" th:if="${primarySubDomain.wyDomain.type} == '3' " th:type="${primarySubDomain.wyDomain.type}">非分享域名</span>
                     </td>
                     <td>
                         <i class="layui-icon x-show" status='true'>&#xe623;</i>
                         <strong><span class="domain" th:text="${primarySubDomain.wyDomain.domain}"></span></strong>
                     </td>
                     <td>
-                        <span class="editable-text" th:text="${#dates.format(primarySubDomain.wyDomain.createTime,'yyyy/MM/dd HH:mm:ss')}"></span>
+                        <!--<span class="editable-text" th:text="${#dates.format(primarySubDomain.wyDomain.createTime,'yyyy/MM/dd HH:mm:ss')}"></span>-->
+                        <span class="articleId" th:text="${primarySubDomain.wyDomain.articleId}"></span>
                     </td>
                     <td class="td-status">
                         <!--<input type="checkbox" name="switch" lay-text="开启|停用" checked="" lay-skin="switch"/>-->
@@ -70,22 +71,22 @@
                     </td>
                     <td class="td-manage">
                         <button  th:if="${primarySubDomain.wyDomain.status} == 1 " class="layui-btn layui-btn layui-btn-xs"  th:onclick="'javascript:member_stop(this,'+${primarySubDomain.wyDomain.id}+')'" title="启用">
-                            <i class="layui-icon">&#xe642;</i>停启用
+                            停启用
                         </button>
                         <button  th:if="${primarySubDomain.wyDomain.status} == -1 " class="layui-btn layui-btn layui-btn-xs"  th:onclick="'javascript:member_stop(this,'+${primarySubDomain.wyDomain.id}+')'"  title="停用">
-                            <i class="layui-icon">&#xe642;</i>停启用
+                            停启用
                         </button>
                         <button class="layui-btn layui-btn layui-btn-xs" th:onclick="'javascript:x_admin_show(\'编辑\',\' /domain/add \',\'\',\'\',this,'+${primarySubDomain.wyDomain.id}+')'"  href="javascript:;">
                             <i class="layui-icon">&#xe642;</i>编辑
                         </button>
                         <button class="layui-btn layui-btn-warm layui-btn-xs" onclick="x_admin_show('添加','/domain/sub-add','','',this,'')"><i
-                                class="layui-icon">&#xe642;</i>添加子域名
+                                class="layui-icon">+</i>添加子域名
                         </button>
                         <button class="layui-btn-danger layui-btn layui-btn-xs"  th:onclick= "'javascript:member_del(this,'+${primarySubDomain.wyDomain.id}+',\'wydomain\')'"
                                 href="javascript:;"><i class="layui-icon">&#xe640;</i>删除
                         </button>
                         <button class="layui-btn layui-btn-xs"  th:onclick= "'javascript:refresh_prod(this,'+${primarySubDomain.wyDomain.id}+')'"
-                                href="javascript:;"><i class="layui-icon">&#xe642;</i>刷新线上
+                                href="javascript:;">刷新线上
                         </button>
                     </td>
                 </tr>

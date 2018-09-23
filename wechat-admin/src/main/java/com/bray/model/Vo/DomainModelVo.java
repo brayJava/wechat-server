@@ -18,4 +18,6 @@ public class DomainModelVo {
     private String domainFrom;
 
     private String domainType;
+
+    private String articleId;
 }
