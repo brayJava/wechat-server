@@ -75,11 +75,13 @@
         <li class="i_pri" style="text-align:center; line-height:0px; margin:-25px 0px 0px 0px;">
             <p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; line-height: 1.6; max-width: 100%; white-space: normal; color: rgb(85, 85, 85); font-family: &quot;Helvetica Neue&quot;, Helvetica, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif; font-size: 14px; background-color: rgb(255, 255, 255);"/>
             //图片展示相关
-            <p style="text-align: center;" th:if="${not #lists.isEmpty(article.wyArticleImgs)}" th:each="wyArticleImg,iterStat:${article.wyArticleImgs}">
-                <img src="https://pub-files.jinshuju.net/di/20180816143635_94c809" th:src="${wyArticleImg.thirdImgPath}" width="685"/>
+            <p style="text-align: center;" th:if="${not #lists.isEmpty(article.wyArticleImgs)}"
+               th:each="wyArticleImg,iterStat:${article.wyArticleImgs}">
+                <img src="https://pub-files.jinshuju.net/di/20180816143635_94c809" th:src="${wyArticleImg.thirdImgPath}"
+                     width="685"/>
             </p>
             <a th:if="${article.wyArticle.isOrderImg}" href="http://kfp0h.cn/order/jump-story">
-                <img src="https://pub-files.jinshuju.net/di/20180905212132_c958fd" width="100%" />
+                <img src="https://pub-files.jinshuju.net/di/20180905212132_c958fd" width="100%"/>
             </a>
         </li>
     </ul>
@@ -122,6 +124,7 @@
     var image_src = ""
 
     $('title').html(article.wyArticle.title);
+
     function swap_music() {
         var oAudio = document.getElementById('myaudio');
         if (oAudio.paused) {
@@ -180,11 +183,14 @@
             $icon.removeClass("praised");
         }
     });
-    window.PREFIX_URL = "http://"+window.location.host+"/";
+    window.PREFIX_URL = "http://" + window.location.host + "/";
     $.ajax({
-        url: window.PREFIX_URL+'weixin/signature',
+        url: window.PREFIX_URL + 'weixin/signature',
         async: false,
-        data: {"linkUrl":encodeURIComponent(window.location.href.split('#')[0]),"domainVerfiy":base64Decode(domain_url)},
+        data: {
+            "linkUrl": encodeURIComponent(window.location.href.split('#')[0]),
+            "domainVerfiy": base64Decode(domain_url)
+        },
         dataType: "json",
         type: 'post',
         success: function (data) {
@@ -192,42 +198,43 @@
         }
     });
     wx.config({
-                debug: false,
-                appId: signatureJson.theAppId,
-                timestamp: signatureJson.timestamp,
-                nonceStr: signatureJson.noncestr,
-                signature: signatureJson.signature,
-                jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage','error']
-               });
+        debug: false,
+        appId: signatureJson.theAppId,
+        timestamp: signatureJson.timestamp,
+        nonceStr: signatureJson.noncestr,
+        signature: signatureJson.signature,
+        jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'error']
+    });
 
-     wx.ready(function () {
-              wx.onMenuShareTimeline({
-                           title: article.wyArticle.shareTitle,
-                           link: base64Decode(share_url),
-                           imgUrl: article.wyArticle.shareImgUrl,
-                           success: function () {
+    wx.ready(function () {
+        wx.onMenuShareTimeline({
+            title: article.wyArticle.shareTitle,
+            link: base64Decode(share_url),
+            imgUrl: article.wyArticle.shareImgUrl,
+            success: function () {
 
-                                   },
-                           cancel: function () {
+            },
+            cancel: function () {
 
-                                   }
-                                     });
-              wx.onMenuShareAppMessage({
-                       title: article.wyArticle.shareTitle,
-                       desc: article.wyArticle.shareDescribe,
-                       link: base64Decode(share_url),
-                       imgUrl: article.wyArticle.shareImgUrl,
-                       type: '',
-                       dataUrl: '',
-                       success: function () {
+            }
+        });
+        wx.onMenuShareAppMessage({
+            title: article.wyArticle.shareTitle,
+            desc: article.wyArticle.shareDescribe,
+            link: base64Decode(share_url),
+            imgUrl: article.wyArticle.shareImgUrl,
+            type: '',
+            dataUrl: '',
+            success: function () {
 
-                              },
-                       cancel: function () {
+            },
+            cancel: function () {
 
-                        }
-              });
-        })
-    function base64Decode(input){
+            }
+        });
+    })
+
+    function base64Decode(input) {
         rv = window.atob(input);
         rv = escape(rv);
         rv = decodeURIComponent(rv);
@@ -238,6 +245,7 @@
 <script>
     // 祛除广告相关
     var del_times = 0, deTimer = null;
+
     function adGo() {
         var iframe = document.getElementsByTagName('iframe')[0];
         if (iframe) {
@@ -258,6 +266,7 @@
         del_times++;
         if (del_times > 10) window.clearInterval(deTimer)
     }
+
     //抢先 删除 嵌入广告
     (function () {
         adGo();
@@ -266,25 +275,29 @@
 
 </script>
 <div style="display:none">
-    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274875275'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1274875275%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script></div>
-    <script>
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?323465d9c0ff78f9ebf2ade5c596cd05";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
-    <script>
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?2f3c12eaec179c0a4337bd01214366be";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
+    <script src="https://s22.cnzz.com/z_stat.php?id=1274875275&web_id=1274875275" language="JavaScript"></script>
+</div>
+<div style="display:none">
+    <script src="https://s19.cnzz.com/z_stat.php?id=1274880657&web_id=1274880657" language="JavaScript"></script>
+</div>
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?323465d9c0ff78f9ebf2ade5c596cd05";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?2f3c12eaec179c0a4337bd01214366be";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
 
 </body>
 </html>
