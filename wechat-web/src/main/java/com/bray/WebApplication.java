@@ -12,11 +12,13 @@ import javax.servlet.annotation.WebListener;
 @SpringBootApplication
 @WebListener
 @ServletComponentScan(basePackages = {"com.bray.web.filter"})
-public class Application {
+public class WebApplication {
 
     public static void main(String[] args) {
         // 程序启动入口
         // 启动嵌入式的 Tomcat 并初始化 Spring 环境及其各 Spring 组件
-        SpringApplication.run(Application.class,args);
+        SpringApplication.run(WebApplication.class,args);
+
+
     }
 }
