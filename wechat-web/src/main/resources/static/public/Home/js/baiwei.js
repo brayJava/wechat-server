@@ -159,7 +159,10 @@
 					layer.msg('请选择所属地级市！',{icon:7,time:2000,shift:6});   
 					return false;
 				}
-				
+				if(county == '市辖区') {
+                    layer.msg('请选择所属市辖区！',{icon:7,time:2000,shift:6});
+                    return false;
+				}
 			}
 			if(contains(temp,'address')){
 				if(!address){
