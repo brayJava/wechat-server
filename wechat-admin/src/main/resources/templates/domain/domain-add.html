@@ -46,7 +46,7 @@
         <div class="layui-form-item">
             <label for="L_repass" class="layui-form-label" />
             <button  type="button" class="layui-btn"  lay-filter="add" lay-submit="" id="domainAdd">
-                增加
+                <span id="domainSpan">增加</span>
             </button>
         </div>
     </form>
@@ -97,6 +97,7 @@
             } else if(domainType == '3') {
                 $("input[name='domainType']").eq(2).attr("checked",true);
             }
+            $('#domainSpan').text('修改');
         }
     }
 </script>

@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 
@@ -174,7 +175,13 @@ public class DomainAdminServiceImpl implements IDomainAdminService {
         if(!Objects.isNull(wyDomain)) {
             if(!StringUtils.isEmpty(wyDomain.getArticleId())) {
                 try {
-                    redisCache.deleteDataOfRedis(ConstatFinal.DOMAIN_MAP+"_"+wyDomain.getArticleId());
+                    String[] articleIds = wyDomain.getArticleId().split(",");
+                    if(articleIds == null || articleIds.length == 0) {
+                        articleIds = wyDomain.getArticleId().split("，");
+                    }
+                    Arrays.stream(articleIds).forEach(articleId -> {
+                        redisCache.deleteDataOfRedis(ConstatFinal.DOMAIN_MAP+"_"+articleId.trim());
+                    });
                 } catch (Exception e) {
                     log.error("------redis key({})删除失败",ConstatFinal.DOMAIN_MAP+"_"+wyDomain.getArticleId());
                     e.printStackTrace();
