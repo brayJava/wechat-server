@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<head th:replace="common/common_header :: common_header">
+    <title>公众号管理</title>
+    <!--<link rel="stylesheet" href="css/index.css" />-->
+</head>
+
+<body>
+<div class="x-body">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label for="weixinName" class="layui-form-label">
+                <span class="x-red">*</span>昵称
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="weixinName" name="weixinName"  lay-verify="required"
+                       autocomplete="off" class="layui-input"/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="weixinId" class="layui-form-label">
+                <span class="x-red">*</span>AppId
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="weixinId" name="weixinId" lay-verify="required"
+                   autocomplete="off" class="layui-input"/>
+            </div>
+        </div>
+         <div class="layui-form-item">
+                    <label for="weixinSecret" class="layui-form-label">
+                        <span class="x-red">*</span>AppSecret
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="weixinSecret" name="weixinSecret"  lay-verify="required"
+                               autocomplete="off" class="layui-input"/>
+                    </div>
+         </div>
+          <div class="layui-form-item">
+                     <label for="bindDomains" class="layui-form-label">
+                         <span class="x-red">*</span>绑定域名
+                     </label>
+                     <div class="layui-input-inline">
+                         <input type="text" id="bindDomains" name="bindDomains"  lay-verify="required"
+                                autocomplete="off" class="layui-input"/>
+                     </div>
+          </div>
+        <div class="layui-form-item">
+            <label for="L_repass" class="layui-form-label" />
+            <button  type="button" class="layui-btn"  lay-filter="add" lay-submit="" id="wechatAdd">
+                <span id="wechatSpan">增加</span>
+            </button>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    var wechat_id = 0;
+    layui.use(['form','layer'], function() {
+        $ = layui.jquery;
+        var form = layui.form
+            ,layer = layui.layer;
+        //注意：1.submit监听一个filter过滤事件，要在提交标签中加上
+        //     2.当button没有添加type="button" 会自动提交表单刷新
+        form.on('submit(add)', function (data) {
+            data.field.id = wechat_id;
+            $.ajax({
+                url: '/wechat/add',
+                async: false,
+                data: data.field,
+                dataType: "json",
+                type: 'post',
+                success: function (data) {
+                    // alert('chnegogn')
+                    layer.alert("操作成功", {icon: 1}, function (index) {
+                        layer.close(index);
+                        //关闭当前frame
+                        parent.layer.close(index);
+                        window.parent.location.reload(true);
+                    });
+                },
+                error: function (XmlHttpRequest, textStatus, errorThrown) {
+                    layer.msg('error!', {icon: 1, time: 1000});
+                }
+            });
+        });
+    });
+    function child(title,_this,id) {
+        var tr_this = $(_this).closest('tr')
+        if('编辑'== title) {
+            wechat_id = id;
+            $('#weixinName').val($.trim(tr_this.find('.wechatName').text()));
+            $('#weixinId').val(($.trim(tr_this.find('.AppID').text())));
+            $('#weixinSecret').val($.trim(tr_this.find('.AppSecret').text()));
+            $('#bindDomains').val($.trim(tr_this.find('.bindDomain').text()));
+            $('#wechatSpan').text('修改');
+        }
+    }
+</script>
+</body>
+
+</html>

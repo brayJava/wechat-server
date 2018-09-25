@@ -3,17 +3,8 @@ package com.bray.mapper;
 import com.bray.model.WyArticleImg;
 import com.bray.model.WyArticleImgExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.InsertProvider;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectProvider;
-import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.UpdateProvider;
+
+import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 
 public interface WyArticleImgMapper {
@@ -39,9 +30,11 @@ public interface WyArticleImgMapper {
         "#{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
         "#{updateTime,jdbcType=TIMESTAMP})"
     })
+    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     int insert(WyArticleImg record);
 
     @InsertProvider(type=WyArticleImgSqlProvider.class, method="insertSelective")
+    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     int insertSelective(WyArticleImg record);
 
     @SelectProvider(type=WyArticleImgSqlProvider.class, method="selectByExample")

@@ -375,6 +375,76 @@ public class WyWechatAuthExample {
             return (Criteria) this;
         }
 
+        public Criteria andWeixinNameIsNull() {
+            addCriterion("weixin_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeixinNameIsNotNull() {
+            addCriterion("weixin_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeixinNameEqualTo(String value) {
+            addCriterion("weixin_name =", value, "weixinName");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeixinNameNotEqualTo(String value) {
+            addCriterion("weixin_name <>", value, "weixinName");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeixinNameGreaterThan(String value) {
+            addCriterion("weixin_name >", value, "weixinName");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeixinNameGreaterThanOrEqualTo(String value) {
+            addCriterion("weixin_name >=", value, "weixinName");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeixinNameLessThan(String value) {
+            addCriterion("weixin_name <", value, "weixinName");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeixinNameLessThanOrEqualTo(String value) {
+            addCriterion("weixin_name <=", value, "weixinName");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeixinNameLike(String value) {
+            addCriterion("weixin_name like", value, "weixinName");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeixinNameNotLike(String value) {
+            addCriterion("weixin_name not like", value, "weixinName");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeixinNameIn(List<String> values) {
+            addCriterion("weixin_name in", values, "weixinName");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeixinNameNotIn(List<String> values) {
+            addCriterion("weixin_name not in", values, "weixinName");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeixinNameBetween(String value1, String value2) {
+            addCriterion("weixin_name between", value1, value2, "weixinName");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeixinNameNotBetween(String value1, String value2) {
+            addCriterion("weixin_name not between", value1, value2, "weixinName");
+            return (Criteria) this;
+        }
+
         public Criteria andBindDomainsIsNull() {
             addCriterion("bind_domains is null");
             return (Criteria) this;
@@ -442,6 +512,66 @@ public class WyWechatAuthExample {
 
         public Criteria andBindDomainsNotBetween(String value1, String value2) {
             addCriterion("bind_domains not between", value1, value2, "bindDomains");
+            return (Criteria) this;
+        }
+
+        public Criteria andDebugIsNull() {
+            addCriterion("debug is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDebugIsNotNull() {
+            addCriterion("debug is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDebugEqualTo(Boolean value) {
+            addCriterion("debug =", value, "debug");
+            return (Criteria) this;
+        }
+
+        public Criteria andDebugNotEqualTo(Boolean value) {
+            addCriterion("debug <>", value, "debug");
+            return (Criteria) this;
+        }
+
+        public Criteria andDebugGreaterThan(Boolean value) {
+            addCriterion("debug >", value, "debug");
+            return (Criteria) this;
+        }
+
+        public Criteria andDebugGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("debug >=", value, "debug");
+            return (Criteria) this;
+        }
+
+        public Criteria andDebugLessThan(Boolean value) {
+            addCriterion("debug <", value, "debug");
+            return (Criteria) this;
+        }
+
+        public Criteria andDebugLessThanOrEqualTo(Boolean value) {
+            addCriterion("debug <=", value, "debug");
+            return (Criteria) this;
+        }
+
+        public Criteria andDebugIn(List<Boolean> values) {
+            addCriterion("debug in", values, "debug");
+            return (Criteria) this;
+        }
+
+        public Criteria andDebugNotIn(List<Boolean> values) {
+            addCriterion("debug not in", values, "debug");
+            return (Criteria) this;
+        }
+
+        public Criteria andDebugBetween(Boolean value1, Boolean value2) {
+            addCriterion("debug between", value1, value2, "debug");
+            return (Criteria) this;
+        }
+
+        public Criteria andDebugNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("debug not between", value1, value2, "debug");
             return (Criteria) this;
         }
 

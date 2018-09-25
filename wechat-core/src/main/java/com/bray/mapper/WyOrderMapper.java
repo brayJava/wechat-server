@@ -3,17 +3,8 @@ package com.bray.mapper;
 import com.bray.model.WyOrder;
 import com.bray.model.WyOrderExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.InsertProvider;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectProvider;
-import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.UpdateProvider;
+
+import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 
 public interface WyOrderMapper {
@@ -47,9 +38,11 @@ public interface WyOrderMapper {
         "#{email,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, ",
         "#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})"
     })
+    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     int insert(WyOrder record);
 
     @InsertProvider(type=WyOrderSqlProvider.class, method="insertSelective")
+    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     int insertSelective(WyOrder record);
 
     @SelectProvider(type=WyOrderSqlProvider.class, method="selectByExample")

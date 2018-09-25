@@ -52,7 +52,8 @@ public class DomainServiceImpl extends DomainBaseService
             wyDomainExample.createCriteria()
                     .andIsDelEqualTo(EffectiveType.EFFECTIVE_YES)
                     .andStatusEqualTo(EffectiveType.EFFECTIVE_YES)
-                    .andArticleIdEqualTo(articleId);
+                    // .andArticleIdEqualTo(articleId)
+                    .andArticleIdLike(articleId);
         }
         wyDomainExample.setOrderByClause("update_time desc");
         List<WyDomain> wyDomains = wyDomainMapper.selectByExample(wyDomainExample);

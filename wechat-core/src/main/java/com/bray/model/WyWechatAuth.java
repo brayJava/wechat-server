@@ -12,7 +12,11 @@ public class WyWechatAuth implements Serializable{
 
     private String weixinCache;
 
+    private String weixinName;
+
     private String bindDomains;
+
+    private Boolean debug;
 
     private Integer status;
 
@@ -52,12 +56,28 @@ public class WyWechatAuth implements Serializable{
         this.weixinCache = weixinCache == null ? null : weixinCache.trim();
     }
 
+    public String getWeixinName() {
+        return weixinName;
+    }
+
+    public void setWeixinName(String weixinName) {
+        this.weixinName = weixinName == null ? null : weixinName.trim();
+    }
+
     public String getBindDomains() {
         return bindDomains;
     }
 
     public void setBindDomains(String bindDomains) {
         this.bindDomains = bindDomains == null ? null : bindDomains.trim();
+    }
+
+    public Boolean getDebug() {
+        return debug;
+    }
+
+    public void setDebug(Boolean debug) {
+        this.debug = debug;
     }
 
     public Integer getStatus() {

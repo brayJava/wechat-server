@@ -51,7 +51,7 @@
         //注意：1.submit监听一个filter过滤事件，要在提交标签中加上
         //     2.当button没有添加type="button" 会自动提交表单刷新
         form.on('submit(add)', function (data) {
-            data.field.subdomain = $("#subdomain").val()+'.'+$(".suffix_domain").text();
+            data.field.subdomain = $.trim($("#subdomain").val())+'.'+$(".suffix_domain").text();
             data.field.domainId = domain_id;
             data.field.subdomainId = subdomain_id;
             $.ajax({

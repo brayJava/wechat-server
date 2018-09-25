@@ -49,6 +49,7 @@ public class DomainAdminServiceImpl implements IDomainAdminService {
             wyDomain.setDomain(domainModelVo.getDomain());
             wyDomain.setDomainFrom(domainModelVo.getDomainFrom());
             wyDomain.setArticleId(domainModelVo.getArticleId());
+            wyDomain.setUpdateTime(new Date());
             try {
                 wyDomainMapper.updateByPrimaryKeySelective(wyDomain);
                 log.error("----------域名更新失败----------");
