@@ -66,6 +66,12 @@
             </div>
         </div>
         <div class="row cl">
+            <div class="formControls col-10">
+                  <strong>相关统计代码：</strong>
+                <input type="text" class="input-text" value="" placeholder="相关统计js代码" id="statistical" name="statistical"/>
+            </div>
+        </div>
+        <div class="row cl">
             <div class="formControls col-2">
                 <span class="c-red">*</span><strong>文章作者：</strong>
                 <input type="text" class="input-text" value="" placeholder="如：王安石" id="author" name="author" lay-verify="required" />
@@ -144,6 +150,9 @@
                     required:true,
                 },
                 outerImgUrl:{
+                    required:true,
+                },
+                statistical:{
                     required:true,
                 },
 
