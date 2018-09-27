@@ -33,14 +33,25 @@
             <div class="layui-form-mid layui-word-aux">
             </div>
         </div>
+         <div class="layui-form-item">
+                    <label for="appId" class="layui-form-label">
+                        <span class="x-red">*</span>APPID
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="appId" name="appId" lay-verify="required"
+                               autocomplete="off" class="layui-input"/>
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">
+                    </div>
+                </div>
         <div class="layui-form-item">
             <label class="layui-form-label"><span class="x-red">*</span>域名类型</label>
             <div class="layui-input-block">
                 <!--<input type="checkbox" name="like1[write]" lay-skin="primary" title="分享域名" checked=""/>-->
                 <!--<input type="checkbox" name="like1[read]" lay-skin="primary" title="普通域名"/>-->
-                <input type="radio" name="domainType" lay-filter="erweima" value="1" title="分享域名" checked=""/>
-                <input type="radio" name="domainType" lay-filter="erweima" value="2" title="普通域名" />
-                <input type="radio" name="domainType" lay-filter="erweima" value="3" title="非分享域名" />
+                <input type="radio" name="domainType" lay-filter="erweima" value="0" title="分享域名" checked="checked"/>
+                <input type="radio" name="domainType" lay-filter="erweima" value="1" title="普通域名" />
+                <input type="radio" name="domainType" lay-filter="erweima" value="2" title="非分享域名" />
             </div>
         </div>
         <div class="layui-form-item">
@@ -50,7 +61,7 @@
             </button>
         </div>
     </form>
-</div>
+</div
 
 <script type="text/javascript">
     var domain_id = 0;
@@ -89,13 +100,14 @@
             domain_id = id;
             $('#domain').val((tr_this.find('.domain').text()));
             $('#articleId').val((tr_this.find('.articleId').text()));
+             $('#appId').val((tr_this.find('.appId').val()));
             var domainType = (tr_this.find('.domainType').attr('type'));
             if(domainType == '1') {
-                $("input[name='domainType']").eq(0).attr("checked",true);
+                $('input[name="domainType"][value="0"]').attr('checked',true);
             } else if(domainType == '2'){
-                $("input[name='domainType']").eq(1).attr("checked",true);
+                $('input[name="domainType"][value="1"]').attr('checked',true);
             } else if(domainType == '3') {
-                $("input[name='domainType']").eq(2).attr("checked",true);
+                $('input[name="domainType"][value="2"]').attr('checked',true);
             }
             $('#domainSpan').text('修改');
         }

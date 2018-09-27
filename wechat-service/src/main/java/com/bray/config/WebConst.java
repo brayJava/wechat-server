@@ -37,4 +37,8 @@ public class WebConst {
      * 所有域名管理
      */
     public static String ALL_DOMAIN = "all_domain";
+    /**
+     * 所有域名管理
+     */
+    public static String ALL_MAP_DOMAIN = "all_map_domain";
 }

@@ -2,11 +2,9 @@ package com.bray.service.impl;
 
 import com.bray.dto.ConstatFinal;
 import com.bray.dto.EffectiveType;
+import com.bray.mapper.WyWechatAuthMapper;
+import com.bray.model.*;
 import com.bray.model.Bo.PrimarySubDomain;
-import com.bray.model.WyDomain;
-import com.bray.model.WyDomainExample;
-import com.bray.model.WySubdomain;
-import com.bray.model.WySubdomainExample;
 import com.bray.model.enums.DomainType;
 import com.bray.service.IDomainService;
 import lombok.extern.slf4j.Slf4j;
@@ -14,8 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.annotation.Resource;
+import java.util.*;
 
 /**
  * @Author:wuzhiyuan
@@ -27,6 +25,9 @@ import java.util.List;
 @Service
 public class DomainServiceImpl extends DomainBaseService
         implements IDomainService<Object>{
+
+    @Resource
+    private WyWechatAuthMapper wyWechatAuthMapper;
     /**
      * 查询主域名
      * @return
@@ -73,4 +74,44 @@ public class DomainServiceImpl extends DomainBaseService
         }
         return primarySubDomainList;
     }
+
+    /**
+     * 查询域名并根据公众号进行分类
+     * @param queryType
+     * @param articleId
+     * @return
+     */
+    public Object queryPrimarySubDomainMap(String queryType,String articleId) {
+
+        Map<String,Object> primarySubMap = new LinkedHashMap<>();
+        List<PrimarySubDomain> primarySubDomainList =
+                (List<PrimarySubDomain>)this.queryAllEffectiveDomain(queryType, articleId);
+        primarySubDomainList.forEach(primarySubDomain -> {
+            String key = primarySubDomain.getWyDomain().getAppId();
+            if(StringUtils.isEmpty(key)) {
+                key = "非公众号域名";
+            } else {
+                //查询公众号相关内容
+                WyWechatAuthExample wyWechatAuthExample = new WyWechatAuthExample();
+                wyWechatAuthExample.createCriteria().andWeixinIdEqualTo(key);
+                List<WyWechatAuth> wyWechatAuths = wyWechatAuthMapper.selectByExample(wyWechatAuthExample);
+                if(!CollectionUtils.isEmpty(wyWechatAuths)) {
+                    WyWechatAuth wyWechatAuth = wyWechatAuths.get(0);
+                    key = new StringBuilder().append(wyWechatAuth.getWeixinId()).append("--")
+                            .append(wyWechatAuth.getWeixinName()).toString();
+                }
+            }
+            if(Objects.isNull(primarySubMap.get(key))) {
+                List<PrimarySubDomain> list = new ArrayList<>();
+                list.add(primarySubDomain);
+                primarySubMap.put(key,list);
+            } else {
+                List<PrimarySubDomain> primarySubDomains = (List<PrimarySubDomain>)primarySubMap.get(key);
+                primarySubDomains.add(primarySubDomain);
+                primarySubMap.put(key,primarySubDomains);
+            }
+        });
+        return primarySubMap;
+    }
+
 }

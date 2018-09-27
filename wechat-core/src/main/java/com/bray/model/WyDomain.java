@@ -14,6 +14,8 @@ public class WyDomain implements Serializable{
 
     private String articleId;
 
+    private String appId;
+
     private Integer status;
 
     private Integer isDel;
@@ -60,6 +62,14 @@ public class WyDomain implements Serializable{
 
     public void setArticleId(String articleId) {
         this.articleId = articleId == null ? null : articleId.trim();
+    }
+
+    public String getAppId() {
+        return appId;
+    }
+
+    public void setAppId(String appId) {
+        this.appId = appId == null ? null : appId.trim();
     }
 
     public Integer getStatus() {

@@ -61,6 +61,10 @@ public class WyDomainSqlProvider {
             VALUES("article_id", "#{articleId,jdbcType=VARCHAR}");
         }
         
+        if (record.getAppId() != null) {
+            VALUES("app_id", "#{appId,jdbcType=VARCHAR}");
+        }
+        
         if (record.getStatus() != null) {
             VALUES("status", "#{status,jdbcType=INTEGER}");
         }
@@ -91,6 +95,7 @@ public class WyDomainSqlProvider {
         SELECT("domain_from");
         SELECT("type");
         SELECT("article_id");
+        SELECT("app_id");
         SELECT("status");
         SELECT("is_del");
         SELECT("create_time");
@@ -132,6 +137,10 @@ public class WyDomainSqlProvider {
             SET("article_id = #{record.articleId,jdbcType=VARCHAR}");
         }
         
+        if (record.getAppId() != null) {
+            SET("app_id = #{record.appId,jdbcType=VARCHAR}");
+        }
+        
         if (record.getStatus() != null) {
             SET("status = #{record.status,jdbcType=INTEGER}");
         }
@@ -161,6 +170,7 @@ public class WyDomainSqlProvider {
         SET("domain_from = #{record.domainFrom,jdbcType=VARCHAR}");
         SET("type = #{record.type,jdbcType=VARCHAR}");
         SET("article_id = #{record.articleId,jdbcType=VARCHAR}");
+        SET("app_id = #{record.appId,jdbcType=VARCHAR}");
         SET("status = #{record.status,jdbcType=INTEGER}");
         SET("is_del = #{record.isDel,jdbcType=INTEGER}");
         SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
@@ -189,6 +199,10 @@ public class WyDomainSqlProvider {
         
         if (record.getArticleId() != null) {
             SET("article_id = #{articleId,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getAppId() != null) {
+            SET("app_id = #{appId,jdbcType=VARCHAR}");
         }
         
         if (record.getStatus() != null) {

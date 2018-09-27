@@ -20,4 +20,8 @@ public class DomainModelVo {
     private String domainType;
 
     private String articleId;
+    /**
+     * 公众号id
+     */
+    private String appId;
 }

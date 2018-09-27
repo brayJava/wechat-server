@@ -39,7 +39,7 @@
             <th>文章作者</th>
             <th>文章标题</th>
             <th>时间</th>
-            <th>文章状态</th>
+            <!--<th>文章状态</th> -->
             <th>是否刷新文章</th>
             <th>操作</th>
           </tr>
@@ -50,10 +50,10 @@
             <td class="author" th:text="${wyArticle.getAuthor()}"></td>
             <td class="title" th:text="${wyArticle.getTitle()}"></td>
             <td class="updateTime" th:text="${#dates.format(wyArticle.getUpdateTime(),'yyyy/MM/dd HH:mm:ss')}"></td>
-            <td class="td-status">
+           <!-- <td class="td-status">
                 <span th:if="${wyArticle.isPublish}" th:text="已发布" class="layui-btn layui-btn-normal layui-btn-mini ispublish">  </span>
                 <span th:unless= "${wyArticle.isPublish} " th:text="已下架" class="layui-btn layui-btn-normal layui-btn-mini layui-btn-disabled ispublish"> </span>
-            </td>
+            </td> -->
             <td>
               <button class="btn btn-default" style="color: #5a98de" th:onclick="'article_refresh(this,\''+${wyArticle.id}+'\')'">刷新文章</button>
             </td>

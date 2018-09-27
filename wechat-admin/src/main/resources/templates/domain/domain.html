@@ -32,7 +32,13 @@
         <button class="layui-btn layui-btn-danger"  onclick="x_admin_show('添加','/domain/add')">+ 添加域名</button>
         <!--<span class="x-right" style="line-height:40px">共有数据：88 条</span>-->
     </xblock>
-    <table class="layui-table layui-form">
+    <div th:each="domainMap, domainMapS:${all_map_domain}">
+        <table class="layui-table" lay-skin="line">
+                        <tbody>
+                            <tr><td class="x-a" href="/" target="_blank" th:text="${domainMap.key}"></td></tr>
+                        </tbody>
+                    </table>
+        <table class="layui-table layui-form">
         <thead>
         <tr>
             <th width="5">序列</th>
@@ -44,88 +50,90 @@
         </tr>
         </thead>
         <tbody class="x-cate">
-            <div th:if="${not #lists.isEmpty(all_domain)}" th:each="primarySubDomain,iterStat_1:${all_domain}">
-                <tr th:class="${'primary_doamin'}" th:attr="cate-id=${primarySubDomain.wyDomain.id},fid=${0}">
-                    <td>
-                      <strong><span th:text="${iterStat_1.count}"></span></strong>
-                    </td>
-                    <td>
-                        <!--<span th:text="${primarySubDomain.wyDomain.type} == '1' ? '分享域名' : '普通域名' " class="type"></span>-->
-                        <span class="domainType" th:if="${primarySubDomain.wyDomain.type} == '1' " th:type="${primarySubDomain.wyDomain.type}">分享域名</span>
-                        <span class="domainType" th:if="${primarySubDomain.wyDomain.type} == '2' " th:type="${primarySubDomain.wyDomain.type}">普通域名</span>
-                        <span class="domainType" th:if="${primarySubDomain.wyDomain.type} == '3' " th:type="${primarySubDomain.wyDomain.type}">非分享域名</span>
-                    </td>
-                    <td>
-                        <i class="layui-icon x-show" status='true'>&#xe623;</i>
-                        <strong><span class="domain" th:text="${primarySubDomain.wyDomain.domain}"></span></strong>
-                    </td>
-                    <td>
-                        <!--<span class="editable-text" th:text="${#dates.format(primarySubDomain.wyDomain.createTime,'yyyy/MM/dd HH:mm:ss')}"></span>-->
-                        <span class="articleId" th:text="${primarySubDomain.wyDomain.articleId}"></span>
-                    </td>
-                    <td class="td-status">
-                        <!--<input type="checkbox" name="switch" lay-text="开启|停用" checked="" lay-skin="switch"/>-->
-                        <!--<span th:text="${primarySubDomain.wyDomain.domainFrom}" class = "domainFrom"></span>-->
-                        <span th:if="${primarySubDomain.wyDomain.status} == 1 " class="layui-btn layui-btn-normal layui-btn-mini ispublish">已启用</span>
-                        <span th:if="${primarySubDomain.wyDomain.status} == -1 " class="layui-btn layui-btn-normal layui-btn-mini layui-btn-disabled ispublish">已停用</span>
-                    </td>
-                    <td class="td-manage">
-                        <button  th:if="${primarySubDomain.wyDomain.status} == 1 " class="layui-btn layui-btn layui-btn-xs"  th:onclick="'javascript:member_stop(this,'+${primarySubDomain.wyDomain.id}+')'" title="启用">
-                            停启用
-                        </button>
-                        <button  th:if="${primarySubDomain.wyDomain.status} == -1 " class="layui-btn layui-btn layui-btn-xs"  th:onclick="'javascript:member_stop(this,'+${primarySubDomain.wyDomain.id}+')'"  title="停用">
-                            停启用
-                        </button>
-                        <button class="layui-btn layui-btn layui-btn-xs" th:onclick="'javascript:x_admin_show(\'编辑\',\' /domain/add \',\'\',\'\',this,'+${primarySubDomain.wyDomain.id}+')'"  href="javascript:;">
-                            <i class="layui-icon">&#xe642;</i>编辑
-                        </button>
-                        <button class="layui-btn layui-btn-warm layui-btn-xs" onclick="x_admin_show('添加','/domain/sub-add','','',this,'')"><i
-                                class="layui-icon">+</i>添加子域名
-                        </button>
-                        <button class="layui-btn-danger layui-btn layui-btn-xs"  th:onclick= "'javascript:member_del(this,'+${primarySubDomain.wyDomain.id}+',\'wydomain\')'"
-                                href="javascript:;"><i class="layui-icon">&#xe640;</i>删除
-                        </button>
-                        <button class="layui-btn layui-btn-xs"  th:onclick= "'javascript:refresh_prod(this,'+${primarySubDomain.wyDomain.id}+')'"
-                                href="javascript:;">刷新线上
-                        </button>
-                    </td>
-                </tr>
-                <div th:if="${not #lists.isEmpty(primarySubDomain.wySubdomainList)}" th:each="subdomain,iterStat_2:${primarySubDomain.wySubdomainList}">
-                    <tr th:class="${'sub_domain'}"  th:attr="cate-id=${1000},fid=${subdomain.domainId}">
-                        <input hidden="hidden" th:subdomain="${subdomain.id}" class="subdomain_id" />
+                <div th:if="${not #lists.isEmpty(domainMap.value)}" th:each="primarySubDomain,iterStat_1:${domainMap.value}">
+                    <tr th:class="${'primary_doamin'}" th:attr="cate-id=${primarySubDomain.wyDomain.id},fid=${0}">
+                         <input type="hidden" th:class="appId" name="color" th:value="${primarySubDomain.wyDomain.appId}"/>
                         <td>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <span th:text="${iterStat_2.count}"></span>
+                          <strong><span th:text="${iterStat_1.count}"></span></strong>
                         </td>
                         <td>
-                            <span th:text="${subdomain.type} == '1' ? '二级域名' : '多级子域名' "></span>
+                            <!--<span th:text="${primarySubDomain.wyDomain.type} == '1' ? '分享域名' : '普通域名' " class="type"></span>-->
+                            <span class="domainType" th:if="${primarySubDomain.wyDomain.type} == '1' " th:type="${primarySubDomain.wyDomain.type}">分享域名</span>
+                            <span class="domainType" th:if="${primarySubDomain.wyDomain.type} == '2' " th:type="${primarySubDomain.wyDomain.type}">普通域名</span>
+                            <span class="domainType" th:if="${primarySubDomain.wyDomain.type} == '3' " th:type="${primarySubDomain.wyDomain.type}">非分享域名</span>
                         </td>
                         <td>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            ├  <span class="domain" th:text="${subdomain.subDomain}"></span>
+                            <i class="layui-icon x-show" status='true'>&#xe623;</i>
+                            <strong><span class="domain" th:text="${primarySubDomain.wyDomain.domain}"></span></strong>
                         </td>
                         <td>
-                            <span class="editable-text" th:text="${#dates.format(subdomain.createTime,'yyyy/MM/dd HH:mm:ss')}"></span>
+                            <!--<span class="editable-text" th:text="${#dates.format(primarySubDomain.wyDomain.createTime,'yyyy/MM/dd HH:mm:ss')}"></span>-->
+                            <span class="articleId" th:text="${primarySubDomain.wyDomain.articleId}"></span>
                         </td>
-                        <td>
-                            <input type="checkbox" name="switch" lay-text="正常|已封" checked="" lay-skin="switch"/>
+                        <td class="td-status">
+                            <!--<input type="checkbox" name="switch" lay-text="开启|停用" checked="" lay-skin="switch"/>-->
+                            <!--<span th:text="${primarySubDomain.wyDomain.domainFrom}" class = "domainFrom"></span>-->
+                            <span th:if="${primarySubDomain.wyDomain.status} == 1 " class="layui-btn layui-btn-normal layui-btn-mini ispublish">已启用</span>
+                            <span th:if="${primarySubDomain.wyDomain.status} == -1 " class="layui-btn layui-btn-normal layui-btn-mini layui-btn-disabled ispublish">已停用</span>
                         </td>
                         <td class="td-manage">
-                            <button class="layui-btn layui-btn layui-btn-xs" th:onclick="'x_admin_show(\'编辑\',\'/domain/sub-add\',\'\',\'\',this,'+${subdomain.id}+')'"  href="javascript:;">
+                            <button  th:if="${primarySubDomain.wyDomain.status} == 1 " class="layui-btn layui-btn layui-btn-xs"  th:onclick="'javascript:member_stop(this,'+${primarySubDomain.wyDomain.id}+')'" title="启用">
+                                停启用
+                            </button>
+                            <button  th:if="${primarySubDomain.wyDomain.status} == -1 " class="layui-btn layui-btn layui-btn-xs"  th:onclick="'javascript:member_stop(this,'+${primarySubDomain.wyDomain.id}+')'"  title="停用">
+                                停启用
+                            </button>
+                            <button class="layui-btn layui-btn layui-btn-xs" th:onclick="'javascript:x_admin_show(\'编辑\',\' /domain/add \',\'\',\'\',this,'+${primarySubDomain.wyDomain.id}+')'"  href="javascript:;">
                                 <i class="layui-icon">&#xe642;</i>编辑
                             </button>
                             <button class="layui-btn layui-btn-warm layui-btn-xs" onclick="x_admin_show('添加','/domain/sub-add','','',this,'')"><i
-                                    class="layui-icon">&#xe642;</i>添加子域名
+                                    class="layui-icon">+</i>添加子域名
                             </button>
-                            <button class="layui-btn-danger layui-btn layui-btn-xs"  th:onclick= "'javascript:member_del(this,'+${subdomain.id}+',\'wysubdomain\')'"
+                            <button class="layui-btn-danger layui-btn layui-btn-xs"  th:onclick= "'javascript:member_del(this,'+${primarySubDomain.wyDomain.id}+',\'wydomain\')'"
                                     href="javascript:;"><i class="layui-icon">&#xe640;</i>删除
+                            </button>
+                            <button class="layui-btn layui-btn-xs"  th:onclick= "'javascript:refresh_prod(this,'+${primarySubDomain.wyDomain.id}+')'"
+                                    href="javascript:;">刷新线上
                             </button>
                         </td>
                     </tr>
+                    <div th:if="${not #lists.isEmpty(primarySubDomain.wySubdomainList)}" th:each="subdomain,iterStat_2:${primarySubDomain.wySubdomainList}">
+                        <tr th:class="${'sub_domain'}"  th:attr="cate-id=${1000},fid=${subdomain.domainId}">
+                            <input hidden="hidden" th:subdomain="${subdomain.id}" class="subdomain_id" />
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span th:text="${iterStat_2.count}"></span>
+                            </td>
+                            <td>
+                                <span th:text="${subdomain.type} == '1' ? '二级域名' : '多级子域名' "></span>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                ├  <span class="domain" th:text="${subdomain.subDomain}"></span>
+                            </td>
+                            <td>
+                                <span class="editable-text" th:text="${#dates.format(subdomain.createTime,'yyyy/MM/dd HH:mm:ss')}"></span>
+                            </td>
+                            <td>
+                                <input type="checkbox" name="switch" lay-text="正常|已封" checked="" lay-skin="switch"/>
+                            </td>
+                            <td class="td-manage">
+                                <button class="layui-btn layui-btn layui-btn-xs" th:onclick="'x_admin_show(\'编辑\',\'/domain/sub-add\',\'\',\'\',this,'+${subdomain.id}+')'"  href="javascript:;">
+                                    <i class="layui-icon">&#xe642;</i>编辑
+                                </button>
+                                <button class="layui-btn layui-btn-warm layui-btn-xs" onclick="x_admin_show('添加','/domain/sub-add','','',this,'')"><i
+                                        class="layui-icon">&#xe642;</i>添加子域名
+                                </button>
+                                <button class="layui-btn-danger layui-btn layui-btn-xs"  th:onclick= "'javascript:member_del(this,'+${subdomain.id}+',\'wysubdomain\')'"
+                                        href="javascript:;"><i class="layui-icon">&#xe640;</i>删除
+                                </button>
+                            </td>
+                        </tr>
+                    </div>
                 </div>
-            </div>
         </tbody>
     </table>
+     </div>
 </div>
 <style type="text/css">
 

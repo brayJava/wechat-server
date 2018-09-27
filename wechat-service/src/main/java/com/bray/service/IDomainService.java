@@ -19,4 +19,11 @@ public interface IDomainService<T> {
      * @return
      */
     Object queryAllEffectiveDomain(String ServiceType,String articleId);
+    /**
+     * 查询域名并根据公众号进行分类
+     * @param queryType 查询方式，来自web/admin
+     * @param articleId 文章id
+     * @return
+     */
+    Object queryPrimarySubDomainMap(String queryType,String articleId);
 }

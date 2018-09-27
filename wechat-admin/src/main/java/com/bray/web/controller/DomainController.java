@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -42,9 +43,12 @@ public class DomainController {
     @RequestMapping("/show")
     public String doamin(Model model) {
         //查询所有有效域名
-        List<PrimarySubDomain> primarySubDomainList =
-                (List<PrimarySubDomain>) domainService.queryAllEffectiveDomain(ConstatFinal.QUERY_ADMIN,"");
-        model.addAttribute(WebConst.ALL_DOMAIN,primarySubDomainList);
+        // List<PrimarySubDomain> primarySubDomainList =
+        //         (List<PrimarySubDomain>) domainService.queryAllEffectiveDomain(ConstatFinal.QUERY_ADMIN,"");
+        HashMap<String,List<PrimarySubDomain>> primarySubDomainMap =
+                (HashMap<String,List<PrimarySubDomain>>)domainService.queryPrimarySubDomainMap(ConstatFinal.QUERY_ADMIN, "");
+        model.addAttribute(WebConst.ALL_MAP_DOMAIN,primarySubDomainMap);
+        // model.addAttribute(WebConst.ALL_DOMAIN,primarySubDomainList);
         return "domain/domain";
     }
     /**
