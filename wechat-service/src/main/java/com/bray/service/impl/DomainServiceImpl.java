@@ -56,7 +56,7 @@ public class DomainServiceImpl extends DomainBaseService
                     // .andArticleIdEqualTo(articleId)
                     .andArticleIdLike(articleId);
         }
-        wyDomainExample.setOrderByClause("update_time desc");
+        wyDomainExample.setOrderByClause("create_time desc");
         List<WyDomain> wyDomains = wyDomainMapper.selectByExample(wyDomainExample);
         List<PrimarySubDomain> primarySubDomainList = new ArrayList<>();
         if( !CollectionUtils.isEmpty(wyDomains)) {
