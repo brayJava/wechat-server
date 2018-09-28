@@ -54,8 +54,8 @@ public class DomainAdminServiceImpl implements IDomainAdminService {
             wyDomain.setUpdateTime(new Date());
             try {
                 wyDomainMapper.updateByPrimaryKeySelective(wyDomain);
-                log.error("----------域名更新失败----------");
             } catch (Exception e) {
+                log.error("----------域名更新失败----------");
                 e.printStackTrace();
             }
         } else {
@@ -63,6 +63,8 @@ public class DomainAdminServiceImpl implements IDomainAdminService {
             wyDomain.setDomainFrom(domainModelVo.getDomainFrom());
             wyDomain.setStatus(EffectiveType.EFFECTIVE_YES);
             wyDomain.setType(domainModelVo.getDomainType());
+            wyDomain.setAppId(domainModelVo.getAppId());
+            wyDomain.setArticleId(domainModelVo.getArticleId());
             wyDomain.setCreateTime(new Date());
             wyDomain.setUpdateTime(new Date());
             try {
