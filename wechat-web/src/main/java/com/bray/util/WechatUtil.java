@@ -30,21 +30,32 @@ public class WechatUtil {
     public static JSONObject nextUrlBuild(String domainType, String path, String articleId, Map<String, Object> domainMap) {
         JSONObject jsonObject = new JSONObject();
         long millis = Clock.systemDefaultZone().millis();
-        //获取分享主域名
+        String wySub = "wlzy";
+        //获取分享子域名集合
         List<WySubdomain> wySubdomains = (List<WySubdomain>) domainMap.get(domainType);
-        if(CollectionUtils.isEmpty(wySubdomains)) return jsonObject;
-        String[] wySubs = wySubdomains.stream().map(wySubdomain -> wySubdomain.getSubDomain())
-                .collect(Collectors.toList()).toArray(new String[wySubdomains.size()]);
-        int v = (int)Math.floor(Math.random() * wySubs.length); //在域名中求整数
+        if(!CollectionUtils.isEmpty(wySubdomains)) {
+            String[] wySubs = wySubdomains.stream().map(wySubdomain -> wySubdomain.getSubDomain())
+                    .collect(Collectors.toList()).toArray(new String[wySubdomains.size()]);
+            int v = (int)Math.floor(Math.random() * wySubs.length); //在域名中求整数
+            wySub = wySubs[v];
+        }
         String url = new StringBuilder()
                 .append(UrlConstant.HTTP_RUL)
-                     .append(wySubs[v])
-                         .append(path)
-                             .append(articleId)
-                                 .append(File.separator)
-                                         .append(millis).toString();
-        jsonObject.put("domain",wySubs[v]);
+                     .append(getRandomNum())
+                         .append(wySub)
+                             .append(path)
+                                 .append(articleId)
+                                     .append(File.separator)
+                                             .append(millis).toString();
+        jsonObject.put("domain",wySub);
         jsonObject.put("url",url);
         return jsonObject;
+    }
+    public static String getRandomNum() {
+        String num = "";
+        for(int i = 0;i< 6;i++) {
+            num+=(int)Math.floor(Math.random()*10);
+        }
+        return num;
     }
 }

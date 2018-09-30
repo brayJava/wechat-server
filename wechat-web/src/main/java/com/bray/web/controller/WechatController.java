@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.time.Clock;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -61,24 +62,6 @@ public class WechatController {
     /**
      * 内容跳转
      */
-    @RequestMapping("/content/{articleId}/{timstamp}")
-    public String content(@PathVariable String articleId, String timstamp, Model model, HttpServletRequest request) {
-        Map<String,Object> domainMap = (HashMap<String,Object>)
-                iDomainWebService.queryDomainByredisServer(getDomainFlag(articleId),articleId);
-        JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_SHARE_DOMAIN, UrlConstant.PATH_JUMP_RUL,articleId, domainMap);
-        String shareUrl = String.valueOf(jsonObject.get("url"));
-        //base64编码
-        model.addAttribute(UrlConstant.SHARE_URL, Base64Util.encode(shareUrl));
-        String requestURI = request.getRequestURI();
-        //放置签名信息
-//        String signature = wechatAuthService.signature(requestURI, domainVerfiy);
-//        model.addAttribute("signature",signature);
-        log.info("----------分享链接为：{}",shareUrl);
-        return "html/content";
-    }
-    /**
-     * 内容跳转
-     */
     @RequestMapping("/random-content/{articleId}/{timstamp}")
     public ModelAndView randomContent(@PathVariable String articleId,@PathVariable String timstamp,Model model, HttpServletRequest request) {
         Map<String,Object> domainMap = (HashMap<String,Object>)
@@ -108,7 +91,7 @@ public class WechatController {
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
         //判断是否进行数据迁移
         if(!StringUtils.isEmpty(articleWithImages.getWyArticle().getDataTransferUrl())) {
-            modelAndView = new ModelAndView("redirect:"+articleWithImages.getWyArticle().getDataTransferUrl());
+            modelAndView = new ModelAndView("redirect:" + buildRandomTransferUrl(articleWithImages));
             return modelAndView;
         }
         //base64编码
@@ -174,5 +157,16 @@ public class WechatController {
             domain = domain.substring(domain.indexOf(".")+1, domain.length());
         }
         return domain;
+    }
+    /**
+     * 获取随机数据迁移连接
+     * @param articleWithImages
+     * @return
+     */
+    private String buildRandomTransferUrl(ArticleWithImages articleWithImages) {
+        return UrlConstant.HTTP_RUL
+                + WechatUtil.getRandomNum()
+                + articleWithImages.getWyArticle().getDataTransferUrl()
+                + Clock.systemDefaultZone().millis();
     }
 }
