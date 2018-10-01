@@ -41,7 +41,7 @@ public class WechatAuthServiceImpl implements IWechatAuthService {
      * @return
      */
     @Override
-    public String signature(String currentDomain, String linkUrl, String domainVerfiy) {
+    public String signature(String linkUrl, String domainVerfiy,String currentDomain) {
         //获取微信公众号信息
         List<WyWechatAuth> wyWechatAuths = getWyWechatAuths();
         JSONObject jsonObject = new JSONObject();
