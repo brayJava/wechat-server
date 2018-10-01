@@ -1,5 +1,7 @@
 package com.bray.service;
 
+import com.bray.model.WyArticle;
+
 /**
  * @Author:wuzhiyuan
  * @Description: 微信授权接口
@@ -9,10 +11,12 @@ package com.bray.service;
 public interface IWechatAuthService {
     /**
      * 微信授权签名
+     *
+     * @param currentDomain
      * @param linkUrl
      * @param domainVerfiy
      * @return
      */
-    String signature(String linkUrl, String domainVerfiy);
+    String signature(String currentDomain, String linkUrl, String domainVerfiy);
 }
 

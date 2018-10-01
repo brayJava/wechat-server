@@ -30,6 +30,10 @@ public class WyArticle implements Serializable{
 
     private Boolean isPublish;
 
+    private Boolean forcedShare;
+
+    private String noShareDomain;
+
     private Integer status;
 
     private Date createTime;
@@ -138,6 +142,22 @@ public class WyArticle implements Serializable{
 
     public void setIsPublish(Boolean isPublish) {
         this.isPublish = isPublish;
+    }
+
+    public Boolean getForcedShare() {
+        return forcedShare;
+    }
+
+    public void setForcedShare(Boolean forcedShare) {
+        this.forcedShare = forcedShare;
+    }
+
+    public String getNoShareDomain() {
+        return noShareDomain;
+    }
+
+    public void setNoShareDomain(String noShareDomain) {
+        this.noShareDomain = noShareDomain == null ? null : noShareDomain.trim();
     }
 
     public Integer getStatus() {

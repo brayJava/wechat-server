@@ -53,7 +53,7 @@ public class WechatUtil {
     }
     public static String getRandomNum() {
         String num = "";
-        for(int i = 0;i< 6;i++) {
+        for(int i = 0; i < 6 ;i++) {
             num+=(int)Math.floor(Math.random()*10);
         }
         return num;

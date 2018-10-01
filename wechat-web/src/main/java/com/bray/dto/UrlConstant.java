@@ -40,6 +40,14 @@ public interface UrlConstant {
      */
     String PATH_JUMP_RUL = "/wechat/jump/";
     /**
+     * 测试内容链接跳转
+     */
+    String PATH_CONTENT_URL_TEST = "/wechat/random-test/";
+    /**
+     * 测试分享链接跳转
+     */
+    String PATH_JUMP_RUL_TEST = "/wechat/jump-test/";
+    /**
      * 非分享功能跳转
      */
     String PATH_WITHOUT_SHARE_RUL = "/wechat/random-common/";

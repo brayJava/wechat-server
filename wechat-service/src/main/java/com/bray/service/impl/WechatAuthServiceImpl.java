@@ -3,6 +3,7 @@ package com.bray.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.bray.dto.EffectiveType;
 import com.bray.mapper.WyWechatAuthMapper;
+import com.bray.model.WyArticle;
 import com.bray.model.WyWechatAuth;
 import com.bray.model.WyWechatAuthExample;
 import com.bray.service.IWechatAuthService;
@@ -15,7 +16,6 @@ import com.foxinmy.weixin4j.mp.WeixinProxy;
 import com.foxinmy.weixin4j.token.TokenManager;
 import com.foxinmy.weixin4j.type.TicketType;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -31,12 +31,17 @@ import java.util.Objects;
 @Service
 @Slf4j
 public class WechatAuthServiceImpl implements IWechatAuthService {
-
     @Resource
     private WyWechatAuthMapper wyWechatAuthMapper;
-
+    /**
+     * 授权接口实现
+     * @param currentDomain 访问域名
+     * @param linkUrl       访问连接
+     * @param domainVerfiy  域名校验，用于区分公众号
+     * @return
+     */
     @Override
-    public String signature(String linkUrl, String domainVerfiy) {
+    public String signature(String currentDomain, String linkUrl, String domainVerfiy) {
         //获取微信公众号信息
         List<WyWechatAuth> wyWechatAuths = getWyWechatAuths();
         JSONObject jsonObject = new JSONObject();
@@ -59,7 +64,10 @@ public class WechatAuthServiceImpl implements IWechatAuthService {
             } catch (WeixinException e) {
                 e.printStackTrace();
             }
-            if(Objects.isNull(ticketManagerCache)) return "{}";
+            if(Objects.isNull(ticketManagerCache)){
+                jsonObject.put("contentUrl",currentDomain);
+                return jsonObject.toString();
+            }
             Integer timestamp = Integer.valueOf(String.valueOf(ticketManagerCache.getCreateTime()/1000));
             String noncestr = WeixinJSAuthorization.getNoncestr(17);
             String signature = WeixinJSAuthorization.getSignature(ticketManagerCache.getAccessToken(), timestamp.toString(), noncestr, linkUrl);
@@ -68,6 +76,7 @@ public class WechatAuthServiceImpl implements IWechatAuthService {
             jsonObject.put("timestamp",String.valueOf(timestamp));
             jsonObject.put("accesstoken",ticketManagerCache.getAccessToken());
             jsonObject.put("theAppId",wyWechatAuth.getWeixinId());
+            jsonObject.put("contentUrl",currentDomain);
         }
         return jsonObject.toJSONString();
     }

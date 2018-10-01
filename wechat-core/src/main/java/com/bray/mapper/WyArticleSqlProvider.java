@@ -93,6 +93,14 @@ public class WyArticleSqlProvider {
             VALUES("is_publish", "#{isPublish,jdbcType=BIT}");
         }
         
+        if (record.getForcedShare() != null) {
+            VALUES("forced_share", "#{forcedShare,jdbcType=BIT}");
+        }
+        
+        if (record.getNoShareDomain() != null) {
+            VALUES("no_share_domain", "#{noShareDomain,jdbcType=VARCHAR}");
+        }
+        
         if (record.getStatus() != null) {
             VALUES("status", "#{status,jdbcType=INTEGER}");
         }
@@ -127,6 +135,8 @@ public class WyArticleSqlProvider {
         SELECT("connect_primary_domain");
         SELECT("connect_common_domain");
         SELECT("is_publish");
+        SELECT("forced_share");
+        SELECT("no_share_domain");
         SELECT("status");
         SELECT("create_time");
         SELECT("update_time");
@@ -199,6 +209,14 @@ public class WyArticleSqlProvider {
             SET("is_publish = #{record.isPublish,jdbcType=BIT}");
         }
         
+        if (record.getForcedShare() != null) {
+            SET("forced_share = #{record.forcedShare,jdbcType=BIT}");
+        }
+        
+        if (record.getNoShareDomain() != null) {
+            SET("no_share_domain = #{record.noShareDomain,jdbcType=VARCHAR}");
+        }
+        
         if (record.getStatus() != null) {
             SET("status = #{record.status,jdbcType=INTEGER}");
         }
@@ -232,6 +250,8 @@ public class WyArticleSqlProvider {
         SET("connect_primary_domain = #{record.connectPrimaryDomain,jdbcType=VARCHAR}");
         SET("connect_common_domain = #{record.connectCommonDomain,jdbcType=VARCHAR}");
         SET("is_publish = #{record.isPublish,jdbcType=BIT}");
+        SET("forced_share = #{record.forcedShare,jdbcType=BIT}");
+        SET("no_share_domain = #{record.noShareDomain,jdbcType=VARCHAR}");
         SET("status = #{record.status,jdbcType=INTEGER}");
         SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
@@ -291,6 +311,14 @@ public class WyArticleSqlProvider {
         
         if (record.getIsPublish() != null) {
             SET("is_publish = #{isPublish,jdbcType=BIT}");
+        }
+        
+        if (record.getForcedShare() != null) {
+            SET("forced_share = #{forcedShare,jdbcType=BIT}");
+        }
+        
+        if (record.getNoShareDomain() != null) {
+            SET("no_share_domain = #{noShareDomain,jdbcType=VARCHAR}");
         }
         
         if (record.getStatus() != null) {

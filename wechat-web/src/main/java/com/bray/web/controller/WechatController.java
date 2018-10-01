@@ -60,23 +60,20 @@ public class WechatController {
         return "html/share";
     }
     /**
-     * 内容跳转
+     * 首页跳转测试用
      */
-    @RequestMapping("/random-content/{articleId}/{timstamp}")
-    public ModelAndView randomContent(@PathVariable String articleId,@PathVariable String timstamp,Model model, HttpServletRequest request) {
+    @RequestMapping("/jump-test/{articleId}/{temstamp}")
+    public String indexTest(@PathVariable String articleId,@PathVariable String temstamp, Model model) {
         Map<String,Object> domainMap = (HashMap<String,Object>)
                 iDomainWebService.queryDomainByredisServer(getDomainFlag(articleId),articleId);
-        JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_SHARE_DOMAIN, UrlConstant.PATH_JUMP_RUL,articleId, domainMap);
-        String shareUrl = String.valueOf(jsonObject.get("url"));
-        String domain = String.valueOf(jsonObject.get("domain"));
-        ArticleWithImages articleWithImages = getArticleWithImages(articleId, domain);
+        //获取内容跳转链接
+        JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_COMMON_DOMAIN
+                , UrlConstant.PATH_CONTENT_URL_TEST,articleId,domainMap);
+        String contentUrl = String.valueOf(jsonObject.get("url"));
         //base64编码
-        model.addAttribute(UrlConstant.SHARE_URL, Base64Util.encode(shareUrl));
-        model.addAttribute("article",articleWithImages);
-//        model.addAttribute("signature",signature);
-        log.info("----------分享链接为：{}",shareUrl);
-        ModelAndView modelAndView =  new ModelAndView("redirect:http://localhost:8081/html/random-common.html");
-        return modelAndView;
+        model.addAttribute(UrlConstant.CONTENT_URL, Base64Util.encode(contentUrl));
+        log.info("----------内容链接为：{}",contentUrl);
+        return "html/share";
     }
     /**
      * 内容跳转
@@ -101,6 +98,50 @@ public class WechatController {
         modelAndView.addObject("article",articleWithImages);
         modelAndView.setViewName("html/random-content-other");
         log.info("----------分享链接为：{}",String.valueOf(jsonObject.get("url")));
+        return modelAndView;
+    }
+    /**
+     * 内容跳转测试用
+     */
+    @RequestMapping("/random-test/{articleId}/{timstamp}")
+    public ModelAndView randomTest(@PathVariable String articleId,@PathVariable String timstamp,Model model, HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView();
+        Map<String,Object> domainMap = (HashMap<String,Object>)
+                iDomainWebService.queryDomainByredisServer(getDomainFlag(articleId),articleId);
+        JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_SHARE_DOMAIN, UrlConstant.PATH_JUMP_RUL_TEST,articleId,domainMap);
+        //获取图片相关信息
+        ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
+        //判断是否进行数据迁移
+        if(!StringUtils.isEmpty(articleWithImages.getWyArticle().getDataTransferUrl())) {
+            modelAndView = new ModelAndView("redirect:" + buildRandomTransferUrl(articleWithImages));
+            return modelAndView;
+        }
+        //base64编码
+        modelAndView.addObject(UrlConstant.SHARE_URL, Base64Util.encode(String.valueOf(jsonObject.get("url"))));
+        String domain = getDomainName(jsonObject);
+        modelAndView.addObject(UrlConstant.DOMAIN_NAME, Base64Util.encode(domain));
+        modelAndView.addObject("article",articleWithImages);
+        modelAndView.setViewName("html/random-test");
+        log.info("----------分享链接为：{}",String.valueOf(jsonObject.get("url")));
+        return modelAndView;
+    }
+    /**
+     * 内容跳转
+     */
+    @RequestMapping("/random-content/{articleId}/{timstamp}")
+    public ModelAndView randomContent(@PathVariable String articleId,@PathVariable String timstamp,Model model, HttpServletRequest request) {
+        Map<String,Object> domainMap = (HashMap<String,Object>)
+                iDomainWebService.queryDomainByredisServer(getDomainFlag(articleId),articleId);
+        JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_SHARE_DOMAIN, UrlConstant.PATH_JUMP_RUL,articleId, domainMap);
+        String shareUrl = String.valueOf(jsonObject.get("url"));
+        String domain = String.valueOf(jsonObject.get("domain"));
+        ArticleWithImages articleWithImages = getArticleWithImages(articleId, domain);
+        //base64编码
+        model.addAttribute(UrlConstant.SHARE_URL, Base64Util.encode(shareUrl));
+        model.addAttribute("article",articleWithImages);
+//        model.addAttribute("signature",signature);
+        log.info("----------分享链接为：{}",shareUrl);
+        ModelAndView modelAndView =  new ModelAndView("redirect:http://localhost:8081/html/random-common.html");
         return modelAndView;
     }
     /**

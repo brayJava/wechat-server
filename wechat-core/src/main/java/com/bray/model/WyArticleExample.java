@@ -995,6 +995,136 @@ public class WyArticleExample {
             return (Criteria) this;
         }
 
+        public Criteria andForcedShareIsNull() {
+            addCriterion("forced_share is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andForcedShareIsNotNull() {
+            addCriterion("forced_share is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andForcedShareEqualTo(Boolean value) {
+            addCriterion("forced_share =", value, "forcedShare");
+            return (Criteria) this;
+        }
+
+        public Criteria andForcedShareNotEqualTo(Boolean value) {
+            addCriterion("forced_share <>", value, "forcedShare");
+            return (Criteria) this;
+        }
+
+        public Criteria andForcedShareGreaterThan(Boolean value) {
+            addCriterion("forced_share >", value, "forcedShare");
+            return (Criteria) this;
+        }
+
+        public Criteria andForcedShareGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("forced_share >=", value, "forcedShare");
+            return (Criteria) this;
+        }
+
+        public Criteria andForcedShareLessThan(Boolean value) {
+            addCriterion("forced_share <", value, "forcedShare");
+            return (Criteria) this;
+        }
+
+        public Criteria andForcedShareLessThanOrEqualTo(Boolean value) {
+            addCriterion("forced_share <=", value, "forcedShare");
+            return (Criteria) this;
+        }
+
+        public Criteria andForcedShareIn(List<Boolean> values) {
+            addCriterion("forced_share in", values, "forcedShare");
+            return (Criteria) this;
+        }
+
+        public Criteria andForcedShareNotIn(List<Boolean> values) {
+            addCriterion("forced_share not in", values, "forcedShare");
+            return (Criteria) this;
+        }
+
+        public Criteria andForcedShareBetween(Boolean value1, Boolean value2) {
+            addCriterion("forced_share between", value1, value2, "forcedShare");
+            return (Criteria) this;
+        }
+
+        public Criteria andForcedShareNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("forced_share not between", value1, value2, "forcedShare");
+            return (Criteria) this;
+        }
+
+        public Criteria andNoShareDomainIsNull() {
+            addCriterion("no_share_domain is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNoShareDomainIsNotNull() {
+            addCriterion("no_share_domain is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNoShareDomainEqualTo(String value) {
+            addCriterion("no_share_domain =", value, "noShareDomain");
+            return (Criteria) this;
+        }
+
+        public Criteria andNoShareDomainNotEqualTo(String value) {
+            addCriterion("no_share_domain <>", value, "noShareDomain");
+            return (Criteria) this;
+        }
+
+        public Criteria andNoShareDomainGreaterThan(String value) {
+            addCriterion("no_share_domain >", value, "noShareDomain");
+            return (Criteria) this;
+        }
+
+        public Criteria andNoShareDomainGreaterThanOrEqualTo(String value) {
+            addCriterion("no_share_domain >=", value, "noShareDomain");
+            return (Criteria) this;
+        }
+
+        public Criteria andNoShareDomainLessThan(String value) {
+            addCriterion("no_share_domain <", value, "noShareDomain");
+            return (Criteria) this;
+        }
+
+        public Criteria andNoShareDomainLessThanOrEqualTo(String value) {
+            addCriterion("no_share_domain <=", value, "noShareDomain");
+            return (Criteria) this;
+        }
+
+        public Criteria andNoShareDomainLike(String value) {
+            addCriterion("no_share_domain like", value, "noShareDomain");
+            return (Criteria) this;
+        }
+
+        public Criteria andNoShareDomainNotLike(String value) {
+            addCriterion("no_share_domain not like", value, "noShareDomain");
+            return (Criteria) this;
+        }
+
+        public Criteria andNoShareDomainIn(List<String> values) {
+            addCriterion("no_share_domain in", values, "noShareDomain");
+            return (Criteria) this;
+        }
+
+        public Criteria andNoShareDomainNotIn(List<String> values) {
+            addCriterion("no_share_domain not in", values, "noShareDomain");
+            return (Criteria) this;
+        }
+
+        public Criteria andNoShareDomainBetween(String value1, String value2) {
+            addCriterion("no_share_domain between", value1, value2, "noShareDomain");
+            return (Criteria) this;
+        }
+
+        public Criteria andNoShareDomainNotBetween(String value1, String value2) {
+            addCriterion("no_share_domain not between", value1, value2, "noShareDomain");
+            return (Criteria) this;
+        }
+
         public Criteria andStatusIsNull() {
             addCriterion("status is null");
             return (Criteria) this;
