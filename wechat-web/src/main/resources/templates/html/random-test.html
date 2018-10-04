@@ -199,7 +199,7 @@
             }
             var contentUrl = '';
             if(article.wyArticle.forcedShare) {
-                 contentUrl=signatureJson.contentUrl;
+                 contentUrl= window.location.host;
             } else {
                  contentUrl=article.wyArticle.noShareDomain;
             }
@@ -209,7 +209,7 @@
             var jumpurl=document.referrer;
             alert('contentUrl:'+contentUrl+"--"+"currentDomain:"+currentDomain+"--"+"jumpurl:"+jumpurl);
             if(contentfirst==curfirst && jumpurl.length!==0){}else{
-                window.location.href='http://'+ranNum+'wzyz.'+contentUrl+'/wechat/random-test/'+Date.parse(new Date());
+                window.location.href='http://'+ranNum+'wzyz.'+contentUrl+'/wechat/random-test/'+article.wyArticle.id+"/"+Date.parse(new Date());
             }
             /*]]>*/
         }
