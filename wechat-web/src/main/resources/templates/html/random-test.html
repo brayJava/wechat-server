@@ -121,6 +121,7 @@
     // var data = [[${signature}]];
     var signatureJson = {};
     var article = [[${article}]];
+    var isShare = true;
     $("#statistical").append(article.wyArticle.statistical);
     $('title').html(article.wyArticle.title);
     //背景音乐停止与播放
@@ -203,6 +204,7 @@
                  contentUrl = currentDomain.substring(currentDomain.indexOf(".")+1,currentDomain.length);
             } else {
                  contentUrl=article.wyArticle.noShareDomain;
+                 isShare = false;
             }
             var curfirst=currentDomain.split(".")[1];
             var contentfirst=contentUrl.split(".")[0];
@@ -214,43 +216,44 @@
             /*]]>*/
         }
     });
+    if(isShare) {
+        wx.config({
+                debug: false,
+                appId: signatureJson.theAppId,
+                timestamp: signatureJson.timestamp,
+                nonceStr: signatureJson.noncestr,
+                signature: signatureJson.signature,
+                jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'error']
+            });
 
-    wx.config({
-        debug: false,
-        appId: signatureJson.theAppId,
-        timestamp: signatureJson.timestamp,
-        nonceStr: signatureJson.noncestr,
-        signature: signatureJson.signature,
-        jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'error']
-    });
+            wx.ready(function () {
+                wx.onMenuShareTimeline({
+                    title: article.wyArticle.shareTitle,
+                    link: base64Decode(share_url),
+                    imgUrl: article.wyArticle.shareImgUrl,
+                    success: function () {
 
-    wx.ready(function () {
-        wx.onMenuShareTimeline({
-            title: article.wyArticle.shareTitle,
-            link: base64Decode(share_url),
-            imgUrl: article.wyArticle.shareImgUrl,
-            success: function () {
+                    },
+                    cancel: function () {
 
-            },
-            cancel: function () {
+                    }
+                });
+                wx.onMenuShareAppMessage({
+                    title: article.wyArticle.shareTitle,
+                    desc: article.wyArticle.shareDescribe,
+                    link: base64Decode(share_url),
+                    imgUrl: article.wyArticle.shareImgUrl,
+                    type: '',
+                    dataUrl: '',
+                    success: function () {
 
-            }
-        });
-        wx.onMenuShareAppMessage({
-            title: article.wyArticle.shareTitle,
-            desc: article.wyArticle.shareDescribe,
-            link: base64Decode(share_url),
-            imgUrl: article.wyArticle.shareImgUrl,
-            type: '',
-            dataUrl: '',
-            success: function () {
+                    },
+                    cancel: function () {
 
-            },
-            cancel: function () {
-
-            }
-        });
-    })
+                    }
+                });
+            })
+    }
     function base64Decode(input) {
         rv = window.atob(input);
         rv = escape(rv);
