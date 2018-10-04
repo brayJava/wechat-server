@@ -197,13 +197,13 @@
             for (var i=0;i < 6;i++){
                  ranNum+=Math.floor(Math.random()*10);
             }
+            var currentDomain=document.domain;
             var contentUrl = '';
             if(article.wyArticle.forcedShare) {
-                 contentUrl= window.location.host;
+                 contentUrl = currentDomain.substring(currentDomain.indexOf(".")+1,currentDomain.length);
             } else {
                  contentUrl=article.wyArticle.noShareDomain;
             }
-            var currentDomain=document.domain;
             var curfirst=currentDomain.split(".")[1];
             var contentfirst=contentUrl.split(".")[0];
             var jumpurl=document.referrer;
