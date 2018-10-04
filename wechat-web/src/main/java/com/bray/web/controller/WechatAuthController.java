@@ -31,8 +31,9 @@ public class WechatAuthController {
         try {
             linkUrl = URLDecoder.decode(linkUrl, "UTF-8");
             //获取当前域名
-            currentDomain = request.getServerName();
+            currentDomain = realIP(request);
             currentDomain = currentDomain.substring(currentDomain.indexOf(".") + 1, currentDomain.length());
+
         } catch (UnsupportedEncodingException ex) {
             ex.printStackTrace();
         } catch (Exception e) {
@@ -40,5 +41,21 @@ public class WechatAuthController {
         }
         String signature = wechatAuthService.signature(linkUrl,domainVerfiy,currentDomain);
         return signature;
+    }
+    /**
+     * nginx代理返回实际ip
+     * @param request
+     * @return
+     */
+    public static String realIP(HttpServletRequest request) {
+        String xff = request.getHeader("x-forwarded-for");
+        if (xff != null) {
+            int index = xff.indexOf(',');
+            if (index != -1) {
+                xff = xff.substring(0, index);
+            }
+            return xff.trim();
+        }
+        return request.getRemoteAddr();
     }
 }
