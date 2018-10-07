@@ -89,6 +89,18 @@
                 <input type="radio" name="orderImg" lay-filter="erweima" value="1" title="是" checked=""/>是
                 <input type="radio" name="orderImg" lay-filter="erweima" value="0" title="否" />否
             </label>
+            <br/>
+            <br/>
+            <label>&nbsp;&nbsp;&nbsp;<strong>是否强制分享：&nbsp;&nbsp;&nbsp;</strong>
+               <input type="radio" name="forcedShare" onchange="forcedChange(this)" lay-filter="erweima" value="1" title="是" checked=""/>是
+               <input type="radio" name="forcedShare" onchange="forcedChange(this)" lay-filter="erweima" value="0" title="否" />否
+            </label>
+            <br/>
+            <br/>
+            <div class="formControls col-2 noShareDomain" style="display: none">
+               <strong>非分享域名：</strong>
+               <input type="text" class="input-text" value="" placeholder="如：baidu.com" id="noShareDomain" name="noShareDomain" lay-verify="required" />
+            </div>
         </div>
         <div class="row cl">
             <div class="col-10 col-offset-2">
@@ -190,7 +202,23 @@
         } else {
             $("input[name='orderImg'][value='0']").attr("checked",true);
         }
+        if(arcitle.forcedShare) {
+            $("input[name='forcedShare'][value='1']").attr("checked",true);
+        } else {
+            $("input[name='forcedShare'][value='0']").attr("checked",true);
+            $('#noShareDomain').val(arcitle.noShareDomain);
+            $('.noShareDomain').show();
+        }
     }
+    function forcedChange(_this) {
+            var forcedVal = $(_this).val();
+            if(forcedVal == '1') {
+                $('.noShareDomain').hide();
+                $('#noShareDomain').val('');
+            } else if(forcedVal == '0') {
+                 $('.noShareDomain').show();
+            }
+        }
 </script>
 </body>
 </html>

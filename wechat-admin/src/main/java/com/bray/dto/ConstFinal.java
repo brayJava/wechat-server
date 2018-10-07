@@ -18,5 +18,8 @@ public interface ConstFinal {
     //文章的各种状态
     String ARTICLE_STATUS = "1";
 
+    //分享的各种状态
+    String SHARE_STATUS = "1";
+
     String DOMAIN_MAP = "domain_map";
 }

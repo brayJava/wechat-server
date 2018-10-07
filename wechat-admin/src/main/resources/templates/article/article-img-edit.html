@@ -28,72 +28,28 @@
 <body>
 <div class="pd-20">
     <form action="" method="post" class="form form-horizontal" id="form-article-add">
-        <div class="row cl">
-            <!--<label class="form-label"><span class="c-red">*</span>文章标题：</label>-->
-            <div class="formControls col-10">
-                <span class="c-red">*</span><strong>文章标题：</strong>
-                <input type="text" class="input-text" value="" placeholder="" id="title" name="title" lay-verify="required" />
-            </div>
-        </div>
-        <div class="row cl">
-            <div class="formControls col-10">
-                <span class="c-red">*</span><strong>背景音乐连接：</strong>
-                <input type="text" class="input-text" value="" placeholder="" id="bgmUrl" name="bgmUrl" lay-verify="required" />
-            </div>
-        </div>
-        <div class="row cl">
-            <div class="formControls col-10">
-                <span class="c-red">*</span><strong>分享标题：</strong>
-                <input type="text" class="input-text" value="" placeholder="" id="share_title" name="shareTitle" lay-verify="required" />
-            </div>
-        </div>
-        <div class="row cl">
-            <div class="formControls col-10">
-                <span class="c-red">*</span><strong>分享图片连接：</strong>
-                <input type="text" class="input-text" value="" placeholder="" id="share_img_url" name="shareImgUrl" lay-verify="required" />
-            </div>
-        </div>
-        <div class="row cl">
-            <div class="formControls col-10">
-                <span class="c-red">*</span><strong>分享描述：</strong>
-                <input type="text" class="input-text" value="" placeholder="" id="share_describe" name="shareDescribe" lay-verify="required" />
-            </div>
-        </div>
-        <div class="row cl">
-            <div class="formControls col-2">
-                <span class="c-red">*</span><strong>文章作者：</strong>
-                <input type="text" class="input-text" value="" placeholder="如：王安石" id="author" name="author" lay-verify="required" />
-            </div>
-            <br/>
-            <label>&nbsp;&nbsp;&nbsp;<strong>是否展示订单图：</strong>
-                <input type="radio" name="orderImg" lay-filter="erweima" value="1" title="是" checked=""/>是
-                <input type="radio" name="orderImg" lay-filter="erweima" value="2" title="否" />否
-            </label>
-        </div>
-        <br/>
-        &nbsp;<button type="button" class="layui-btn layui-btn-warm layui-btn-xs"
-                            style="background-color: #5a98de" onclick="addThirdImgUrl()">+ 添加外部图片</button>
-        <div class="row cl" id = "third-img-url">
-            <div class="formControls col-10">
-                <span class="c-red">*</span><strong>外部图片连接：</strong>
-                <input type="text" class="input-text" value="" placeholder="" name="outerImgUrl" lay-verify="required" />
-                <input type="button" name="del" value="删除" class="c-red" onclick="delContent(this)"/>
-            </div>
-        </div>
-        <div class="row cl">
-            <div class="col-10 col-offset-2">
-                <!--<button type="button" class="btn btn-primary uploadBtn" lay-filter="add" lay-submit=""><i-->
-                        <!--class="Hui-iconfont">&#xe632;</i> 保存并发布文章-->
-                <!--</button>-->
-                <input class="btn btn-primary radius" type="submit" value="保存并发布文章" />
-                <!--<button onClick="article_save();" class="btn btn-secondary radius" type="button"><i-->
-                        <!--class="Hui-iconfont">&#xe632;</i> 保存草稿-->
-                <!--</button>-->
-                <button onClick="layer_close();" class="btn btn-default radius" type="button">
-                    &nbsp;&nbsp;取消&nbsp;&nbsp;
-                </button>
-            </div>
-        </div>
+        <div class="mt-20">
+        		<table class="table table-border table-bordered table-bg table-sort">
+        			<thead>
+        				<tr class="text-c">
+        					<th width="70">ID</th>
+        					<th width="200">缩略图</th>
+        					<th width="150">图片连接</th>
+        					<th width="150">操作</th>
+        				</tr>
+        			</thead>
+        			<tbody>
+        				<tr class="text-c" th:if="${not #lists.isEmpty(articleImgs)}" th:each="articleImg,iterStat:${articleImgs}">
+        					<td th:text="${articleImg.id}"></td>
+        					<td class="text-l"><img  th:src="${articleImg.thirdImgPath}" style="width: 200px;height: 200px"/> </td>
+        					<td>
+        					  <input class="text-l" th:value="${articleImg.thirdImgPath}" size="80"></input>
+                            </td>
+        					<td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('品牌编辑','codeing.html','1')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+        				</tr>
+        			</tbody>
+        		</table>
+        	</div>
     </form>
 </div>
 <script type="text/javascript" src="/js/jquery-1.8.0.js"></script>

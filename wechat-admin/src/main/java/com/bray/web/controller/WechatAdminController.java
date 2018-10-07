@@ -23,6 +23,7 @@ import java.util.List;
 @Slf4j
 @Controller
 @RequestMapping("/wechat")
+
 public class WechatAdminController {
     @Autowired
     private IWechatComService iWechatComService;

@@ -1,6 +1,7 @@
 package com.bray.web.controller;
 
 import com.bray.dto.ConstFinal;
+import com.bray.model.Bo.ArticleWithImages;
 import com.bray.model.Bo.RestResponseBo;
 import com.bray.model.Vo.ArticleModelVo;
 import com.bray.model.Vo.ArticleOtherModelVo;
@@ -61,13 +62,15 @@ public class ArticleController {
 
         return "article/article-edit";
     }
-//    /**
-//     * 修改文章图片
-//     */
-//    @RequestMapping("/article/article-img-edit")
-//    public String articleImgEdit() {
-//
-//    }
+   /**
+    * 修改文章图片
+    */
+   @RequestMapping("/article-img-edit")
+   public String articleImgEdit(String articleId,Model model) {
+       ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
+       model.addAttribute("articleImgs",articleWithImages.getWyArticleImgs());
+       return "article/article-img-edit";
+   }
     /**
      * 文章列表展示
      * @return

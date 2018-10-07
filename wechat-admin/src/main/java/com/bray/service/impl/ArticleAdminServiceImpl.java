@@ -16,10 +16,14 @@ import com.bray.util.GUIDUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Objects;
+
 /**
  * @Author:wuzhiyuan
  * @Description: 文章管理接口
@@ -101,33 +105,38 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
         wyArticle.setShareImgUrl(articleOtherModelVo.getShareImgUrl());
         wyArticle.setStatistical(articleOtherModelVo.getStatistical());
         wyArticle.setIsOrderImg(ConstFinal.ARTICLE_STATUS.equals(articleOtherModelVo.getOrderImg()) ? true : false);
-        wyArticle.setIsPublish((ConstFinal.ARTICLE_STATUS.equals(articleOtherModelVo.getOrderImg()) ? true : false));
+        wyArticle.setIsPublish(ConstFinal.ARTICLE_STATUS.equals(articleOtherModelVo.getOrderImg()) ? true : false);
+        wyArticle.setForcedShare(ConstFinal.SHARE_STATUS.equals(articleOtherModelVo.getForcedShare()) ? true : false);
+        wyArticle.setNoShareDomain(articleOtherModelVo.getNoShareDomain());
         wyArticle.setStatus(EffectiveType.EFFECTIVE_YES);
         wyArticle.setCreateTime(new Date());
         wyArticle.setUpdateTime(new Date());
         try {
             wyArticleMapper.insertSelective(wyArticle);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             log.error("-----------文章添加失败----------");
             e.printStackTrace();
         }
-        if(articleOtherModelVo.getOuterImgUrl().length > 0) {
-            String[] outerImgUrls = articleOtherModelVo.getOuterImgUrl();
-            Arrays.stream(outerImgUrls).forEach(outerImgUrl -> {
-                WyArticleImg wyArticleImg = new WyArticleImg();
-                wyArticleImg.setThirdImgPath(outerImgUrl);
-                wyArticleImg.setStatus(EffectiveType.EFFECTIVE_YES);
-                wyArticleImg.setArticleId(articleId);
-                wyArticleImg.setUpdateTime(new Date());
-                wyArticleImg.setCreateTime(new Date());
-                try {
-                    wyArticleImgMapper.insertSelective(wyArticleImg);
-                } catch (Exception e) {
-                    log.error("-----------关联图片添加失败----------");
-                    e.printStackTrace();
-                }
-            });
-        }
+        // String[] outerImgUrls = articleOtherModelVo.getOuterImgUrl();
+        String imagesUrlStr = articleOtherModelVo.getImagesUrl().trim();
+        String replaceUrlStr = imagesUrlStr.replace(" ", "");
+        String[] imagesUrls = replaceUrlStr.split("\n");
+        if(Objects.isNull(imagesUrls) || imagesUrls.length == 0) return;
+        Arrays.stream(imagesUrls).forEach(outerImgUrl -> {
+            if(StringUtils.isEmpty(outerImgUrl)) return;
+            WyArticleImg wyArticleImg = new WyArticleImg();
+            wyArticleImg.setThirdImgPath(outerImgUrl);
+            wyArticleImg.setStatus(EffectiveType.EFFECTIVE_YES);
+            wyArticleImg.setArticleId(articleId);
+            wyArticleImg.setUpdateTime(new Date());
+            wyArticleImg.setCreateTime(new Date());
+            try {
+                wyArticleImgMapper.insertSelective(wyArticleImg);
+            } catch (RuntimeException e) {
+                log.error("-----------关联图片添加失败----------");
+                e.printStackTrace();
+            }
+        });
     }
     /**
      * 文章修改
@@ -148,6 +157,8 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
         wyArticle.setDataTransferUrl(articleOtherModelVo.getDataTransferUrl());
         wyArticle.setStatistical(articleOtherModelVo.getStatistical());
         wyArticle.setIsOrderImg(ConstFinal.ARTICLE_STATUS.equals(articleOtherModelVo.getOrderImg()) ? true : false);
+        wyArticle.setForcedShare(ConstFinal.SHARE_STATUS.equals(articleOtherModelVo.getForcedShare()) ? true : false);
+        wyArticle.setNoShareDomain(articleOtherModelVo.getNoShareDomain());
         wyArticle.setUpdateTime(new Date());
         this.articleRefresh(articleOtherModelVo.getArticleId());
         try {

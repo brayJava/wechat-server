@@ -103,11 +103,11 @@
              $('#appId').val((tr_this.find('.appId').val()));
             var domainType = (tr_this.find('.domainType').attr('type'));
             if(domainType == '1') {
-                $("input[name='domainType']").eq(1).attr("checked",true);
+                $("input[name='domainType'][value='1']").attr("checked",true);
             } else if(domainType == '2'){
-                $("input[name='domainType']").eq(2).attr("checked",true);
+                $("input[name='domainType'][value='2']").attr("checked",true);
             } else if(domainType == '3') {
-                $("input[name='domainType']").eq(3).attr("checked",true);
+                $("input[name='domainType'][value='3']").attr("checked",true);
             }
             $('#domainSpan').text('修改');
         }

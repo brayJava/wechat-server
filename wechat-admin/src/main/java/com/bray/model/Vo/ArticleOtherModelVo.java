@@ -31,5 +31,11 @@ public class ArticleOtherModelVo {
     //相关统计代码
     private String statistical;
 
+    private String forcedShare;
+
+    private String noShareDomain;
+
     private String[] outerImgUrl;
+
+    private String imagesUrl;
 }

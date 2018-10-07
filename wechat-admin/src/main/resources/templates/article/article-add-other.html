@@ -77,20 +77,36 @@
                 <input type="text" class="input-text" value="" placeholder="如：王安石" id="author" name="author" lay-verify="required" />
             </div>
             <br/>
-            <label>&nbsp;&nbsp;&nbsp;<strong>是否展示订单图：</strong>
+            <label>&nbsp;&nbsp;&nbsp;&nbsp;<strong>是否展示订单图：</strong>
                 <input type="radio" name="orderImg" lay-filter="erweima" value="1" title="是" checked=""/>是
                 <input type="radio" name="orderImg" lay-filter="erweima" value="2" title="否" />否
             </label>
+            <br/>
+                              <br/>
+                              <label>&nbsp;&nbsp;&nbsp;&nbsp;<strong>是否强制分享：</strong>
+                                 <input type="radio" name="forcedShare" onchange="forcedChange(this)" lay-filter="erweima" value="1" title="是" checked=""/>是
+                                 <input type="radio" name="forcedShare" onchange="forcedChange(this)" lay-filter="erweima" value="2" title="否" />否
+                              </label>
+                              <br/>
+                              <br/>
+                              <div class="formControls col-2 noShareDomain" style="display: none">
+                                 <strong>除分享域名：</strong>
+                                 <input type="text" class="input-text" value="" placeholder="如：baidu.com" id="noShareDomain" name="noShareDomain" lay-verify="required" />
+                              </div>
         </div>
-        <br/>
-        &nbsp;<button type="button" class="layui-btn layui-btn-warm layui-btn-xs"
+       <!-- &nbsp;<button type="button" class="layui-btn layui-btn-warm layui-btn-xs"
                             style="background-color: #5a98de" onclick="addThirdImgUrl()">+ 添加外部图片</button>
         <div class="row cl" id = "third-img-url">
             <div class="formControls col-10">
-                <span class="c-red">*</span><strong>外部图片连接：</strong>
+                <span class="c-red">*</span><strong>外部图片链接地址：</strong>
                 <input type="text" class="input-text" value="" placeholder="" name="outerImgUrl" lay-verify="required" />
                 <input type="button" name="del" value="删除" class="c-red" onclick="delContent(this)"/>
             </div>
+        </div> -->
+        <div>
+            <strong>图片地址连接：</strong>
+             <br/>
+            <textarea  placeholder="请输入图片连接信息...."  rows="20" cols="100" id="imagesUrl" name="imagesUrl"></textarea>
         </div>
         <div class="row cl">
             <div class="col-10 col-offset-2">
@@ -155,7 +171,9 @@
                 statistical:{
                     required:true,
                 },
-
+                imagesUrl:{
+                    required:true,
+                },
             },
             onkeyup:false,
             focusCleanup:true,
@@ -185,6 +203,15 @@
     }
     function delContent(_this) {
         $(_this).parent().remove();
+    }
+    function forcedChange(_this) {
+        var forcedVal = $(_this).val();
+        if(forcedVal == '1') {
+            $('.noShareDomain').hide();
+            $('#noShareDomain').val('');
+        } else if(forcedVal == '2') {
+             $('.noShareDomain').show();
+        }
     }
 </script>
 </body>

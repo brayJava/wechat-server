@@ -66,7 +66,7 @@ public class ArticleServiceImpl implements IArticleService{
 
         WyArticleExample wyArticleExample = new WyArticleExample();
         wyArticleExample.createCriteria().andStatusEqualTo(EffectiveType.EFFECTIVE_YES);
-        wyArticleExample.setOrderByClause("update_time desc");
+        wyArticleExample.setOrderByClause("create_time desc");
         List<WyArticle> wyArticles = wyArticleMapper.selectByExample(wyArticleExample);
         if(CollectionUtils.isEmpty(wyArticles)) return new ArrayList<WyArticle>();
         return wyArticles;
