@@ -18,6 +18,12 @@ public interface IArticleService {
      */
     ArticleWithImages queryCurrentArticle(String articleId);
     /**
+     * 查询数据库中信息
+     * @param articleId
+     * @return
+     */
+    ArticleWithImages queryCurrentArticleBySql(String articleId);
+    /**
      * 查询所有文章
      * @return
      */

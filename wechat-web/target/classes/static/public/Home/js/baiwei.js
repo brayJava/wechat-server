@@ -159,7 +159,10 @@
 					layer.msg('请选择所属地级市！',{icon:7,time:2000,shift:6});   
 					return false;
 				}
-				
+				if(county == '市辖区') {
+                    layer.msg('请选择所属市辖区！',{icon:7,time:2000,shift:6});
+                    return false;
+				}
 			}
 			if(contains(temp,'address')){
 				if(!address){
@@ -206,6 +209,8 @@
 			}
 			layer.load(1,{shade: [0.5,'#000']});
             console.log(submitJson);
+            //防止重复提交
+            $(this).attr("disabled","disabled");
             $.ajax({
                 url: "/order/confirm-order",
                 async: false,
@@ -215,6 +220,7 @@
                 success: function (data) {
                     // alert('chnegogn')
                     layer.alert("恭喜下单成功，请耐心等待发货！！", {icon: 1}, function (index) {
+                        $(this).removeAttr("disabled");
                         layer.close(index);
                         //关闭当前frame
                         parent.layer.close(index);

@@ -5,12 +5,16 @@ import com.bray.aop.cache.RedisCache;
 import com.bray.dto.ConstFinal;
 import com.bray.dto.ConstatFinal;
 import com.bray.dto.EffectiveType;
+import com.bray.dto.InsertType;
 import com.bray.mapper.WyArticleImgMapper;
 import com.bray.mapper.WyArticleMapper;
+import com.bray.model.Bo.ArticleImgModelVo;
 import com.bray.model.Vo.ArticleModelVo;
 import com.bray.model.Vo.ArticleOtherModelVo;
 import com.bray.model.WyArticle;
+import com.bray.model.WyArticleExample;
 import com.bray.model.WyArticleImg;
+import com.bray.model.WyArticleImgExample;
 import com.bray.service.IArticleAdminService;
 import com.bray.util.GUIDUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +26,10 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * @Author:wuzhiyuan
@@ -118,25 +125,8 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
             e.printStackTrace();
         }
         // String[] outerImgUrls = articleOtherModelVo.getOuterImgUrl();
-        String imagesUrlStr = articleOtherModelVo.getImagesUrl().trim();
-        String replaceUrlStr = imagesUrlStr.replace(" ", "");
-        String[] imagesUrls = replaceUrlStr.split("\n");
-        if(Objects.isNull(imagesUrls) || imagesUrls.length == 0) return;
-        Arrays.stream(imagesUrls).forEach(outerImgUrl -> {
-            if(StringUtils.isEmpty(outerImgUrl)) return;
-            WyArticleImg wyArticleImg = new WyArticleImg();
-            wyArticleImg.setThirdImgPath(outerImgUrl);
-            wyArticleImg.setStatus(EffectiveType.EFFECTIVE_YES);
-            wyArticleImg.setArticleId(articleId);
-            wyArticleImg.setUpdateTime(new Date());
-            wyArticleImg.setCreateTime(new Date());
-            try {
-                wyArticleImgMapper.insertSelective(wyArticleImg);
-            } catch (RuntimeException e) {
-                log.error("-----------关联图片添加失败----------");
-                e.printStackTrace();
-            }
-        });
+        //插入新的文章图片
+        insertNewArticleImages(articleId, articleOtherModelVo);
     }
     /**
      * 文章修改
@@ -163,11 +153,24 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
         this.articleRefresh(articleOtherModelVo.getArticleId());
         try {
             wyArticleMapper.updateByPrimaryKeySelective(wyArticle);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             log.error("--------------文章更新失败------------");
             e.printStackTrace();
         }
+        //修改文章图片内容
+        if(!StringUtils.isEmpty(articleOtherModelVo.getImagesUrl().trim())) {
+            try {
+                //作废历史图片
+                int i = wyArticleImgMapper.updateByArticleId(EffectiveType.EFFECTIVE_NO, articleOtherModelVo.getArticleId());
+                if(i == 0) return;
+            } catch (Exception e) {
+                log.error("--------------作废历史图片信息失败------------");
+                e.printStackTrace();
+            }
+            //插入新的文章图片
+            insertNewArticleImages(articleOtherModelVo.getArticleId(), articleOtherModelVo);
 
+        }
     }
     /**
      * 刷新文章
@@ -180,5 +183,116 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
             e.printStackTrace();
         }
     }
+    /**
+     * 插入新的文章图片
+     * @param articleId
+     * @param articleOtherModelVo
+     */
+    private void insertNewArticleImages(String articleId, ArticleOtherModelVo articleOtherModelVo) {
+        String imagesUrlStr = articleOtherModelVo.getImagesUrl().trim();
+        String replaceUrlStr = imagesUrlStr.replace(" ", "");
+        String[] imagesUrls = replaceUrlStr.split("\n");
+        if(Objects.isNull(imagesUrls) || imagesUrls.length == 0 || imagesUrls.length < 2) return;
+        Arrays.stream(imagesUrls).forEach(outerImgUrl -> {
+            if(StringUtils.isEmpty(outerImgUrl)) return;
+            WyArticleImg wyArticleImg = new WyArticleImg();
+            wyArticleImg.setThirdImgPath(outerImgUrl);
+            wyArticleImg.setStatus(EffectiveType.EFFECTIVE_YES);
+            wyArticleImg.setArticleId(articleId);
+            wyArticleImg.setUpdateTime(new Date());
+            wyArticleImg.setCreateTime(new Date());
+            try {
+                wyArticleImgMapper.insertSelective(wyArticleImg);
+            } catch (RuntimeException e) {
+                log.error("-----------关联图片添加失败----------");
+                e.printStackTrace();
+            }
+        });
+    }
+    /**
+     * 删除文章图片
+     * @param articleImgId
+     */
+    @Override
+    public void delArticleImg(int articleImgId) {
+        WyArticleImg wyArticleImg = new WyArticleImg();
+        wyArticleImg.setId(articleImgId);
+        wyArticleImg.setStatus(EffectiveType.EFFECTIVE_NO);
+        try {
+            wyArticleImgMapper.updateByPrimaryKeySelective(wyArticleImg);
+        } catch (RuntimeException e) {
+            log.error("---------删除文章图片失败！！！");
+            e.printStackTrace();
+        }
+    }
+    /**
+     * 修改文章图片
+     * @param articleImgId
+     */
+    @Override
+    public void updateArticleImg(int articleImgId, String imgUrl) {
+        WyArticleImg wyArticleImg = new WyArticleImg();
+        wyArticleImg.setId(articleImgId);
+        wyArticleImg.setThirdImgPath(imgUrl);
+        try {
+            wyArticleImgMapper.updateByPrimaryKeySelective(wyArticleImg);
+        } catch (RuntimeException e) {
+            log.error("---------修改文章图片失败！！！");
+            e.printStackTrace();
+        }
+    }
 
+    /**
+     * 文章图片插入(向上与向下插入逻辑不一样)
+     * @param articleImgModelVo
+     */
+    @Override
+    public void insertArticleImg(ArticleImgModelVo articleImgModelVo) {
+
+        if(!StringUtils.isEmpty(articleImgModelVo.getArticleId())
+                && !StringUtils.isEmpty(articleImgModelVo.getArticleImgId())
+                && !StringUtils.isEmpty(articleImgModelVo.getInsertType())
+                && !StringUtils.isEmpty(articleImgModelVo.getImgUrl()))  {
+
+            WyArticleImgExample wyArticleImgExample = new WyArticleImgExample();
+            wyArticleImgExample.createCriteria()
+                    .andArticleIdEqualTo(articleImgModelVo.getArticleId())
+                    .andStatusEqualTo(EffectiveType.EFFECTIVE_YES);
+            List<WyArticleImg> wyArticleImgs = wyArticleImgMapper.selectByExample(wyArticleImgExample);
+            //获取所有文章图片id，获取位置
+            List<Integer> articleImgId = wyArticleImgs.stream().map(wyArticleImg -> wyArticleImg.getId()).collect(Collectors.toList());
+            int articleImgIndex = articleImgId.indexOf(articleImgModelVo.getArticleImgId());
+            WyArticleImg wyArticleImg = new WyArticleImg();
+            wyArticleImg.setThirdImgPath(articleImgModelVo.getImgUrl());
+            wyArticleImg.setStatus(EffectiveType.EFFECTIVE_YES);
+            wyArticleImg.setArticleId(articleImgModelVo.getArticleId());
+            wyArticleImg.setCreateTime(new Date());
+            wyArticleImg.setUpdateTime(new Date());
+            //如果向上插入信息则获取当前索引
+            if(InsertType.upinsert .name().equals(articleImgModelVo.getInsertType())) {
+                wyArticleImgs.add(articleImgIndex,wyArticleImg);
+            } else if(InsertType.downinsert.name().equals(articleImgModelVo.getInsertType())) {
+                wyArticleImgs.add(articleImgIndex+1,wyArticleImg);
+            }
+            try {
+                //作废历史图片
+                wyArticleImgMapper.updateByArticleId(EffectiveType.EFFECTIVE_NO, articleImgModelVo.getArticleId());
+            } catch (RuntimeException e) {
+                log.error("------------作废历史图片失败！！");
+                e.printStackTrace();
+            }
+            try {
+                //插入新的图片信息
+                wyArticleImgs.stream().forEach(img -> {
+                    img.setId(null);
+                    wyArticleImgMapper.insertSelective(img);
+                });
+            } catch (RuntimeException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+
+    }
 }

@@ -86,4 +86,17 @@ public interface WyArticleImgMapper {
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(WyArticleImg record);
+
+    /**
+     * 修改历史文章状态
+     * @param status
+     * @param articleId
+     * @return
+     */
+    @Update({
+            "update wy_article_img ",
+            "set status = #{status,jdbcType=INTEGER}  ",
+            "where article_id = #{articleId,jdbcType=VARCHAR} "
+    })
+    int updateByArticleId(@Param("status") int status ,@Param("articleId")String articleId);
 }

@@ -1,6 +1,7 @@
 package com.bray.web.controller;
 
 import com.bray.dto.ConstFinal;
+import com.bray.model.Bo.ArticleImgModelVo;
 import com.bray.model.Bo.ArticleWithImages;
 import com.bray.model.Bo.RestResponseBo;
 import com.bray.model.Vo.ArticleModelVo;
@@ -38,6 +39,7 @@ public class ArticleController {
     @Resource
     private IArticleService iArticleService;
 
+
     @RequestMapping("/jump")
     public String jump() {
 
@@ -67,7 +69,7 @@ public class ArticleController {
     */
    @RequestMapping("/article-img-edit")
    public String articleImgEdit(String articleId,Model model) {
-       ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
+       ArticleWithImages articleWithImages = iArticleService.queryCurrentArticleBySql(articleId);
        model.addAttribute("articleImgs",articleWithImages.getWyArticleImgs());
        return "article/article-img-edit";
    }
@@ -137,6 +139,41 @@ public class ArticleController {
     @ResponseBody
     public RestResponseBo articleRefresh(String articleId){
         iArticleAdminService.articleRefresh(articleId);
+        return RestResponseBo.ok();
+    }
+
+    /**
+     * 文章图片删除
+     */
+    @RequestMapping("/img-del")
+    @ResponseBody
+    public RestResponseBo articleImgDel(int articleImgId){
+        iArticleAdminService.delArticleImg(articleImgId);
+        return RestResponseBo.ok();
+    }
+    /**
+     * 文章图片修改
+     */
+    @RequestMapping("/img-update")
+    @ResponseBody
+    public RestResponseBo articleImgUpdate(int articleImgId,String imgUrl){
+        iArticleAdminService.updateArticleImg(articleImgId,imgUrl);
+        return RestResponseBo.ok();
+    }
+    /**
+     * 文章图片插入界面
+     */
+    @RequestMapping("/article-img-insert")
+    public String articleImgInsert(){
+        return "article/article-img-insert";
+    }
+    /**
+     * 文章图片插入
+     */
+    @RequestMapping("/image-add")
+    @ResponseBody
+    public RestResponseBo imageAdd(ArticleImgModelVo articleImgModelVo){
+        iArticleAdminService.insertArticleImg(articleImgModelVo);
         return RestResponseBo.ok();
     }
 }

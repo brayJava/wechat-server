@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<head th:replace="common/common_header :: common_header">
+    <title>图片插入</title>
+    <!--<link rel="stylesheet" href="css/index.css" />-->
+</head>
+<body>
+<div class="x-body">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <br/>
+            <br/>
+            <label for="imgUrl" class="layui-form-label">
+                <span class="x-red">*</span>图片链接
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="imgUrl" name="imgUrl"  lay-verify="required"
+                       autocomplete="off" class="layui-input"/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="L_repass" class="layui-form-label" />
+            <button type="button" class="layui-btn" lay-filter="add" lay-submit="">
+                添加
+            </button>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    var articleImgId = 0;
+    var insertArticleId = '';
+    var theInsertType = '';
+    layui.use(['form','layer'], function() {
+        $ = layui.jquery;
+        var form = layui.form
+            ,layer = layui.layer;
+        //注意：1.submit监听一个filter过滤事件，要在提交标签中加上
+        //     2.当button没有添加type="button" 会自动提交表单刷新
+        form.on('submit(add)', function (data) {
+            data.field.articleId = insertArticleId;
+            data.field.articleImgId = articleImgId;
+            data.field.insertType = theInsertType;
+            data.field.imgUrl = $('#imgUrl').val();
+            $.ajax({
+                url: '/article/image-add',
+                async: false,
+                data: data.field,
+                dataType: "json",
+                type: 'post',
+                success: function (data) {
+                    // alert('chnegogn')
+                    layer.alert("操作成功", {icon: 1}, function (index) {
+                        layer.close(index);
+                        //关闭当前frame
+                        parent.layer.close(index);
+                        window.parent.location.reload(true);
+                    });
+                },
+                error: function (XmlHttpRequest, textStatus, errorThrown) {
+                    layer.msg('error!', {icon: 1, time: 1000});
+                }
+            });
+        });
+    });
+    function child(id,articleId,insertType) {
+        articleImgId = id;
+        insertArticleId = articleId;
+        theInsertType = insertType;
+    }
+</script>
+</body>
+
+</html>
+

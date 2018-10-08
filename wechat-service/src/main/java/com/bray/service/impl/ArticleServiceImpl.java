@@ -40,6 +40,37 @@ public class ArticleServiceImpl implements IArticleService{
     @Override
     @QueryCache(serviceType = ConstatFinal.AUTHOR)
     public ArticleWithImages queryCurrentArticle(String articleId) {
+        return getArticleWithImages(articleId);
+    }
+    /**
+     * 查询当前文章
+     * @param articleId
+     * @return
+     */
+    @Override
+    public ArticleWithImages queryCurrentArticleBySql(String articleId) {
+        return getArticleWithImages(articleId);
+    }
+    /**
+     * 查询所有文章
+     * @return
+     */
+    @Override
+    public  List<WyArticle> queryAllEffectiveArticle() {
+
+        WyArticleExample wyArticleExample = new WyArticleExample();
+        wyArticleExample.createCriteria().andStatusEqualTo(EffectiveType.EFFECTIVE_YES);
+        wyArticleExample.setOrderByClause("create_time desc");
+        List<WyArticle> wyArticles = wyArticleMapper.selectByExample(wyArticleExample);
+        if(CollectionUtils.isEmpty(wyArticles)) return new ArrayList<WyArticle>();
+        return wyArticles;
+    }
+    /**
+     * 获取文章具体图文信息
+     * @param articleId
+     * @return
+     */
+    private ArticleWithImages getArticleWithImages(String articleId) {
         ArticleWithImages articleWithImages = new ArticleWithImages();
         if(!StringUtils.isEmpty(articleId)) {
             WyArticleExample wyArticleExample = new WyArticleExample();
@@ -56,19 +87,5 @@ public class ArticleServiceImpl implements IArticleService{
         }
 
         return articleWithImages;
-    }
-    /**
-     * 查询所有文章
-     * @return
-     */
-    @Override
-    public  List<WyArticle> queryAllEffectiveArticle() {
-
-        WyArticleExample wyArticleExample = new WyArticleExample();
-        wyArticleExample.createCriteria().andStatusEqualTo(EffectiveType.EFFECTIVE_YES);
-        wyArticleExample.setOrderByClause("create_time desc");
-        List<WyArticle> wyArticles = wyArticleMapper.selectByExample(wyArticleExample);
-        if(CollectionUtils.isEmpty(wyArticles)) return new ArrayList<WyArticle>();
-        return wyArticles;
     }
 }

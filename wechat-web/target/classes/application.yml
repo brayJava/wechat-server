@@ -6,10 +6,16 @@ spring:
 #    active: pre       # 预发环境
 #    active: online    # 生产环境
 
+thymeleaf:
+#    mode: LEGACYHTML5
+    cache: false
+    suffix: .html
+    encoding: utf-8
+    content-type: text/html
 # health monitor
 info:
   app:
-    name: "@project.name@"
+    name: "wechat-web"
     description: "Parent pom providing dependency and plugin management for applications
 		built with Maven"
     version: "1.0-SNAPSHOT"
@@ -17,10 +23,21 @@ info:
 
 logging:
   config: classpath:logback-spring.xml
-  level: INFO
+  level:
+    root: info
+    com:
+      bray: DEBUG
+    org:
+      mybatis:
+         spring: DEBUG
+##微信授权接口
+#weixin4j:
+#  id: wxfdd42e830e431893
+#  secret: 902211bd94c8bc20e0801b669fbe9fe4
+#  cache: FILE
 
-#微信授权接口
+
 weixin4j:
-  id: wxeb909a64d096f6ec
-  secret: 19f303887c845a90f3cb5169525e5f04
+  id: wxbb4ab7ed932865b4
+  secret: 85ff8381de984dba2e02067f5dbccb1d
   cache: FILE

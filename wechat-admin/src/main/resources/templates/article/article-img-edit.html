@@ -40,12 +40,17 @@
         			</thead>
         			<tbody>
         				<tr class="text-c" th:if="${not #lists.isEmpty(articleImgs)}" th:each="articleImg,iterStat:${articleImgs}">
-        					<td th:text="${articleImg.id}"></td>
-        					<td class="text-l"><img  th:src="${articleImg.thirdImgPath}" style="width: 200px;height: 200px"/> </td>
+        					<td th:text="${articleImg.id}" th:id="${articleImg.id}"></td>
+        					<td class="text-l"><img class="thirdImg" th:src="${articleImg.thirdImgPath}" style="width: 200px;height: 200px"/></td>
         					<td>
-        					  <input class="text-l" th:value="${articleImg.thirdImgPath}" size="80"></input>
+        					  <input class="text-l thirdImgPath" th:value="${articleImg.thirdImgPath}" size="80"></input>
                             </td>
-        					<td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('品牌编辑','codeing.html','1')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+        					<td class="f-14 product-brand-manage">
+        					     <a style="text-decoration:none;cursor: pointer;color: #0f9ae0" th:onclick= "'javascript:image_insert(this,'+${articleImg.id}+',\''+${articleImg.articleId}+'\',\'upinsert\')'" title="编辑"><i class="Hui-iconfont">上插入</i></a>
+        					    <a style="text-decoration:none;cursor: pointer;color: #0f9ae0" th:onclick= "'javascript:image_insert(this,'+${articleImg.id}+',\''+${articleImg.articleId}+'\',\'downinsert\')'" title="编辑"><i class="Hui-iconfont">下插入</i></a>
+                                <a style="text-decoration:none;cursor: pointer;color: #0f9ae0" th:onclick= "'javascript:image_update(this,'+${articleImg.id}+')'"  title="修改"><i class="Hui-iconfont">修改</i></a>
+                                 <a style="text-decoration:none" class="ml-5" th:onclick= "'javascript:image_del(this,'+${articleImg.id}+')'" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
+        					 </td>
         				</tr>
         			</tbody>
         		</table>
@@ -126,6 +131,68 @@
     }
     function delContent(_this) {
         $(_this).parent().remove();
+    }
+    /*图片-删除*/
+    function image_del(obj, id) {
+        layer.confirm('确认要删除吗？', function (index) {
+            //发异步删除数据
+            $.ajax({
+                url: '/article/img-del',
+                async: false,
+                data: {"articleImgId":id},
+                dataType: "json",
+                type: 'post',
+                success: function (data) {
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!', {icon: 1, time: 1000});
+                },
+                error: function (XmlHttpRequest, textStatus, errorThrown) {
+                    layer.msg('error!', {icon: 1, time: 1000});
+                }
+            });
+
+        });
+    }
+    /*图片-修改*/
+    function image_update(obj, id) {
+        var thirdImgPath = $(obj).closest('tr').find('.thirdImgPath').val();
+        layer.confirm('确认要修改吗？', function (index) {
+            //发异步删除数据
+            $.ajax({
+                url: '/article/img-update',
+                async: false,
+                data: {"articleImgId":id,"imgUrl":thirdImgPath},
+                dataType: "json",
+                type: 'post',
+                success: function (data) {
+                    layer.msg('已修改!', {icon: 1, time: 1000});
+                    $(obj).closest('tr').find('.thirdImg').attr('src',thirdImgPath);
+                },
+                error: function (XmlHttpRequest, textStatus, errorThrown) {
+                    layer.msg('error!', {icon: 1, time: 1000});
+                }
+            });
+
+        });
+    }
+    /*图片-插入*/
+    function image_insert(obj, id,articleId,insertType) {
+         layer.open({
+                type: 2,
+                area: ['700px', '200px'],
+                fix: false, //不固定
+                maxmin: true,
+                shadeClose: true,
+                shade:0.4,
+                title: '图片添加',
+                content: '/article/article-img-insert',
+                success: function (layero, index) {
+                     // 获取子页面的iframe
+                    var iframe = window['layui-layer-iframe' + index];
+                    // 向子页面的全局函数child传参
+                    iframe.child(id,articleId,insertType);
+                }
+            });
     }
 </script>
 </body>

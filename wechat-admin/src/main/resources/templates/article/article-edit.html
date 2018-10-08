@@ -103,6 +103,15 @@
             </div>
         </div>
         <div class="row cl">
+            <div class="formControls col-10">
+                  <strong style="text-decoration: underline;color: #0e90d2;cursor: pointer" onclick="imageUrlsChange()">点击修改文章图片内容</strong>
+            </div>
+             <div class="formControls col-2 imagesUrlClass" style="display: none">
+                 <br/>
+                <textarea  placeholder="请输入图片连接信息...."  rows="20" cols="100" id="imagesUrl" name="imagesUrl"></textarea>
+             </div>
+         </div>
+        <div class="row cl">
             <div class="col-10 col-offset-2">
                 <input class="btn btn-primary radius" type="submit" value="修改并发布文章" />
                 <button onClick="layer_close();" class="btn btn-default radius" type="button">
@@ -154,6 +163,9 @@
                     required:true,
                 },
                 outerImgUrl:{
+                    required:true,
+                },
+                imagesUrl:{
                     required:true,
                 },
 
@@ -211,14 +223,21 @@
         }
     }
     function forcedChange(_this) {
-            var forcedVal = $(_this).val();
-            if(forcedVal == '1') {
-                $('.noShareDomain').hide();
-                $('#noShareDomain').val('');
-            } else if(forcedVal == '0') {
-                 $('.noShareDomain').show();
-            }
+        var forcedVal = $(_this).val();
+        if(forcedVal == '1') {
+            $('.noShareDomain').hide();
+            $('#noShareDomain').val('');
+        } else if(forcedVal == '0') {
+             $('.noShareDomain').show();
         }
+     }
+    /**
+    * 图片修改
+    */
+   function imageUrlsChange() {
+        $(".imagesUrlClass").show();
+        $(".imagesUrlClass").val('');
+   }
 </script>
 </body>
 </html>

@@ -1,5 +1,7 @@
 package com.bray.service;
 
+import com.bray.model.Bo.ArticleImgModelVo;
+
 /**
  * @Author:wuzhiyuan
  * @Description: 文章管理接口
@@ -31,4 +33,19 @@ public interface IArticleAdminService {
      * 更新文章至线上
      */
     void articleRefresh(String id);
+    /**
+     * 文章图片删除
+     * @Param articleImgId 文章图片id
+     */
+    void delArticleImg(int articleImgId);
+    /**
+     * 文章图片删除
+     * @Param articleImgId 文章图片id
+     * @Param imgUrl 图片链接地址
+     */
+    void updateArticleImg(int articleImgId,String imgUrl);
+    /**
+     * 文章图片删除
+     */
+    void insertArticleImg(ArticleImgModelVo articleImgModelVo);
 }
