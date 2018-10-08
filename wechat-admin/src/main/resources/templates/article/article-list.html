@@ -37,9 +37,10 @@
           <tr>
             <th>ID</th>
             <th>文章作者</th>
-            <th>文章标题</th>
+            <th>文章概要</th>
             <th>时间</th>
             <th>图片</th>
+            <th>是否复制文章</th>
             <th>是否刷新文章</th>
             <th>操作</th>
           </tr>
@@ -54,19 +55,23 @@
                 <span  th:text="图片列表" class="layui-btn layui-btn-normal layui-btn-mini" th:onclick="'showImages(this,\''+${wyArticle.id}+'\')'"></span>
             </td>
             <td>
+              <span th:text="复制文章" class="layui-btn layui-btn-normal layui-btn-mini"  th:onclick="'article_copy(this,\''+${wyArticle.id}+'\')'"></span>
+            </td>
+            <td>
               <span th:text="刷新文章" class="layui-btn layui-btn-normal layui-btn-mini"  th:onclick="'article_refresh(this,\''+${wyArticle.id}+'\')'"></span>
             </td>
             <td class="td-manage">
-              <a th:if="${wyArticle.isPublish}" onclick="member_stop(this,'10001')" href="javascript:;"  title="发布">
+             <!-- <a th:if="${wyArticle.isPublish}" onclick="member_stop(this,'10001')" href="javascript:;"  title="发布">
               <i class="layui-icon">&#xe601;</i>
              </a>
               <a th:unless="${wyArticle.isPublish}" onclick="member_stop(this,'10001')" href="javascript:;"  title="下架">
                 <i class="layui-icon">&#xe601;</i>
               </a>
+              -->
               <a title="编辑"  th:onclick="'article_edit(this,\''+${wyArticle.id}+'\')'" href="javascript:;">
                 <i class="layui-icon">&#xe642;</i>
               </a>
-              <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+              <a title="删除" th:onclick="'article_del(this,\''+${wyArticle.id}+'\')'" href="javascript:;">
                 <i class="layui-icon">&#xe640;</i>
               </a>
             </td>
@@ -139,11 +144,24 @@
       }
 
       /*用户-删除*/
-      function member_del(obj,id){
+      function article_del(obj,id){
           layer.confirm('确认要删除吗？',function(index){
-              //发异步删除数据
-              $(obj).parents("tr").remove();
-              layer.msg('已删除!',{icon:1,time:1000});
+            $(obj).parents("tr").remove();
+            //发异步删除数据
+            $.ajax({
+                url: '/article/article-del',
+                async: false,
+                data: {"articleId":id},
+                dataType: "json",
+                type: 'post',
+                success: function (data) {
+                   layer.msg('已删除!',{icon:1,time:1000});
+                },
+                error: function (XmlHttpRequest, textStatus, errorThrown) {
+                    layer.msg('error!', {icon: 1, time: 1000});
+                }
+            });
+
           });
       }
       function delAll (argument) {
@@ -191,6 +209,29 @@
              });
 
 
+      }
+      /*文章-复制*/
+      function article_copy(obj, id) {
+          layer.confirm('确认要复制这篇文章吗?', function (index) {
+              //发异步删除数据
+              $.ajax({
+                  url: '/article/article-copy',
+                  async: false,
+                  data: {"articleId":id},
+                  dataType: "json",
+                  type: 'post',
+                  success: function (data) {
+                    layer.confirm('文章复制成功!!',function(index){
+                         location.reload(location.href);
+                    });
+                     // layer.msg('复制成功!', {icon: 1, time: 1000});
+                  },
+                  error: function (XmlHttpRequest, textStatus, errorThrown) {
+                      layer.msg('error!', {icon: 1, time: 1000});
+                  }
+              });
+
+          });
       }
     </script>
   

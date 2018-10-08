@@ -292,7 +292,60 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
             }
 
         }
+    }
+    /**
+     * 复制文章内容
+     * @param articleId 文章id
+     */
+    @Override
+    public void articleCopy(String articleId) {
+        WyArticle wyArticle = wyArticleMapper.selectByPrimaryKey(articleId);
+        String newArticleId = GUIDUtil.buildMd5GUID();
+        wyArticle.setId(newArticleId);
+        wyArticle.setCreateTime(new Date());
+        wyArticle.setUpdateTime(new Date());
+        wyArticle.setAuthor(wyArticle.getAuthor()+"复制文章");
+        //插入新文章id
+        try {
+            wyArticleMapper.insertSelective(wyArticle);
+        } catch (RuntimeException e) {
+            log.error("--------插入新文章失败-----");
+            e.printStackTrace();
+        }
 
-
+        WyArticleImgExample wyArticleImgExample = new WyArticleImgExample();
+        wyArticleImgExample.createCriteria()
+                .andStatusEqualTo(EffectiveType.EFFECTIVE_YES)
+                .andArticleIdEqualTo(articleId);
+        List<WyArticleImg> wyArticleImgs = wyArticleImgMapper.selectByExample(wyArticleImgExample);
+        try {
+            wyArticleImgs.stream().forEach(wyArticleImg -> {
+                wyArticleImg.setId(null);
+                wyArticleImg.setArticleId(newArticleId);
+                wyArticleImg.setStatus(EffectiveType.EFFECTIVE_YES);
+                wyArticleImg.setCreateTime(new Date());
+                wyArticleImg.setUpdateTime(new Date());
+                wyArticleImgMapper.insertSelective(wyArticleImg);
+            });
+        } catch (RuntimeException e) {
+            log.error("-------复制文章插入新图片内容失败-----");
+            e.printStackTrace();
+        }
+    }
+    /**
+     * 删除文章
+     * @param articleId 文章id
+     */
+    @Override
+    public void articleDel(String articleId) {
+        WyArticle wyArticle = new WyArticle();
+        wyArticle.setId(articleId);
+        wyArticle.setStatus(EffectiveType.EFFECTIVE_NO);
+        try {
+            wyArticleMapper.updateByPrimaryKeySelective(wyArticle);
+        } catch (Exception e) {
+            log.error("------删除文章失败-----");
+            e.printStackTrace();
+        }
     }
 }

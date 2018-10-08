@@ -48,4 +48,14 @@ public interface IArticleAdminService {
      * 文章图片删除
      */
     void insertArticleImg(ArticleImgModelVo articleImgModelVo);
+    /**
+     * 复制文章
+     * @param articleId 文章id
+     */
+    void articleCopy(String articleId);
+    /**
+     * 删除文章
+     * @param articleId 文章id
+     */
+    void articleDel(String articleId);
 }

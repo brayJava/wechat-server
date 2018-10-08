@@ -141,7 +141,26 @@ public class ArticleController {
         iArticleAdminService.articleRefresh(articleId);
         return RestResponseBo.ok();
     }
-
+    /**
+     * 复制文章
+     * @return
+     */
+    @RequestMapping("/article-copy")
+    @ResponseBody
+    public RestResponseBo articleCopy(String articleId){
+        iArticleAdminService.articleCopy(articleId);
+        return RestResponseBo.ok();
+    }
+    /**
+     * 删除文章
+     * @return
+     */
+    @RequestMapping("/article-del")
+    @ResponseBody
+    public RestResponseBo articleDel(String articleId){
+        iArticleAdminService.articleDel(articleId);
+        return RestResponseBo.ok();
+    }
     /**
      * 文章图片删除
      */
