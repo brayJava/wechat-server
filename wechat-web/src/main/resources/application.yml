@@ -5,7 +5,11 @@ spring:
 #    active: test      # 开发测试环境
 #    active: pre       # 预发环境
 #    active: online    # 生产环境
-
+  mvc:
+    static-path-pattern: /**
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,
+        classpath:/public/,file:${web.upload-path}
 thymeleaf:
 #    mode: LEGACYHTML5
     cache: false
@@ -22,14 +26,13 @@ info:
 
 logging:
   config: classpath:logback-spring.xml
-  level: INFO
-#  level:
-#      com:
-#        bray:
-#           service: DEBUG
-#      org:
-#        mybatis:
-#           spring: DEBUG
+  level:
+    root: info
+    com:
+      bray: DEBUG
+    org:
+      mybatis:
+         spring: DEBUG
 ##微信授权接口
 #weixin4j:
 #  id: wxfdd42e830e431893

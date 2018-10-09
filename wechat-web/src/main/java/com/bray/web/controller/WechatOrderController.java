@@ -33,18 +33,25 @@ public class WechatOrderController {
     @Resource
     private JavaMailSenderImpl javaMailSender;
     /**
-     * 订单跳转
+     * 订单文案跳转
      */
     @RequestMapping("/jump-story1")
     String orderStory1() {
         return "order/story1";
     }
     /**
-     * 订单跳转
+     * 订单文案跳转
      */
     @RequestMapping("/jump-story")
     String orderStory() {
         return "order/story";
+    }
+    /**
+     * 小说文案跳转
+     */
+    @RequestMapping("/jump-novel")
+    String jumpNovel() {
+        return "order/newest-1837";
     }
     /**
      * 订单跳转
