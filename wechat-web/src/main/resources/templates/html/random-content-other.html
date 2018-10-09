@@ -104,12 +104,8 @@
     </div>
     <div align="center"><a href="" target="_blank" title="www.baidu.com"><img src="" style="width: 100%;"/></a></div>
     <br/></div>
-    <div style="display:none" id="statistical">
+    <div id="statistical">
     </div>
-<!--<div style="display:none;">-->
-    <!--<script src="../../static/js/z_stat.js" language="JavaScript"-->
-            <!--th:src="@{/js/z_stat.js}"></script>-->
-<!--</div>-->
 <script type="text/javascript" src="../../static/js/jquery-1.8.0.js"
         th:src="@{/js/jquery-1.8.0.js}"></script>
 <script src="../../static/js/jweixin-1.2.0.js"
@@ -118,11 +114,12 @@
 <script th:inline="javascript">
     var share_url = [[${share_url}]];
     var domain_url = [[${domain_name}]];
-    // var data = [[${signature}]];
     var signatureJson = {};
     var article = [[${article}]];
     var isShare = true;
+    $("#statistical").empty();
     $("#statistical").append(article.wyArticle.statistical);
+    $('span[id^="cnzz_stat_icon"]').hide();
     $('title').html(article.wyArticle.title);
     //背景音乐停止与播放
     var image_src = ""
@@ -195,7 +192,7 @@
             signatureJson = data;
             /*<![CDATA[*/
             var ranNum="";
-            for (var i=0;i < 6;i++){
+            for (var i=0;i < 8;i++){
                  ranNum+=Math.floor(Math.random()*10);
             }
             var currentDomain=document.domain;
@@ -209,9 +206,9 @@
             var curfirst=currentDomain.split(".")[1];
             var contentfirst=contentUrl.split(".")[0];
             var jumpurl=document.referrer;
-            if(contentfirst==curfirst && jumpurl.length!==0){}else{
-                window.location.href='http://'+ranNum+'wzyz.'+contentUrl+'/wechat/random-content-other/'+article.wyArticle.id+"/"+Date.parse(new Date());
-            }
+            // if(contentfirst==curfirst && jumpurl.length!==0){}else{
+            //     window.location.href='http://'+ranNum+'wzyz.'+contentUrl+'/wechat/random-content-other/'+article.wyArticle.id+"/"+Date.parse(new Date());
+            // }
             /*]]>*/
         }
     });
