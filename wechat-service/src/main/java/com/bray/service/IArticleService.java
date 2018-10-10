@@ -28,4 +28,9 @@ public interface IArticleService {
      * @return
      */
     List<WyArticle> queryAllEffectiveArticle();
+    /**
+     * 通过文章id获取非分享唯一域名
+     * @return
+     */
+    String getNoShareDomainByArticleId(String articleId);
 }

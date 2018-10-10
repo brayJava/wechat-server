@@ -16,4 +16,7 @@ public interface ConstatFinal {
     String QUERY_ADMIN="query_admin";
 
     String QUERY_WEB="query_web";
+
+    //redis key 值相关
+    String NO_SHARE_DOMAIN = "no_share_domain";
 }

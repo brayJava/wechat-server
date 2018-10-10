@@ -62,8 +62,10 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
         wyArticle.setAuthor(article.getAuthor());
         wyArticle.setShareTitle(article.getShareTitle());
         wyArticle.setShareDescribe(article.getShareDecribe());
-        wyArticle.setIsOrderImg((ConstFinal.ARTICLE_STATUS.equals(article.getWhetherOrderImg()) ? true : false));
-        wyArticle.setIsPublish((ConstFinal.ARTICLE_STATUS.equals(article.getWhetherPublish()) ? true : false));
+        wyArticle.setIsOrderImg((ConstFinal
+                .ARTICLE_STATUS.equals(article.getWhetherOrderImg()) ? true : false));
+        wyArticle.setIsPublish((ConstFinal
+                .ARTICLE_STATUS.equals(article.getWhetherPublish()) ? true : false));
         wyArticle.setStatus(EffectiveType.EFFECTIVE_YES);
         wyArticle.setCreateTime(new Date());
         wyArticle.setUpdateTime(new Date());
@@ -111,10 +113,14 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
         wyArticle.setShareDescribe(articleOtherModelVo.getShareDescribe());
         wyArticle.setShareImgUrl(articleOtherModelVo.getShareImgUrl());
         wyArticle.setStatistical(articleOtherModelVo.getStatistical());
-        wyArticle.setIsOrderImg(ConstFinal.ARTICLE_STATUS.equals(articleOtherModelVo.getOrderImg()) ? true : false);
-        wyArticle.setIsPublish(ConstFinal.ARTICLE_STATUS.equals(articleOtherModelVo.getOrderImg()) ? true : false);
-        wyArticle.setForcedShare(ConstFinal.SHARE_STATUS.equals(articleOtherModelVo.getForcedShare()) ? true : false);
-        wyArticle.setNoShareDomain(articleOtherModelVo.getNoShareDomain());
+        wyArticle.setIsOrderImg(ConstFinal.ARTICLE_STATUS
+                .equals(articleOtherModelVo.getOrderImg()) ? true : false);
+        wyArticle.setIsPublish(ConstFinal.ARTICLE_STATUS
+                .equals(articleOtherModelVo.getOrderImg()) ? true : false);
+        wyArticle.setForcedShare(ConstFinal.SHARE_STATUS
+                .equals(articleOtherModelVo.getForcedShare()) ? true : false);
+        //按字符逗号隔开格式存入
+        wyArticle.setNoShareDomain(dealNoShareDomain(articleOtherModelVo.getNoShareDomain()));
         wyArticle.setStatus(EffectiveType.EFFECTIVE_YES);
         wyArticle.setCreateTime(new Date());
         wyArticle.setUpdateTime(new Date());
@@ -148,7 +154,7 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
         wyArticle.setStatistical(articleOtherModelVo.getStatistical());
         wyArticle.setIsOrderImg(ConstFinal.ARTICLE_STATUS.equals(articleOtherModelVo.getOrderImg()) ? true : false);
         wyArticle.setForcedShare(ConstFinal.SHARE_STATUS.equals(articleOtherModelVo.getForcedShare()) ? true : false);
-        wyArticle.setNoShareDomain(articleOtherModelVo.getNoShareDomain());
+        wyArticle.setNoShareDomain(dealNoShareDomain(articleOtherModelVo.getNoShareDomain()));
         wyArticle.setUpdateTime(new Date());
         this.articleRefresh(articleOtherModelVo.getArticleId());
         try {
@@ -208,6 +214,19 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
                 e.printStackTrace();
             }
         });
+    }
+    /**
+     * 处理非分享域名，将其多个用逗号隔开存入库中
+     * @param noShareDomain 非分享域名
+     * @return
+     */
+    private String dealNoShareDomain(String noShareDomain) {
+        if(StringUtils.isEmpty(noShareDomain)) return "";
+        String replaceUrlStr = noShareDomain.trim().replace(" ", "");
+        String[] noShareDomains = replaceUrlStr.split("\n");
+        if(Objects.isNull(noShareDomains) || noShareDomains.length == 0) return "";
+        String noShareDomainStr = Arrays.stream(noShareDomains).map(s -> s.trim()).collect(Collectors.joining(","));
+        return noShareDomainStr;
     }
     /**
      * 删除文章图片

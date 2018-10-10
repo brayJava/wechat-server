@@ -11,12 +11,15 @@ import com.bray.model.WyArticleExample;
 import com.bray.model.WyArticleImg;
 import com.bray.model.WyArticleImgExample;
 import com.bray.service.IArticleService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Author:wuzhiyuan
@@ -25,6 +28,7 @@ import java.util.List;
  * @Modified By:
  */
 @Service
+@Slf4j
 public class ArticleServiceImpl implements IArticleService{
 
     @Resource
@@ -50,6 +54,30 @@ public class ArticleServiceImpl implements IArticleService{
     @Override
     public ArticleWithImages queryCurrentArticleBySql(String articleId) {
         return getArticleWithImages(articleId);
+    }
+    /**
+     * 查询当前文章
+     * @param articleId
+     * @return
+     */
+    @Override
+    @QueryCache(serviceType = ConstatFinal.NO_SHARE_DOMAIN)
+    public String getNoShareDomainByArticleId(String articleId) {
+        WyArticleExample wyArticleExample = new WyArticleExample();
+        wyArticleExample.createCriteria().andIdEqualTo(articleId).andStatusEqualTo(EffectiveType.EFFECTIVE_YES);
+        //获取文章
+        List<WyArticle> wyArticles = wyArticleMapper.selectByExample(wyArticleExample);
+        if(CollectionUtils.isEmpty(wyArticles)) return "";
+        WyArticle wyArticle = wyArticles.get(0);
+        //取非分享域名，并随机存储一个域名
+        String noShareDomain = wyArticle.getNoShareDomain();
+        if(!StringUtils.isEmpty(noShareDomain)) {
+            String[] noShareDomains = noShareDomain.split(",");
+            int v = (int)Math.floor(Math.random() * noShareDomains.length); //在域名中求整数
+            log.info("----------文章id：{}获取的非分享域名为：{}",articleId,noShareDomains[v]);
+            return noShareDomains[v];
+        }
+        return "";
     }
     /**
      * 查询所有文章
@@ -85,7 +113,6 @@ public class ArticleServiceImpl implements IArticleService{
             List<WyArticleImg> wyArticleImgs = wyArticleImgMapper.selectByExample(wyArticleImgExample);
             articleWithImages.setWyArticleImgs(wyArticleImgs);
         }
-
         return articleWithImages;
     }
 }

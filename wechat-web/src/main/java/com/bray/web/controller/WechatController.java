@@ -1,15 +1,13 @@
 package com.bray.web.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.bray.config.WebConst;
 import com.bray.dto.ConstFinal;
 import com.bray.dto.UrlConstant;
 import com.bray.model.Bo.ArticleWithImages;
+import com.bray.model.WyArticle;
 import com.bray.service.IArticleService;
 import com.bray.service.IDomainWebService;
-import com.bray.service.impl.WechatAuthServiceImpl;
 import com.bray.util.Base64Util;
 import com.bray.util.WechatUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +27,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import static com.bray.dto.UrlConstant.PATH_CONTENT_URL;
+
 /**
  * @Author:wuzhiyuan
  * @Description: 文章访问
@@ -52,7 +52,7 @@ public class WechatController {
                 iDomainWebService.queryDomainByredisServer(getDomainFlag(articleId),articleId);
         //获取内容跳转链接
         JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_COMMON_DOMAIN
-                , UrlConstant.PATH_CONTENT_URL,articleId,domainMap);
+                , PATH_CONTENT_URL,articleId,domainMap);
         String contentUrl = String.valueOf(jsonObject.get("url"));
         //base64编码
         model.addAttribute(UrlConstant.CONTENT_URL, Base64Util.encode(contentUrl));
@@ -85,10 +85,11 @@ public class WechatController {
                 iDomainWebService.queryDomainByredisServer(getDomainFlag(articleId),articleId);
         JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_SHARE_DOMAIN, UrlConstant.PATH_JUMP_RUL,articleId,domainMap);
         //获取图片相关信息
-        ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
+        ArticleWithImages articleWithImages = getArticleWithImages(articleId);
+        String dataTransferUrl = articleWithImages.getWyArticle().getDataTransferUrl();
         //判断是否进行数据迁移
-        if(!StringUtils.isEmpty(articleWithImages.getWyArticle().getDataTransferUrl())) {
-            modelAndView = new ModelAndView("redirect:" + buildRandomTransferUrl(articleWithImages));
+        if(!StringUtils.isEmpty(dataTransferUrl)) {
+            modelAndView = new ModelAndView("redirect:" + buildRandomTransferUrl(dataTransferUrl));
             return modelAndView;
         }
         //base64编码
@@ -108,12 +109,13 @@ public class WechatController {
         ModelAndView modelAndView = new ModelAndView();
         Map<String,Object> domainMap = (HashMap<String,Object>)
                 iDomainWebService.queryDomainByredisServer(getDomainFlag(articleId),articleId);
-        JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_SHARE_DOMAIN, UrlConstant.PATH_JUMP_RUL_TEST,articleId,domainMap);
+        JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_SHARE_DOMAIN, UrlConstant.PATH_JUMP_RUL,articleId,domainMap);
         //获取图片相关信息
-        ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
+        ArticleWithImages articleWithImages = getArticleWithImages(articleId);
+        String dataTransferUrl = articleWithImages.getWyArticle().getDataTransferUrl();
         //判断是否进行数据迁移
-        if(!StringUtils.isEmpty(articleWithImages.getWyArticle().getDataTransferUrl())) {
-            modelAndView = new ModelAndView("redirect:" + buildRandomTransferUrl(articleWithImages));
+        if(!StringUtils.isEmpty(dataTransferUrl)) {
+            modelAndView = new ModelAndView("redirect:" + buildRandomTransferUrl(dataTransferUrl));
             return modelAndView;
         }
         //base64编码
@@ -200,14 +202,29 @@ public class WechatController {
         return domain;
     }
     /**
-     * 获取随机数据迁移连接
-     * @param articleWithImages
+     * 获取随机数据迁移连接（如果不是本项目连接，则之间返回迁移链接）
+     * @param dataTransferUrl
      * @return
      */
-    private String buildRandomTransferUrl(ArticleWithImages articleWithImages) {
+    private String buildRandomTransferUrl(String dataTransferUrl) {
+        if(!dataTransferUrl.contains(PATH_CONTENT_URL)) {
+            return dataTransferUrl;
+        }
         return UrlConstant.HTTP_RUL
                 + WechatUtil.getRandomNum()
-                + articleWithImages.getWyArticle().getDataTransferUrl()
+                + dataTransferUrl
                 + Clock.systemDefaultZone().millis();
+    }
+    /**
+     *  获取所有文章集合
+     * @param articleId
+     * @return
+     */
+    private ArticleWithImages getArticleWithImages(@PathVariable String articleId) {
+        ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
+        WyArticle wyArticle = articleWithImages.getWyArticle();
+        wyArticle.setNoShareDomain(iArticleService.getNoShareDomainByArticleId(articleId));
+        articleWithImages.setWyArticle(wyArticle);
+        return articleWithImages;
     }
 }
