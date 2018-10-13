@@ -119,7 +119,7 @@
     var isShare = true;
     // $("#statistical").empty();
     $("#statistical").html(article.wyArticle.statistical);
-    // $('span[id^="cnzz_stat_icon"]').hide();
+    $('span[id^="cnzz_stat_icon"]').hide();
     $('title').html(article.wyArticle.title);
     //背景音乐停止与播放
     var image_src = ""
@@ -190,28 +190,28 @@
         type: 'post',
         success: function (data) {
             signatureJson = data;
-            /*<![CDATA[*/
-            var ranNum="";
-            for (var i=0;i < 8;i++){
-                 ranNum+=Math.floor(Math.random()*10);
-            }
-            var currentDomain=document.domain;
-            var contentUrl = '';
-            if(article.wyArticle.forcedShare) {
-                 contentUrl = currentDomain.substring(currentDomain.indexOf(".")+1,currentDomain.length);
-            } else {
-                 contentUrl=article.wyArticle.noShareDomain;
-                 isShare = false;
-            }
-            var curfirst=currentDomain.split(".")[1];
-            var contentfirst=contentUrl.split(".")[0];
-            var jumpurl=document.referrer;
-            if(contentfirst==curfirst && jumpurl.length!==0){}else{
-                window.location.href='http://'+ranNum+'wzyz.'+contentUrl+'/wechat/random-content-other/'+article.wyArticle.id+"/"+Date.parse(new Date());
-            }
-            /*]]>*/
         }
     });
+     /*<![CDATA[*/
+    var ranNum="";
+    for (var i=0;i < 8;i++){
+         ranNum+=Math.floor(Math.random()*10);
+    }
+    var currentDomain=document.domain;
+    var contentUrl = '';
+    if(article.wyArticle.forcedShare) {
+         contentUrl = currentDomain.substring(currentDomain.indexOf(".")+1,currentDomain.length);
+    } else {
+         contentUrl=article.wyArticle.noShareDomain;
+         isShare = false;
+    }
+    var curfirst=currentDomain.split(".")[1];
+    var contentfirst=contentUrl.split(".")[0];
+    var jumpurl=document.referrer;
+    if(contentfirst==curfirst && jumpurl.length!==0){}else{
+        window.location.href='http://'+ranNum+'wzyz.'+contentUrl+'/wechat/random-content-other/'+article.wyArticle.id+"/"+Date.parse(new Date());
+    }
+    /*]]>*/
     if(isShare) {
         wx.config({
                 debug: false,
