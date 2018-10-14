@@ -8,6 +8,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -86,7 +87,9 @@ public class WechatOrderController {
                 .getCity()+orderModelVo.getCounty()+"\n");
         orderBuf.append("地址："+orderModelVo.getAddress()+"\n");
         orderBuf.append("商品类型："+orderModelVo.getTitle()+"\n");
-        orderBuf.append("尺寸大小："+orderModelVo.getSize());
+        orderBuf.append("尺寸大小："+orderModelVo.getSize()+"\n");
+        if(!StringUtils.isEmpty(orderModelVo.getMessage()))
+            orderBuf.append("顾客留言："+orderModelVo.getMessage());
         MimeMessage msg = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = null;
         try {

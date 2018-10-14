@@ -85,7 +85,9 @@ public class WechatController {
                 iDomainWebService.queryDomainByredisServer(getDomainFlag(articleId),articleId);
         JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_SHARE_DOMAIN, UrlConstant.PATH_JUMP_RUL,articleId,domainMap);
         //获取图片相关信息
-        ArticleWithImages articleWithImages = getArticleWithImages(articleId);
+        // ArticleWithImages articleWithImages = getArticleWithImages(articleId);
+        //获取图片相关信息
+        ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
         String dataTransferUrl = articleWithImages.getWyArticle().getDataTransferUrl();
         //判断是否进行数据迁移
         if(!StringUtils.isEmpty(dataTransferUrl)) {

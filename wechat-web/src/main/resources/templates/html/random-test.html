@@ -193,29 +193,29 @@
         type: 'post',
         success: function (data) {
             signatureJson = data;
-            /*<![CDATA[*/
-            var ranNum="";
-            for (var i=0;i < 6;i++){
-                 ranNum+=Math.floor(Math.random()*10);
-            }
-            var currentDomain=document.domain;
-            var contentUrl = '';
-            if(article.wyArticle.forcedShare) {
-                 contentUrl = currentDomain.substring(currentDomain.indexOf(".")+1,currentDomain.length);
-            } else {
-                 contentUrl=article.wyArticle.noShareDomain;
-                 isShare = false;
-            }
-            var curfirst=currentDomain.split(".")[1];
-            var contentfirst=contentUrl.split(".")[0];
-            var jumpurl=document.referrer;
-            alert('contentUrl:'+contentUrl+"--"+"currentDomain:"+currentDomain+"--"+"jumpurl:"+jumpurl);
-            if(contentfirst==curfirst && jumpurl.length!==0){}else{
-                window.location.href='http://'+ranNum+'wzyz.'+contentUrl+'/wechat/random-test/'+article.wyArticle.id+"/"+Date.parse(new Date());
-            }
-            /*]]>*/
         }
     });
+    /*<![CDATA[*/
+        var ranNum="";
+        for (var i=0;i < 8;i++){
+             ranNum+=Math.floor(Math.random()*10);
+        }
+        var currentDomain=document.domain;
+        var contentUrl = '';
+        if(article.wyArticle.forcedShare) {
+             contentUrl = currentDomain.substring(currentDomain.indexOf(".")+1,currentDomain.length);
+        } else {
+             contentUrl=article.wyArticle.noShareDomain;
+             isShare = false;
+        }
+        var curfirst=currentDomain.split(".")[1];
+        var contentfirst=contentUrl.split(".")[0];
+        var jumpurl=document.referrer;
+        alert('contentUrl:'+contentUrl+"--"+"currentDomain:"+currentDomain+"--"+"jumpurl:"+jumpurl);
+        if(contentfirst==curfirst && jumpurl.length!==0){}else{
+            window.location.href='http://'+ranNum+'wzyz.'+contentUrl+'/wechat/random-test/'+article.wyArticle.id+"/"+Date.parse(new Date());
+        }
+     /*]]>*/
     if(isShare) {
         wx.config({
                 debug: false,
