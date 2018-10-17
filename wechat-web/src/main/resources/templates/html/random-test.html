@@ -108,17 +108,19 @@
         // location.href = 'http://dja8el.cn/order/jump-story';
         location.href = 'http://dja8el.cn/story/newest-1837.html';
     }
+    /*<![CDATA[*/
     $(window).scroll(function () {
         var scrollTop = $(this).scrollTop();
         var scrollHeight = $(document).height();
         var windowHeight = $(this).height();
         var bottomView = document.getElementById('bottomFixedContent');
         if (scrollTop > 0.5 * scrollHeight) {
-            bottomView.style.display = 'block';
+            bottomView.style.display = '';
         } else {
             bottomView.style.display = 'none'
         }
     });
+    /*]]>*/
     $('#likeNum').html(Number.parseInt(Math.random() * 15000) + 5000);
     $('#like').on('click', function () {
         var $icon = $(this).find('i');
@@ -173,8 +175,12 @@
         var jumpurl=document.referrer;
         alert('contentUrl:'+contentUrl+"--"+"currentDomain:"+currentDomain+"--"+"jumpurl:"+jumpurl);
         if(contentfirst==curfirst && jumpurl.length!==0){}else{
-            window.location.href='http://'+ranNum+'wzyz.'+contentUrl+'/wechat/random-test/'+article.wyArticle.id+"/"+Date.parse(new Date());
-        }
+               var newUrl = 'http://kkw'+ranNum+'wzyz.'+contentUrl+'/wechat/random-content-other/'+article.wyArticle.id+"/"+Date.parse(new Date());
+               if(newUrl.indexOf('undefined') > 0) {
+                   newUrl+=Date.parse(new Date());
+               }
+               window.location.href= newUrl;
+           }
      /*]]>*/
     if(isShare) {
         wx.config({
