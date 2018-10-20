@@ -1,5 +1,6 @@
 package com.bray.web.controller;
 import com.alibaba.fastjson.JSONObject;
+import com.bray.dto.OrderLogType;
 import com.bray.model.Bo.RestResponseBo;
 import com.bray.model.Vo.OrderModelVo;
 import com.bray.service.IOrderWebService;
@@ -38,13 +39,15 @@ public class WechatOrderController {
      */
     @RequestMapping("/jump-story1")
     String orderStory1() {
-        return "order/story";
+        iOrderWebService.insertOrderLog(OrderLogType.STORY_TYPE);
+        return "order/story1";
     }
     /**
      * 订单文案跳转
      */
     @RequestMapping("/jump-story")
     String orderStory() {
+        iOrderWebService.insertOrderLog(OrderLogType.STORY_TYPE);
         return "order/story";
     }
     /**
@@ -59,6 +62,7 @@ public class WechatOrderController {
      */
     @RequestMapping("/jump-order")
     String order() {
+        iOrderWebService.insertOrderLog(OrderLogType.ORDER_TYPE);
         return "order/order";
     }
 

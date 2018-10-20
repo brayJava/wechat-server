@@ -99,6 +99,7 @@ public class WechatController {
         String domain = getDomainName(jsonObject);
         modelAndView.addObject(UrlConstant.DOMAIN_NAME, Base64Util.encode(domain));
         modelAndView.addObject("article",articleWithImages);
+        modelAndView.addObject("currentTime",Clock.systemDefaultZone().millis()+"");
         modelAndView.setViewName("html/random-content-other");
         log.info("----------分享链接为：{}",String.valueOf(jsonObject.get("url")));
         return modelAndView;

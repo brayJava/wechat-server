@@ -1,8 +1,10 @@
 package com.bray.service;
 
+import com.bray.mapper.WyOrderLogMapper;
 import com.bray.mapper.WyOrderMapper;
 import com.bray.model.Vo.OrderModelVo;
 import com.bray.model.WyOrder;
+import com.bray.model.WyOrderLog;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,9 @@ import java.util.Date;
 public class OrderWebServiceImpl implements IOrderWebService {
     @Resource
     private WyOrderMapper wyOrderMapper;
+
+    @Resource
+    private WyOrderLogMapper wyOrderLogMapper;
     /**
      * 订单记录插入
      * @param orderModelVo
@@ -48,8 +53,28 @@ public class OrderWebServiceImpl implements IOrderWebService {
         wyOrder.setUpdateTime(new Date());
         try {
             wyOrderMapper.insertSelective(wyOrder);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             log.error("------------订单信息插入异常");
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * 下单日志相关
+     * @param type
+     */
+    @Override
+    public void insertOrderLog(int type) {
+
+        WyOrderLog wyOrderLog = new WyOrderLog();
+        wyOrderLog.setType(type);
+        wyOrderLog.setCreateTime(new Date());
+        wyOrderLog.setUpdateTime(new Date());
+        try {
+            wyOrderLogMapper.insertSelective(wyOrderLog);
+        } catch (Exception e) {
+            log.error("------------订单日志信息插入异常");
             e.printStackTrace();
         }
 
