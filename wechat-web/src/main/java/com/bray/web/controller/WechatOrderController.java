@@ -38,7 +38,7 @@ public class WechatOrderController {
      */
     @RequestMapping("/jump-story1")
     String orderStory1() {
-        return "order/story1";
+        return "order/story";
     }
     /**
      * 订单文案跳转
