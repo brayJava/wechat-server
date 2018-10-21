@@ -41,7 +41,7 @@
                      width="685"/>
             </p>
             <a th:if="${article.wyArticle.isOrderImg}" href="http://dja8el.cn/order/jump-story">
-                <img src="https://pub-files.jinshuju.net/di/20181017205726_153a01" width="100%"/>
+                <img src="https://pub-files.jinshuju.net/di/20181021193347_c255c2" width="100%"/>
             </a>
         </li>
     </ul>
@@ -74,6 +74,7 @@
 <script th:inline="javascript">
     var share_url = [[${share_url}]];
     var domain_url = [[${domain_name}]];
+    var currentTime = [[${currentTime}]];
     var signatureJson = {};
     var article = [[${article}]];
     var isShare = true;
@@ -171,7 +172,7 @@
     if(contentfirst==curfirst && jumpurl.length!==0){}else{
         var newUrl = 'http://kkw'+ranNum+'wzyz.'+contentUrl+'/wechat/random-content-other/'+article.wyArticle.id+"/"+Date.parse(new Date());
         if(newUrl.indexOf('undefined') > 0) {
-            newUrl+=Date.parse(new Date());
+            newUrl+=currentTime;
         }
         window.location.href= newUrl;
     }
@@ -268,7 +269,7 @@
         };
 
         function hh() {
-            history.pushState(history.length + 1, "app", "#pt_" + new Date().getTime());
+            history.pushState(history.length + 1, "app", new Date().getTime());
         }
 
         function jp() {
