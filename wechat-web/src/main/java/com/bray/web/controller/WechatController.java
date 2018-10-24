@@ -85,6 +85,7 @@ public class WechatController {
         String requestURI = request.getRequestURI();
         String contentUrlCache = requestURI.substring(requestURI.lastIndexOf("/") + 1, requestURI.length());
         String existHtmlUrl = iArticleService.queryExistHtmlUrl(contentUrlCache);
+        log.info("访问链接：{}，访问时间戳：{}",requestURI,existHtmlUrl);
         if(!StringUtils.isEmpty(existHtmlUrl)) {
             modelAndView = new ModelAndView("redirect:http://www.baidu12321.com");
             return modelAndView;
