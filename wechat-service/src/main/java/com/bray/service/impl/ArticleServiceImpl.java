@@ -1,6 +1,7 @@
 package com.bray.service.impl;
 
 import com.bray.aop.annotation.QueryCache;
+import com.bray.aop.cache.RedisCache;
 import com.bray.dto.ConstatFinal;
 import com.bray.dto.EffectiveType;
 import com.bray.mapper.WyArticleImgMapper;
@@ -33,9 +34,10 @@ public class ArticleServiceImpl implements IArticleService{
 
     @Resource
     private WyArticleMapper wyArticleMapper;
-
     @Resource
     private WyArticleImgMapper wyArticleImgMapper;
+    @Resource
+    private RedisCache redisCache;
     /**
      * 查询当前文章
      * @param articleId
@@ -114,5 +116,27 @@ public class ArticleServiceImpl implements IArticleService{
             articleWithImages.setWyArticleImgs(wyArticleImgs);
         }
         return articleWithImages;
+    }
+    /**
+     * @param timestmpStr 时间戳字符串
+     * @return
+     */
+    @Override
+    @QueryCache(serviceType = ConstatFinal.AITICLE_URL_TIME)
+    public String queryExistHtmlUrl(String timestmpStr) {
+
+        return "";
+    }
+    /**
+     * 缓存唯一时间戳链接
+     * @param timestmpStr
+     */
+    @Override
+    public void insertHtmlUrlToRedis(String timestmpStr) {
+        try {
+            redisCache.saveDataToRedis(ConstatFinal.AITICLE_URL_TIME+":"+timestmpStr,timestmpStr);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

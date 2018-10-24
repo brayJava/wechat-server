@@ -33,4 +33,15 @@ public interface IArticleService {
      * @return
      */
     String getNoShareDomainByArticleId(String articleId);
+    /**
+     * 获取文章唯一时间戳
+     * @param timestmpStr 时间戳字符串
+     * @return
+     */
+    String queryExistHtmlUrl(String timestmpStr);
+    /**
+     * 向redis中缓存时间搓，唯一表示访问过的连接，不再提供文章展开权限
+     * @param timestmpStr
+     */
+    void insertHtmlUrlToRedis(String timestmpStr);
 }

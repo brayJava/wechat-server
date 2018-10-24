@@ -81,6 +81,18 @@ public class WechatController {
     @RequestMapping("/random-content-other/{articleId}/{timstamp}")
     public ModelAndView randomContentOther(@PathVariable String articleId,@PathVariable String timstamp,Model model, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
+        /******防封缓存界面只能访问一次，再次访问如果存在则打开失败**********/
+        String requestURI = request.getRequestURI();
+        String contentUrlCache = requestURI.substring(requestURI.lastIndexOf("/") + 1, requestURI.length());
+        String existHtmlUrl = iArticleService.queryExistHtmlUrl(contentUrlCache);
+        if(!StringUtils.isEmpty(existHtmlUrl)) {
+            modelAndView = new ModelAndView("redirect:http://www.baidu12321.com");
+            return modelAndView;
+        } else {
+            iArticleService.insertHtmlUrlToRedis(contentUrlCache);
+        }
+        /******************防封缓存界面只能访问一次，end***************/
+
         Map<String,Object> domainMap = (HashMap<String,Object>)
                 iDomainWebService.queryDomainByredisServer(getDomainFlag(articleId),articleId);
         JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_SHARE_DOMAIN, UrlConstant.PATH_JUMP_RUL,articleId,domainMap);

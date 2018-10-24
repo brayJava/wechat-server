@@ -19,4 +19,6 @@ public interface ConstatFinal {
 
     //redis key 值相关
     String NO_SHARE_DOMAIN = "no_share_domain";
+    //redis key 值相关,文章链接时间戳
+    String AITICLE_URL_TIME = "article_url_time";
 }
