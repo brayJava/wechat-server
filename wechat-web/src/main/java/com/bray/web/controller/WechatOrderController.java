@@ -40,15 +40,15 @@ public class WechatOrderController {
     @RequestMapping("/jump-story1")
     String orderStory1() {
         iOrderWebService.insertOrderLog(OrderLogType.STORY_TYPE);
-        return "order/story1";
+        return "order/story";
     }
     /**
      * 订单文案跳转
      */
-    @RequestMapping("/jump-story")
+    @RequestMapping("/jump-story2")
     String orderStory() {
         iOrderWebService.insertOrderLog(OrderLogType.STORY_TYPE);
-        return "order/story";
+        return "order/story1";
     }
     /**
      * 小说文案跳转
