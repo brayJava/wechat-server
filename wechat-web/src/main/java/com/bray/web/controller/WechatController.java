@@ -90,9 +90,9 @@ public class WechatController {
         log.info("访问链接：{}，访问时间戳：{}",requestURI,existHtmlUrl);
         if(!StringUtils.isEmpty(existHtmlUrl)) {
             //强制分享才分享
-            if(articleWithImages.getWyArticle().getForcedShare())
+            if(articleWithImages.getWyArticle().getForcedShare()){}
                   // modelAndView = new ModelAndView("redirect:http://"+Clock.systemDefaultZone().millis()+"/cc");
-            return modelAndView;
+            // return modelAndView;
         } else {
             iArticleService.insertHtmlUrlToRedis(contentUrlCache);
         }
