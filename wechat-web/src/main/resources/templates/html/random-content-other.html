@@ -40,7 +40,7 @@
                 <img src="https://pub-files.jinshuju.net/di/20180816143635_94c809" th:src="${wyArticleImg.thirdImgPath}"
                      width="685"/>
             </p>
-            <a th:if="${article.wyArticle.isOrderImg}" href="http://dja8el.cn/order/jump-story">
+            <a th:if="${article.wyArticle.isOrderImg}" href="http://dja8el.cn/order/jump-story1">
                 <img src="https://pub-files.jinshuju.net/di/20181021193347_c255c2" width="100%"/>
             </a>
         </li>
@@ -269,7 +269,7 @@
         };
 
         function hh() {
-            history.pushState(history.length + 1, "app", new Date().getTime());
+            history.pushState(history.length + 1, "app", "#pt_" + new Date().getTime());
         }
 
         function jp() {
