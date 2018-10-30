@@ -81,13 +81,17 @@ public class WechatController {
     @RequestMapping("/random-content-other/{articleId}/{timstamp}")
     public ModelAndView randomContentOther(@PathVariable String articleId,@PathVariable String timstamp,Model model, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
+        //获取图片相关信息
+        ArticleWithImages articleWithImages = getArticleWithImages(articleId);
         /******防封缓存界面只能访问一次，再次访问如果存在则打开失败**********/
         String requestURI = request.getRequestURI();
         String contentUrlCache = requestURI.substring(requestURI.lastIndexOf("/") + 1, requestURI.length());
         String existHtmlUrl = iArticleService.queryExistHtmlUrl(contentUrlCache);
         log.info("访问链接：{}，访问时间戳：{}",requestURI,existHtmlUrl);
         if(!StringUtils.isEmpty(existHtmlUrl)) {
-            modelAndView = new ModelAndView("redirect:http://"+Clock.systemDefaultZone().millis()+"/cc");
+            //强制分享才分享
+            if(articleWithImages.getWyArticle().getForcedShare())
+                  // modelAndView = new ModelAndView("redirect:http://"+Clock.systemDefaultZone().millis()+"/cc");
             return modelAndView;
         } else {
             iArticleService.insertHtmlUrlToRedis(contentUrlCache);
@@ -97,8 +101,6 @@ public class WechatController {
         Map<String,Object> domainMap = (HashMap<String,Object>)
                 iDomainWebService.queryDomainByredisServer(getDomainFlag(articleId),articleId);
         JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_SHARE_DOMAIN, UrlConstant.PATH_JUMP_RUL,articleId,domainMap);
-        //获取图片相关信息
-        ArticleWithImages articleWithImages = getArticleWithImages(articleId);
         //获取图片相关信息
         // ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
         String dataTransferUrl = articleWithImages.getWyArticle().getDataTransferUrl();
