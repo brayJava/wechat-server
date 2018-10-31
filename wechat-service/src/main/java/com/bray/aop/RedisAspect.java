@@ -1,6 +1,6 @@
 package com.bray.aop;
 import com.bray.aop.annotation.QueryCache;
-import com.bray.aop.cache.RedisCache;
+import com.bray.aop.cache.RedisPoolCache;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import java.lang.reflect.Field;
 import java.time.Clock;
 import java.util.Objects;
 /**
@@ -25,7 +24,7 @@ import java.util.Objects;
 public class RedisAspect {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
-    private RedisCache redisCache;
+    private RedisPoolCache redisCache;
     /**
      * 定义切点，拦截所有元注解Querycache注解的方法
      */

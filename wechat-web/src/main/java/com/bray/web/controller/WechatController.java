@@ -1,6 +1,7 @@
 package com.bray.web.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bray.aop.cache.RedisPoolCache;
 import com.bray.config.WebConst;
 import com.bray.dto.ConstFinal;
 import com.bray.dto.UrlConstant;
@@ -12,15 +13,20 @@ import com.bray.util.Base64Util;
 import com.bray.util.WechatUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.data.redis.cache.RedisCache;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
+import org.thymeleaf.spring4.context.SpringWebContext;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.time.Clock;
 import java.util.HashMap;
@@ -43,6 +49,13 @@ public class WechatController {
     private IArticleService iArticleService;
     @Resource
     private IDomainWebService iDomainWebService;
+    @Autowired
+    private ThymeleafViewResolver thymeleafViewResolver;
+    @Autowired
+    private ApplicationContext applicationContext;
+    @Resource
+    private RedisPoolCache redisObj;
+
     /**
      * 首页跳转
      */
@@ -181,6 +194,42 @@ public class WechatController {
         model.addAttribute(UrlConstant.WITH_OUT_SHARE, Base64Util.encode(withoutShareUrl));
         log.info("----------分享链接为：{}",withoutShareUrl);
         return "html/random-common";
+    }
+
+    /**
+     * 新防封界面
+     * @param request
+     * @return
+     */
+    @RequestMapping("/zsff")
+    public String realFangFeng(HttpServletRequest request) {
+        log.info("日志输出：{}",request.getRequestURI().toString());
+        return "html/cyff/zsff";
+    }
+    /**
+     * 新防封内容展示
+     * @param request
+     * @param cid     文章id
+     * @return
+     */
+    @RequestMapping("/content")
+    @ResponseBody
+    public ArticleWithImages realFangFengCon(HttpServletRequest request, HttpServletResponse response, Model model,String cid) {
+        //获取图片相关信息
+        ArticleWithImages article = iArticleService.queryCurrentArticle(cid);
+        //取缓存
+        String html = String.valueOf(redisObj.getRedisValueByKey("images_list:"+cid));
+        if(StringUtils.isEmpty(html) || "null".equals(html)) {
+            model.addAttribute("article", article);
+            //手动渲染
+            SpringWebContext ctx = new SpringWebContext(request,response,
+                    request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+            html = thymeleafViewResolver.getTemplateEngine().process("images_list", ctx);
+            redisObj.saveDataToRedis("images_list:"+cid,html);
+        }
+        article.setContentHtml(html);
+        log.info("日志输出：{}",request.getRequestURI().toString());
+        return article;
     }
 
     /**

@@ -15,7 +15,7 @@ import redis.clients.jedis.JedisPool;
  */
 @Component
 @Slf4j
-public class RedisCache {
+public class RedisPoolCache {
 
     @Autowired
     private JedisPool jedisPool;

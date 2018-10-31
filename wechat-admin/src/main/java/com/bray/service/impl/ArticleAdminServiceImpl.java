@@ -1,7 +1,6 @@
 package com.bray.service.impl;
 
-import com.bray.aop.annotation.QueryCache;
-import com.bray.aop.cache.RedisCache;
+import com.bray.aop.cache.RedisPoolCache;
 import com.bray.dto.ConstFinal;
 import com.bray.dto.ConstatFinal;
 import com.bray.dto.EffectiveType;
@@ -12,7 +11,6 @@ import com.bray.model.Bo.ArticleImgModelVo;
 import com.bray.model.Vo.ArticleModelVo;
 import com.bray.model.Vo.ArticleOtherModelVo;
 import com.bray.model.WyArticle;
-import com.bray.model.WyArticleExample;
 import com.bray.model.WyArticleImg;
 import com.bray.model.WyArticleImgExample;
 import com.bray.service.IArticleAdminService;
@@ -20,7 +18,6 @@ import com.bray.util.GUIDUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -28,7 +25,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -46,7 +42,7 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
     @Resource
     private WyArticleImgMapper wyArticleImgMapper;
     @Resource
-    private RedisCache redisCache;
+    private RedisPoolCache redisCache;
     /**
      * 新增文章
      * @param articleModelVo
@@ -184,6 +180,8 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
     public void articleRefresh(String articleId) {
         try {
             redisCache.deleteDataOfRedis(ConstatFinal.AUTHOR+":"+articleId);
+            //删除图片相关内容
+            redisCache.deleteDataOfRedis(ConstatFinal.IMAGES_LIST+":"+articleId);
         } catch (Exception e) {
             log.error("-------文章redis更新");
             e.printStackTrace();

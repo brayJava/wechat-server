@@ -17,6 +17,10 @@ import java.util.List;
 public class ArticleWithImages implements Serializable{
 
     private WyArticle wyArticle;
+    /**
+     * 图片内容页
+     */
+    private String contentHtml;
 
     private List<WyArticleImg> wyArticleImgs;
 }

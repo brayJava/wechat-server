@@ -1,8 +1,7 @@
 package com.bray.task;
 
-import com.bray.aop.cache.RedisCache;
+import com.bray.aop.cache.RedisPoolCache;
 import com.bray.dto.ConstatFinal;
-import com.bray.mapper.WyArticleImgMapper;
 import com.bray.model.WyArticle;
 import com.bray.service.IArticleService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +25,7 @@ public class ArticleServiceTask {
     private IArticleService articleService;
 
     @Resource
-    private RedisCache redisCache;
+    private RedisPoolCache redisCache;
 
     /**
      * 每十分钟处理一次非分享域名redis

@@ -1,7 +1,7 @@
 package com.bray.service.impl;
 
 import com.bray.aop.annotation.QueryCache;
-import com.bray.aop.cache.RedisCache;
+import com.bray.aop.cache.RedisPoolCache;
 import com.bray.dto.ConstatFinal;
 import com.bray.dto.EffectiveType;
 import com.bray.mapper.WyArticleImgMapper;
@@ -18,9 +18,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @Author:wuzhiyuan
@@ -37,7 +35,7 @@ public class ArticleServiceImpl implements IArticleService{
     @Resource
     private WyArticleImgMapper wyArticleImgMapper;
     @Resource
-    private RedisCache redisCache;
+    private RedisPoolCache redisCache;
     /**
      * 查询当前文章
      * @param articleId

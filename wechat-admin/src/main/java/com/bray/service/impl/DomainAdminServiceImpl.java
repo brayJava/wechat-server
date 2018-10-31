@@ -1,6 +1,6 @@
 package com.bray.service.impl;
 
-import com.bray.aop.cache.RedisCache;
+import com.bray.aop.cache.RedisPoolCache;
 import com.bray.dto.ConstatFinal;
 import com.bray.dto.EffectiveType;
 import com.bray.mapper.WyDomainMapper;
@@ -35,7 +35,7 @@ public class DomainAdminServiceImpl implements IDomainAdminService {
     @Resource
     private WySubdomainMapper wySubdomainMapper;
     @Resource
-    private RedisCache redisCache;
+    private RedisPoolCache redisCache;
     /**
      * 主域名添加
      * @param domain

@@ -10,6 +10,8 @@ public interface ConstatFinal {
     //redis key 值相关
     String AUTHOR = "LM";
 
+    String IMAGES_LIST = "images_list";
+
     String DOMAIN_MAP = "domain_map";
 
     //查询类型
