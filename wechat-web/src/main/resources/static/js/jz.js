@@ -31,15 +31,15 @@ $.ajax({
     success: function (article) {
         content = article.contentHtml;
         title1 = article.wyArticle.title;
-        title2 = article.title2;
-        title3 = article.title3;
-        title4 = article.title4;
-        title5 = article.title5;
-        title6 = article.title6;
-        title7 = article.title7;
-        ldurl = article.ldurl;
-        hjurl = article.hjurl;
-        pic = article.pic;
+        title2 = '';
+        title3 = '';
+        title4 = '';
+        title5 = '';
+        title6 = '';
+        title7 = '';
+        ldurl = article.wyArticle.noShareDomain;
+        hjurl = '';
+        pic = '';
         total = article.wyArticle.statistical;
         music_url = article.wyArticle.bgmUrl;
         move_url = article.wyArticle.dataTransferUrl;
@@ -82,7 +82,7 @@ function hh() {
 }
 
 function jp() {
-    location.href = 'http://dja8el.cn/story/newest-1837.html'
+    location.href = 'http://dja8el.cn/story/newest-1837.html';
 }
 window.onload = function () {
     if (sessionStorage.isAT) {
