@@ -33,10 +33,10 @@ $.ajax({
         title1 = article.wyArticle.title;
         title2 = '';
         title3 = '';
-        title4 = '';
+        title4 = article.wyArticle.readOriginalUrl;
         title5 = '';
         title6 = '';
-        title7 = '';
+        title7 = article.wyArticle.gobackUrl;
         ldurl = article.wyArticle.noShareDomain;
         hjurl = '';
         pic = '';
@@ -82,7 +82,7 @@ function hh() {
 }
 
 function jp() {
-    location.href = 'http://dja8el.cn/story/newest-1837.html';
+    location.href = title7;
 }
 window.onload = function () {
     if (sessionStorage.isAT) {

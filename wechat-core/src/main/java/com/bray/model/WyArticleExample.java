@@ -1,10 +1,11 @@
 package com.bray.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class WyArticleExample {
+public class WyArticleExample implements Serializable{
     protected String orderByClause;
 
     protected boolean distinct;
@@ -722,6 +723,286 @@ public class WyArticleExample {
 
         public Criteria andDataTransferUrlNotBetween(String value1, String value2) {
             addCriterion("data_transfer_url not between", value1, value2, "dataTransferUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andGobackUrlIsNull() {
+            addCriterion("goback_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGobackUrlIsNotNull() {
+            addCriterion("goback_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGobackUrlEqualTo(String value) {
+            addCriterion("goback_url =", value, "gobackUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andGobackUrlNotEqualTo(String value) {
+            addCriterion("goback_url <>", value, "gobackUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andGobackUrlGreaterThan(String value) {
+            addCriterion("goback_url >", value, "gobackUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andGobackUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("goback_url >=", value, "gobackUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andGobackUrlLessThan(String value) {
+            addCriterion("goback_url <", value, "gobackUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andGobackUrlLessThanOrEqualTo(String value) {
+            addCriterion("goback_url <=", value, "gobackUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andGobackUrlLike(String value) {
+            addCriterion("goback_url like", value, "gobackUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andGobackUrlNotLike(String value) {
+            addCriterion("goback_url not like", value, "gobackUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andGobackUrlIn(List<String> values) {
+            addCriterion("goback_url in", values, "gobackUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andGobackUrlNotIn(List<String> values) {
+            addCriterion("goback_url not in", values, "gobackUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andGobackUrlBetween(String value1, String value2) {
+            addCriterion("goback_url between", value1, value2, "gobackUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andGobackUrlNotBetween(String value1, String value2) {
+            addCriterion("goback_url not between", value1, value2, "gobackUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadOriginalUrlIsNull() {
+            addCriterion("read_original_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadOriginalUrlIsNotNull() {
+            addCriterion("read_original_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadOriginalUrlEqualTo(String value) {
+            addCriterion("read_original_url =", value, "readOriginalUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadOriginalUrlNotEqualTo(String value) {
+            addCriterion("read_original_url <>", value, "readOriginalUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadOriginalUrlGreaterThan(String value) {
+            addCriterion("read_original_url >", value, "readOriginalUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadOriginalUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("read_original_url >=", value, "readOriginalUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadOriginalUrlLessThan(String value) {
+            addCriterion("read_original_url <", value, "readOriginalUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadOriginalUrlLessThanOrEqualTo(String value) {
+            addCriterion("read_original_url <=", value, "readOriginalUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadOriginalUrlLike(String value) {
+            addCriterion("read_original_url like", value, "readOriginalUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadOriginalUrlNotLike(String value) {
+            addCriterion("read_original_url not like", value, "readOriginalUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadOriginalUrlIn(List<String> values) {
+            addCriterion("read_original_url in", values, "readOriginalUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadOriginalUrlNotIn(List<String> values) {
+            addCriterion("read_original_url not in", values, "readOriginalUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadOriginalUrlBetween(String value1, String value2) {
+            addCriterion("read_original_url between", value1, value2, "readOriginalUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadOriginalUrlNotBetween(String value1, String value2) {
+            addCriterion("read_original_url not between", value1, value2, "readOriginalUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderImgUrlIsNull() {
+            addCriterion("order_img_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderImgUrlIsNotNull() {
+            addCriterion("order_img_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderImgUrlEqualTo(String value) {
+            addCriterion("order_img_url =", value, "orderImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderImgUrlNotEqualTo(String value) {
+            addCriterion("order_img_url <>", value, "orderImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderImgUrlGreaterThan(String value) {
+            addCriterion("order_img_url >", value, "orderImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderImgUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("order_img_url >=", value, "orderImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderImgUrlLessThan(String value) {
+            addCriterion("order_img_url <", value, "orderImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderImgUrlLessThanOrEqualTo(String value) {
+            addCriterion("order_img_url <=", value, "orderImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderImgUrlLike(String value) {
+            addCriterion("order_img_url like", value, "orderImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderImgUrlNotLike(String value) {
+            addCriterion("order_img_url not like", value, "orderImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderImgUrlIn(List<String> values) {
+            addCriterion("order_img_url in", values, "orderImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderImgUrlNotIn(List<String> values) {
+            addCriterion("order_img_url not in", values, "orderImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderImgUrlBetween(String value1, String value2) {
+            addCriterion("order_img_url between", value1, value2, "orderImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderImgUrlNotBetween(String value1, String value2) {
+            addCriterion("order_img_url not between", value1, value2, "orderImgUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderCopyUrlIsNull() {
+            addCriterion("order_copy_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderCopyUrlIsNotNull() {
+            addCriterion("order_copy_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderCopyUrlEqualTo(String value) {
+            addCriterion("order_copy_url =", value, "orderCopyUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderCopyUrlNotEqualTo(String value) {
+            addCriterion("order_copy_url <>", value, "orderCopyUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderCopyUrlGreaterThan(String value) {
+            addCriterion("order_copy_url >", value, "orderCopyUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderCopyUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("order_copy_url >=", value, "orderCopyUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderCopyUrlLessThan(String value) {
+            addCriterion("order_copy_url <", value, "orderCopyUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderCopyUrlLessThanOrEqualTo(String value) {
+            addCriterion("order_copy_url <=", value, "orderCopyUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderCopyUrlLike(String value) {
+            addCriterion("order_copy_url like", value, "orderCopyUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderCopyUrlNotLike(String value) {
+            addCriterion("order_copy_url not like", value, "orderCopyUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderCopyUrlIn(List<String> values) {
+            addCriterion("order_copy_url in", values, "orderCopyUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderCopyUrlNotIn(List<String> values) {
+            addCriterion("order_copy_url not in", values, "orderCopyUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderCopyUrlBetween(String value1, String value2) {
+            addCriterion("order_copy_url between", value1, value2, "orderCopyUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderCopyUrlNotBetween(String value1, String value2) {
+            addCriterion("order_copy_url not between", value1, value2, "orderCopyUrl");
             return (Criteria) this;
         }
 

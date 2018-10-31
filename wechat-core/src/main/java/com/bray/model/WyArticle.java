@@ -22,6 +22,14 @@ public class WyArticle implements Serializable{
 
     private String dataTransferUrl;
 
+    private String gobackUrl;
+
+    private String readOriginalUrl;
+
+    private String orderImgUrl;
+
+    private String orderCopyUrl;
+
     private String statistical;
 
     private String connectPrimaryDomain;
@@ -110,6 +118,38 @@ public class WyArticle implements Serializable{
 
     public void setDataTransferUrl(String dataTransferUrl) {
         this.dataTransferUrl = dataTransferUrl == null ? null : dataTransferUrl.trim();
+    }
+
+    public String getGobackUrl() {
+        return gobackUrl;
+    }
+
+    public void setGobackUrl(String gobackUrl) {
+        this.gobackUrl = gobackUrl == null ? null : gobackUrl.trim();
+    }
+
+    public String getReadOriginalUrl() {
+        return readOriginalUrl;
+    }
+
+    public void setReadOriginalUrl(String readOriginalUrl) {
+        this.readOriginalUrl = readOriginalUrl == null ? null : readOriginalUrl.trim();
+    }
+
+    public String getOrderImgUrl() {
+        return orderImgUrl;
+    }
+
+    public void setOrderImgUrl(String orderImgUrl) {
+        this.orderImgUrl = orderImgUrl == null ? null : orderImgUrl.trim();
+    }
+
+    public String getOrderCopyUrl() {
+        return orderCopyUrl;
+    }
+
+    public void setOrderCopyUrl(String orderCopyUrl) {
+        this.orderCopyUrl = orderCopyUrl == null ? null : orderCopyUrl.trim();
     }
 
     public String getStatistical() {

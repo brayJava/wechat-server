@@ -108,6 +108,10 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
         wyArticle.setShareTitle(articleOtherModelVo.getShareTitle());
         wyArticle.setShareDescribe(articleOtherModelVo.getShareDescribe());
         wyArticle.setShareImgUrl(articleOtherModelVo.getShareImgUrl());
+        wyArticle.setGobackUrl(articleOtherModelVo.getGobackUrl());
+        wyArticle.setReadOriginalUrl(articleOtherModelVo.getReadOriginalUrl());
+        wyArticle.setOrderImgUrl(articleOtherModelVo.getOrderImgUrl());
+        wyArticle.setOrderCopyUrl(articleOtherModelVo.getOrderCopyUrl());
         wyArticle.setStatistical(articleOtherModelVo.getStatistical());
         wyArticle.setIsOrderImg(ConstFinal.ARTICLE_STATUS
                 .equals(articleOtherModelVo.getOrderImg()) ? true : false);
@@ -147,6 +151,10 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
         wyArticle.setShareDescribe(articleOtherModelVo.getShareDescribe());
         wyArticle.setShareImgUrl(articleOtherModelVo.getShareImgUrl());
         wyArticle.setDataTransferUrl(articleOtherModelVo.getDataTransferUrl());
+        wyArticle.setGobackUrl(articleOtherModelVo.getGobackUrl());
+        wyArticle.setReadOriginalUrl(articleOtherModelVo.getReadOriginalUrl());
+        wyArticle.setOrderImgUrl(articleOtherModelVo.getOrderImgUrl());
+        wyArticle.setOrderCopyUrl(articleOtherModelVo.getOrderCopyUrl());
         wyArticle.setStatistical(articleOtherModelVo.getStatistical());
         wyArticle.setIsOrderImg(ConstFinal.ARTICLE_STATUS.equals(articleOtherModelVo.getOrderImg()) ? true : false);
         wyArticle.setForcedShare(ConstFinal.SHARE_STATUS.equals(articleOtherModelVo.getForcedShare()) ? true : false);

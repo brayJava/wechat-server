@@ -28,6 +28,14 @@ public class ArticleOtherModelVo {
     private String articleId;
     //数据迁移连接
     private String dataTransferUrl;
+
+    private String gobackUrl;
+
+    private String readOriginalUrl;
+
+    private String orderImgUrl;
+
+    private String orderCopyUrl;
     //相关统计代码
     private String statistical;
 

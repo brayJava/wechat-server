@@ -77,6 +77,22 @@ public class WyArticleSqlProvider {
             VALUES("data_transfer_url", "#{dataTransferUrl,jdbcType=VARCHAR}");
         }
         
+        if (record.getGobackUrl() != null) {
+            VALUES("goback_url", "#{gobackUrl,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getReadOriginalUrl() != null) {
+            VALUES("read_original_url", "#{readOriginalUrl,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getOrderImgUrl() != null) {
+            VALUES("order_img_url", "#{orderImgUrl,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getOrderCopyUrl() != null) {
+            VALUES("order_copy_url", "#{orderCopyUrl,jdbcType=VARCHAR}");
+        }
+        
         if (record.getStatistical() != null) {
             VALUES("statistical", "#{statistical,jdbcType=VARCHAR}");
         }
@@ -131,6 +147,10 @@ public class WyArticleSqlProvider {
         SELECT("share_img_url");
         SELECT("is_order_img");
         SELECT("data_transfer_url");
+        SELECT("goback_url");
+        SELECT("read_original_url");
+        SELECT("order_img_url");
+        SELECT("order_copy_url");
         SELECT("statistical");
         SELECT("connect_primary_domain");
         SELECT("connect_common_domain");
@@ -193,6 +213,22 @@ public class WyArticleSqlProvider {
             SET("data_transfer_url = #{record.dataTransferUrl,jdbcType=VARCHAR}");
         }
         
+        if (record.getGobackUrl() != null) {
+            SET("goback_url = #{record.gobackUrl,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getReadOriginalUrl() != null) {
+            SET("read_original_url = #{record.readOriginalUrl,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getOrderImgUrl() != null) {
+            SET("order_img_url = #{record.orderImgUrl,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getOrderCopyUrl() != null) {
+            SET("order_copy_url = #{record.orderCopyUrl,jdbcType=VARCHAR}");
+        }
+        
         if (record.getStatistical() != null) {
             SET("statistical = #{record.statistical,jdbcType=VARCHAR}");
         }
@@ -246,6 +282,10 @@ public class WyArticleSqlProvider {
         SET("share_img_url = #{record.shareImgUrl,jdbcType=VARCHAR}");
         SET("is_order_img = #{record.isOrderImg,jdbcType=BIT}");
         SET("data_transfer_url = #{record.dataTransferUrl,jdbcType=VARCHAR}");
+        SET("goback_url = #{record.gobackUrl,jdbcType=VARCHAR}");
+        SET("read_original_url = #{record.readOriginalUrl,jdbcType=VARCHAR}");
+        SET("order_img_url = #{record.orderImgUrl,jdbcType=VARCHAR}");
+        SET("order_copy_url = #{record.orderCopyUrl,jdbcType=VARCHAR}");
         SET("statistical = #{record.statistical,jdbcType=VARCHAR}");
         SET("connect_primary_domain = #{record.connectPrimaryDomain,jdbcType=VARCHAR}");
         SET("connect_common_domain = #{record.connectCommonDomain,jdbcType=VARCHAR}");
@@ -295,6 +335,22 @@ public class WyArticleSqlProvider {
         
         if (record.getDataTransferUrl() != null) {
             SET("data_transfer_url = #{dataTransferUrl,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getGobackUrl() != null) {
+            SET("goback_url = #{gobackUrl,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getReadOriginalUrl() != null) {
+            SET("read_original_url = #{readOriginalUrl,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getOrderImgUrl() != null) {
+            SET("order_img_url = #{orderImgUrl,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getOrderCopyUrl() != null) {
+            SET("order_copy_url = #{orderCopyUrl,jdbcType=VARCHAR}");
         }
         
         if (record.getStatistical() != null) {

@@ -8,8 +8,8 @@
      <p style="text-align: center;" th:if="${not #lists.isEmpty(article.wyArticleImgs)}" th:each="wyArticleImg,iterStat:${article.wyArticleImgs}">
         <img alt="" src="https://p.qpic.cn/pic_wework/4229309850/14128d18e38c8806b65b75107c237783c5cafcc93c3184fa/0" th:src="${wyArticleImg.thirdImgPath}" width="685" />
      </p>
-      <a th:if="${article.wyArticle.isOrderImg}" href="http://dja8el.cn/order/jump-story1">
-          <img src="https://pub-files.jinshuju.net/di/20181021193347_c255c2" width="685"/>
+      <a th:if="${article.wyArticle.isOrderImg}" th:href="${article.wyArticle.orderCopyUrl}">
+          <img th:src="${article.wyArticle.orderImgUrl}" width="685"/>
       </a>
    </li>
 </body>
