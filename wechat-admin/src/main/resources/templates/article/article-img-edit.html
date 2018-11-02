@@ -43,7 +43,9 @@
         					<td th:text="${articleImg.id}" th:id="${articleImg.id}"></td>
         					<td class="text-l"><img class="thirdImg" th:src="${articleImg.thirdImgPath}" style="width: 200px;height: 200px"/></td>
         					<td>
-        					  <input class="text-l thirdImgPath" th:value="${articleImg.thirdImgPath}" size="80"></input>
+        					  图片地址：<input class="text-l thirdImgPath" th:value="${articleImg.thirdImgPath}" size="80"></input>
+        					  图片超链接：<input class="text-l imgUrl" th:value="${articleImg.imgUrl}" size="80"></input>
+
                             </td>
         					<td class="f-14 product-brand-manage">
         					     <a style="text-decoration:none;cursor: pointer;color: #0f9ae0" th:onclick= "'javascript:image_insert(this,'+${articleImg.id}+',\''+${articleImg.articleId}+'\',\'upinsert\')'" title="编辑"><i class="Hui-iconfont">上插入</i></a>
@@ -156,12 +158,13 @@
     /*图片-修改*/
     function image_update(obj, id) {
         var thirdImgPath = $(obj).closest('tr').find('.thirdImgPath').val();
+        var imgUrl = $(obj).closest('tr').find('.imgUrl').val();
         layer.confirm('确认要修改吗？', function (index) {
             //发异步删除数据
             $.ajax({
                 url: '/article/img-update',
                 async: false,
-                data: {"articleImgId":id,"imgUrl":thirdImgPath},
+                data: {"articleImgId":id,"imgUrl":thirdImgPath,"imgUrlHref":imgUrl},
                 dataType: "json",
                 type: 'post',
                 success: function (data) {

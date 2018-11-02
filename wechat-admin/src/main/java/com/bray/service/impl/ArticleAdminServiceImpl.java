@@ -255,12 +255,14 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
     /**
      * 修改文章图片
      * @param articleImgId
+     * @param imgUrlHref
      */
     @Override
-    public void updateArticleImg(int articleImgId, String imgUrl) {
+    public void updateArticleImg(int articleImgId, String imgUrl, String imgUrlHref) {
         WyArticleImg wyArticleImg = new WyArticleImg();
         wyArticleImg.setId(articleImgId);
         wyArticleImg.setThirdImgPath(imgUrl);
+        wyArticleImg.setImgUrl(imgUrlHref);
         try {
             wyArticleImgMapper.updateByPrimaryKeySelective(wyArticleImg);
         } catch (RuntimeException e) {

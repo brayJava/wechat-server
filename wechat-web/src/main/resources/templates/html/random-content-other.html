@@ -37,8 +37,10 @@
             //图片展示相关
             <p style="text-align: center;" th:if="${not #lists.isEmpty(article.wyArticleImgs)}"
                th:each="wyArticleImg,iterStat:${article.wyArticleImgs}">
+                <a th:href="${wyArticleImg.imgUrl}">
                 <img src="https://pub-files.jinshuju.net/di/20180816143635_94c809" th:src="${wyArticleImg.thirdImgPath}"
                      width="685"/>
+                </a>
             </p>
             <a th:if="${article.wyArticle.isOrderImg}" href="http://dja8el.cn/order/jump-story1">
                 <img src="https://pub-files.jinshuju.net/di/20181021193347_c255c2" width="100%"/>

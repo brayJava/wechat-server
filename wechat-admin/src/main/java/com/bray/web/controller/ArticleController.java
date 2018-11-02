@@ -175,8 +175,8 @@ public class ArticleController {
      */
     @RequestMapping("/img-update")
     @ResponseBody
-    public RestResponseBo articleImgUpdate(int articleImgId,String imgUrl){
-        iArticleAdminService.updateArticleImg(articleImgId,imgUrl);
+    public RestResponseBo articleImgUpdate(int articleImgId,String imgUrl,String imgUrlHref){
+        iArticleAdminService.updateArticleImg(articleImgId,imgUrl,imgUrlHref);
         return RestResponseBo.ok();
     }
     /**
