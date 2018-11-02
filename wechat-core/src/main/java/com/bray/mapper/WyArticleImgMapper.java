@@ -23,12 +23,12 @@ public interface WyArticleImgMapper {
     @Insert({
         "insert into wy_article_img (id, article_id, ",
         "img_path, third_img_path, ",
-        "status, create_time, ",
-        "update_time)",
+        "img_url, status, ",
+        "create_time, update_time)",
         "values (#{id,jdbcType=INTEGER}, #{articleId,jdbcType=VARCHAR}, ",
         "#{imgPath,jdbcType=VARCHAR}, #{thirdImgPath,jdbcType=VARCHAR}, ",
-        "#{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{updateTime,jdbcType=TIMESTAMP})"
+        "#{imgUrl,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, ",
+        "#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})"
     })
     @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     int insert(WyArticleImg record);
@@ -43,6 +43,7 @@ public interface WyArticleImgMapper {
         @Result(column="article_id", property="articleId", jdbcType=JdbcType.VARCHAR),
         @Result(column="img_path", property="imgPath", jdbcType=JdbcType.VARCHAR),
         @Result(column="third_img_path", property="thirdImgPath", jdbcType=JdbcType.VARCHAR),
+        @Result(column="img_url", property="imgUrl", jdbcType=JdbcType.VARCHAR),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
@@ -51,7 +52,7 @@ public interface WyArticleImgMapper {
 
     @Select({
         "select",
-        "id, article_id, img_path, third_img_path, status, create_time, update_time",
+        "id, article_id, img_path, third_img_path, img_url, status, create_time, update_time",
         "from wy_article_img",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -60,6 +61,7 @@ public interface WyArticleImgMapper {
         @Result(column="article_id", property="articleId", jdbcType=JdbcType.VARCHAR),
         @Result(column="img_path", property="imgPath", jdbcType=JdbcType.VARCHAR),
         @Result(column="third_img_path", property="thirdImgPath", jdbcType=JdbcType.VARCHAR),
+        @Result(column="img_url", property="imgUrl", jdbcType=JdbcType.VARCHAR),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
@@ -80,13 +82,13 @@ public interface WyArticleImgMapper {
         "set article_id = #{articleId,jdbcType=VARCHAR},",
           "img_path = #{imgPath,jdbcType=VARCHAR},",
           "third_img_path = #{thirdImgPath,jdbcType=VARCHAR},",
+          "img_url = #{imgUrl,jdbcType=VARCHAR},",
           "status = #{status,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "update_time = #{updateTime,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(WyArticleImg record);
-
     /**
      * 修改历史文章状态
      * @param status

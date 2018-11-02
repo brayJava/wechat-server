@@ -1,6 +1,7 @@
 package com.bray.service;
 
 import com.bray.model.Bo.ArticleWithImages;
+import com.bray.model.Vo.ArticleNewImages;
 import com.bray.model.WyArticle;
 import java.util.List;
 
@@ -44,4 +45,10 @@ public interface IArticleService {
      * @param timestmpStr
      */
     void insertHtmlUrlToRedis(String timestmpStr);
+    /**
+     * 获取防封新文章
+     * @param articleId 文章id
+     * @return
+     */
+    ArticleNewImages queryNewArticleImages(String articleId);
 }

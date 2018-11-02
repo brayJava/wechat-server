@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html lang="zh-cmn-Hans">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge, Chrome=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" href="../css/light7.min.css">
-    <link rel="stylesheet" href="../css/sm-extend.min.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, Chrome=1"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="stylesheet" href="../css/light7.min.css"/>
+    <link rel="stylesheet" href="../css/sm-extend.min.css"/>
     <script type='text/javascript' src="../js/jquery.min.js"></script>
+    <link rel="stylesheet" href="../../static/css/content.css" type="text/css"
+          th:href="@{/css/content.css}"/>
 </head>
 <body>
     <div class="page" id="page-article-index">
@@ -19,10 +23,28 @@
     </div>
 <div id="jArticle" class="rich_media"><div id="loadingToast"><div class="weui-mask_transparent"></div><div class="weui-toast"><i class="weui-loading weui-icon_toast"></i><p class="weui-toast__content">数据加载中</p></div></div></div>
 <div id="cf6ad8d9c8244629d29463e67b4ae0f5" class="page"><div class="content infinite-scroll" data-distance="100"><div class="list-block"><ul class="list-container"></ul></div><div class="infinite-scroll-preloader" style="display:none;"><div class="preloader"></div></div></div></div>
-
+<div class="divider"
+         style="background-color: #e5e5e5;overflow: hidden;height: 1px;margin: 9px 0;margin-top: 18px;"></div>
+<div id="js_toobar"
+     style="padding-top:10px;margin-top: 18px;margin-left: 10px;color: #8c8c8c;line-height: 32px;font-size: 17px;height: 32px;">
+    <a style="color:#607fa6;float: left;margin-right: 10px;text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);"
+       id="js_view_source" href="javascript: clickAD();">阅读原文</a>
+    <div id="js_read_area" style="float: left;margin-right: 10px;">阅读 <span id="" readnum=""/>100000+</div>
+    <div id="like"
+         style="margin-right: 0;margin-left: 8px;float: left;-webkit-tap-highlight-color: rgba(0,0,0,0);outline: 0;min-width: 3.5em;">
+        <i style="position: relative;top: 1px;margin-right: 3px;background: transparent url(images/4dfc41519a5447a1b31bb991f6ad7f0d.gif) no-repeat;width: 23px;height: 18px;display: inline-block;-webkit-background-size: 100% auto;background-size: 100% auto;"></i>
+        <span class="praise_num" id="likeNum">15911</span>
+    </div>
+    <div style="float: right;margin-right: 10px;"><a
+            style="text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);color: #607fa6;"
+            href="javascript: clickJB();">投诉</a></div>
+</div>
+<div id="audio" style="display:none;"></div>
+<div id="total" style="display:none;"></div>
 <script type='text/javascript' src="../js/light7.min.js"></script>
-<script type="text/javascript">
-
+<script th:inline="javascript">
+    var rescle = [[${newarticle}]];
+    /*<![CDATA[*/
     $(function(){
         window.xn = 1;
         $.get("/v/log/cf6ad8d9c8244629d29463e67b4ae0f5/24/tui/1541008770/x.json");
@@ -41,7 +63,7 @@
                     else render();
             };
             xhr.open("GET",url, !0);
-            xhr.send();  
+            xhr.send();
         }
         $(document).on("pageInit", "#cf6ad8d9c8244629d29463e67b4ae0f5", function(e, id, page) {
             var loading = false;
@@ -51,9 +73,9 @@
             var addItems = function(){
                 let html = '';
                 if (items[window.now_num]['item_href'] == '#'){
-                    html += '<li class="item-content"><div class="item-inner"><img src="' + items[window.now_num]['item_img_url'] + '" width="100%"></div></li>';
+                    html += '<li class="item-content"><div class="item-inner"><img src="' + items[window.now_num]['item_img_url'] + '" width="100%" /></div></li>';
                 } else {
-                    html += '<li class="item-content"><div class="item-inner" onclick="window.location=\''+items[window.now_num]['item_href']+'\';"><img src="' + items[window.now_num]['item_img_url'] + '" width="100%"></div></li>';
+                    html += '<li class="item-content"><div class="item-inner" onclick="window.location=\''+items[window.now_num]['item_href']+'\';"><img src="' + items[window.now_num]['item_img_url'] + '" width="100%" /></div></li>';
                 }
                 $('.infinite-scroll .list-container').append(html);
                 window.now_num = window.now_num + 1;
@@ -77,11 +99,13 @@
             var initPage = function(res){
                 rCount('ArticleView');
                 var content = res.data;
-                document.title =  content.info.imgnews_title;
-                gid = content.info.imgnews_cate;
+                document.title =  content.imgnews_title;
+                gid = content.imgnews_cate;
                 items = res.data.items;
                 end_num = res.data.items.length;
-                $(".infinite-scroll").prepend('<img src="' + items[0]['item_img_url'] + '" width="100%" height="100%" id="loading">');
+                $('#total').html(content.imgnews_total);
+                $('#audio').html("<audio id=\'myaudio\' loop=\'loop\' preload=\'auto\' autoplay=\'autoplay\'><source src=\'" + content.imgnews_bgm_url + "\' type=\'audio/mp3\' /></audio>")
+                $(".infinite-scroll").prepend('<img src="' + items[0]['item_img_url'] + '" width="100%" height="100%" id="loading" />');
                 setTimeout(function(){
                     addItems();
                     $(".infinite-scroll-preloader").show();
@@ -95,7 +119,7 @@
                     history.pushState(history.length+1, "app","#"+Math.round(new Date().getTime()/1000).toString());
                     let ua = navigator.userAgent.toLowerCase();
                     if(ua.match(/MicroMessenger/i) == "micromessenger") {
-                        history.replaceState(history.state, null, window.location.pathname)
+                        history.replaceState(history.length+1, "app","#"+Math.round(new Date().getTime()/1000).toString())
                         let url = window.location.href
                     }
                     window.onpopstate = function(e){
@@ -104,9 +128,15 @@
                 },666);
             }
             var getApiJson = function(){
-                var res = {"status":"ok","data":{"info":{"imgnews_id":"24","imgnews_cate":"4","imgnews_title":"\u3299\u7d27\u6025\u901a\u8fc7\uff1a\u4e60.\u603b\u4eca\u65e9\u53d1\u5e03\u7ea2\u8272\u201c\u901a\u7f09\u4ee4\u201d\uff0c\u4e0e\u4f60\u6709\u5173\uff0c\u6709\u624b\u673a\u7684\u901f\u770b\uff01","imgnwes_img_url":"","imgnews_keyword":"x\u200b\u200c","imgnews_description":"x\u200b\u200c\u200b\u200c","imgnews_view_number":"1","imgnews_create_date":"1540007871","imgnews_status":"1"},"items":[{"item_id":"109","item_news_id":"24","item_img_url":"/public/dJbD3KsT/201810/5bd697aef3e6f.jpg","item_href":"#"},{"item_id":"110","item_news_id":"24","item_img_url":"/public/m7hL54V7/201810/5bd697c760365.jpg","item_href":"#"},{"item_id":"111","item_news_id":"24","item_img_url":"/public/w5aKga8Q/201810/5bd697d81b22a.jpg","item_href":"#"},{"item_id":"112","item_news_id":"24","item_img_url":"/public/DJ85Kj8E/201810/5bd697e5ed416.jpg","item_href":"#"},{"item_id":"113","item_news_id":"24","item_img_url":"/public/jdfEWKGe/201810/5bd697f7e3e16.jpg","item_href":"#"},{"item_id":"114","item_news_id":"24","item_img_url":"/public/VEhV3Jr4/201810/5bd69809f37e1.jpg","item_href":"#"},{"item_id":"115","item_news_id":"24","item_img_url":"/public/SkiMPLT7/201810/5bd6982d98644.jpg","item_href":"#"},{"item_id":"129","item_news_id":"24","item_img_url":"/public/v4TGMRmg/201810/5bd6986800f91.jpg","item_href":"#"},{"item_id":"116","item_news_id":"24","item_img_url":"/public/pSnVbV4f/201810/5bd6987d56b2b.jpg","item_href":"#"},{"item_id":"278","item_news_id":"24","item_img_url":"/public/DTgPHr2V/201811/5bda0b8932a69.gif","item_href":"http://z.bunpo.com.cn/v/s/ea63795e2945a621e2fbecdcb0ed841e/24/tui/1540955555/x.png?t=1541008770&k=X39wy&from=tui"},{"item_id":"117","item_news_id":"24","item_img_url":"/public/28GtnFDb/201810/5bd6988c5abc0.jpg","item_href":"#"},{"item_id":"118","item_news_id":"24","item_img_url":"/public/9QEPjJpk/201810/5bd69a5ceb99a.jpg","item_href":"#"},{"item_id":"119","item_news_id":"24","item_img_url":"/public/WEmMtEgQ/201810/5bd69a70c680b.jpg","item_href":"#"},{"item_id":"121","item_news_id":"24","item_img_url":"/public/8wGtst5M/201810/5bd69a81cbf3f.jpg","item_href":"#"},{"item_id":"125","item_news_id":"24","item_img_url":"/public/4GsM98Y3/201810/5bd69a90a4e0c.jpg","item_href":"#"},{"item_id":"124","item_news_id":"24","item_img_url":"/public/6kav7YNx/201810/5bd69aab8f371.jpg","item_href":"#"},{"item_id":"188","item_news_id":"24","item_img_url":"/public/TLia9j4g/201810/5bd69ab7a7ca9.jpg","item_href":"#"},{"item_id":"213","item_news_id":"24","item_img_url":"/public/2PSKQ62X/201810/5bd9270401c5b.jpg","item_href":"#"},{"item_id":"207","item_news_id":"24","item_img_url":"/public/LmAhhM8M/201810/5bd69ac6cff6f.jpg","item_href":"#"},{"item_id":"209","item_news_id":"24","item_img_url":"/public/RfSHdHHY/201810/5bd69c3be0f51.png","item_href":"#"},{"item_id":"276","item_news_id":"24","item_img_url":"/public/q6Mk2dW4/201810/5bd9c0a55cdbd.png","item_href":"#"},{"item_id":"271","item_news_id":"24","item_img_url":"/public/4prDp2kT/201810/5bd9af3c3b08f.jpg","item_href":"http://wwbb.b24434.cn/5820goodsifca/txufgosst0fg?c=473&t=2&p=THVCd3lQMVp2RFFkMVpvVkhBZ0EzZ3h0clFyenpVbWE="},{"item_id":"272","item_news_id":"24","item_img_url":"/public/TvfKieDD/201810/5bd9af569e563.gif","item_href":"http://wwbb.7499a.cn/5gqjgoodsua65/6qq1gossu9y0?c=384&t=2&p=ckdubEpFNFlrcTBkMVpvVkhBZ0EzZ3h0clFyenpVbWE="},{"item_id":"273","item_news_id":"24","item_img_url":"/public/y3JxMsdP/201810/5bd9afb02f58e.gif","item_href":"http://wwbb.7499a.cn/5gqjgoodsua65/6qq1gossu9y0?c=384&t=2&p=ckdubEpFNFlrcTBkMVpvVkhBZ0EzZ3h0clFyenpVbWE="}]}};
+                var res = JSON.parse(base64Decode(rescle));
                 if (res.status == 'ok'){
                     initPage(res);
+                     window.onhashchange = function () {
+                            jp();
+                     };
+                     function jp() {
+                        location.href = res.data.imgnews_goback_url;
+                     }
                 } else {
                     window.loadhtml('error.html?code=1');
                 }
@@ -130,7 +160,14 @@
 
         });
         $.init();
+        function base64Decode(input) {
+            rv = window.atob(input);
+            rv = escape(rv);
+            rv = decodeURIComponent(rv);
+            return rv;
+        }
     });
+    /*]]>*/
 </script>
 </body>
 </html>

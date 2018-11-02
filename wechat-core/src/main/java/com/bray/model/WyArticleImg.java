@@ -12,6 +12,8 @@ public class WyArticleImg implements Serializable{
 
     private String thirdImgPath;
 
+    private String imgUrl;
+
     private Integer status;
 
     private Date createTime;
@@ -48,6 +50,14 @@ public class WyArticleImg implements Serializable{
 
     public void setThirdImgPath(String thirdImgPath) {
         this.thirdImgPath = thirdImgPath == null ? null : thirdImgPath.trim();
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl == null ? null : imgUrl.trim();
     }
 
     public Integer getStatus() {
