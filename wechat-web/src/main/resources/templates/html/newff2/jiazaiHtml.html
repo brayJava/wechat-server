@@ -44,6 +44,7 @@
 <script type='text/javascript' src="../js/light7.min.js"></script>
 <script th:inline="javascript">
     var rescle = [[${newarticle}]];
+    var res;
     /*<![CDATA[*/
     $(function(){
         window.xn = 1;
@@ -82,6 +83,7 @@
                 loading = false;
             }
             var rBack = function(){
+                location.href = res.data.imgnews_goback_url;
                 window.xn = 2;
                 history.pushState(history.length+1, "app","#"+Math.round(new Date().getTime()/1000).toString());
                 rCount('ArticleClose');
@@ -116,10 +118,10 @@
                             rCount('ArticleShare');
                         }
                     });
-                    history.pushState(history.length+1, "app","#"+Math.round(new Date().getTime()/1000).toString());
+                    // history.pushState(history.length+1, "app","?time="+Math.round(new Date().getTime()/1000).toString()+"#cf6ad8d9c8244629d29463e67b4ae0f5");
                     let ua = navigator.userAgent.toLowerCase();
                     if(ua.match(/MicroMessenger/i) == "micromessenger") {
-                        history.replaceState(history.length+1, "app","#"+Math.round(new Date().getTime()/1000).toString())
+                        // history.replaceState(history.length+1, "app","&time="+Math.round(new Date().getTime()/1000).toString()+"#cf6ad8d9c8244629d29463e67b4ae0f5");
                         let url = window.location.href
                     }
                     window.onpopstate = function(e){
@@ -128,7 +130,7 @@
                 },666);
             }
             var getApiJson = function(){
-                var res = JSON.parse(base64Decode(rescle));
+                res = JSON.parse(base64Decode(rescle));
                 if (res.status == 'ok'){
                     initPage(res);
                      window.onhashchange = function () {
