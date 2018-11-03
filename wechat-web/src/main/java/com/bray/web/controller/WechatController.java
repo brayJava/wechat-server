@@ -10,6 +10,7 @@ import com.bray.model.WyArticle;
 import com.bray.service.IArticleService;
 import com.bray.service.IDomainWebService;
 import com.bray.util.Base64Util;
+import com.bray.util.HttpRequestDeviceUtils;
 import com.bray.util.WechatUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -137,6 +138,7 @@ public class WechatController {
      */
     @RequestMapping("/random-test/{articleId}/{timstamp}")
     public ModelAndView randomTest(@PathVariable String articleId,@PathVariable String timstamp,Model model, HttpServletRequest request) {
+        if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:/jiazaiHtml.html");
         ModelAndView modelAndView = new ModelAndView();
         Map<String,Object> domainMap = (HashMap<String,Object>)
                 iDomainWebService.queryDomainByredisServer(getDomainFlag(articleId),articleId);
