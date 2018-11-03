@@ -94,6 +94,7 @@ public class WechatController {
      */
     @RequestMapping("/random-content-other/{articleId}/{timstamp}")
     public ModelAndView randomContentOther(@PathVariable String articleId,@PathVariable String timstamp,Model model, HttpServletRequest request) {
+        if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.pinduoduo.com");
         ModelAndView modelAndView = new ModelAndView();
         //获取图片相关信息
         ArticleWithImages articleWithImages = getArticleWithImages(articleId);
@@ -204,9 +205,12 @@ public class WechatController {
      * @return
      */
     @RequestMapping("/zsff")
-    public String realFangFeng(HttpServletRequest request) {
+    public ModelAndView realFangFeng(HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView();
+        if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.pinduoduo.com");
         log.info("日志输出：{}",request.getRequestURI().toString());
-        return "html/cyff/zsff";
+        modelAndView.setViewName("html/cyff/zsff");
+        return modelAndView;
     }
     /**
      * 新防封内容展示
