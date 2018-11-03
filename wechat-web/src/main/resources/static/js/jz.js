@@ -74,7 +74,7 @@ $.ajax({
     }
 });
 //第一次自动播放音乐
-document.getElementById('myaudio').play();
+// document.getElementById('myaudio').play();
 window.onhashchange = function () {
     jp();
 };
