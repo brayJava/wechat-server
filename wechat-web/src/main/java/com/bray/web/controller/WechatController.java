@@ -138,7 +138,7 @@ public class WechatController {
      */
     @RequestMapping("/random-test/{articleId}/{timstamp}")
     public ModelAndView randomTest(@PathVariable String articleId,@PathVariable String timstamp,Model model, HttpServletRequest request) {
-        if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:/jiazaiHtml.html");
+        if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.pinduoduo.com");
         ModelAndView modelAndView = new ModelAndView();
         Map<String,Object> domainMap = (HashMap<String,Object>)
                 iDomainWebService.queryDomainByredisServer(getDomainFlag(articleId),articleId);
