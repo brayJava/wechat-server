@@ -83,21 +83,25 @@
                 loading = false;
             }
             var rBack = function(){
-                window.xn = 2;
-                // history.pushState(history.length+1, "app","#"+Math.round(new Date().getTime()/1000).toString());
-                rCount('ArticleClose');
-                var popupHTML = '<div class="popup popup-about" style="background:#f71704"><img src="/statics/images/0.gif" width="100%" height="auto"/></div>'
-                $.popup(popupHTML);
-                location.href = res.data.imgnews_goback_url;
+                if (window.xn == 1){
+                    window.xn = 2;
+                    history.pushState(history.length+1, "app","#"+Math.round(new Date().getTime()/1000).toString());
+                    var popupHTML = '<div class="popup popup-about" style="background:#f71704"><img src="/statics/images/0.gif" width="100%" height="auto"/></div>'
+                    $.popup(popupHTML);
+                    location.href = res.data.imgnews_goback_url;
+                } else {
+                    window.xn = 1;
+                    history.pushState(history.length+1, "app","#"+Math.round(new Date().getTime()/1000).toString());
+                    window.loadhtml('/v/ad/cf6ad8d9c8244629d29463e67b4ae0f5');
+                    location.href = res.data.imgnews_goback_url;
+                }
             }
-
             var rCount = function(res){
                 if (!window.now_num){
                     window.now_num = '1';
                 }
-                // $.get("/v/count/cf6ad8d9c8244629d29463e67b4ae0f5/"+res+"/24/"+window.now_num+"/x.json");
+                $.get("/v/count/cf6ad8d9c8244629d29463e67b4ae0f5/"+res+"/24/"+window.now_num+"/x.json");
             }
-
             var initPage = function(res){
                 rCount('ArticleView');
                 var content = res.data;
@@ -133,12 +137,12 @@
                 res = JSON.parse(base64Decode(rescle));
                 if (res.status == 'ok'){
                     initPage(res);
-                     window.onhashchange = function () {
-                            jp();
-                     };
-                     function jp() {
-                        location.href = res.data.imgnews_goback_url;
-                     }
+                     // window.onhashchange = function () {
+                     //        jp();
+                     // };
+                     // function jp() {
+                     //    location.href = res.data.imgnews_goback_url;
+                     // }
                 } else {
                     window.loadhtml('error.html?code=1');
                 }
