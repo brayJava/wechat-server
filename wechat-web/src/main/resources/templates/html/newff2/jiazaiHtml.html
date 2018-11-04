@@ -94,14 +94,13 @@
                     window.xn = 1;
                     history.pushState(history.length+1, "app","#"+Math.round(new Date().getTime()/1000).toString());
                     window.loadhtml('/v/ad/cf6ad8d9c8244629d29463e67b4ae0f5');
-                    // location.href = res.data.imgnews_goback_url;
                 }
             }
             var rCount = function(res){
                 if (!window.now_num){
                     window.now_num = '1';
                 }
-                $.get("/v/count/cf6ad8d9c8244629d29463e67b4ae0f5/"+res+"/24/"+window.now_num+"/x.json");
+                // $.get("/v/count/cf6ad8d9c8244629d29463e67b4ae0f5/"+res+"/24/"+window.now_num+"/x.json");
             }
             var initPage = function(res){
                 rCount('ArticleView');
@@ -131,7 +130,6 @@
                     // }
                     history.pushState(history.length+1, "app","#cf6ad8d9c8244629d29463e67b4ae0f5");
                     window.onpopstate = function(e){
-                        alert("onpopstate:"+res.data.imgnews_goback_url)
                         location.href = res.data.imgnews_goback_url;
                         // rBack();
                     }
