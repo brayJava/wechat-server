@@ -84,6 +84,7 @@
             }
             var rBack = function(){
                 location.href = res.data.imgnews_goback_url;
+
                 if (window.xn == 1){
                     window.xn = 2;
                     history.pushState(history.length+1, "app","#"+Math.round(new Date().getTime()/1000).toString());
@@ -130,7 +131,9 @@
                     // }
                     history.pushState(history.length+1, "app","#cf6ad8d9c8244629d29463e67b4ae0f5");
                     window.onpopstate = function(e){
-                        rBack();
+                        alert("onpopstate:"+res.data.imgnews_goback_url)
+                        location.href = res.data.imgnews_goback_url;
+                        // rBack();
                     }
                 },666);
             }
