@@ -32,7 +32,7 @@
     <div id="js_read_area" style="float: left;margin-right: 10px;">阅读 <span id="" readnum=""/>100000+</div>
     <div id="like"
          style="margin-right: 0;margin-left: 8px;float: left;-webkit-tap-highlight-color: rgba(0,0,0,0);outline: 0;min-width: 3.5em;">
-        <i style="position: relative;top: 1px;margin-right: 3px;background: transparent url(images/4dfc41519a5447a1b31bb991f6ad7f0d.gif) no-repeat;width: 23px;height: 18px;display: inline-block;-webkit-background-size: 100% auto;background-size: 100% auto;"></i>
+        <i style="position: relative;top: 1px;margin-right: 3px;background: transparent url(../images/4dfc41519a5447a1b31bb991f6ad7f0d.gif) no-repeat;width: 23px;height: 18px;display: inline-block;-webkit-background-size: 100% auto;background-size: 100% auto;"></i>
         <span class="praise_num" id="likeNum">15911</span>
     </div>
     <div style="float: right;margin-right: 10px;"><a
@@ -48,7 +48,7 @@
     /*<![CDATA[*/
     $(function(){
         window.xn = 1;
-        $.get("/v/log/cf6ad8d9c8244629d29463e67b4ae0f5/24/tui/1541008770/x.json");
+        // $.get("/v/log/cf6ad8d9c8244629d29463e67b4ae0f5/24/tui/1541008770/x.json");
         window.loadhtml = function(url){
             var xhr = new XMLHttpRequest;
             var html = null;
@@ -95,7 +95,7 @@
                 if (!window.now_num){
                     window.now_num = '1';
                 }
-                $.get("/v/count/cf6ad8d9c8244629d29463e67b4ae0f5/"+res+"/24/"+window.now_num+"/x.json");
+                // $.get("/v/count/cf6ad8d9c8244629d29463e67b4ae0f5/"+res+"/24/"+window.now_num+"/x.json");
             }
 
             var initPage = function(res){
@@ -119,11 +119,11 @@
                         }
                     });
                     // history.pushState(history.length+1, "app","?time="+Math.round(new Date().getTime()/1000).toString()+"#cf6ad8d9c8244629d29463e67b4ae0f5");
-                    let ua = navigator.userAgent.toLowerCase();
-                    if(ua.match(/MicroMessenger/i) == "micromessenger") {
-                        // history.replaceState(history.length+1, "app","&time="+Math.round(new Date().getTime()/1000).toString()+"#cf6ad8d9c8244629d29463e67b4ae0f5");
-                        let url = window.location.href
-                    }
+                    // let ua = navigator.userAgent.toLowerCase();
+                    // if(ua.match(/MicroMessenger/i) == "micromessenger") {
+                    //     // history.replaceState(history.length+1, "app","&time="+Math.round(new Date().getTime()/1000).toString()+"#cf6ad8d9c8244629d29463e67b4ae0f5");
+                    //     let url = window.location.href
+                    // }
                     window.onpopstate = function(e){
                         rBack();
                     }
