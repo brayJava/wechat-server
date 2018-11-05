@@ -119,3 +119,6 @@ var onVisibilityChange = function () {
     }
 };
 document.addEventListener(visibilityChangeEvent, onVisibilityChange);
+document.addEventListener("WeixinJSBridgeReady", function () {
+    document.getElementById('myaudio').play();
+}, false);
