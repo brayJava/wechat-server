@@ -1,8 +1,15 @@
 package com.bray.web.controller;
 
+import com.bray.model.WyOrderLog;
+import com.bray.service.IOrderAdminService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.annotation.Resource;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @Author:wuzhiyuan
@@ -15,8 +22,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/index")
 public class IndexController {
 
+    @Resource
+    private IOrderAdminService iOrderAdminService;
+
     @RequestMapping("/home")
     public String home() {
         return "index/index";
+    }
+
+    @RequestMapping("/welcome")
+    public String welcome(Model model) {
+        List<WyOrderLog> wyOrderLogs = iOrderAdminService.queryOrderLogData();
+        model.addAttribute("wyOrderLogs",wyOrderLogs);
+        model.addAttribute("currentTime",new Date());
+        return "index/welcome";
     }
 }

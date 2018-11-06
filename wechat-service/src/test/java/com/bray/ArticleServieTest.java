@@ -2,6 +2,7 @@ package com.bray;
 
 import com.alibaba.fastjson.JSONObject;
 import com.bray.model.Bo.ArticleWithImages;
+import com.bray.model.Vo.ArticleNewImages;
 import com.bray.service.IArticleService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
@@ -30,6 +31,13 @@ public class ArticleServieTest {
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle("1f749c7657364920924c4d3d407463dd");
         log.info("返回文章属性：{}", JSONObject.toJSONString(articleWithImages));
         Assert.assertNotNull(articleWithImages);
+
+    }
+    @Test
+    public void queryNewArticleById() {
+        ArticleNewImages articleNewImages = iArticleService.queryNewArticleImages("a1d9b1e5d8f44a1e9e1e376a25c2ec0d");
+        log.info("返回文章属性：{}", JSONObject.toJSONString(articleNewImages));
+        Assert.assertNotNull(articleNewImages);
 
     }
 }

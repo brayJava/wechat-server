@@ -17,7 +17,7 @@ import java.util.List;
  * @Date: Created in 16:39 2018/10/10
  * @Modified By:
  */
-@Service
+// @Service
 @Slf4j
 public class ArticleServiceTask {
 
