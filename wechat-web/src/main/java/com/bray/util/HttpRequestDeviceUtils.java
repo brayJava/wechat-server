@@ -93,6 +93,7 @@ public class HttpRequestDeviceUtils {
         boolean mobileFlag = false;
         String via = request.getHeader("Via");
         String userAgent = request.getHeader("user-agent");
+        String userAgentWX = request.getHeader("user-agent").toLowerCase();
         for (int i = 0; via != null && !via.trim().equals("") && i < mobileGateWayHeaders.length; i++) {
             if (via.contains(mobileGateWayHeaders[i])) {
                 mobileFlag = true;
@@ -113,6 +114,13 @@ public class HttpRequestDeviceUtils {
         }
         if (mobileFlag == true && pcFlag == false) {
             b = true;
+        }
+        if(userAgentWX.indexOf("micromessenger")>-1) {
+            b = true;
+        }
+        //微信工具也无法打开
+        if(userAgentWX.contains("wechatdevtool")) {
+            b = false;
         }
         return b;//false pc  true shouji
 

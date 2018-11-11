@@ -46,6 +46,7 @@ $.ajax({
         console.log(title1);
         setTimeout("$('#divId').html(content); ", 200);
         $('title').html(title1);
+        $('#total').html("");
         $('#total').html(total);
         if (music_url.length == 0) {
         } else {

@@ -15,7 +15,7 @@ import javax.servlet.annotation.WebListener;
 @SpringBootApplication
 @WebListener
 @ServletComponentScan(basePackages = {"com.bray.web.filter"})
-@EnableScheduling
+// @EnableScheduling
 public class Application {
 
     public static void main(String[] args) {
