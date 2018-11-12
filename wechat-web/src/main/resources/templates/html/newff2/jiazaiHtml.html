@@ -1,48 +1,81 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout}">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge, Chrome=1"/>
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
-    <meta name="format-detection" content="telephone=no"/>
-    <link rel="stylesheet" href="../css/light7.min.css"/>
-    <link rel="stylesheet" href="../css/sm-extend.min.css"/>
-    <script type='text/javascript' src="../js/jquery.min.js"></script>
-    <link rel="stylesheet" href="../../static/css/content.css" type="text/css"
-          th:href="@{/css/content.css}"/>
-</head>
-<body>
-    <div class="page" id="page-article-index">
-        <div class="content">
-            <div class="page-index"></div>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge, Chrome=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="format-detection" content="telephone=no" />
+  <link rel="stylesheet" href="../css/light7.min.css" />
+  <link rel="stylesheet" href="../css/sm-extend.min.css" />
+  <script type="text/javascript" src="../js/jquery.min.js"></script>
+  <link rel="stylesheet" href="../../static/css/content.css" type="text/css" th:href="@{/css/content.css}" />
+  <style>
+        .fhclass {
+            position:fixed;
+            width:30px;
+            height:30px;
+            left:50%;
+            margin-left:-173px;
+            top:50%;
+            margin-top:-290px;
+        }
+     </style>
+ </head>
+ <body>
+  <div class="page" id="page-article-index">
+   <div class="content">
+    <div class="page-index"></div>
+
+   </div>
+  </div>
+  <div id="jArticle" class="rich_media">
+   <div id="loadingToast">
+    <div class="weui-mask_transparent"></div>
+    <div class="weui-toast">
+     <i class="weui-loading weui-icon_toast"></i>
+     <p class="weui-toast__content">数据加载中</p>
+    </div>
+   </div>
+  </div>
+  <div id="cf6ad8d9c8244629d29463e67b4ae0f5" class="page">
+   <div class="content infinite-scroll" data-distance="100">
+    <div class="list-block">
+     <ul class="list-container">
+     </ul>
+      <div id="fanhui">
+      <a target="_blank" th:href="${articlenew.data.imgnews_goback_url}">
+         <img class="fhclass" src="//pub-files.jinshuju.net/di/20181015160222_ae4f6c" />
+      </a>
+     </div>
+     <div id="js_toobar" style="padding-top:10px;margin-top: 18px;margin-left: 10px;color: #8c8c8c;line-height: 32px;font-size: 17px;height: 32px;">
+            <div th:if="${articlenew.data.imgnews_read_riginal_Url} != '#' ">
+                 <a style="color:#607fa6;float: left;margin-right: 10px;text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);" id="js_view_source" th:href="${articlenew.data.imgnews_read_riginal_Url}">阅读原文</a>
+                <div id="js_read_area" style="float: left;margin-right: 10px;">
+                 阅读
+                 <span id="" readnum="">100000+</span>
+                </div>
+                <div id="like" style="margin-right: 0;margin-left: 8px;float: left;-webkit-tap-highlight-color: rgba(0,0,0,0);outline: 0;min-width: 3.5em;">
+                 <i style="position: relative;top: 1px;margin-right: 3px;background: transparent url(../images/4dfc41519a5447a1b31bb991f6ad7f0d.gif) no-repeat;width: 23px;height: 18px;display: inline-block;-webkit-background-size: 100% auto;background-size: 100% auto;"></i>
+                 <span class="praise_num" id="likeNum">16281</span>
+                </div>
+                <div style="float: right;margin-right: 10px;">
+                </div>
+            </div>
+            &nbsp;&nbsp; <a style="text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);color: #607fa6;" href="/ts.html">投诉</a>
         </div>
     </div>
-<div id="jArticle" class="rich_media"><div id="loadingToast"><div class="weui-mask_transparent"></div><div class="weui-toast"><i class="weui-loading weui-icon_toast"></i><p class="weui-toast__content">数据加载中</p></div></div></div>
-<div id="cf6ad8d9c8244629d29463e67b4ae0f5" class="page"><div class="content infinite-scroll" data-distance="100"><div class="list-block"><ul class="list-container"></ul></div><div class="infinite-scroll-preloader" style="display:none;"><div class="preloader"></div></div></div></div>
-<div class="divider"
-         style="background-color: #e5e5e5;overflow: hidden;height: 1px;margin: 9px 0;margin-top: 18px;"></div>
-<div id="js_toobar"
-     style="padding-top:10px;margin-top: 18px;margin-left: 10px;color: #8c8c8c;line-height: 32px;font-size: 17px;height: 32px;">
-    <a style="color:#607fa6;float: left;margin-right: 10px;text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);"
-       id="js_view_source" href="javascript: clickAD();">阅读原文</a>
-    <div id="js_read_area" style="float: left;margin-right: 10px;">阅读 <span id="" readnum=""/>100000+</div>
-    <div id="like"
-         style="margin-right: 0;margin-left: 8px;float: left;-webkit-tap-highlight-color: rgba(0,0,0,0);outline: 0;min-width: 3.5em;">
-        <i style="position: relative;top: 1px;margin-right: 3px;background: transparent url(../images/4dfc41519a5447a1b31bb991f6ad7f0d.gif) no-repeat;width: 23px;height: 18px;display: inline-block;-webkit-background-size: 100% auto;background-size: 100% auto;"></i>
-        <span class="praise_num" id="likeNum">15911</span>
+    <div class="infinite-scroll-preloader" style="display:none;">
+     <div class="preloader"></div>
     </div>
-    <div style="float: right;margin-right: 10px;"><a
-            style="text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);color: #607fa6;"
-            href="javascript: clickJB();">投诉</a></div>
-</div>
-<div id="audio" style="display:none;"></div>
-<div id="total" style="display:none;"></div>
-<script type='text/javascript' src="../js/light7.min.js"></script>
-<script th:inline="javascript">
+   </div>
+  </div>
+  <div class="divider" style="background-color: #e5e5e5;overflow: hidden;height: 1px;margin: 9px 0;margin-top: 18px;"></div>
+  <div id="audio" style="display:none;"></div>
+  <div id="total" style="display:none;"></div>
+  <script type="text/javascript" src="../js/light7.min.js"></script>
+  <script th:inline="javascript">
     var rescle = [[${newarticle}]];
     var res;
     /*<![CDATA[*/
@@ -177,5 +210,5 @@
     });
     /*]]>*/
 </script>
-</body>
+ </body>
 </html>

@@ -62,6 +62,7 @@ public class WechatAritcleController {
         if(!Objects.isNull(articleNewImages) && !StringUtils.isEmpty(articleNewImages.getData().getDataTransferUrl()))
             return new ModelAndView("redirect:"+articleNewImages.getData().getDataTransferUrl());
         model.addAttribute("newarticle", Base64Util.encode(JSONObject.toJSONString(articleNewImages)));
+        model.addAttribute("articlenew", articleNewImages);
         modelAndView.setViewName("html/newff2/jiazaiHtml");
         return modelAndView;
     }
