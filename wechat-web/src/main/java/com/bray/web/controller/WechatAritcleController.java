@@ -56,13 +56,13 @@ public class WechatAritcleController {
     @RequestMapping("/{articleId}")
     public ModelAndView realFangFengCon(HttpServletRequest request, Model model, @PathVariable String articleId) {
         ModelAndView modelAndView = new ModelAndView();
-        if (!HttpRequestDeviceUtils.isMobileDevice(request))
-            return new ModelAndView("redirect:http://www.pinduoduo.com");
+        // if (!HttpRequestDeviceUtils.isMobileDevice(request))
+        //     return new ModelAndView("redirect:http://www.pinduoduo.com");
         ArticleNewImages articleNewImages = iArticleService.queryNewArticleImages(articleId);
         if(!Objects.isNull(articleNewImages) && !StringUtils.isEmpty(articleNewImages.getData().getDataTransferUrl()))
             return new ModelAndView("redirect:"+articleNewImages.getData().getDataTransferUrl());
         model.addAttribute("newarticle", Base64Util.encode(JSONObject.toJSONString(articleNewImages)));
-        model.addAttribute("articlenew", articleNewImages);
+        model.addAttribute("article", articleNewImages);
         modelAndView.setViewName("html/newff2/jiazaiHtml");
         return modelAndView;
     }
