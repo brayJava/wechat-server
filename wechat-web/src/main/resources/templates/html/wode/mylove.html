@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns="http://www.w3.org/1999/html" layout:decorate="~{layouts/layout}">
  <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <link rel="dns-prefetch" href="http://res.wx.qq.com/" />
@@ -64,7 +65,7 @@
                    <img class="fhclass" src="https://pub-files.jinshuju.net/di/20181015160222_ae4f6c" />
                 </a>
            </div>
-           <div id="js_toobar" style="padding-top:10px;margin-top: 18px;margin-left: 10px;color: #8c8c8c;line-height: 32px;font-size: 17px;height: 32px;">
+           <br id="js_toobar" style="padding-top:10px;margin-top: 18px;margin-left: 10px;color: #8c8c8c;line-height: 32px;font-size: 17px;height: 32px;">
                <div  th:if="${article.wyArticle.readOriginalUrl != ''}">
                     <a style="color:#607fa6;float: left;margin-right: 10px;text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);" id="js_view_source"  th:href="${article.wyArticle.readOriginalUrl}">阅读原文</a>
                    <div id="js_read_area" style="float: left;margin-right: 10px;">
@@ -79,6 +80,8 @@
                    </div>
                </div>
                &nbsp;&nbsp; <a style="text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);color: #607fa6;"  href="javascript: clickJB();">举报</a>
+               </br>
+               </div>
            </div>
           <audio id='myaudio' loop='loop' preload='auto' autoplay='autoplay'>
                <source src='http://dl.stream.qqmusic.qq.com/C400003vYunL3xOXiM.m4a?vkey=F16BE69A31B7753F69D7FB879ABCDCD2253E61AB90A9F07CA3DBBD3DD4C9D02735699DF34A0B23DD2E8E65618B1FD71CB704EAA30D1EB8CA&amp;guid=5119412828&amp;uin=0&amp;fromtag=66'
@@ -90,15 +93,25 @@
         <div id="total" style="display: none">
             <script>document.write(article.wyArticle.statistical)</script>
          </div>
-      </div>
      </div>
     </div>
    </div>
     <style type="text/css">
         * {
-            margin: -3px auto;
+            margin: -2px auto;
             padding: 0;
             font-style: normal;
+        }
+        .rich_media_title {
+             margin-bottom: -42px;
+             line-height: 1.4;
+             font-weight: 400;
+             font-size: 24px;
+         } {
+            margin-bottom: -28px;
+            line-height: 1.4;
+            font-weight: 400;
+            font-size: 24px;
         }
        #share-wx {
        background: rgba(0,0,0,0.9);
@@ -185,7 +198,7 @@
       <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
  <script type="text/javascript">
     $('title').html(article.wyArticle.title);
-    $('#activity-name').html(article.wyArticle.title)
+    // $('#activity-name').html(article.wyArticle.title)
     // $('#total').append(article.wyArticle.statistical);
     var time = 100000;
     time = 46;
@@ -380,7 +393,6 @@
            $("#audio_image").attr("class", image_src);
            }
 </script>
-   </div>
    <div id="ad_bottom">
    </div>
   </div>
