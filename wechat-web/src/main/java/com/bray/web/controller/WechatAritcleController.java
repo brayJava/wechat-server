@@ -1,6 +1,7 @@
 package com.bray.web.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bray.aop.cache.RedisPoolCache;
 import com.bray.config.WebConst;
 import com.bray.dto.ConstFinal;
 import com.bray.model.Bo.ArticleWithImages;
@@ -12,6 +13,7 @@ import com.bray.util.Base64Util;
 import com.bray.util.HttpRequestDeviceUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.spring4.context.SpringWebContext;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -46,6 +49,15 @@ public class WechatAritcleController {
 
     @Resource
     private IDomainWebService iDomainWebService;
+
+    @Autowired
+    private ThymeleafViewResolver thymeleafViewResolver;
+
+    @Resource
+    private RedisPoolCache redisObj;
+
+    @Autowired
+    private ApplicationContext applicationContext;
 
     /**
      * 新防封内容展示
@@ -120,6 +132,33 @@ public class WechatAritcleController {
         return modelAndView;
     }
 
+    /**
+     * 新防风界面带封面3
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/newff/{articleId}")
+    public ModelAndView newFangFeng(HttpServletRequest request, Model model, HttpServletResponse response, @PathVariable String articleId) {
+        ModelAndView modelAndView = new ModelAndView();
+        //获取图片相关信息
+        ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
+        //取缓存
+        String html = String.valueOf(redisObj.getRedisValueByKey("images_content:"+articleId));
+        if(StringUtils.isEmpty(html) || "null".equals(html)) {
+            model.addAttribute("article", article);
+            //手动渲染
+            SpringWebContext ctx = new SpringWebContext(request,response,
+                    request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+            html = thymeleafViewResolver.getTemplateEngine().process("html/wode/image_content", ctx);
+            redisObj.saveDataToRedis("images_content:"+articleId,html);
+        }
+        article.setContentHtml(html);
+        log.info("日志输出：{}",request.getRequestURI().toString());
+        modelAndView.addObject("article",article);
+        modelAndView.setViewName("html/wode/mylove");
+        return modelAndView;
+    }
     /**
      * 获取域名map集合值
      * @param articleId

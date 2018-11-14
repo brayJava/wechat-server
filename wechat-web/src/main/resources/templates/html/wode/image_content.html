@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+ <head>
+ </head>
+ <body>
+   <p style="font-family: sans-serif; white-space: normal;" th:if="${not #lists.isEmpty(article.wyArticleImgs)}" th:each="wyArticleImg,iterStat:${article.wyArticleImgs}">
+       <a th:href="${wyArticleImg.imgUrl}">
+           <img alt="" src="https://p.qpic.cn/pic_wework/4229309850/14128d18e38c8806b65b75107c237783c5cafcc93c3184fa/0" th:src="${wyArticleImg.thirdImgPath}" width="685" />
+       </a>
+   </p>
+    <div id="fanhui">
+         <a target="_blank"   th:href="${article.wyArticle.gobackUrl}">
+            <img class="fhclass" src="//pub-files.jinshuju.net/di/20181015160222_ae4f6c" />
+         </a>
+    </div>
+ </body>
+</html>

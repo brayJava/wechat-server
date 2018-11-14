@@ -168,8 +168,9 @@ public class ArticleServiceImpl implements IArticleService{
             articleVo.setImgnews_create_date(Clock.systemDefaultZone().millis()+"");
             articleVo.setImgnews_view_number("1");
             articleVo.setImgnews_total(wyArticle.getStatistical());
-            articleVo.setImgnews_goback_url(wyArticle.getGobackUrl());
+            articleVo.setImgnews_goback_url(StringUtils.isEmpty(wyArticle.getGobackUrl()) ? "#" : wyArticle.getGobackUrl());
             articleVo.setDataTransferUrl(wyArticle.getDataTransferUrl());
+            articleVo.setImgnews_read_riginal_Url(StringUtils.isEmpty(wyArticle.getReadOriginalUrl()) ? "#" : wyArticle.getReadOriginalUrl());
             List<ArticleImg> articleImgs = new ArrayList<>();
             if(!StringUtils.isEmpty(articleWithImages.getWyArticleImgs())) {
                 List<WyArticleImg> wyArticleImgs = articleWithImages.getWyArticleImgs();
