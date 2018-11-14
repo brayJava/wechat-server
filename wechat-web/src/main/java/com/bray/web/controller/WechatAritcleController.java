@@ -147,6 +147,7 @@ public class WechatAritcleController {
         String html = String.valueOf(redisObj.getRedisValueByKey("images_content:"+articleId));
         if(StringUtils.isEmpty(html) || "null".equals(html)) {
             model.addAttribute("article", article);
+            log.info("返回连接：{}",article.getWyArticle().getGobackUrl());
             //手动渲染
             SpringWebContext ctx = new SpringWebContext(request,response,
                     request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
