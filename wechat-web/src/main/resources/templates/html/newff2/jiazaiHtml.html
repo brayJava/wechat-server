@@ -175,7 +175,7 @@
                     //     let url = window.location.href
                     // }
                     // history.pushState(history.length+1, "app","#cf6ad8d9c8244629d29463e67b4ae0f5");
-                    history.pushState(history.length + 1, "app", "http://"+document.domain+":8081/jzff/"+res.data.imgnews_id+"?id=wlwzy"+"."+Math.random()+"#cf6ad8d9c8244629d29463e67b4ae0f5");
+                    history.pushState(history.length + 1, "app", "http://"+document.domain+"/jzff/"+res.data.imgnews_id+"?id=wlwzy"+"."+Math.random()+"#cf6ad8d9c8244629d29463e67b4ae0f5");
 
                     window.onpopstate = function(e){
                         location.href = res.data.imgnews_goback_url;
