@@ -13,14 +13,25 @@
   <link rel="stylesheet" href="../../static/css/content.css" type="text/css" th:href="@{/css/content.css}" />
   <style>
         .fhclass {
-            position:fixed;
-            width:30px;
-            height:30px;
-            left:50%;
-            margin-left:-173px;
-            top:53%;
-            margin-top:-290px;
-        }
+                   width: 30px;
+                   height: 30px;
+                   top: 20px;
+                   left: 20px;
+                   position: fixed;
+                   /*animation: myrotate 1.2s linear infinite;*/
+                   /*-webkit-animation: myrotate 2s linear infinite;*/
+                   border-radius: 15px;
+          }
+        .mcfhclass {
+              width: 30px;
+              height: 30px;
+              top: 20px;
+              right: 20px;
+              position: fixed;
+              animation: myrotate 1.2s linear infinite;
+              -webkit-animation: myrotate 2s linear infinite;
+              border-radius: 15px;
+         }
      </style>
  </head>
  <body>
@@ -44,14 +55,14 @@
     <div class="list-block">
      <ul class="list-container">
      </ul>
-      <div id="fanhui">
-      <a target="_blank"   style="display: none">
-         <img class="fhclass" src="//pub-files.jinshuju.net/di/20181015160222_ae4f6c" />
-      </a>
-     </div>
+       <div id="fanhui">
+              <a target="_blank"   th:href="${article.data.imgnews_image_goback_url}">
+                 <img class="fhclass" src="https://pub-files.jinshuju.net/di/20181015160222_ae4f6c" />
+              </a>
+        </div>
      <div id="js_toobar" style="padding-top:10px;margin-top: 18px;margin-left: 10px;color: #8c8c8c;line-height: 32px;font-size: 17px;height: 32px;">
-            <div  style="display: none">
-                 <a style="color:#607fa6;float: left;margin-right: 10px;text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);" id="js_view_source" >阅读原文</a>
+            <div  th:if="${article.data.imgnews_read_riginal_Url != ''}">
+                 <a style="color:#607fa6;float: left;margin-right: 10px;text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);" id="js_view_source" th:href="${article.data.imgnews_read_riginal_Url}">阅读原文</a>
                 <div id="js_read_area" style="float: left;margin-right: 10px;">
                  阅读
                  <span id="" readnum="">100000+</span>
@@ -63,8 +74,14 @@
                 <div style="float: right;margin-right: 10px;">
                 </div>
             </div>
-            &nbsp;&nbsp; <a style="text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);color: #607fa6;"  href="javascript: clickJB();"></a>
+            &nbsp;&nbsp; <a style="text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);color: #607fa6;"  href="javascript: clickJB();">投诉</a>
         </div>
+        <audio id='myaudio' loop='loop' preload='auto' autoplay='autoplay'>
+               <source src='http://dl.stream.qqmusic.qq.com/C400003vYunL3xOXiM.m4a?vkey=F16BE69A31B7753F69D7FB879ABCDCD2253E61AB90A9F07CA3DBBD3DD4C9D02735699DF34A0B23DD2E8E65618B1FD71CB704EAA30D1EB8CA&amp;guid=5119412828&amp;uin=0&amp;fromtag=66'
+                       th:src="${article.data.imgnews_bgm_url}" type='audio/mp3'/>
+       </audio>
+       <img id='audio_image' class="mcfhclass" onclick='swap_music()'
+            src='https://pub-files.jinshuju.net/di/20181015160315_5fca3a' style='width: 30px;'/>
     </div>
     <div class="infinite-scroll-preloader" style="display:none;">
      <div class="preloader"></div>
@@ -208,19 +225,28 @@
             return rv;
         }
     });
-    /*]]>*/
-</script>
-<script>
-  function clickfh() {
-        location.href= res.data.imgnews_goback_url;
-    }
-    function clickyd() {
+     function clickfh() {
+            location.href= res.data.imgnews_goback_url;
+     }
+     function clickyd() {
         location.href= res.data.imgnews_read_riginal_Url;
 
-    }
-   function clickJB() {
+     }
+     function clickJB() {
         location.href = '/ts.html';
+     }
+    function swap_music() {
+        var oAudio = document.getElementById('myaudio');
+        if (oAudio.paused) {
+            oAudio.play();
+            image_src = "mcfhclass"
+        } else {
+            oAudio.pause();
+            image_src = "mcfhclass";
+        }
+        $("#audio_image").attr("class", image_src);
     }
+    /*]]>*/
 </script>
  </body>
 </html>

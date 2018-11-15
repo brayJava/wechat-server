@@ -11,17 +11,17 @@ $.each(article.wyArticleImgs,function (n,images) {
     }
 })
 $('body').title(article.wyArticle.title);
-function swap_music() {
-    var oAudio = document.getElementById('myaudio');
-    if (oAudio.paused) {
-        oAudio.play();
-        image_src = "div1"
-    } else {
-        oAudio.pause();
-        image_src = "div2";
-    }
-    $("#audio_image").attr("class", image_src);
-}
+// function swap_music() {
+//     var oAudio = document.getElementById('myaudio');
+//     if (oAudio.paused) {
+//         oAudio.play();
+//         image_src = "div1"
+//     } else {
+//         oAudio.pause();
+//         image_src = "div2";
+//     }
+//     $("#audio_image").attr("class", image_src);
+// }
 
 document.addEventListener("WeixinJSBridgeReady", function () {
     document.getElementById('myaudio').play();

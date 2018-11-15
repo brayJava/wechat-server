@@ -81,6 +81,10 @@ public class WyArticleSqlProvider {
             VALUES("goback_url", "#{gobackUrl,jdbcType=VARCHAR}");
         }
         
+        if (record.getImageGobackUrl() != null) {
+            VALUES("image_goback_url", "#{imageGobackUrl,jdbcType=VARCHAR}");
+        }
+        
         if (record.getReadOriginalUrl() != null) {
             VALUES("read_original_url", "#{readOriginalUrl,jdbcType=VARCHAR}");
         }
@@ -148,6 +152,7 @@ public class WyArticleSqlProvider {
         SELECT("is_order_img");
         SELECT("data_transfer_url");
         SELECT("goback_url");
+        SELECT("image_goback_url");
         SELECT("read_original_url");
         SELECT("order_img_url");
         SELECT("order_copy_url");
@@ -217,6 +222,10 @@ public class WyArticleSqlProvider {
             SET("goback_url = #{record.gobackUrl,jdbcType=VARCHAR}");
         }
         
+        if (record.getImageGobackUrl() != null) {
+            SET("image_goback_url = #{record.imageGobackUrl,jdbcType=VARCHAR}");
+        }
+        
         if (record.getReadOriginalUrl() != null) {
             SET("read_original_url = #{record.readOriginalUrl,jdbcType=VARCHAR}");
         }
@@ -283,6 +292,7 @@ public class WyArticleSqlProvider {
         SET("is_order_img = #{record.isOrderImg,jdbcType=BIT}");
         SET("data_transfer_url = #{record.dataTransferUrl,jdbcType=VARCHAR}");
         SET("goback_url = #{record.gobackUrl,jdbcType=VARCHAR}");
+        SET("image_goback_url = #{record.imageGobackUrl,jdbcType=VARCHAR}");
         SET("read_original_url = #{record.readOriginalUrl,jdbcType=VARCHAR}");
         SET("order_img_url = #{record.orderImgUrl,jdbcType=VARCHAR}");
         SET("order_copy_url = #{record.orderCopyUrl,jdbcType=VARCHAR}");
@@ -339,6 +349,10 @@ public class WyArticleSqlProvider {
         
         if (record.getGobackUrl() != null) {
             SET("goback_url = #{gobackUrl,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getImageGobackUrl() != null) {
+            SET("image_goback_url = #{imageGobackUrl,jdbcType=VARCHAR}");
         }
         
         if (record.getReadOriginalUrl() != null) {

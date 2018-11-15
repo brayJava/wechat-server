@@ -24,6 +24,8 @@ public class WyArticle implements Serializable{
 
     private String gobackUrl;
 
+    private String imageGobackUrl;
+
     private String readOriginalUrl;
 
     private String orderImgUrl;
@@ -126,6 +128,14 @@ public class WyArticle implements Serializable{
 
     public void setGobackUrl(String gobackUrl) {
         this.gobackUrl = gobackUrl == null ? null : gobackUrl.trim();
+    }
+
+    public String getImageGobackUrl() {
+        return imageGobackUrl;
+    }
+
+    public void setImageGobackUrl(String imageGobackUrl) {
+        this.imageGobackUrl = imageGobackUrl == null ? null : imageGobackUrl.trim();
     }
 
     public String getReadOriginalUrl() {

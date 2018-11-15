@@ -31,6 +31,8 @@ public class ArticleOtherModelVo {
 
     private String gobackUrl;
 
+    private String imageGobackUrl;
+
     private String readOriginalUrl;
 
     private String orderImgUrl;
