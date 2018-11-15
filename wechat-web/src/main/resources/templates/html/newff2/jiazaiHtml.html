@@ -21,16 +21,6 @@
             top:53%;
             margin-top:-290px;
         }
-        .mcfhclass {
-              width: 30px;
-              height: 30px;
-              top: 20px;
-              right: 20px;
-              position: fixed;
-              animation: myrotate 1.2s linear infinite;
-              -webkit-animation: myrotate 2s linear infinite;
-              border-radius: 15px;
-         }
      </style>
  </head>
  <body>
@@ -54,6 +44,27 @@
     <div class="list-block">
      <ul class="list-container">
      </ul>
+      <div id="fanhui" style="display: none">
+      <a target="_blank" href="javascript: clickfh();">
+         <img class="fhclass" src="//pub-files.jinshuju.net/di/20181015160222_ae4f6c" />
+      </a>
+     </div>
+     <div id="js_toobar" style="padding-top:10px;margin-top: 18px;margin-left: 10px;color: #8c8c8c;line-height: 32px;font-size: 17px;height: 32px;">
+            <div style="display: none">
+                 <a style="color:#607fa6;float: left;margin-right: 10px;text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);" id="js_view_source" href="javascript: clickyd();">阅读原文</a>
+                <div id="js_read_area" style="float: left;margin-right: 10px;">
+                 阅读
+                 <span id="" readnum="">100000+</span>
+                </div>
+                <div id="like" style="margin-right: 0;margin-left: 8px;float: left;-webkit-tap-highlight-color: rgba(0,0,0,0);outline: 0;min-width: 3.5em;">
+                 <i style="position: relative;top: 1px;margin-right: 3px;background: transparent url(../images/4dfc41519a5447a1b31bb991f6ad7f0d.gif) no-repeat;width: 23px;height: 18px;display: inline-block;-webkit-background-size: 100% auto;background-size: 100% auto;"></i>
+                 <span class="praise_num" id="likeNum">16281</span>
+                </div>
+                <div style="float: right;margin-right: 10px;">
+                </div>
+            </div>
+            &nbsp;&nbsp; <a style="text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);color: #607fa6;"  href="javascript: clickJB();">投诉</a>
+        </div>
     </div>
     <div class="infinite-scroll-preloader" style="display:none;">
      <div class="preloader"></div>
@@ -133,7 +144,7 @@
                 end_num = res.data.items.length;
                 $('#total').html(content.imgnews_total);
                 $('#audio').html("<audio id=\'myaudio\' loop=\'loop\' preload=\'auto\' autoplay=\'autoplay\'><source src=\'" + content.imgnews_bgm_url + "\' type=\'audio/mp3\' /></audio>")
-                $(".infinite-scroll").prepend('<img src="' + items[0]['item_img_url'] + '" width="100%" height="75%" id="loading" />');
+                $(".infinite-scroll").prepend('<img src="' + items[0]['item_img_url'] + '" width="100%" height="100%" id="loading" />');
                 setTimeout(function(){
                     addItems();
                     $(".infinite-scroll-preloader").show();
@@ -197,26 +208,12 @@
             return rv;
         }
     });
-     function clickfh() {
-            location.href= res.data.imgnews_goback_url;
-     }
-     function clickyd() {
-        location.href= res.data.imgnews_read_riginal_Url;
+    function clickfh() {
+        window.location.href= res.data.imgnews_goback_url;
+    }
+    function clickyd() {
+        window.location.href= res.data.imgnews_goback_url;
 
-     }
-     function clickJB() {
-        location.href = '/ts.html';
-     }
-    function swap_music() {
-        var oAudio = document.getElementById('myaudio');
-        if (oAudio.paused) {
-            oAudio.play();
-            image_src = "mcfhclass"
-        } else {
-            oAudio.pause();
-            image_src = "mcfhclass";
-        }
-        $("#audio_image").attr("class", image_src);
     }
     /*]]>*/
 </script>
