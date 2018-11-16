@@ -111,8 +111,8 @@ public class WechatAritcleController {
     @RequestMapping("/content/{articleId}")
     public ModelAndView shareConent(HttpServletRequest request, Model model,@PathVariable String articleId) {
         ModelAndView modelAndView = new ModelAndView();
-        if (!HttpRequestDeviceUtils.isMobileDevice(request))
-            return new ModelAndView("redirect:http://www.pinduoduo.com");
+        // if (!HttpRequestDeviceUtils.isMobileDevice(request))
+        //     return new ModelAndView("redirect:http://www.pinduoduo.com");
         //获取域名集合map
         Map<String,Object> domainMap = (HashMap<String,Object>)
                 iDomainWebService.queryDomainByredisServer(getDomainFlag(articleId),articleId);
