@@ -1,17 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout}">
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <meta charset="utf-8"/>
-    <title>重大事件，请认真阅读阅读，希望对你有帮助!&gt;&gt;&gt;</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui"/>
-    <meta name="format-detection" content="telephone=no"/>
-    <link rel="stylesheet" href="../../css/dy.css" />
-	<script src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
-    <style>div.a40219{-webkit-animation:afive 5s both;-moz-animation:afive 5s both;-ms-animation:afive 5s both;animation:afive 5s both}@keyframes afive{0%{transform:scale(1);transform:scale(1)}70%,73%{transform:scale(1);transform:scale(1)}77.5%{transform:translate(4px,3px)}78%{transform:translate(4px,-4px)}78.5%{transform:translate(3px,-4px)}79%{transform:translate(-4px,-4px)}79.5%{transform:translate(-4px,3px)}80%{transform:translate(-4px,4px)}80.5%{transform:translate(3px,4px)}81%{transform:translate(0,0)}100%{transform:scale(1) rotate(0);transform:scale(1) rotate(0)}}</style>
-	<style>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta charset="utf-8" />
+  <title>重大事件，请认真阅读阅读，希望对你有帮助!&gt;&gt;&gt;</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui" />
+  <meta name="format-detection" content="telephone=no" />
+  <link rel="stylesheet" href="../../css/dy.css" />
+  <script src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+  <style>div.a40219{-webkit-animation:afive 5s both;-moz-animation:afive 5s both;-ms-animation:afive 5s both;animation:afive 5s both}@keyframes afive{0%{transform:scale(1);transform:scale(1)}70%,73%{transform:scale(1);transform:scale(1)}77.5%{transform:translate(4px,3px)}78%{transform:translate(4px,-4px)}78.5%{transform:translate(3px,-4px)}79%{transform:translate(-4px,-4px)}79.5%{transform:translate(-4px,3px)}80%{transform:translate(-4px,4px)}80.5%{transform:translate(3px,4px)}81%{transform:translate(0,0)}100%{transform:scale(1) rotate(0);transform:scale(1) rotate(0)}}</style>
+  <style>
 		#cover-footer{width:100%;border-style:solid; border-width:1px 0px 0px; position:fixed; left:0px; bottom:0px; z-index:999;display:box;display:-moz-box;display:-ms-box;display:-o-box;background-color: rgba(255, 255, 255, 0.6)}
 		#cover-footer img.be-seller-avatar{width:40px; height:40px; display:block; margin:4px 4px; border-radius:4px;-webkit-border-radius:4px;-moz-border-radius:4px;-ms-border-radius:4px;-o-border-radius:4px;text-align:center; line-height:40px; font-size:16px;border:0px solid;}
 		#cover-footer a.be-seller-btn { height:40px; display:block; box-flex:1; -webkit-box-flex:1; -moz-box-flex:1; -ms-box-flex:1; -o-box-flex:1; margin:4px 4px; border-radius:4px;-webkit-border-radius:4px;-moz-border-radius:4px;-ms-border-radius:4px;-o-border-radius:4px;text-align:center; line-height:40px; font-size:16px;border:1px solid;list-style: none;}
@@ -27,104 +25,96 @@
                 border-radius: 15px;
          }
 	</style>
-	<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
-	<script src="../../js/ds.js"></script>
-	<link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.3/style/weui.min.css" />
-	</head>
-  <body class="page_play" style="">
+  <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+  <script src="../../js/ds.js"></script>
+  <link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.3/style/weui.min.css" />
+ </head>
+ <body class="page_play" style="">
   <audio th:src="${article.wyArticle.bgmUrl}" id="music" src="https://res.wx.qq.com/voice/getvoice?mediaid=MzUzNjk2Mzg4MV8xMDAwMDAxNDQ=" autoplay="autoplay" loop="loop"></audio>
-  <a id="audio_btn" style="position: fixed;margin-top: 15px;margin-left: -45px;left: 100%;"><img src="../../images/play.gif" width="35" height="35" id="music_btn" border="0"/></a>
+  <a id="audio_btn" style="position: fixed;margin-top: 15px;margin-left: -45px;left: 100%;"><img src="../../images/play.gif" width="35" height="35" id="music_btn" border="0" /></a>
   <script>
-    (function() {
-        function forceSafariPlayAudio() {
-            audioEl.load(); // iOS 9   还需要额外的 load 一下, 否则直接 play 无效
-            audioEl.play(); // iOS 7/8 仅需要 play 一下
-        }
-        var audioEl = document.getElementById('music');
-        audioEl.addEventListener('loadstart', function() {
-            console.log('loadstart');
-        }, false);
-        audioEl.addEventListener('loadeddata', function() {
-            console.log('loadeddata');
-        }, false);
-        audioEl.addEventListener('loadedmetadata', function() {
-			console.log('loadedmetadata');
-        }, false);
-        audioEl.addEventListener('canplay', function() {
-            console.log('canplay');
-        }, false);
-        audioEl.addEventListener('play', function() {
-            console.log('play');
-        	window.removeEventListener('touchstart', forceSafariPlayAudio, false);
-        }, false);
-        audioEl.addEventListener('playing', function() {
-            console.log('playing');
-        }, false);
-        audioEl.addEventListener('pause', function() {
-            console.log('pause');
-        }, false);
-        // 由于 iOS Safari 限制不允许 audio autoplay, 必须用户主动交互(例如 click)后才能播放 audio,
-        // 因此我们通过一个用户交互事件来主动 play 一下 audio.
-        window.addEventListener('touchstart', forceSafariPlayAudio, false);
-    })();
-</script>
-<script>
-	$("#audio_btn").click(function(){
-		var music = document.getElementById("music");
-		if(music.paused){
-			music.play();
-			$("#music_btn").attr("src","../../images/play.gif");
-		}else{
-			music.pause();
-			$("#music_btn").attr("src","../../images/stop.png");
-		}
-	});
-  </script>
-      <p th:if="${not #lists.isEmpty(article.wyArticleImgs)}" th:each="wyArticleImg,iterStat:${article.wyArticleImgs}">
-          <a th:href="${wyArticleImg.imgUrl}">
-          <img alt="" src="https://pub-files.jinshuju.net/di/20180816143635_94c809" th:src="${wyArticleImg.thirdImgPath}"
-               class="cke_widget_element" width="100%" />
-          </a>
-      </p>
-      <p></p>
-      <div id="fanhui">
-           <a target="_blank"   th:href="${article.wyArticle.gobackUrl}">
-              <img class="fhclass" src="https://pub-files.jinshuju.net/di/20181015160222_ae4f6c" />
-           </a>
-      </div>
-      <div id="js_toobar" style="padding-top:10px;margin-top: 18px;margin-left: 10px;color: #8c8c8c;line-height: 32px;font-size: 17px;height: 32px;"
-            th:if="${article.wyArticle.readOriginalUrl != ''}">
-           <a style="color:#607fa6;float: left;margin-right: 10px;text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);" id="js_view_source"  th:href="${article.wyArticle.readOriginalUrl}">阅读原文</a>
-          <div id="js_read_area" style="float: left;margin-right: 10px;">
-           阅读
-           <span id="" readnum="">100000+</span>
-          </div>
-          <div id="like" style="margin-right: 0;margin-left: 8px;float: left;-webkit-tap-highlight-color: rgba(0,0,0,0);outline: 0;min-width: 3.5em;">
-           <i style="position: relative;top: 1px;margin-right: 3px;background: transparent url(../../images/4dfc41519a5447a1b31bb991f6ad7f0d.gif) no-repeat;width: 23px;height: 18px;display: inline-block;-webkit-background-size: 100% auto;background-size: 100% auto;"></i>
-           <span class="praise_num" id="likeNum">15002</span>
-          </div>
-          <div style="float: right;margin-right: 10px;">
-          <a style="text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);color: #607fa6;"
-              href="javascript: clickJB();">投诉</a></div>
-      </div>
-      </br>
-<div class="weui_dialog_alert" id="dialog_alert" style="display:none;color:#000000">
-<div class="weui_mask"></div>
-   <div class="weui_dialog">
-       <div class="weui_dialog_hd"><strong class="weui_dialog_title">温馨提示</strong></div>
-       <div class="weui_dialog_bd" id="dialog_alert_Mes" style="color:#000000"></div>
-       <div class="weui_dialog_ft">
-           <a onclick="dialog_alert_Hide();" id="okBtn" class="weui_btn_dialog primary">好</a>
-       </div>
+        (function() {
+            function forceSafariPlayAudio() {
+                audioEl.load(); // iOS 9   还需要额外的 load 一下, 否则直接 play 无效
+                audioEl.play(); // iOS 7/8 仅需要 play 一下
+            }
+            var audioEl = document.getElementById('music');
+            audioEl.addEventListener('loadstart', function() {
+                console.log('loadstart');
+            }, false);
+            audioEl.addEventListener('loadeddata', function() {
+                console.log('loadeddata');
+            }, false);
+            audioEl.addEventListener('loadedmetadata', function() {
+                console.log('loadedmetadata');
+            }, false);
+            audioEl.addEventListener('canplay', function() {
+                console.log('canplay');
+            }, false);
+            audioEl.addEventListener('play', function() {
+                console.log('play');
+                window.removeEventListener('touchstart', forceSafariPlayAudio, false);
+            }, false);
+            audioEl.addEventListener('playing', function() {
+                console.log('playing');
+            }, false);
+            audioEl.addEventListener('pause', function() {
+                console.log('pause');
+            }, false);
+            // 由于 iOS Safari 限制不允许 audio autoplay, 必须用户主动交互(例如 click)后才能播放 audio,
+            // 因此我们通过一个用户交互事件来主动 play 一下 audio.
+            window.addEventListener('touchstart', forceSafariPlayAudio, false);
+        })();
+    </script>
+  <script>
+        $("#audio_btn").click(function(){
+            var music = document.getElementById("music");
+            if(music.paused){
+                music.play();
+                $("#music_btn").attr("src","../../images/play.gif");
+            }else{
+                music.pause();
+                $("#music_btn").attr("src","../../images/stop.png");
+            }
+        });
+      </script>
+  <p th:if="${not #lists.isEmpty(article.wyArticleImgs)}" th:each="wyArticleImg,iterStat:${article.wyArticleImgs}"> <a th:href="${wyArticleImg.imgUrl}"> <img alt="" src="https://pub-files.jinshuju.net/di/20180816143635_94c809" th:src="${wyArticleImg.thirdImgPath}" class="cke_widget_element" width="100%" /> </a> </p>
+  <p></p>
+  <div id="fanhui">
+   <a target="_blank" th:href="${article.wyArticle.gobackUrl}"> <img class="fhclass" src="https://pub-files.jinshuju.net/di/20181015160222_ae4f6c" /> </a>
+  </div>
+  <div id="js_toobar" style="padding-top:10px;margin-top: 18px;margin-left: 10px;color: #8c8c8c;line-height: 32px;font-size: 17px;height: 32px;" th:if="${article.wyArticle.readOriginalUrl != ''}">
+   <a style="color:#607fa6;float: left;margin-right: 10px;text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);" id="js_view_source" th:href="${article.wyArticle.readOriginalUrl}">阅读原文</a>
+   <div id="js_read_area" style="float: left;margin-right: 10px;">
+     阅读
+    <span id="" readnum="">100000+</span>
    </div>
-</div>
-
-<div id="zhezhao_share" style="position: fixed; left: 0px; right: 0px; top: 0px; bottom: 0px; display: none; background-color: rgba(0, 0, 0, 0.8);">
-	<p style="text-align: right; padding-left: 10px;color:#fff;font-size:20px">
-        <img src="../../images/q2.png" id="share-wx-img" style="width: 100%; padding-right: 15px;" />
-    </p>
-/div>
-<script th:inline="javascript">
+   <div id="like" style="margin-right: 0;margin-left: 8px;float: left;-webkit-tap-highlight-color: rgba(0,0,0,0);outline: 0;min-width: 3.5em;">
+    <i style="position: relative;top: 1px;margin-right: 3px;background: transparent url(../../images/4dfc41519a5447a1b31bb991f6ad7f0d.gif) no-repeat;width: 23px;height: 18px;display: inline-block;-webkit-background-size: 100% auto;background-size: 100% auto;"></i>
+    <span class="praise_num" id="likeNum">15002</span>
+   </div>
+   <div style="float: right;margin-right: 10px;">
+    <a style="text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);color: #607fa6;" href="javascript: clickJB();">投诉</a>
+   </div>
+  </div>
+  <br />
+  <div class="weui_dialog_alert" id="dialog_alert" style="display:none;color:#000000">
+   <div class="weui_mask"></div>
+   <div class="weui_dialog">
+    <div class="weui_dialog_hd">
+     <strong class="weui_dialog_title">温馨提示</strong>
+    </div>
+    <div class="weui_dialog_bd" id="dialog_alert_Mes" style="color:#000000"></div>
+    <div class="weui_dialog_ft">
+     <a onclick="dialog_alert_Hide();" id="okBtn" class="weui_btn_dialog primary">好</a>
+    </div>
+   </div>
+  </div>
+  <div id="zhezhao_share" style="position: fixed; left: 0px; right: 0px; top: 0px; bottom: 0px; display: none; background-color: rgba(0, 0, 0, 0.8);">
+   <p style="text-align: right; padding-left: 10px;color:#fff;font-size:20px"> <img src="../../images/q2.png" id="share-wx-img" style="width: 100%; padding-right: 15px;" /> </p>
+  </div>
+  <div id="statistical" style="display: none"></div>
+  <script th:inline="javascript">
 /*<![CDATA[*/
     var article = [[${article}]];
     var shareUrl = [[${shareUrl}]];
@@ -191,7 +181,7 @@
 
 /*]]>*/
 </script>
-<script>
+  <script>
 	function dialog_alert_Hide(){
 		$("#dialog_alert").hide();
 	}
@@ -223,6 +213,6 @@
 		location.href= article.wyArticle.gobackUrl;
 	}
 </script>
-  <div id="statistical" style="display: none"></div>
-<!-- 返回跳转 -->
-</body></html>
+  <!-- 返回跳转 -->
+ </body>
+</html>
