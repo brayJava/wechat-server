@@ -16,6 +16,16 @@
 		#cover-footer img.be-seller-avatar{width:40px; height:40px; display:block; margin:4px 4px; border-radius:4px;-webkit-border-radius:4px;-moz-border-radius:4px;-ms-border-radius:4px;-o-border-radius:4px;text-align:center; line-height:40px; font-size:16px;border:0px solid;}
 		#cover-footer a.be-seller-btn { height:40px; display:block; box-flex:1; -webkit-box-flex:1; -moz-box-flex:1; -ms-box-flex:1; -o-box-flex:1; margin:4px 4px; border-radius:4px;-webkit-border-radius:4px;-moz-border-radius:4px;-ms-border-radius:4px;-o-border-radius:4px;text-align:center; line-height:40px; font-size:16px;border:1px solid;list-style: none;}
 		#cover-footer a.be-seller-text{height:40px; display:block; box-flex:5; -webkit-box-flex:5; -moz-box-flex:5; -ms-box-flex:5; -o-box-flex:5; margin:4px 4px; border-radius:4px;-webkit-border-radius:4px;-moz-border-radius:4px;-ms-border-radius:4px;-o-border-radius:4px;text-align:left; line-height:20px; font-size:12px;border:0px solid;color: #000}
+         .fhclass {
+                width: 30px;
+                height: 30px;
+                top: 20px;
+                left: 20px;
+                position: fixed;
+                /*animation: myrotate 1.2s linear infinite;*/
+                /*-webkit-animation: myrotate 2s linear infinite;*/
+                border-radius: 15px;
+         }
 	</style>
 	<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
 	<script src="../../js/ds.js"></script>
@@ -76,8 +86,30 @@
                class="cke_widget_element" width="100%" />
           </a>
       </p>
-      <p><a target="_blank" th:href="${article.wyArticle.gobackUrl}"><img alt="" src="https://pub-files.jinshuju.net/di/20181110221010_0d0d66" class="cke_widget_element" width="100%" /></a></p>
       <p><br /></p>
+       <div id="fanhui">
+              <a target="_blank"   th:href="${article.wyArticle.imageGobackUrl}">
+                 <img class="fhclass" src="https://pub-files.jinshuju.net/di/20181015160222_ae4f6c" />
+              </a>
+         </div>
+         <br id="js_toobar" style="padding-top:10px;margin-top: 18px;margin-left: 10px;color: #8c8c8c;line-height: 32px;font-size: 17px;height: 32px;">
+             <div  th:if="${article.wyArticle.readOriginalUrl != ''}">
+                  <a style="color:#607fa6;float: left;margin-right: 10px;text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);" id="js_view_source"  th:href="${article.wyArticle.readOriginalUrl}">阅读原文</a>
+                 <div id="js_read_area" style="float: left;margin-right: 10px;">
+                  阅读
+                  <span id="" readnum="">100000+</span>
+                 </div>
+                 <div id="like" style="margin-right: 0;margin-left: 8px;float: left;-webkit-tap-highlight-color: rgba(0,0,0,0);outline: 0;min-width: 3.5em;">
+                  <i style="position: relative;top: 1px;margin-right: 3px;background: transparent url(../../images/4dfc41519a5447a1b31bb991f6ad7f0d.gif) no-repeat;width: 23px;height: 18px;display: inline-block;-webkit-background-size: 100% auto;background-size: 100% auto;"></i>
+                  <span class="praise_num" id="likeNum">15002</span>
+                 </div>
+                 <div style="float: right;margin-right: 10px;">
+                 </div>
+             </div>
+             &nbsp;&nbsp; &nbsp;&nbsp;<a style="text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);color: #607fa6;"  href="javascript: clickJB();">举报</a>
+             </br>
+             </div>
+         </div>
 <div class="weui_dialog_alert" id="dialog_alert" style="display:none;color:#000000">
 <div class="weui_mask"></div>
    <div class="weui_dialog">
@@ -148,6 +180,17 @@
 			// 分享给好友
 			wx.onMenuShareAppMessage(shareData);
 		});
+      function clickfh() {
+           location.href= res.data.imgnews_goback_url;
+       }
+       function clickyd() {
+           location.href= res.data.imgnews_read_riginal_Url;
+
+       }
+      function clickJB() {
+           location.href = '/ts.html';
+       }
+
 /*]]>*/
 </script>
 <script>
