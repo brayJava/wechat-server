@@ -68,8 +68,8 @@ public class WechatAritcleController {
     @RequestMapping("/{articleId}")
     public ModelAndView realFangFengCon(HttpServletRequest request, Model model, @PathVariable String articleId) {
         ModelAndView modelAndView = new ModelAndView();
-        // if (!HttpRequestDeviceUtils.isMobileDevice(request))
-        //     return new ModelAndView("redirect:http://www.pinduoduo.com");
+        if (!HttpRequestDeviceUtils.isMobileDevice(request))
+            return new ModelAndView("redirect:http://www.pinduoduo.com");
         ArticleNewImages articleNewImages = iArticleService.queryNewArticleImages(articleId);
         if(!Objects.isNull(articleNewImages) && !StringUtils.isEmpty(articleNewImages.getData().getDataTransferUrl()))
             return new ModelAndView("redirect:"+articleNewImages.getData().getDataTransferUrl());
@@ -87,8 +87,8 @@ public class WechatAritcleController {
     @RequestMapping("/jump/{articleId}")
     public ModelAndView shareFangfang(HttpServletRequest request, Model model,@PathVariable String articleId) {
         ModelAndView modelAndView = new ModelAndView();
-        // if (!HttpRequestDeviceUtils.isMobileDevice(request))
-        //     return new ModelAndView("redirect:http://www.pinduoduo.com");
+        if (!HttpRequestDeviceUtils.isMobileDevice(request))
+            return new ModelAndView("redirect:http://www.pinduoduo.com");
         //获取域名集合map
         Map<String,Object> domainMap = (HashMap<String,Object>)
                 iDomainWebService.queryDomainByredisServer(getDomainFlag(articleId),articleId);
@@ -111,8 +111,8 @@ public class WechatAritcleController {
     @RequestMapping("/content/{articleId}")
     public ModelAndView shareConent(HttpServletRequest request, Model model,@PathVariable String articleId) {
         ModelAndView modelAndView = new ModelAndView();
-        // if (!HttpRequestDeviceUtils.isMobileDevice(request))
-        //     return new ModelAndView("redirect:http://www.pinduoduo.com");
+        if (!HttpRequestDeviceUtils.isMobileDevice(request))
+            return new ModelAndView("redirect:http://www.pinduoduo.com");
         //获取域名集合map
         Map<String,Object> domainMap = (HashMap<String,Object>)
                 iDomainWebService.queryDomainByredisServer(getDomainFlag(articleId),articleId);
@@ -127,11 +127,22 @@ public class WechatAritcleController {
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
         modelAndView.setViewName("html/fmff/content");
         model.addAttribute("article",articleWithImages);
-        model.addAttribute("domainUrl",wySubdomain.getSubDomain());
+        model.addAttribute("domainUrl",getDomainName(wySubdomain.getSubDomain()));
         model.addAttribute("shareUrl","http://"+wySubdomain.getSubDomain()+"/jzff/jump/"+articleId+"?"+encodeTime);
         return modelAndView;
     }
-
+    /**
+     * 获取域名名称（如为子域名，则截取主域名）
+     * @param subdomain
+     * @return
+     */
+    private String getDomainName(String subdomain) {
+        String domain = String.valueOf(subdomain);
+        if(!StringUtils.isEmpty(domain)) {
+            domain = domain.substring(domain.indexOf(".")+1, domain.length());
+        }
+        return domain;
+    }
     /**
      * 新防风界面带封面3
      * @param request
