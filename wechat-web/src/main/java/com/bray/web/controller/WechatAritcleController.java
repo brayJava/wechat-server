@@ -59,6 +59,23 @@ public class WechatAritcleController {
     @Autowired
     private ApplicationContext applicationContext;
 
+    /***************************一张张加载图片分享start*******************************/
+    /**
+     * 新防风界面带封面2
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/jump-xwwd/{articleId}")
+    public ModelAndView JZFF(HttpServletRequest request, Model model,@PathVariable String articleId) {
+        ModelAndView modelAndView = new ModelAndView();
+        // if (!HttpRequestDeviceUtils.isMobileDevice(request))
+        //         //         //     return new ModelAndView("redirect:http://www.pinduoduo.com");
+        //获取域名集合map
+        WySubdomain wySubdomain = getWySubdomain(articleId, WebConst.SUB_COMMON_DOMAIN);
+        String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
+        return new ModelAndView("redirect:http://" + wySubdomain.getSubDomain() + "/jzff/" + articleId + "?" + encodeTime+"#cf6ad8d9c8244629d29463e67b4ae0f5");
+    }
     /**
      * 新防封内容展示
      *
@@ -68,16 +85,23 @@ public class WechatAritcleController {
     @RequestMapping("/{articleId}")
     public ModelAndView realFangFengCon(HttpServletRequest request, Model model, @PathVariable String articleId) {
         ModelAndView modelAndView = new ModelAndView();
-        if (!HttpRequestDeviceUtils.isMobileDevice(request))
-            return new ModelAndView("redirect:http://www.pinduoduo.com");
+        // if (!HttpRequestDeviceUtils.isMobileDevice(request))
+        //     return new ModelAndView("redirect:http://www.pinduoduo.com");
         ArticleNewImages articleNewImages = iArticleService.queryNewArticleImages(articleId);
         if(!Objects.isNull(articleNewImages) && !StringUtils.isEmpty(articleNewImages.getData().getDataTransferUrl()))
-            return new ModelAndView("redirect:"+articleNewImages.getData().getDataTransferUrl());
+        return new ModelAndView("redirect:"+articleNewImages.getData().getDataTransferUrl());
+        String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
+        WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_SHARE_DOMAIN);
         model.addAttribute("newarticle", Base64Util.encode(JSONObject.toJSONString(articleNewImages)));
+        model.addAttribute("domainUrl",getDomainName(wySubdomain.getSubDomain()));
+        model.addAttribute("shareUrl","http://"+wySubdomain.getSubDomain()+"/jzff/jump-xwwd/"+articleId+"?"+encodeTime);
         model.addAttribute("article", articleNewImages);
         modelAndView.setViewName("html/newff2/jiazaiHtml");
         return modelAndView;
     }
+    /***************************一张张加载图片分享end*******************************/
+
+    /***************************一张雪平台加载图片分享start***************************/
     /**
      * 新防风界面带封面2
      * @param request
@@ -90,15 +114,7 @@ public class WechatAritcleController {
         if (!HttpRequestDeviceUtils.isMobileDevice(request))
             return new ModelAndView("redirect:http://www.pinduoduo.com");
         //获取域名集合map
-        Map<String,Object> domainMap = (HashMap<String,Object>)
-                iDomainWebService.queryDomainByredisServer(getDomainFlag(articleId),articleId);
-        List<WySubdomain> wySubdomains = (List<WySubdomain>) domainMap.get(WebConst.SUB_COMMON_DOMAIN);
-        WySubdomain wySubdomain = new WySubdomain();
-        if(!StringUtils.isEmpty(wySubdomains)) {
-            wySubdomain = wySubdomains.get(0);
-        } else {
-            wySubdomain.setSubDomain("www.pinduoduo.com");
-        }
+        WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_COMMON_DOMAIN);
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
         return new ModelAndView("redirect:http://"+wySubdomain.getSubDomain()+"/jzff/content/"+articleId+"?"+encodeTime);
     }
@@ -113,16 +129,7 @@ public class WechatAritcleController {
         ModelAndView modelAndView = new ModelAndView();
         if ( !HttpRequestDeviceUtils.isMobileDevice(request) )
             return new ModelAndView("redirect:http://www.pinduoduo.com");
-        //获取域名集合map
-        Map<String,Object> domainMap = (HashMap<String,Object>)
-                iDomainWebService.queryDomainByredisServer(getDomainFlag(articleId),articleId);
-        List<WySubdomain> wySubdomains = (List<WySubdomain>) domainMap.get(WebConst.SUB_SHARE_DOMAIN);
-        WySubdomain wySubdomain = new WySubdomain();
-        if(!StringUtils.isEmpty(wySubdomains)) {
-            wySubdomain = wySubdomains.get(0);
-        } else {
-            wySubdomain.setSubDomain("www.pinduoduo.com");
-        }
+        WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_SHARE_DOMAIN);
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
         modelAndView.setViewName("html/fmff/content");
@@ -131,18 +138,67 @@ public class WechatAritcleController {
         model.addAttribute("shareUrl","http://"+wySubdomain.getSubDomain()+"/jzff/jump/"+articleId+"?"+encodeTime);
         return modelAndView;
     }
+    /***************************一张雪平台加载图片分享end*******************************/
+
+    /***************************万铭公司平台加载图片分享start*******************************/
     /**
-     * 获取域名名称（如为子域名，则截取主域名）
-     * @param subdomain
+     * 新防风界面带封面2
+     * @param request
+     * @param model
      * @return
      */
-    private String getDomainName(String subdomain) {
-        String domain = String.valueOf(subdomain);
-        if(!StringUtils.isEmpty(domain)) {
-            domain = domain.substring(domain.indexOf(".")+1, domain.length());
-        }
-        return domain;
+    @RequestMapping("/jump-wx/{articleId}")
+    public ModelAndView wmpt(HttpServletRequest request, Model model,@PathVariable String articleId) {
+        ModelAndView modelAndView = new ModelAndView();
+        // if (!HttpRequestDeviceUtils.isMobileDevice(request))
+        //     return new ModelAndView("redirect:http://www.pinduoduo.com");
+        //获取域名集合map
+        WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_COMMON_DOMAIN);
+        String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
+            return new ModelAndView("redirect:http://"+wySubdomain.getSubDomain()+"/jzff/zsff?cid="+articleId+"#"+encodeTime);
     }
+    /**
+     * 新防封界面
+     * @param request
+     * @return
+     */
+    @RequestMapping("/zsff")
+    public ModelAndView realFangFeng(HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView();
+        // if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.pinduoduo.com");
+        modelAndView.setViewName("html/cyff/zsff");
+        return modelAndView;
+    }
+    /**
+     * 新防封内容展示
+     * @param request
+     * @param cid     文章id
+     * @return
+     */
+    @RequestMapping("/content")
+    @ResponseBody
+    public ArticleWithImages realFangFengCon(HttpServletRequest request, HttpServletResponse response, Model model,String cid) {
+        //获取图片相关信息
+        ArticleWithImages article = iArticleService.queryCurrentArticle(cid);
+        //取缓存
+        String html = String.valueOf(redisObj.getRedisValueByKey("images_list:"+cid));
+        if(StringUtils.isEmpty(html) || "null".equals(html)) {
+            model.addAttribute("article", article);
+            //手动渲染
+            SpringWebContext ctx = new SpringWebContext(request,response,
+                    request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+            html = thymeleafViewResolver.getTemplateEngine().process("images_list", ctx);
+            redisObj.saveDataToRedis("images_list:"+cid,html);
+        }
+        article.setContentHtml(html);
+        String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
+        WySubdomain wySubdomain = getWySubdomain(cid,WebConst.SUB_SHARE_DOMAIN);
+        article.setDomainUrl(getDomainName(wySubdomain.getSubDomain()));
+        article.setShareUrl("http://"+wySubdomain.getSubDomain()+"/jzff/jump-wx/"+cid+"?"+encodeTime);
+        log.info("日志输出：{}",request.getRequestURI().toString());
+        return article;
+    }
+    /***************************万铭公司平台加载图片分享end*******************************/
     /**
      * 新防风界面带封面3
      * @param request
@@ -172,6 +228,37 @@ public class WechatAritcleController {
         modelAndView.addObject("article",article);
         modelAndView.setViewName("html/wode/mylove");
         return modelAndView;
+    }
+    /**
+     * 获取域名
+     * @param articleId
+     * @return
+     */
+    private WySubdomain getWySubdomain(@PathVariable String articleId,String domainType) {
+        //获取域名集合map
+        Map<String,Object> domainMap = (HashMap<String,Object>)
+                iDomainWebService.queryDomainByredisServer(getDomainFlag(articleId),articleId);
+        List<WySubdomain> wySubdomains = (List<WySubdomain>) domainMap.get(domainType);
+        WySubdomain wySubdomain = new WySubdomain();
+        if(!StringUtils.isEmpty(wySubdomains)) {
+            wySubdomain = wySubdomains.get(0);
+        } else {
+            wySubdomain.setSubDomain("www.pinduoduo.com");
+        }
+        return wySubdomain;
+    }
+
+    /**
+     * 获取域名名称（如为子域名，则截取主域名）
+     * @param subdomain
+     * @return
+     */
+    private String getDomainName(String subdomain) {
+        String domain = String.valueOf(subdomain);
+        if(!StringUtils.isEmpty(domain)) {
+            domain = domain.substring(domain.indexOf(".")+1, domain.length());
+        }
+        return domain;
     }
     /**
      * 获取域名map集合值

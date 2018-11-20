@@ -162,6 +162,8 @@ public class ArticleServiceImpl implements IArticleService{
             articleVo.setImgnews_title(wyArticle.getTitle());
             articleVo.setImgnews_status("1");
             articleVo.setImgnews_bgm_url(wyArticle.getBgmUrl());
+            articleVo.setImgnews_forcedShare(wyArticle.getForcedShare());
+            articleVo.setImgnews_shareimg_url(wyArticle.getShareImgUrl());
             articleVo.setImgnews_cate("4");
             articleVo.setImgnews_keyword("x");
             articleVo.setImgnews_description(wyArticle.getShareDescribe());

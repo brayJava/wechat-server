@@ -21,6 +21,14 @@ public class ArticleWithImages implements Serializable{
      * 图片内容页
      */
     private String contentHtml;
+    /**
+     * 域名连接
+     */
+    private String domainUrl;
+    /**
+     * 分享域名连接
+     */
+    private String shareUrl;
 
     private List<WyArticleImg> wyArticleImgs;
 }

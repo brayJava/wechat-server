@@ -44,32 +44,29 @@
     <div class="list-block">
      <ul class="list-container">
      </ul>
-      <div id="fanhui" style="display: none">
-      <a target="_blank" href="javascript: clickfh();">
-         <img class="fhclass" src="//pub-files.jinshuju.net/di/20181015160222_ae4f6c" />
-      </a>
-     </div>
-     <div id="js_toobar" style="padding-top:10px;margin-top: 18px;margin-left: 10px;color: #8c8c8c;line-height: 32px;font-size: 17px;height: 32px;">
-            <div style="display: none">
-                 <a style="color:#607fa6;float: left;margin-right: 10px;text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);" id="js_view_source" href="javascript: clickyd();">阅读原文</a>
-                <div id="js_read_area" style="float: left;margin-right: 10px;">
-                 阅读
-                 <span id="" readnum="">100000+</span>
-                </div>
-                <div id="like" style="margin-right: 0;margin-left: 8px;float: left;-webkit-tap-highlight-color: rgba(0,0,0,0);outline: 0;min-width: 3.5em;">
-                 <i style="position: relative;top: 1px;margin-right: 3px;background: transparent url(../images/4dfc41519a5447a1b31bb991f6ad7f0d.gif) no-repeat;width: 23px;height: 18px;display: inline-block;-webkit-background-size: 100% auto;background-size: 100% auto;"></i>
-                 <span class="praise_num" id="likeNum">16281</span>
-                </div>
-                <div style="float: right;margin-right: 10px;">
-                </div>
-            </div>
-            &nbsp;&nbsp; <a style="text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);color: #607fa6;"  href="javascript: clickJB();">投诉</a>
+      <div id="fanhui">
+        <a target="_blank" th:href="${article.data.imgnews_image_goback_url}"> <img class="fhclass" src="https://pub-files.jinshuju.net/di/20181015160222_ae4f6c" /> </a>
+       </div>
+       <div id="js_toobar" style="padding-top:10px;margin-top: 18px;margin-left: 10px;color: #8c8c8c;line-height: 32px;font-size: 17px;height: 32px;" th:if="${article.data.imgnews_read_riginal_Url != ''}">
+        <a style="color:#607fa6;float: left;margin-right: 10px;text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);" id="js_view_source" th:href="${article.data.imgnews_read_riginal_Url}">阅读原文</a>
+        <div id="js_read_area" style="float: left;margin-right: 10px;">
+          阅读
+         <span id="" readnum="">100000+</span>
         </div>
-    </div>
+        <div id="like" style="margin-right: 0;margin-left: 8px;float: left;-webkit-tap-highlight-color: rgba(0,0,0,0);outline: 0;min-width: 3.5em;">
+         <i style="position: relative;top: 1px;margin-right: 3px;background: transparent url(../../images/4dfc41519a5447a1b31bb991f6ad7f0d.gif) no-repeat;width: 23px;height: 18px;display: inline-block;-webkit-background-size: 100% auto;background-size: 100% auto;"></i>
+         <span class="praise_num" id="likeNum">15002</span>
+        </div>
+        <div style="float: right;margin-right: 10px;">
+         <a style="text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);color: #607fa6;" href="javascript: clickJB();">投诉</a>
+        </div>
+       </div>
+       <br/>
     <div class="infinite-scroll-preloader" style="display:none;">
      <div class="preloader"></div>
     </div>
    </div>
+  </div>
   </div>
   <div class="divider" style="background-color: #e5e5e5;overflow: hidden;height: 1px;margin: 9px 0;margin-top: 18px;"></div>
   <div id="audio" style="display:none;"></div>
@@ -77,7 +74,58 @@
   <script type="text/javascript" src="../js/light7.min.js"></script>
   <script th:inline="javascript">
     var rescle = [[${newarticle}]];
+    var shareUrl = [[${shareUrl}]];
+    var domainUrl = [[${domainUrl}]];
     var res;
+    var article = JSON.parse(base64Decode(rescle));
+
+    window.PREFIX_URL = "http://" + window.location.host + "/";
+       if(article.data.imgnews_forcedShare) {
+           $.ajax({
+               url: window.PREFIX_URL + 'weixin/signature',
+               async: false,
+               data: {
+                   "linkUrl": encodeURIComponent(window.location.href.split('#')[0]),
+                   "domainVerfiy": domainUrl
+               },
+               dataType: "json",
+               type: 'post',
+               success: function (data) {
+                   wx.config({
+                           debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                           appId: data.theAppId, // 必填，公众号的唯一标识
+                           timestamp:data.timestamp, // 必填，生成签名的时间戳
+                           nonceStr: data.noncestr, // 必填，生成签名的随机串
+                           signature: data.signature,// 必填，签名
+                           jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage'] // 必填，需要使用的JS接口列表
+                       });
+                       var num = 0;
+                       var nums =0;
+                       shareData = {
+                               title: article.data.imgnews_title, // 分享标题
+                               desc: article.data.imgnews_description, // 分享描述
+                               link: shareUrl, // 分享链接
+                               imgUrl: article.data.imgnews_shareimg_url, // 分享图片
+                               type: '', // 分享类型,music、video或link，不填默认为link
+                               dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                               success: function (e) {
+                                   setTimeout(function(){
+                                                           }, 500);
+                               },
+                               cancel: function () {//未分享成功
+                                   setTimeout(function(){
+                                                           }, 500);
+                               }
+                           }
+                       wx.ready(function(){
+                           // 分享到朋友圈
+                           wx.onMenuShareTimeline(shareData);
+                           // 分享给好友
+                           wx.onMenuShareAppMessage(shareData);
+                });
+               }
+           });
+       }
     /*<![CDATA[*/
     $(function(){
         window.xn = 1;
@@ -208,13 +256,16 @@
             return rv;
         }
     });
-    function clickfh() {
-        window.location.href= res.data.imgnews_goback_url;
-    }
-    function clickyd() {
-        window.location.href= res.data.imgnews_goback_url;
+     function clickfh() {
+           location.href= res.data.imgnews_goback_url;
+     }
+     function clickyd() {
+           location.href= res.data.imgnews_read_riginal_Url;
 
-    }
+     }
+     function clickJB() {
+           location.href = '/ts.html';
+     }
     /*]]>*/
 </script>
  </body>

@@ -7,6 +7,7 @@ import com.bray.dto.ConstFinal;
 import com.bray.dto.UrlConstant;
 import com.bray.model.Bo.ArticleWithImages;
 import com.bray.model.WyArticle;
+import com.bray.model.WySubdomain;
 import com.bray.service.IArticleService;
 import com.bray.service.IDomainWebService;
 import com.bray.util.Base64Util;
@@ -32,6 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.time.Clock;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -200,6 +202,7 @@ public class WechatController {
         return "html/random-common";
     }
 
+
     /**
      * 新防封界面
      * @param request
@@ -213,32 +216,6 @@ public class WechatController {
         modelAndView.setViewName("html/cyff/zsff");
         return modelAndView;
     }
-    /**
-     * 新防封内容展示
-     * @param request
-     * @param cid     文章id
-     * @return
-     */
-    @RequestMapping("/content")
-    @ResponseBody
-    public ArticleWithImages realFangFengCon(HttpServletRequest request, HttpServletResponse response, Model model,String cid) {
-        //获取图片相关信息
-        ArticleWithImages article = iArticleService.queryCurrentArticle(cid);
-        //取缓存
-        String html = String.valueOf(redisObj.getRedisValueByKey("images_list:"+cid));
-        if(StringUtils.isEmpty(html) || "null".equals(html)) {
-            model.addAttribute("article", article);
-            //手动渲染
-            SpringWebContext ctx = new SpringWebContext(request,response,
-                    request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
-            html = thymeleafViewResolver.getTemplateEngine().process("images_list", ctx);
-            redisObj.saveDataToRedis("images_list:"+cid,html);
-        }
-        article.setContentHtml(html);
-        log.info("日志输出：{}",request.getRequestURI().toString());
-        return article;
-    }
-
     /**
      * 获取域名map集合值
      * @param articleId
@@ -262,18 +239,6 @@ public class WechatController {
                             + File.separator+wyArticleImg.getImgPath())).collect(Collectors.toList());
         }
         return articleWithImages;
-    }
-    /**
-     * 获取域名名称（如为子域名，则截取主域名）
-     * @param jsonObject
-     * @return
-     */
-    private String getDomainName(JSONObject jsonObject) {
-        String domain = String.valueOf(jsonObject.get("domain"));
-        if(!StringUtils.isEmpty(domain)) {
-            domain = domain.substring(domain.indexOf(".")+1, domain.length());
-        }
-        return domain;
     }
     /**
      * 获取随机数据迁移连接（如果不是本项目连接，则之间返回迁移链接）
@@ -300,5 +265,17 @@ public class WechatController {
         wyArticle.setNoShareDomain(iArticleService.getNoShareDomainByArticleId(articleId));
         articleWithImages.setWyArticle(wyArticle);
         return articleWithImages;
+    }
+    /**
+     * 获取域名名称（如为子域名，则截取主域名）
+     * @param jsonObject
+     * @return
+     */
+    private String getDomainName(JSONObject jsonObject) {
+        String domain = String.valueOf(jsonObject.get("domain"));
+        if(!StringUtils.isEmpty(domain)) {
+            domain = domain.substring(domain.indexOf(".")+1, domain.length());
+        }
+        return domain;
     }
 }

@@ -21,14 +21,16 @@ var pic;
 var total;
 var music_url;
 var move_url;
+var jsonObj = {};
 window.PREFIX_URL = "http://" + window.location.host + "/";
 $.ajax({
-    url: window.PREFIX_URL + 'wechat/content',
+    url: window.PREFIX_URL + 'jzff/content',
     async: false,
     data: {"cid":cid},
     dataType: "json",
     type: 'post',
     success: function (article) {
+        jsonObj = article;
         content = article.contentHtml;
         title1 = article.wyArticle.title;
         title2 = '';
@@ -123,3 +125,49 @@ document.addEventListener(visibilityChangeEvent, onVisibilityChange);
 document.addEventListener("WeixinJSBridgeReady", function () {
     document.getElementById('myaudio').play();
 }, false);
+if(jsonObj.wyArticle.forcedShare) {
+    $.ajax({
+        url: window.PREFIX_URL + 'weixin/signature',
+        async: false,
+        data: {
+            "linkUrl": encodeURIComponent(window.location.href.split('#')[0]),
+            "domainVerfiy": jsonObj.domainUrl
+        },
+        dataType: "json",
+        type: 'post',
+        success: function (data) {
+            wx.config({
+                debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                appId: data.theAppId, // 必填，公众号的唯一标识
+                timestamp:data.timestamp, // 必填，生成签名的时间戳
+                nonceStr: data.noncestr, // 必填，生成签名的随机串
+                signature: data.signature,// 必填，签名
+                jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage'] // 必填，需要使用的JS接口列表
+            });
+            var num = 0;
+            var nums =0;
+            shareData = {
+                title: jsonObj.wyArticle.shareTitle, // 分享标题
+                desc: jsonObj.wyArticle.shareDescribe, // 分享描述
+                link: jsonObj.shareUrl, // 分享链接
+                imgUrl: jsonObj.wyArticle.shareImgUrl, // 分享图片
+                type: '', // 分享类型,music、video或link，不填默认为link
+                dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                success: function (e) {
+                    setTimeout(function(){
+                    }, 500);
+                },
+                cancel: function () {//未分享成功
+                    setTimeout(function(){
+                    }, 500);
+                }
+            }
+            wx.ready(function(){
+                // 分享到朋友圈
+                wx.onMenuShareTimeline(shareData);
+                // 分享给好友
+                wx.onMenuShareAppMessage(shareData);
+            });
+        }
+    });
+}

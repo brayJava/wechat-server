@@ -17,7 +17,7 @@ addEventListener("touchmove",
             e.preventDefault();
             if( $('#_domain_display').length <=0 )
             {
-                $('body').prepend('<div id="_domain_display" style="text-align:center;background-color:#272b2e;color:#65696c;height:0px;padding-top:15px;line-height:26px;font-size:12px;overflow:hidden;"><p>网页由 mp.weixin.qq.com 提供</p><p>QQ浏览器X5内核提供技术支持</p></div>');
+                $('body').prepend('<div id="_domain_display" style="text-align:center;background-color:#272b2e;color:#65696c;height:0px;padding-top:15px;line-height:26px;font-size:12px;overflow:hidden;"><p>网页由 news.qq.com 提供</p><p>QQ浏览器X5内核提供技术支持</p></div>');
             }
             $('#_domain_display').height((_touches_point2-_touches_point1));
 
