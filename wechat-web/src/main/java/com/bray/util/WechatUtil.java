@@ -51,11 +51,20 @@ public class WechatUtil {
         jsonObject.put("url",url);
         return jsonObject;
     }
+    //随机生成数字
     public static String getRandomNum() {
         String num = "";
         for(int i = 0; i < 6 ;i++) {
             num+=(int)Math.floor(Math.random()*10);
         }
         return num;
+    }
+    //随机生成字母字符串
+    public static String getRandomChar() {
+        String str = "";
+        for (int i = 0;i<8;i++){
+            str = str+ (char)(Math.random()*26+'a');
+        }
+        return str;
     }
 }

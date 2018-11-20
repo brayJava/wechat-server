@@ -11,6 +11,7 @@ import com.bray.service.IArticleService;
 import com.bray.service.IDomainWebService;
 import com.bray.util.Base64Util;
 import com.bray.util.HttpRequestDeviceUtils;
+import com.bray.util.WechatUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -74,7 +75,7 @@ public class WechatAritcleController {
         //获取域名集合map
         WySubdomain wySubdomain = getWySubdomain(articleId, WebConst.SUB_COMMON_DOMAIN);
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
-        return new ModelAndView("redirect:http://" + wySubdomain.getSubDomain() + "/jzff/" + articleId + "?" + encodeTime+"#cf6ad8d9c8244629d29463e67b4ae0f5");
+        return new ModelAndView("redirect:http://" + WechatUtil.getRandomChar()+"."+ wySubdomain.getSubDomain() + "/jzff/" + articleId + "?" + encodeTime+"#cf6ad8d9c8244629d29463e67b4ae0f5");
     }
     /**
      * 新防封内容展示
@@ -94,7 +95,7 @@ public class WechatAritcleController {
         WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_SHARE_DOMAIN);
         model.addAttribute("newarticle", Base64Util.encode(JSONObject.toJSONString(articleNewImages)));
         model.addAttribute("domainUrl",getDomainName(wySubdomain.getSubDomain()));
-        model.addAttribute("shareUrl","http://"+wySubdomain.getSubDomain()+"/jzff/jump-xwwd/"+articleId+"?"+encodeTime);
+        model.addAttribute("shareUrl","http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/jzff/jump-xwwd/"+articleId+"?"+encodeTime);
         model.addAttribute("article", articleNewImages);
         modelAndView.setViewName("html/newff2/jiazaiHtml");
         return modelAndView;
@@ -116,7 +117,7 @@ public class WechatAritcleController {
         //获取域名集合map
         WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_COMMON_DOMAIN);
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
-        return new ModelAndView("redirect:http://"+wySubdomain.getSubDomain()+"/jzff/content/"+articleId+"?"+encodeTime);
+        return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/jzff/content/"+articleId+"?"+encodeTime);
     }
     /**
      * 新防风界面带封面2
@@ -135,7 +136,7 @@ public class WechatAritcleController {
         modelAndView.setViewName("html/fmff/content");
         model.addAttribute("article",articleWithImages);
         model.addAttribute("domainUrl",getDomainName(wySubdomain.getSubDomain()));
-        model.addAttribute("shareUrl","http://"+wySubdomain.getSubDomain()+"/jzff/jump/"+articleId+"?"+encodeTime);
+        model.addAttribute("shareUrl","http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/jzff/jump/"+articleId+"?"+encodeTime);
         return modelAndView;
     }
     /***************************一张雪平台加载图片分享end*******************************/
@@ -155,7 +156,7 @@ public class WechatAritcleController {
         //获取域名集合map
         WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_COMMON_DOMAIN);
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
-            return new ModelAndView("redirect:http://"+wySubdomain.getSubDomain()+"/jzff/zsff?cid="+articleId+"#"+encodeTime);
+            return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/jzff/zsff?cid="+articleId+"#"+encodeTime);
     }
     /**
      * 新防封界面
@@ -194,7 +195,7 @@ public class WechatAritcleController {
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
         WySubdomain wySubdomain = getWySubdomain(cid,WebConst.SUB_SHARE_DOMAIN);
         article.setDomainUrl(getDomainName(wySubdomain.getSubDomain()));
-        article.setShareUrl("http://"+wySubdomain.getSubDomain()+"/jzff/jump-wx/"+cid+"?"+encodeTime);
+        article.setShareUrl("http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/jzff/jump-wx/"+cid+"?"+encodeTime);
         log.info("日志输出：{}",request.getRequestURI().toString());
         return article;
     }
