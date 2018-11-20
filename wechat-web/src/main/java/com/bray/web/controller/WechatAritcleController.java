@@ -69,8 +69,8 @@ public class WechatAritcleController {
     @RequestMapping("/jump-xwwd/{articleId}")
     public ModelAndView JZFF(HttpServletRequest request, Model model,@PathVariable String articleId) {
         ModelAndView modelAndView = new ModelAndView();
-        // if (!HttpRequestDeviceUtils.isMobileDevice(request))
-        //         //         //     return new ModelAndView("redirect:http://www.pinduoduo.com");
+        if (!HttpRequestDeviceUtils.isMobileDevice(request))
+               return new ModelAndView("redirect:http://www.pinduoduo.com");
         //获取域名集合map
         WySubdomain wySubdomain = getWySubdomain(articleId, WebConst.SUB_COMMON_DOMAIN);
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
@@ -85,8 +85,8 @@ public class WechatAritcleController {
     @RequestMapping("/{articleId}")
     public ModelAndView realFangFengCon(HttpServletRequest request, Model model, @PathVariable String articleId) {
         ModelAndView modelAndView = new ModelAndView();
-        // if (!HttpRequestDeviceUtils.isMobileDevice(request))
-        //     return new ModelAndView("redirect:http://www.pinduoduo.com");
+        if (!HttpRequestDeviceUtils.isMobileDevice(request))
+            return new ModelAndView("redirect:http://www.pinduoduo.com");
         ArticleNewImages articleNewImages = iArticleService.queryNewArticleImages(articleId);
         if(!Objects.isNull(articleNewImages) && !StringUtils.isEmpty(articleNewImages.getData().getDataTransferUrl()))
         return new ModelAndView("redirect:"+articleNewImages.getData().getDataTransferUrl());
@@ -150,8 +150,8 @@ public class WechatAritcleController {
     @RequestMapping("/jump-wx/{articleId}")
     public ModelAndView wmpt(HttpServletRequest request, Model model,@PathVariable String articleId) {
         ModelAndView modelAndView = new ModelAndView();
-        // if (!HttpRequestDeviceUtils.isMobileDevice(request))
-        //     return new ModelAndView("redirect:http://www.pinduoduo.com");
+        if (!HttpRequestDeviceUtils.isMobileDevice(request))
+            return new ModelAndView("redirect:http://www.pinduoduo.com");
         //获取域名集合map
         WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_COMMON_DOMAIN);
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
@@ -165,7 +165,7 @@ public class WechatAritcleController {
     @RequestMapping("/zsff")
     public ModelAndView realFangFeng(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
-        // if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.pinduoduo.com");
+        if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.pinduoduo.com");
         modelAndView.setViewName("html/cyff/zsff");
         return modelAndView;
     }
