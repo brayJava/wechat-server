@@ -29,10 +29,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.Clock;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @Author:wuzhiyuan
@@ -78,7 +75,7 @@ public class WechatAritcleController {
         //获取域名集合map
         WySubdomain wySubdomain = getWySubdomain(articleId, WebConst.SUB_COMMON_DOMAIN);
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
-        return new ModelAndView("redirect:http://" + WechatUtil.getRandomChar()+"."+ wySubdomain.getSubDomain() + "/jzff/" + articleId + "?" + encodeTime+"#cf6ad8d9c8244629d29463e67b4ae0f5");
+        return new ModelAndView("redirect:http://" + WechatUtil.getRandomChar()+"."+ wySubdomain.getSubDomain() + "/jzff/" + articleId + "?id="+encodeTime+"&gress=12306#cf6ad8d9c8244629d29463e67b4ae0f5");
     }
     /**
      * 新防封内容展示
@@ -89,16 +86,20 @@ public class WechatAritcleController {
     @RequestMapping("/{articleId}")
     public ModelAndView realFangFengCon(HttpServletRequest request, Model model, @PathVariable String articleId) {
         ModelAndView modelAndView = new ModelAndView();
-        if (!HttpRequestDeviceUtils.isMobileDevice(request))
-            return new ModelAndView("redirect:http://www.pinduoduo.com");
+        // if (!HttpRequestDeviceUtils.isMobileDevice(request))
+        //     return new ModelAndView("redirect:http://www.pinduoduo.com");
         ArticleNewImages articleNewImages = iArticleService.queryNewArticleImages(articleId);
-        if(!Objects.isNull(articleNewImages) && !StringUtils.isEmpty(articleNewImages.getData().getDataTransferUrl()))
-            return new ModelAndView("redirect:"+articleNewImages.getData().getDataTransferUrl());
+        // if(!Objects.isNull(articleNewImages) && !StringUtils.isEmpty(articleNewImages.getData().getDataTransferUrl()))
+        //     return new ModelAndView("redirect:"+articleNewImages.getData().getDataTransferUrl());
+        //判断是否开启防封记录，如何开启，则打开记录防封
+        if(articleNewImages.getData().isImgnews_forcedShare() && redislogff(request)) {
+            return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".189nfds.cn/cc");
+        }
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
         WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_SHARE_DOMAIN);
         model.addAttribute("newarticle", Base64Util.encode(JSONObject.toJSONString(articleNewImages)));
         model.addAttribute("domainUrl",getDomainName(wySubdomain.getSubDomain()));
-        model.addAttribute("shareUrl","http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/jzff/jump-xwwd/"+articleId+"?"+encodeTime);
+            model.addAttribute("shareUrl","http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/jzff/jump-xwwd/"+articleId+"?"+encodeTime);
         model.addAttribute("article", articleNewImages);
         modelAndView.setViewName("html/newff2/jiazaiHtml");
         return modelAndView;
@@ -120,7 +121,7 @@ public class WechatAritcleController {
         //获取域名集合map
         WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_COMMON_DOMAIN);
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
-        return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/jzff/content/"+articleId+"?"+encodeTime);
+        return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/jzff/content/"+articleId+"?id="+encodeTime);
     }
     /**
      * 新防风界面带封面2
@@ -131,11 +132,15 @@ public class WechatAritcleController {
     @RequestMapping("/content/{articleId}")
     public ModelAndView shareConent(HttpServletRequest request, Model model,@PathVariable String articleId) {
         ModelAndView modelAndView = new ModelAndView();
-        if ( !HttpRequestDeviceUtils.isMobileDevice(request) )
-            return new ModelAndView("redirect:http://www.pinduoduo.com");
+        // if ( !HttpRequestDeviceUtils.isMobileDevice(request) )
+        //     return new ModelAndView("redirect:http://www.pinduoduo.com");
+        ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
+        //判断是否开启防封记录，如何开启，则打开记录防封
+        if(articleWithImages.getWyArticle().getForcedShare() && redislogff(request)) {
+            return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".189nfds.cn/cc");
+        }
         WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_SHARE_DOMAIN);
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
-        ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
         modelAndView.setViewName("html/fmff/content");
         model.addAttribute("article",articleWithImages);
         model.addAttribute("domainUrl",getDomainName(wySubdomain.getSubDomain()));
@@ -159,7 +164,7 @@ public class WechatAritcleController {
         //获取域名集合map
         WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_COMMON_DOMAIN);
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
-        return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/jzff/zsff?cid="+articleId+"#"+encodeTime);
+        return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/jzff/zsff?id="+encodeTime+"&cid="+articleId);
     }
     /**
      * 新防封界面
@@ -167,9 +172,14 @@ public class WechatAritcleController {
      * @return
      */
     @RequestMapping("/zsff")
-    public ModelAndView realFangFeng(HttpServletRequest request) {
+    public ModelAndView realFangFeng(HttpServletRequest request,String cid,String id) {
         ModelAndView modelAndView = new ModelAndView();
-        if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.pinduoduo.com");
+        // if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.pinduoduo.com");
+        ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(cid);
+        //判断是否开启防封记录，如何开启，则打开记录防封
+        if(articleWithImages.getWyArticle().getForcedShare() && redislogff(request)) {
+            return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".189nfds.cn/cc");
+        }
         modelAndView.setViewName("html/cyff/zsff");
         return modelAndView;
     }
@@ -271,5 +281,35 @@ public class WechatAritcleController {
      */
     private String getDomainFlag(@PathVariable String articleId) {
         return ConstFinal.DOMAIN_MAP+"_"+articleId;
+    }
+    /**
+     * 是否添加了防封记录 ，存在就打不开
+     * @param request
+     * @return
+     */
+    private boolean redislogff(HttpServletRequest request) {
+        boolean islog = false;
+        /******防封缓存界面只能访问一次，再次访问如果存在则打开失败**********/
+        String requestURI = request.getRequestURI();
+        String contentUrlCache = requestURI.substring(requestURI.lastIndexOf("/") + 1, requestURI.length());
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        Iterator<Map.Entry<String, String[]>> iterator = parameterMap.entrySet().iterator();
+        String encode = "";
+        while (iterator.hasNext()) {
+            Map.Entry<String, String[]> next = iterator.next();
+            String key = next.getKey();
+            if("id".equals(key)) {
+                encode = String.valueOf(next.getValue()[0]);
+            }
+        }
+        String existHtmlUrl = iArticleService.queryExistHtmlUrl(contentUrlCache+encode);
+        log.info("访问链接：{}，访问时间戳：{}",requestURI,existHtmlUrl);
+        if(!StringUtils.isEmpty(existHtmlUrl)) {
+            islog = true;
+        } else {
+            iArticleService.insertHtmlUrlToRedis(contentUrlCache+encode);
+        }
+        /******************防封缓存界面只能访问一次，end***************/
+        return islog;
     }
 }

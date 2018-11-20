@@ -65,6 +65,6 @@ public class WechatUtil {
         for (int i = 0;i<8;i++){
             str = str+ (char)(Math.random()*26+'a');
         }
-        return str;
+        return str.trim();
     }
 }

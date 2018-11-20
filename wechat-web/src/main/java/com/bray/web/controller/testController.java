@@ -29,10 +29,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.Clock;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @Author:wuzhiyuan
@@ -76,7 +73,9 @@ public class testController
         WySubdomain wySubdomain = getWySubdomain(articleId, WebConst.SUB_COMMON_DOMAIN);
         String fftime = Clock.systemDefaultZone().millis() + "";
         String encodeTime = Base64Util.encode(fftime);
-        return new ModelAndView("redirect:http://" + WechatUtil.getRandomChar()+"."+ wySubdomain.getSubDomain() + "/test/" + articleId + "/"+fftime+"?" + encodeTime+"#cf6ad8d9c8244629d29463e67b4ae0f5");
+        String domain = WechatUtil.getRandomChar() + "." + wySubdomain.getSubDomain();
+        domain = "localhost:8081";
+        return new ModelAndView("redirect:http://" + domain + "/test/" + articleId +"?id="+encodeTime+"&gress=12306#cf6ad8d9c8244629d29463e67b4ae0f5");
     }
     /**
      * 新防封内容展示 (落地页)
@@ -84,24 +83,23 @@ public class testController
      * @param articleId 文章id
      * @return
      */
-    @RequestMapping("/{articleId}/{timstamp}")
-    public ModelAndView realFangFengCon(HttpServletRequest request, Model model, @PathVariable String articleId,@PathVariable String timstamp) {
+    @RequestMapping("/{articleId}")
+    public ModelAndView realFangFengCon(HttpServletRequest request, Model model, @PathVariable String articleId) {
         ModelAndView modelAndView = new ModelAndView();
         // if (!HttpRequestDeviceUtils.isMobileDevice(request))
         //     return new ModelAndView("redirect:http://www.pinduoduo.com");
         ArticleNewImages articleNewImages = iArticleService.queryNewArticleImages(articleId);
-        if(!Objects.isNull(articleNewImages) && !StringUtils.isEmpty(articleNewImages.getData().getDataTransferUrl()))
-            return new ModelAndView("redirect:"+articleNewImages.getData().getDataTransferUrl());
+        // if(!Objects.isNull(articleNewImages) && !StringUtils.isEmpty(articleNewImages.getData().getDataTransferUrl()))
+        //     return new ModelAndView("redirect:"+articleNewImages.getData().getDataTransferUrl());
         //判断是否开启防封记录，如何开启，则打开记录防封
         if(articleNewImages.getData().isImgnews_forcedShare() && redislogff(request)) {
-            // return new ModelAndView("redirect:http://"+Clock.systemDefaultZone().millis()+"/cc");
-            return new ModelAndView("redirect:http://www.baidu.com");
+            return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".189nfds.cn/cc");
         }
-        String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
+        String encode = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
         WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_SHARE_DOMAIN);
         model.addAttribute("newarticle", Base64Util.encode(JSONObject.toJSONString(articleNewImages)));
         model.addAttribute("domainUrl",getDomainName(wySubdomain.getSubDomain()));
-        model.addAttribute("shareUrl","http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/test/jump-xwwd/"+articleId+"?"+encodeTime);
+        model.addAttribute("shareUrl","http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/test/jump-xwwd/"+articleId+"?"+encode);
         model.addAttribute("article", articleNewImages);
         modelAndView.setViewName("html/newff2/jiazaiHtml");
         return modelAndView;
@@ -124,7 +122,9 @@ public class testController
         WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_COMMON_DOMAIN);
         String fftime = Clock.systemDefaultZone().millis() + "";
         String encodeTime = Base64Util.encode(fftime);
-        return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/test/content/"+articleId+"/"+fftime+"?"+encodeTime);
+        String domain = WechatUtil.getRandomChar() + "." + wySubdomain.getSubDomain();
+        domain = "localhost:8081";
+        return new ModelAndView("redirect:http://"+domain+"/test/content/"+articleId+"?id="+encodeTime);
     }
     /**
      * 新防风界面带封面2 (落地页)
@@ -132,8 +132,8 @@ public class testController
      * @param model
      * @return
      */
-    @RequestMapping("/content/{articleId}/{timstamp}")
-    public ModelAndView shareConent(HttpServletRequest request, Model model,@PathVariable String articleId,@PathVariable String timstamp) {
+    @RequestMapping("/content/{articleId}")
+    public ModelAndView shareConent(HttpServletRequest request, Model model,@PathVariable String articleId) {
         ModelAndView modelAndView = new ModelAndView();
         // if ( !HttpRequestDeviceUtils.isMobileDevice(request) )
         //     return new ModelAndView("redirect:http://www.pinduoduo.com");
@@ -142,7 +142,7 @@ public class testController
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
         //判断是否开启防封记录，如何开启，则打开记录防封
         if(articleWithImages.getWyArticle().getForcedShare() && redislogff(request)) {
-            return new ModelAndView("redirect:http://"+Clock.systemDefaultZone().millis()+"/cc");
+            return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".189nfds.cn/cc");
         }
         modelAndView.setViewName("html/fmff/content");
         model.addAttribute("article",articleWithImages);
@@ -168,21 +168,23 @@ public class testController
         WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_COMMON_DOMAIN);
         String fftime = Clock.systemDefaultZone().millis() + "";
         String encodeTime = Base64Util.encode(fftime);
-        return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/test/zsff/"+articleId+"/"+fftime+"?cid="+articleId+"#"+encodeTime);
+        String domain = WechatUtil.getRandomChar() + "." + wySubdomain.getSubDomain();
+        domain = "localhost:8081";
+        return new ModelAndView("redirect:http://"+domain+"/test/new/zsff/"+articleId+"?id="+encodeTime+"&cid="+articleId);
     }
     /**
      * 新防封界面 (落地页)
      * @param request
      * @return
      */
-    @RequestMapping("/zsff/{articleId}/{timstamp}")
-    public ModelAndView realFangFeng(HttpServletRequest request,@PathVariable String timstamp,@PathVariable String articleId) {
+    @RequestMapping("new/zsff/{articleId}")
+    public ModelAndView realFangFeng(HttpServletRequest request,@PathVariable String articleId) {
         ModelAndView modelAndView = new ModelAndView();
         // if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.pinduoduo.com");
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
-        //判断是否开启防封记录，如何开启，则打开记录防封
+        //         //判断是否开启防封记录，如何开启，则打开记录防封
         if(articleWithImages.getWyArticle().getForcedShare() && redislogff(request)) {
-            return new ModelAndView("redirect:http://"+Clock.systemDefaultZone().millis()+"/cc");
+            return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".189nfds.cn/cc");
         }
         modelAndView.setViewName("html/cyff/zsff");
         return modelAndView;
@@ -296,12 +298,22 @@ public class testController
         /******防封缓存界面只能访问一次，再次访问如果存在则打开失败**********/
         String requestURI = request.getRequestURI();
         String contentUrlCache = requestURI.substring(requestURI.lastIndexOf("/") + 1, requestURI.length());
-        String existHtmlUrl = iArticleService.queryExistHtmlUrl(contentUrlCache);
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        Iterator<Map.Entry<String, String[]>> iterator = parameterMap.entrySet().iterator();
+        String encode = "";
+        while (iterator.hasNext()) {
+            Map.Entry<String, String[]> next = iterator.next();
+            String key = next.getKey();
+            if("id".equals(key)) {
+                encode = String.valueOf(next.getValue()[0]);
+            }
+        }
+        String existHtmlUrl = iArticleService.queryExistHtmlUrl(contentUrlCache+encode);
         log.info("访问链接：{}，访问时间戳：{}",requestURI,existHtmlUrl);
         if(!StringUtils.isEmpty(existHtmlUrl)) {
             islog = true;
         } else {
-            iArticleService.insertHtmlUrlToRedis(contentUrlCache);
+            iArticleService.insertHtmlUrlToRedis(contentUrlCache+encode);
         }
         /******************防封缓存界面只能访问一次，end***************/
         return islog;
