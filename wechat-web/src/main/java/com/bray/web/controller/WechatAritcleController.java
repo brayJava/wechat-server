@@ -86,11 +86,12 @@ public class WechatAritcleController {
     @RequestMapping("/{articleId}")
     public ModelAndView realFangFengCon(HttpServletRequest request, Model model, @PathVariable String articleId) {
         ModelAndView modelAndView = new ModelAndView();
-        // if (!HttpRequestDeviceUtils.isMobileDevice(request))
-        //     return new ModelAndView("redirect:http://www.pinduoduo.com");
+        if (!HttpRequestDeviceUtils.isMobileDevice(request))
+            return new ModelAndView("redirect:http://www.pinduoduo.com");
         ArticleNewImages articleNewImages = iArticleService.queryNewArticleImages(articleId);
-        // if(!Objects.isNull(articleNewImages) && !StringUtils.isEmpty(articleNewImages.getData().getDataTransferUrl()))
-        //     return new ModelAndView("redirect:"+articleNewImages.getData().getDataTransferUrl());
+        //shuju qinayi
+        if(!Objects.isNull(articleNewImages) && !StringUtils.isEmpty(articleNewImages.getData().getDataTransferUrl()))
+            return new ModelAndView("redirect:"+articleNewImages.getData().getDataTransferUrl());
         //判断是否开启防封记录，如何开启，则打开记录防封
         if(articleNewImages.getData().isImgnews_forcedShare() && redislogff(request)) {
             return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".189nfds.cn/cc");
@@ -118,6 +119,9 @@ public class WechatAritcleController {
         ModelAndView modelAndView = new ModelAndView();
         if (!HttpRequestDeviceUtils.isMobileDevice(request))
             return new ModelAndView("redirect:http://www.pinduoduo.com");
+        ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
+        if(!Objects.isNull(articleWithImages) && !StringUtils.isEmpty(articleWithImages.getWyArticle().getDataTransferUrl()))
+            return new ModelAndView("redirect:"+articleWithImages.getWyArticle().getDataTransferUrl());
         //获取域名集合map
         WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_COMMON_DOMAIN);
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
@@ -132,9 +136,11 @@ public class WechatAritcleController {
     @RequestMapping("/content/{articleId}")
     public ModelAndView shareConent(HttpServletRequest request, Model model,@PathVariable String articleId) {
         ModelAndView modelAndView = new ModelAndView();
-        // if ( !HttpRequestDeviceUtils.isMobileDevice(request) )
-        //     return new ModelAndView("redirect:http://www.pinduoduo.com");
+        if ( !HttpRequestDeviceUtils.isMobileDevice(request) )
+            return new ModelAndView("redirect:http://www.pinduoduo.com");
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
+        if(!Objects.isNull(articleWithImages) && !StringUtils.isEmpty(articleWithImages.getWyArticle().getDataTransferUrl()))
+            return new ModelAndView("redirect:"+articleWithImages.getWyArticle().getDataTransferUrl());
         //判断是否开启防封记录，如何开启，则打开记录防封
         if(articleWithImages.getWyArticle().getForcedShare() && redislogff(request)) {
             return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".189nfds.cn/cc");
@@ -161,6 +167,9 @@ public class WechatAritcleController {
         ModelAndView modelAndView = new ModelAndView();
         if (!HttpRequestDeviceUtils.isMobileDevice(request))
             return new ModelAndView("redirect:http://www.pinduoduo.com");
+        ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
+        if(!Objects.isNull(articleWithImages) && !StringUtils.isEmpty(articleWithImages.getWyArticle().getDataTransferUrl()))
+            return new ModelAndView("redirect:"+articleWithImages.getWyArticle().getDataTransferUrl());
         //获取域名集合map
         WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_COMMON_DOMAIN);
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
@@ -174,8 +183,10 @@ public class WechatAritcleController {
     @RequestMapping("/zsff")
     public ModelAndView realFangFeng(HttpServletRequest request,String cid,String id) {
         ModelAndView modelAndView = new ModelAndView();
-        // if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.pinduoduo.com");
+        if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.pinduoduo.com");
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(cid);
+        if(!Objects.isNull(articleWithImages) && !StringUtils.isEmpty(articleWithImages.getWyArticle().getDataTransferUrl()))
+            return new ModelAndView("redirect:"+articleWithImages.getWyArticle().getDataTransferUrl());
         //判断是否开启防封记录，如何开启，则打开记录防封
         if(articleWithImages.getWyArticle().getForcedShare() && redislogff(request)) {
             return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".189nfds.cn/cc");
