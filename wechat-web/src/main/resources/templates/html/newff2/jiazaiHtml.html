@@ -266,6 +266,12 @@
      function clickJB() {
            location.href = '/ts.html';
      }
+     function base64Decode(input) {
+         rv = window.atob(input);
+         rv = escape(rv);
+         rv = decodeURIComponent(rv);
+         return rv;
+     }
     /*]]>*/
 </script>
  </body>
