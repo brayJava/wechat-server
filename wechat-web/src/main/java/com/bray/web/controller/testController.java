@@ -69,14 +69,14 @@ public class testController
      * @return
      */
     @RequestMapping("/jump-xwwd/{articleId}")
-    public ModelAndView JZFF(HttpServletRequest request, Model model, @PathVariable String articleId) {
+    public ModelAndView test(HttpServletRequest request, Model model, @PathVariable String articleId) {
         // if (!HttpRequestDeviceUtils.isMobileDevice(request))
         //     return new ModelAndView("redirect:http://www.pinduoduo.com");
         //获取域名集合map
         WySubdomain wySubdomain = getWySubdomain(articleId, WebConst.SUB_COMMON_DOMAIN);
         String fftime = Clock.systemDefaultZone().millis() + "";
         String encodeTime = Base64Util.encode(fftime);
-        return new ModelAndView("redirect:http://" + WechatUtil.getRandomChar()+"."+ wySubdomain.getSubDomain() + "/jzff/" + articleId + "/"+fftime+"?" + encodeTime+"#cf6ad8d9c8244629d29463e67b4ae0f5");
+        return new ModelAndView("redirect:http://" + WechatUtil.getRandomChar()+"."+ wySubdomain.getSubDomain() + "/test/" + articleId + "/"+fftime+"?" + encodeTime+"#cf6ad8d9c8244629d29463e67b4ae0f5");
     }
     /**
      * 新防封内容展示 (落地页)
@@ -101,7 +101,7 @@ public class testController
         WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_SHARE_DOMAIN);
         model.addAttribute("newarticle", Base64Util.encode(JSONObject.toJSONString(articleNewImages)));
         model.addAttribute("domainUrl",getDomainName(wySubdomain.getSubDomain()));
-        model.addAttribute("shareUrl","http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/jzff/jump-xwwd/"+articleId+"?"+encodeTime);
+        model.addAttribute("shareUrl","http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/test/jump-xwwd/"+articleId+"?"+encodeTime);
         model.addAttribute("article", articleNewImages);
         modelAndView.setViewName("html/newff2/jiazaiHtml");
         return modelAndView;
@@ -124,7 +124,7 @@ public class testController
         WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_COMMON_DOMAIN);
         String fftime = Clock.systemDefaultZone().millis() + "";
         String encodeTime = Base64Util.encode(fftime);
-        return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/jzff/content/"+articleId+"/"+fftime+"?"+encodeTime);
+        return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/test/content/"+articleId+"/"+fftime+"?"+encodeTime);
     }
     /**
      * 新防风界面带封面2 (落地页)
@@ -147,7 +147,7 @@ public class testController
         modelAndView.setViewName("html/fmff/content");
         model.addAttribute("article",articleWithImages);
         model.addAttribute("domainUrl",getDomainName(wySubdomain.getSubDomain()));
-        model.addAttribute("shareUrl","http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/jzff/jump/"+articleId+"?"+encodeTime);
+        model.addAttribute("shareUrl","http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/test/jump/"+articleId+"?"+encodeTime);
         return modelAndView;
     }
     /***************************一张雪平台加载图片分享end*******************************/
@@ -168,7 +168,7 @@ public class testController
         WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_COMMON_DOMAIN);
         String fftime = Clock.systemDefaultZone().millis() + "";
         String encodeTime = Base64Util.encode(fftime);
-        return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/jzff/zsff/"+articleId+"/"+fftime+"?cid="+articleId+"#"+encodeTime);
+        return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/test/zsff/"+articleId+"/"+fftime+"?cid="+articleId+"#"+encodeTime);
     }
     /**
      * 新防封界面 (落地页)
@@ -212,7 +212,7 @@ public class testController
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
         WySubdomain wySubdomain = getWySubdomain(cid,WebConst.SUB_SHARE_DOMAIN);
         article.setDomainUrl(getDomainName(wySubdomain.getSubDomain()));
-        article.setShareUrl("http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/jzff/jump-wx/"+cid+"?"+encodeTime);
+        article.setShareUrl("http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/test/jump-wx/"+cid+"?"+encodeTime);
         log.info("日志输出：{}",request.getRequestURI().toString());
         return article;
     }
