@@ -72,6 +72,9 @@ public class WechatAritcleController {
         ModelAndView modelAndView = new ModelAndView();
         if (!HttpRequestDeviceUtils.isMobileDevice(request))
             return new ModelAndView("redirect:http://www.pinduoduo.com");
+        ArticleNewImages articleNewImages = iArticleService.queryNewArticleImages(articleId);
+        if(!Objects.isNull(articleNewImages) && !StringUtils.isEmpty(articleNewImages.getData().getDataTransferUrl()))
+            return new ModelAndView("redirect:"+articleNewImages.getData().getDataTransferUrl());
         //获取域名集合map
         WySubdomain wySubdomain = getWySubdomain(articleId, WebConst.SUB_COMMON_DOMAIN);
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
