@@ -124,8 +124,9 @@ public class WechatAritcleController {
             return new ModelAndView("redirect:"+articleWithImages.getWyArticle().getDataTransferUrl());
         //获取域名集合map
         WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_COMMON_DOMAIN);
-        String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
-        return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/jzff/content/"+articleId+"?id="+encodeTime);
+        String currentTime = Clock.systemDefaultZone().millis() + "";
+        String encodeTime = Base64Util.encode(currentTime);
+        return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/jzff/content/"+articleId+"?id="+encodeTime+"&secret="+currentTime);
     }
     /**
      * 新防风界面带封面2
