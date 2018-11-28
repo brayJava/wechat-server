@@ -186,7 +186,7 @@ public class testController
         if(articleWithImages.getWyArticle().getForcedShare() && redislogff(request)) {
             return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".189nfds.cn/cc");
         }
-        modelAndView.setViewName("html/cyff/zsff");
+        modelAndView.setViewName("html/cyff/newzsff");
         return modelAndView;
     }
     /**
