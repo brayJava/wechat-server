@@ -174,12 +174,6 @@ if(jsonObj.wyArticle.forcedShare) {
                 nonceStr: data.noncestr, // 必填，生成签名的随机串
                 signature: data.signature,// 必填，签名
                 jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage'], // 必填，需要使用的JS接口列表
-                success: function () {
-                    window.location.href = title7;
-                },
-                cancel: function () {
-                    window.location.href = title7;// 用户取消分享后执行的回调函数
-                }
             });
             var num = 0;
             var nums =0;
@@ -190,13 +184,11 @@ if(jsonObj.wyArticle.forcedShare) {
                 imgUrl: jsonObj.wyArticle.shareImgUrl, // 分享图片
                 type: '', // 分享类型,music、video或link，不填默认为link
                 dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
-                success: function (e) {
-                    setTimeout(function(){
-                    }, 500);
+                success: function () {
+                    window.location.href = title7;
                 },
-                cancel: function () {//未分享成功
-                    setTimeout(function(){
-                    }, 500);
+                cancel: function () {
+                    window.location.href = title7;// 用户取消分享后执行的回调函数
                 }
             }
             wx.ready(function(){
