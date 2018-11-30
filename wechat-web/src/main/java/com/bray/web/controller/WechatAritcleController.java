@@ -184,14 +184,14 @@ public class WechatAritcleController {
     @RequestMapping("/zsff")
     public ModelAndView realFangFeng(HttpServletRequest request,String cid,String id) {
         ModelAndView modelAndView = new ModelAndView();
-        // if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.pinduoduo.com");
+        if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.pinduoduo.com");
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(cid);
         if(!Objects.isNull(articleWithImages) && !StringUtils.isEmpty(articleWithImages.getWyArticle().getDataTransferUrl()))
             return new ModelAndView("redirect:"+articleWithImages.getWyArticle().getDataTransferUrl());
         //判断是否开启防封记录，如何开启，则打开记录防封
-        // if(articleWithImages.getWyArticle().getForcedShare() && redislogff(request)) {
-        //     return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".fffds.cn/24");
-        // }
+        if(articleWithImages.getWyArticle().getForcedShare() && redislogff(request)) {
+            return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".fffds.cn/24");
+        }
         modelAndView.setViewName("html/cyff/zsff");
         return modelAndView;
     }
