@@ -25,7 +25,7 @@ public class IndexController {
     @Resource
     private IOrderAdminService iOrderAdminService;
 
-    @RequestMapping("/home")
+    @RequestMapping("/wzylm")
     public String home() {
         return "index/index";
     }
