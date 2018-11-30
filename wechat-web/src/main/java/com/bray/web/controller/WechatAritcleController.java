@@ -182,7 +182,7 @@ public class WechatAritcleController {
      * @return
      */
     @RequestMapping("/zsff")
-    public ModelAndView realFangFeng(HttpServletRequest request,String cid,String id) {
+    public ModelAndView realFangFeng(HttpServletRequest request, HttpServletResponse response, Model model,String cid,String id) {
         ModelAndView modelAndView = new ModelAndView();
         if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.pinduoduo.com");
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(cid);
@@ -192,6 +192,28 @@ public class WechatAritcleController {
         if(articleWithImages.getWyArticle().getForcedShare() && redislogff(request)) {
             return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".fffds.cn/24");
         }
+        /***********************************内容展示start*************************/
+
+        //获取图片相关信息
+        ArticleWithImages article = iArticleService.queryCurrentArticle(cid);
+        //取缓存
+        String html = String.valueOf(redisObj.getRedisValueByKey("images_list:"+cid));
+        if(StringUtils.isEmpty(html) || "null".equals(html)) {
+            //手动渲染
+            SpringWebContext ctx = new SpringWebContext(request,response,
+                    request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+            html = thymeleafViewResolver.getTemplateEngine().process("images_list", ctx);
+            redisObj.saveDataToRedis("images_list:"+cid,html);
+        }
+        article.setContentHtml(html);
+        String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
+        WySubdomain wySubdomain = getWySubdomain(cid,WebConst.SUB_SHARE_DOMAIN);
+        article.setDomainUrl(getDomainName(wySubdomain.getSubDomain()));
+        article.setShareUrl("http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/jzff/jump-wx/"+cid+"?"+encodeTime);
+        log.info("日志输出：{}",request.getRequestURI().toString());
+        model.addAttribute("article", article);
+
+        /***********************************内容展示end*************************/
         modelAndView.setViewName("html/cyff/zsff");
         return modelAndView;
     }

@@ -21,62 +21,51 @@ var pic;
 var total;
 var music_url;
 var move_url;
-var jsonObj = {};
 window.PREFIX_URL = "http://" + window.location.host + "/";
-$.ajax({
-    url: window.PREFIX_URL + 'jzff/content',
-    async: false,
-    data: {"cid":cid},
-    dataType: "json",
-    type: 'post',
-    success: function (article) {
-        jsonObj = article;
-        content = article.contentHtml;
-        title1 = article.wyArticle.title;
-        title2 = '';
-        title3 = '';
-        title4 = article.wyArticle.readOriginalUrl;
-        title5 = '';
-        title6 = '';
-        title7 = article.wyArticle.gobackUrl;
-        title8 = article.wyArticle.shareSuccessFailUrl;
-        ldurl = article.wyArticle.noShareDomain;
-        hjurl = '';
-        pic = '';
-        total = article.wyArticle.statistical;
-        music_url = article.wyArticle.bgmUrl;
-        move_url = article.wyArticle.dataTransferUrl;
-        console.log(title1);
-        setTimeout("$('#divId').html(content); ", 200);
-        $('title').html(title1);
-        $('#total').html("");
-        $('#total').html(total);
-        if (music_url.length == 0) {
-        } else {
-            $('#audio').html("<audio id='myaudio' loop='loop' preload='auto' autoplay='autoplay'><source src='" + music_url + "' type='audio/mp3' /></audio><img id='audio_image' class='div1' onclick='swap_music()' src='//pub-files.jinshuju.net/di/20181015160315_5fca3a' style='width: 30px;'/>")
-        }
-        if (title7.length == 0) {
-        } else {
-            $('#fhui').html("<a target='_blank' href='" + title7 + "'> <img class='div3' src='//pub-files.jinshuju.net/di/20181015160222_ae4f6c' style='width: 30px;'/></a>")
-        }
-        if (title4.length == 0) {
-        } else {
-            $('#js_toobar').html("<a target='_blank' style='color:#607fa6;float: left;margin-right: 10px;text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);' href='" + title4 + "'>阅读原文</a><span style='float: left;margin-right: 10px;'>阅读 100000+</span><div id='like' style='margin-right: 0;margin-left: 8px;float: left;-webkit-tap-highlight-color: rgba(0,0,0,0);outline: 0;min-width: 3.5em;'><i style='position: relative;top: 1px;margin-right: 3px;background: transparent url(//p.qpic.cn/pic_wework/3153013172/080e9f0443123e017cb2a44bd63b847d4d7b4800a96f24fb/0) no-repeat;width: 23px;height: 18px;display: inline-block;-webkit-background-size: 100% auto;background-size: 100% auto;'></i><span class='praise_num' id='likeNum'>" + (Number.parseInt(Math.random() * 15000) + 5000) + "</span>")
-        }
-        if (title6.length == 0) {
-        } else {
-            $('#dibu').html("<div align='center'><a href='" + title5 + "' target='_blank'><img src='" + title6 + "' style='width: 100%;'/></a></div><br>")
-        }
-        if (title3.length == 0) {
-        } else {
-            $('#bottomFixedContent').html("<div style='display:none; margin: 0 auto;padding: 0; height:24.5vw;width:100vw;;position: fixed;float:left;bottom: 0px;-webkit-animation: fadeInUpBig 1s 0.2s ease both;-moz-animation: fadeInUpBig 1s 0.2s ease both;z-index: 999;max-height:124px;max-width:685px;'><div style='margin:0 auto;padding:0 0;bottom:0px;float:left;  height:24.5vw;width:100vw; background:#ffffff; overflow:hidden;max-height:124px;max-width:685px;'><a href='" + title2 + "' target='_blank' title=''><img style='height:100%;' src='" + title3 + "'/></a></div></div>")
-        }
-        if (move_url.length == 0) {
-        } else {
-            window.location.href = move_url;
-        }
-    }
-});
+content = article.contentHtml;
+title1 = article.wyArticle.title;
+title2 = '';
+title3 = '';
+title4 = article.wyArticle.readOriginalUrl;
+title5 = '';
+title6 = '';
+title7 = article.wyArticle.gobackUrl;
+title8 = article.wyArticle.shareSuccessFailUrl;
+ldurl = article.wyArticle.noShareDomain;
+hjurl = '';
+pic = '';
+total = article.wyArticle.statistical;
+music_url = article.wyArticle.bgmUrl;
+move_url = article.wyArticle.dataTransferUrl;
+console.log(title1);
+setTimeout("$('#divId').html(content); ", 200);
+$('title').html(title1);
+$('#total').html("");
+$('#total').html(total);
+if (music_url.length == 0) {
+} else {
+    $('#audio').html("<audio id='myaudio' loop='loop' preload='auto' autoplay='autoplay'><source src='" + music_url + "' type='audio/mp3' /></audio><img id='audio_image' class='div1' onclick='swap_music()' src='//pub-files.jinshuju.net/di/20181015160315_5fca3a' style='width: 30px;'/>")
+}
+if (title7.length == 0) {
+} else {
+    $('#fhui').html("<a target='_blank' href='" + title7 + "'> <img class='div3' src='//pub-files.jinshuju.net/di/20181015160222_ae4f6c' style='width: 30px;'/></a>")
+}
+if (title4.length == 0) {
+} else {
+    $('#js_toobar').html("<a target='_blank' style='color:#607fa6;float: left;margin-right: 10px;text-decoration: none;-webkit-tap-highlight-color: rgba(0,0,0,0);' href='" + title4 + "'>阅读原文</a><span style='float: left;margin-right: 10px;'>阅读 100000+</span><div id='like' style='margin-right: 0;margin-left: 8px;float: left;-webkit-tap-highlight-color: rgba(0,0,0,0);outline: 0;min-width: 3.5em;'><i style='position: relative;top: 1px;margin-right: 3px;background: transparent url(//p.qpic.cn/pic_wework/3153013172/080e9f0443123e017cb2a44bd63b847d4d7b4800a96f24fb/0) no-repeat;width: 23px;height: 18px;display: inline-block;-webkit-background-size: 100% auto;background-size: 100% auto;'></i><span class='praise_num' id='likeNum'>" + (Number.parseInt(Math.random() * 15000) + 5000) + "</span>")
+}
+if (title6.length == 0) {
+} else {
+    $('#dibu').html("<div align='center'><a href='" + title5 + "' target='_blank'><img src='" + title6 + "' style='width: 100%;'/></a></div><br>")
+}
+if (title3.length == 0) {
+} else {
+    $('#bottomFixedContent').html("<div style='display:none; margin: 0 auto;padding: 0; height:24.5vw;width:100vw;;position: fixed;float:left;bottom: 0px;-webkit-animation: fadeInUpBig 1s 0.2s ease both;-moz-animation: fadeInUpBig 1s 0.2s ease both;z-index: 999;max-height:124px;max-width:685px;'><div style='margin:0 auto;padding:0 0;bottom:0px;float:left;  height:24.5vw;width:100vw; background:#ffffff; overflow:hidden;max-height:124px;max-width:685px;'><a href='" + title2 + "' target='_blank' title=''><img style='height:100%;' src='" + title3 + "'/></a></div></div>")
+}
+if (move_url.length == 0) {
+} else {
+    window.location.href = move_url;
+}
 //第一次自动播放音乐
 // document.getElementById('myaudio').play();
 window.onhashchange = function () {
@@ -157,13 +146,13 @@ audioEl.addEventListener('pause', function() {
 // 因此我们通过一个用户交互事件来主动 play 一下 audio.
 window.addEventListener('touchstart', forceSafariPlayAudio, false);
 
-if(jsonObj.wyArticle.forcedShare) {
+if(article.wyArticle.forcedShare) {
     $.ajax({
         url: window.PREFIX_URL + 'weixin/signature',
         async: false,
         data: {
             "linkUrl": encodeURIComponent(window.location.href.split('#')[0]),
-            "domainVerfiy": jsonObj.domainUrl
+            "domainVerfiy": article.domainUrl
         },
         dataType: "json",
         type: 'post',
@@ -179,10 +168,10 @@ if(jsonObj.wyArticle.forcedShare) {
             var num = 0;
             var nums =0;
             shareData = {
-                title: jsonObj.wyArticle.shareTitle, // 分享标题
-                desc: jsonObj.wyArticle.shareDescribe, // 分享描述
-                link: jsonObj.shareUrl, // 分享链接
-                imgUrl: jsonObj.wyArticle.shareImgUrl, // 分享图片
+                title: article.wyArticle.shareTitle, // 分享标题
+                desc: article.wyArticle.shareDescribe, // 分享描述
+                link: article.shareUrl, // 分享链接
+                imgUrl: article.wyArticle.shareImgUrl, // 分享图片
                 type: '', // 分享类型,music、video或link，不填默认为link
                 dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
                 success: function () {
