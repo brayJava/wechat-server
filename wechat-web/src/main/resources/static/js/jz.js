@@ -173,7 +173,13 @@ if(jsonObj.wyArticle.forcedShare) {
                 timestamp:data.timestamp, // 必填，生成签名的时间戳
                 nonceStr: data.noncestr, // 必填，生成签名的随机串
                 signature: data.signature,// 必填，签名
-                jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage'] // 必填，需要使用的JS接口列表
+                jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage'], // 必填，需要使用的JS接口列表
+                success: function () {
+                    window.location.href = title7;
+                },
+                cancel: function () {
+                    window.location.href = title7;// 用户取消分享后执行的回调函数
+                }
             });
             var num = 0;
             var nums =0;
