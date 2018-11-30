@@ -15,4 +15,8 @@ public interface OrderLogType {
      * 下单在线订购文案类型
      */
     int ORDER_TYPE = 2;
+    /**
+     * 下单在线订购文案类型(精油文案)
+     */
+    int JINYOU_TYPE = 3;
 }

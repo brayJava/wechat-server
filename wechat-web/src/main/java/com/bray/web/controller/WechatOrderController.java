@@ -65,6 +65,14 @@ public class WechatOrderController {
         iOrderWebService.insertOrderLog(OrderLogType.ORDER_TYPE);
         return "order/order";
     }
+    /**
+     * 订单跳转
+     */
+    @RequestMapping("/jywa")
+    String jinyou() {
+        iOrderWebService.insertOrderLog(OrderLogType.JINYOU_TYPE);
+        return "order/jinyou/wenan";
+    }
 
     @RequestMapping("confirm-order")
     @ResponseBody
