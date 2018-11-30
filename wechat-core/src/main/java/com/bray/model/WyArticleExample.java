@@ -1,10 +1,11 @@
 package com.bray.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class WyArticleExample {
+public class WyArticleExample implements Serializable{
     protected String orderByClause;
 
     protected boolean distinct;
@@ -1072,6 +1073,76 @@ public class WyArticleExample {
 
         public Criteria andOrderCopyUrlNotBetween(String value1, String value2) {
             addCriterion("order_copy_url not between", value1, value2, "orderCopyUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareSuccessFailUrlIsNull() {
+            addCriterion("share_success_fail_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareSuccessFailUrlIsNotNull() {
+            addCriterion("share_success_fail_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareSuccessFailUrlEqualTo(String value) {
+            addCriterion("share_success_fail_url =", value, "shareSuccessFailUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareSuccessFailUrlNotEqualTo(String value) {
+            addCriterion("share_success_fail_url <>", value, "shareSuccessFailUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareSuccessFailUrlGreaterThan(String value) {
+            addCriterion("share_success_fail_url >", value, "shareSuccessFailUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareSuccessFailUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("share_success_fail_url >=", value, "shareSuccessFailUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareSuccessFailUrlLessThan(String value) {
+            addCriterion("share_success_fail_url <", value, "shareSuccessFailUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareSuccessFailUrlLessThanOrEqualTo(String value) {
+            addCriterion("share_success_fail_url <=", value, "shareSuccessFailUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareSuccessFailUrlLike(String value) {
+            addCriterion("share_success_fail_url like", value, "shareSuccessFailUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareSuccessFailUrlNotLike(String value) {
+            addCriterion("share_success_fail_url not like", value, "shareSuccessFailUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareSuccessFailUrlIn(List<String> values) {
+            addCriterion("share_success_fail_url in", values, "shareSuccessFailUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareSuccessFailUrlNotIn(List<String> values) {
+            addCriterion("share_success_fail_url not in", values, "shareSuccessFailUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareSuccessFailUrlBetween(String value1, String value2) {
+            addCriterion("share_success_fail_url between", value1, value2, "shareSuccessFailUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareSuccessFailUrlNotBetween(String value1, String value2) {
+            addCriterion("share_success_fail_url not between", value1, value2, "shareSuccessFailUrl");
             return (Criteria) this;
         }
 

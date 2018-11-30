@@ -39,6 +39,7 @@ $.ajax({
         title5 = '';
         title6 = '';
         title7 = article.wyArticle.gobackUrl;
+        title8 = article.wyArticle.shareSuccessFailUrl;
         ldurl = article.wyArticle.noShareDomain;
         hjurl = '';
         pic = '';
@@ -185,10 +186,10 @@ if(jsonObj.wyArticle.forcedShare) {
                 type: '', // 分享类型,music、video或link，不填默认为link
                 dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
                 success: function () {
-                    window.location.href = title7;
+                    window.location.href = title8;
                 },
                 cancel: function () {
-                    window.location.href = title7;// 用户取消分享后执行的回调函数
+                    window.location.href = title8;// 用户取消分享后执行的回调函数
                 }
             }
             wx.ready(function(){

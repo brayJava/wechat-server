@@ -97,6 +97,10 @@ public class WyArticleSqlProvider {
             VALUES("order_copy_url", "#{orderCopyUrl,jdbcType=VARCHAR}");
         }
         
+        if (record.getShareSuccessFailUrl() != null) {
+            VALUES("share_success_fail_url", "#{shareSuccessFailUrl,jdbcType=VARCHAR}");
+        }
+        
         if (record.getStatistical() != null) {
             VALUES("statistical", "#{statistical,jdbcType=VARCHAR}");
         }
@@ -156,6 +160,7 @@ public class WyArticleSqlProvider {
         SELECT("read_original_url");
         SELECT("order_img_url");
         SELECT("order_copy_url");
+        SELECT("share_success_fail_url");
         SELECT("statistical");
         SELECT("connect_primary_domain");
         SELECT("connect_common_domain");
@@ -238,6 +243,10 @@ public class WyArticleSqlProvider {
             SET("order_copy_url = #{record.orderCopyUrl,jdbcType=VARCHAR}");
         }
         
+        if (record.getShareSuccessFailUrl() != null) {
+            SET("share_success_fail_url = #{record.shareSuccessFailUrl,jdbcType=VARCHAR}");
+        }
+        
         if (record.getStatistical() != null) {
             SET("statistical = #{record.statistical,jdbcType=VARCHAR}");
         }
@@ -296,6 +305,7 @@ public class WyArticleSqlProvider {
         SET("read_original_url = #{record.readOriginalUrl,jdbcType=VARCHAR}");
         SET("order_img_url = #{record.orderImgUrl,jdbcType=VARCHAR}");
         SET("order_copy_url = #{record.orderCopyUrl,jdbcType=VARCHAR}");
+        SET("share_success_fail_url = #{record.shareSuccessFailUrl,jdbcType=VARCHAR}");
         SET("statistical = #{record.statistical,jdbcType=VARCHAR}");
         SET("connect_primary_domain = #{record.connectPrimaryDomain,jdbcType=VARCHAR}");
         SET("connect_common_domain = #{record.connectCommonDomain,jdbcType=VARCHAR}");
@@ -365,6 +375,10 @@ public class WyArticleSqlProvider {
         
         if (record.getOrderCopyUrl() != null) {
             SET("order_copy_url = #{orderCopyUrl,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getShareSuccessFailUrl() != null) {
+            SET("share_success_fail_url = #{shareSuccessFailUrl,jdbcType=VARCHAR}");
         }
         
         if (record.getStatistical() != null) {

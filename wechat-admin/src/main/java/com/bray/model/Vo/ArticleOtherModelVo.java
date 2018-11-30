@@ -38,6 +38,8 @@ public class ArticleOtherModelVo {
     private String orderImgUrl;
 
     private String orderCopyUrl;
+
+    private String shareSuccessFailUrl;
     //相关统计代码
     private String statistical;
 

@@ -113,6 +113,7 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
         wyArticle.setReadOriginalUrl(articleOtherModelVo.getReadOriginalUrl());
         wyArticle.setOrderImgUrl(articleOtherModelVo.getOrderImgUrl());
         wyArticle.setOrderCopyUrl(articleOtherModelVo.getOrderCopyUrl());
+        wyArticle.setShareSuccessFailUrl(articleOtherModelVo.getShareSuccessFailUrl());
         wyArticle.setStatistical(articleOtherModelVo.getStatistical());
         wyArticle.setIsOrderImg(ConstFinal.ARTICLE_STATUS
                 .equals(articleOtherModelVo.getOrderImg()) ? true : false);
@@ -155,6 +156,7 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
         wyArticle.setGobackUrl(articleOtherModelVo.getGobackUrl());
         wyArticle.setImageGobackUrl(articleOtherModelVo.getImageGobackUrl());
         wyArticle.setReadOriginalUrl(articleOtherModelVo.getReadOriginalUrl());
+        wyArticle.setShareSuccessFailUrl(articleOtherModelVo.getShareSuccessFailUrl());
         wyArticle.setOrderImgUrl(articleOtherModelVo.getOrderImgUrl());
         wyArticle.setOrderCopyUrl(articleOtherModelVo.getOrderCopyUrl());
         wyArticle.setStatistical(articleOtherModelVo.getStatistical());

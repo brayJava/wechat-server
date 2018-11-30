@@ -32,6 +32,8 @@ public class WyArticle implements Serializable{
 
     private String orderCopyUrl;
 
+    private String shareSuccessFailUrl;
+
     private String statistical;
 
     private String connectPrimaryDomain;
@@ -160,6 +162,14 @@ public class WyArticle implements Serializable{
 
     public void setOrderCopyUrl(String orderCopyUrl) {
         this.orderCopyUrl = orderCopyUrl == null ? null : orderCopyUrl.trim();
+    }
+
+    public String getShareSuccessFailUrl() {
+        return shareSuccessFailUrl;
+    }
+
+    public void setShareSuccessFailUrl(String shareSuccessFailUrl) {
+        this.shareSuccessFailUrl = shareSuccessFailUrl == null ? null : shareSuccessFailUrl.trim();
     }
 
     public String getStatistical() {
