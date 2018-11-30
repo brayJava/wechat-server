@@ -280,15 +280,15 @@ public class WechatAritcleController {
     @RequestMapping("/newff/{articleId}")
     public ModelAndView newFangFeng(HttpServletRequest request, Model model, HttpServletResponse response, @PathVariable String articleId) {
         ModelAndView modelAndView = new ModelAndView();
-        // if (!HttpRequestDeviceUtils.isMobileDevice(request))
-        //     return new ModelAndView("redirect:http://www.pinduoduo.com");
+        if (!HttpRequestDeviceUtils.isMobileDevice(request))
+            return new ModelAndView("redirect:http://www.pinduoduo.com");
 
         //获取图片相关信息
         ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
         //判断是否开启防封记录，如何开启，则打开记录防封
-        // if(article.getWyArticle().getForcedShare() && redislogff(request)) {
-        //     return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".fffds.cn/24");
-        // }
+        if(article.getWyArticle().getForcedShare() && redislogff(request)) {
+            return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".fffds.cn/24");
+        }
         //取缓存
         String html = String.valueOf(redisObj.getRedisValueByKey("images_content:"+articleId));
         if(StringUtils.isEmpty(html) || "null".equals(html)) {
