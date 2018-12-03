@@ -167,14 +167,18 @@ if(article.wyArticle.forcedShare) {
         timestamp: signatureJson.timestamp,
         nonceStr: signatureJson.noncestr,
         signature: signatureJson.signature,
-        jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'error']
+        jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage']
     });
 
     wx.ready(function () {
-        wx.onMenuShareTimeline({
+        alert(JSON.parse(article.wyArticle));
+        wx.onMenuShareAppMessage({
             title: article.wyArticle.shareTitle,
+            desc: article.wyArticle.shareDescribe,
             link: article.shareUrl,
             imgUrl: article.wyArticle.shareImgUrl,
+            type: '',
+            dataUrl: '',
             success: function () {
                 window.location.href = title8;
             },
@@ -182,7 +186,7 @@ if(article.wyArticle.forcedShare) {
                 window.location.href = title8;// 用户取消分享后执行的回调函数
             }
         });
-        wx.onMenuShareAppMessage({
+        wx.onMenuShareTimeline({
             title: article.wyArticle.shareTitle,
             desc: article.wyArticle.shareDescribe,
             link: article.shareUrl,
