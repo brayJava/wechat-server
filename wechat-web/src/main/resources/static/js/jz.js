@@ -159,7 +159,7 @@ $.ajax({
         signatureJson = data;
     }
 });
-
+alert(article.wyArticle)
 if(article.wyArticle.forcedShare) {
     wx.config({
         debug: true,
@@ -169,9 +169,8 @@ if(article.wyArticle.forcedShare) {
         signature: signatureJson.signature,
         jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage']
     });
-
     wx.ready(function () {
-        alert(JSON.parse(article.wyArticle));
+        alert(JSON.stringify('里面：'+article.wyArticle));
         wx.onMenuShareAppMessage({
             title: article.wyArticle.shareTitle,
             desc: article.wyArticle.shareDescribe,
@@ -202,9 +201,6 @@ if(article.wyArticle.forcedShare) {
         });
     })
 }
-
-
-
 // if(article.wyArticle.forcedShare) {
 //     $.ajax({
 //         url: window.PREFIX_URL + 'weixin/signature',
