@@ -185,7 +185,7 @@ if(article.wyArticle.forcedShare) {
         wx.onMenuShareAppMessage({
             title: article.wyArticle.shareTitle,
             desc: article.wyArticle.shareDescribe,
-            link: base64Decode(share_url),
+            link: article.shareUrl,
             imgUrl: article.wyArticle.shareImgUrl,
             type: '',
             dataUrl: '',
