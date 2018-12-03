@@ -170,35 +170,54 @@ if(article.wyArticle.forcedShare) {
         jsApiList: ['onMenuShareAppMessage', 'onMenuShareTimeline']
     });
     wx.ready(function () {
-        alert(JSON.stringify('里面：'+article.wyArticle));
-        wx.onMenuShareAppMessage({
+
+        var config = {
             title: article.wyArticle.shareTitle,
             desc: article.wyArticle.shareDescribe,
             link: article.shareUrl,
             imgUrl: article.wyArticle.shareImgUrl,
-            type: '',
-            dataUrl: '',
             success: function () {
-                window.location.href = title8;
+                $.tip('分享成功');
             },
             cancel: function () {
-                window.location.href = title8;// 用户取消分享后执行的回调函数
+                $.tip('分享失败');
             }
-        });
-        wx.onMenuShareTimeline({
-            title: article.wyArticle.shareTitle,
-            desc: article.wyArticle.shareDescribe,
-            link: article.shareUrl,
-            imgUrl: article.wyArticle.shareImgUrl,
-            type: '',
-            dataUrl: '',
-            success: function () {
-                window.location.href = title8;
-            },
-            cancel: function () {
-                window.location.href = title8;// 用户取消分享后执行的回调函数
-            }
-        });
+        };
+        /*分享给朋友*/
+        wx.onMenuShareAppMessage(config);
+
+        /*分享到朋友圈*/
+        wx.onMenuShareTimeline(config);
+
+        // alert(JSON.stringify('里面：'+article.wyArticle));
+        // wx.onMenuShareAppMessage({
+        //     title: article.wyArticle.shareTitle,
+        //     desc: article.wyArticle.shareDescribe,
+        //     link: article.shareUrl,
+        //     imgUrl: article.wyArticle.shareImgUrl,
+        //     type: '',
+        //     dataUrl: '',
+        //     success: function () {
+        //         window.location.href = title8;
+        //     },
+        //     cancel: function () {
+        //         window.location.href = title8;// 用户取消分享后执行的回调函数
+        //     }
+        // });
+        // wx.onMenuShareTimeline({
+        //     title: article.wyArticle.shareTitle,
+        //     desc: article.wyArticle.shareDescribe,
+        //     link: article.shareUrl,
+        //     imgUrl: article.wyArticle.shareImgUrl,
+        //     type: '',
+        //     dataUrl: '',
+        //     success: function () {
+        //         window.location.href = title8;
+        //     },
+        //     cancel: function () {
+        //         window.location.href = title8;// 用户取消分享后执行的回调函数
+        //     }
+        // });
     })
 }
 // if(article.wyArticle.forcedShare) {
