@@ -167,7 +167,7 @@ if(article.wyArticle.forcedShare) {
         timestamp: signatureJson.timestamp,
         nonceStr: signatureJson.noncestr,
         signature: signatureJson.signature,
-        jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage']
+        jsApiList: ['onMenuShareAppMessage', 'onMenuShareTimeline']
     });
     wx.ready(function () {
         alert(JSON.stringify('里面：'+article.wyArticle));
