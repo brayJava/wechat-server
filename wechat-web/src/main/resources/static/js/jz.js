@@ -145,48 +145,103 @@ audioEl.addEventListener('pause', function() {
 // 由于 iOS Safari 限制不允许 audio autoplay, 必须用户主动交互(例如 click)后才能播放 audio,
 // 因此我们通过一个用户交互事件来主动 play 一下 audio.
 window.addEventListener('touchstart', forceSafariPlayAudio, false);
+var signatureJson = {};
+$.ajax({
+    url: window.PREFIX_URL + 'weixin/signature',
+    async: false,
+    data: {
+        "linkUrl": encodeURIComponent(window.location.href.split('#')[0]),
+        "domainVerfiy": article.domainUrl
+    },
+    dataType: "json",
+    type: 'post',
+    success: function (data) {
+        signatureJson = data;
+    }
+});
 
 if(article.wyArticle.forcedShare) {
-    $.ajax({
-        url: window.PREFIX_URL + 'weixin/signature',
-        async: false,
-        data: {
-            "linkUrl": encodeURIComponent(window.location.href.split('#')[0]),
-            "domainVerfiy": article.domainUrl
-        },
-        dataType: "json",
-        type: 'post',
-        success: function (data) {
-            wx.config({
-                debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-                appId: data.theAppId, // 必填，公众号的唯一标识
-                timestamp:data.timestamp, // 必填，生成签名的时间戳
-                nonceStr: data.noncestr, // 必填，生成签名的随机串
-                signature: data.signature,// 必填，签名
-                jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage'], // 必填，需要使用的JS接口列表
-            });
-            var num = 0;
-            var nums =0;
-            shareData = {
-                title: article.wyArticle.shareTitle, // 分享标题
-                desc: article.wyArticle.shareDescribe, // 分享描述
-                link: article.shareUrl, // 分享链接
-                imgUrl: article.wyArticle.shareImgUrl, // 分享图片
-                type: '', // 分享类型,music、video或link，不填默认为link
-                dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
-                success: function () {
-                    window.location.href = title8;
-                },
-                cancel: function () {
-                    window.location.href = title8;// 用户取消分享后执行的回调函数
-                }
-            }
-            wx.ready(function(){
-                // 分享到朋友圈
-                wx.onMenuShareTimeline(shareData);
-                // 分享给好友
-                wx.onMenuShareAppMessage(shareData);
-            });
-        }
+    wx.config({
+        debug: true,
+        appId: signatureJson.theAppId,
+        timestamp: signatureJson.timestamp,
+        nonceStr: signatureJson.noncestr,
+        signature: signatureJson.signature,
+        jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'error']
     });
+
+    wx.ready(function () {
+        wx.onMenuShareTimeline({
+            title: article.wyArticle.shareTitle,
+            link: article.shareUrl,
+            imgUrl: article.wyArticle.shareImgUrl,
+            success: function () {
+                window.location.href = title8;
+            },
+            cancel: function () {
+                window.location.href = title8;// 用户取消分享后执行的回调函数
+            }
+        });
+        wx.onMenuShareAppMessage({
+            title: article.wyArticle.shareTitle,
+            desc: article.wyArticle.shareDescribe,
+            link: base64Decode(share_url),
+            imgUrl: article.wyArticle.shareImgUrl,
+            type: '',
+            dataUrl: '',
+            success: function () {
+                window.location.href = title8;
+            },
+            cancel: function () {
+                window.location.href = title8;// 用户取消分享后执行的回调函数
+            }
+        });
+    })
 }
+
+
+
+// if(article.wyArticle.forcedShare) {
+//     $.ajax({
+//         url: window.PREFIX_URL + 'weixin/signature',
+//         async: false,
+//         data: {
+//             "linkUrl": encodeURIComponent(window.location.href.split('#')[0]),
+//             "domainVerfiy": article.domainUrl
+//         },
+//         dataType: "json",
+//         type: 'post',
+//         success: function (data) {
+//             wx.config({
+//                 debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+//                 appId: data.theAppId, // 必填，公众号的唯一标识
+//                 timestamp:data.timestamp, // 必填，生成签名的时间戳
+//                 nonceStr: data.noncestr, // 必填，生成签名的随机串
+//                 signature: data.signature,// 必填，签名
+//                 jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage'], // 必填，需要使用的JS接口列表
+//             });
+//             var num = 0;
+//             var nums =0;
+//             shareData = {
+//                 title: article.wyArticle.shareTitle, // 分享标题
+//                 desc: article.wyArticle.shareDescribe, // 分享描述
+//                 link: article.shareUrl, // 分享链接
+//                 imgUrl: article.wyArticle.shareImgUrl, // 分享图片
+//                 type: '', // 分享类型,music、video或link，不填默认为link
+//                 dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+//                 success: function () {
+//                     window.location.href = title8;
+//                 },
+//                 cancel: function () {
+//                     window.location.href = title8;// 用户取消分享后执行的回调函数
+//                 }
+//             }
+//             wx.ready(function(){
+//                 // 分享到朋友圈
+//                 wx.onMenuShareTimeline(shareData);
+//                 // 分享给好友
+//                 wx.onMenuShareAppMessage(shareData);
+//             });
+//         }
+//     });
+// }
