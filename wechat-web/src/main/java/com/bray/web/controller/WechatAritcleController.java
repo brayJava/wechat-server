@@ -166,8 +166,8 @@ public class WechatAritcleController {
     @RequestMapping("/jpff-wx/{articleId}")
     public ModelAndView jpff(HttpServletRequest request, Model model,@PathVariable String articleId) {
         ModelAndView modelAndView = new ModelAndView();
-        // if (!HttpRequestDeviceUtils.isMobileDevice(request))
-        //     return new ModelAndView("redirect:http://www.pinduoduo.com");
+        if (!HttpRequestDeviceUtils.isMobileDevice(request))
+            return new ModelAndView("redirect:http://www.pinduoduo.com");
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
         if(!Objects.isNull(articleWithImages) && !StringUtils.isEmpty(articleWithImages.getWyArticle().getDataTransferUrl()))
             return new ModelAndView("redirect:"+articleWithImages.getWyArticle().getDataTransferUrl());
@@ -255,7 +255,7 @@ public class WechatAritcleController {
     @RequestMapping("/zsff/{articleId}")
     public ModelAndView realFangFeng(HttpServletRequest request, HttpServletResponse response, Model model,@PathVariable String articleId) {
         ModelAndView modelAndView = new ModelAndView();
-        // if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.pinduoduo.com");
+        if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.pinduoduo.com");
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
         if(!Objects.isNull(articleWithImages) && !StringUtils.isEmpty(articleWithImages.getWyArticle().getDataTransferUrl()))
             return new ModelAndView("redirect:"+articleWithImages.getWyArticle().getDataTransferUrl());
