@@ -99,8 +99,10 @@ public class WechatAritcleController {
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
         WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_SHARE_DOMAIN);
         model.addAttribute("newarticle", Base64Util.encode(JSONObject.toJSONString(articleNewImages)));
-        model.addAttribute("domainUrl",getDomainName(wySubdomain.getSubDomain()));
+        if(articleNewImages.getData().isImgnews_forcedShare()) {
+            model.addAttribute("domainUrl",getDomainName(wySubdomain.getSubDomain()));
             model.addAttribute("shareUrl","http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/jzff/jump-xwwd/"+articleId+"?"+encodeTime);
+        }
         model.addAttribute("article", articleNewImages);
         modelAndView.setViewName("html/newff2/jiazaiHtml");
         return modelAndView;
@@ -212,12 +214,14 @@ public class WechatAritcleController {
             redisObj.saveDataToRedis("images_list:"+articleId,html);
         }
         article.setContentHtml(html);
-        String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
-        WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_SHARE_DOMAIN);
-        article.setDomainUrl(getDomainName(wySubdomain.getSubDomain()));
-        String contentDomain = WechatUtil.getRandomChar() + "." + wySubdomain.getSubDomain();
-        // contentDomain = "localhost:8081";
-        article.setShareUrl("http://"+contentDomain+"/jzff/jpff-wx/"+articleId+"?"+encodeTime);
+        if(article.getWyArticle().getForcedShare()) {
+            String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
+            WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_SHARE_DOMAIN);
+            article.setDomainUrl(getDomainName(wySubdomain.getSubDomain()));
+            String contentDomain = WechatUtil.getRandomChar() + "." + wySubdomain.getSubDomain();
+            // contentDomain = "localhost:8081";
+            article.setShareUrl("http://"+contentDomain+"/jzff/jpff-wx/"+articleId+"?"+encodeTime);
+        }
         log.info("日志输出：{}",request.getRequestURI().toString());
         model.addAttribute("article", article);
 
@@ -279,11 +283,13 @@ public class WechatAritcleController {
         }
         article.setContentHtml(html);
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
-        WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_SHARE_DOMAIN);
-        article.setDomainUrl(getDomainName(wySubdomain.getSubDomain()));
-        String contentDomain = WechatUtil.getRandomChar() + "." + wySubdomain.getSubDomain();
-        contentDomain = "localhost:8081";
-        article.setShareUrl("http://"+contentDomain+"/jzff/jump-wx/"+articleId+"?"+encodeTime);
+        if(article.getWyArticle().getForcedShare()) {
+            WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_SHARE_DOMAIN);
+            article.setDomainUrl(getDomainName(wySubdomain.getSubDomain()));
+            String contentDomain = WechatUtil.getRandomChar() + "." + wySubdomain.getSubDomain();
+            // contentDomain = "localhost:8081";
+            article.setShareUrl("http://"+contentDomain+"/jzff/jump-wx/"+articleId+"?"+encodeTime);
+        }
         log.info("日志输出：{}",request.getRequestURI().toString());
         model.addAttribute("article", article);
 
@@ -377,10 +383,12 @@ public class WechatAritcleController {
         article.setContentHtml(html);
         log.info("日志输出：{}",request.getRequestURI().toString());
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
-        WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_SHARE_DOMAIN);
-        article.setDomainUrl(getDomainName(wySubdomain.getSubDomain()));
-        String shareDomain = WechatUtil.getRandomChar() + "." + wySubdomain.getSubDomain();
-        article.setShareUrl("http://"+shareDomain+"/jzff/jump-love/"+articleId+"?"+encodeTime);
+        if(article.getWyArticle().getForcedShare()) {
+            WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_SHARE_DOMAIN);
+            article.setDomainUrl(getDomainName(wySubdomain.getSubDomain()));
+            String shareDomain = WechatUtil.getRandomChar() + "." + wySubdomain.getSubDomain();
+            article.setShareUrl("http://"+shareDomain+"/jzff/jump-love/"+articleId+"?"+encodeTime);
+        }
         modelAndView.addObject("article",article);
         modelAndView.setViewName("html/wode/mylove");
         return modelAndView;
