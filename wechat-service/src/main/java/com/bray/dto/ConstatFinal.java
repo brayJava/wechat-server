@@ -25,5 +25,7 @@ public interface ConstatFinal {
     String AITICLE_URL_TIME = "article_url_time";
     //新文章获取
     String NEW_ARTICLE_LIST = "new_article_list";
+    //新文章获取
+    String IMAGES_CONTENT = "images_content";
 
 }
