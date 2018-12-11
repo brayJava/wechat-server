@@ -86,16 +86,16 @@ public class WechatAritcleController {
     @RequestMapping("/{articleId}")
     public ModelAndView realFangFengCon(HttpServletRequest request, Model model, @PathVariable String articleId) {
         ModelAndView modelAndView = new ModelAndView();
-        if (!HttpRequestDeviceUtils.isMobileDevice(request))
-            return new ModelAndView("redirect:http://www.pinduoduo.com");
+        // if (!HttpRequestDeviceUtils.isMobileDevice(request))
+        //     return new ModelAndView("redirect:http://www.pinduoduo.com");
         ArticleNewImages articleNewImages = iArticleService.queryNewArticleImages(articleId);
         //shuju qinayi
         if(!Objects.isNull(articleNewImages) && !StringUtils.isEmpty(articleNewImages.getData().getDataTransferUrl()))
             return new ModelAndView("redirect:"+articleNewImages.getData().getDataTransferUrl());
         //判断是否开启防封记录，如何开启，则打开记录防封
-        if(articleNewImages.getData().isImgnews_forcedShare() && redislogff(request)) {
-            return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".fffds.cn/24");
-        }
+        // if(articleNewImages.getData().isImgnews_forcedShare() && redislogff(request)) {
+        //     return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".fffds.cn/24");
+        // }
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
         WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_SHARE_DOMAIN);
         model.addAttribute("newarticle", Base64Util.encode(JSONObject.toJSONString(articleNewImages)));
@@ -139,15 +139,15 @@ public class WechatAritcleController {
     @RequestMapping("/content/{articleId}")
     public ModelAndView shareConent(HttpServletRequest request, Model model,@PathVariable String articleId) {
         ModelAndView modelAndView = new ModelAndView();
-        if ( !HttpRequestDeviceUtils.isMobileDevice(request) )
-            return new ModelAndView("redirect:http://www.pinduoduo.com");
+        // if ( !HttpRequestDeviceUtils.isMobileDevice(request) )
+        //     return new ModelAndView("redirect:http://www.pinduoduo.com");
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
         if(!Objects.isNull(articleWithImages) && !StringUtils.isEmpty(articleWithImages.getWyArticle().getDataTransferUrl()))
             return new ModelAndView("redirect:"+articleWithImages.getWyArticle().getDataTransferUrl());
         //判断是否开启防封记录，如何开启，则打开记录防封
-        if(articleWithImages.getWyArticle().getForcedShare() && redislogff(request)) {
-            return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".fffds.cn/24");
-        }
+        // if(articleWithImages.getWyArticle().getForcedShare() && redislogff(request)) {
+        //     return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".fffds.cn/24");
+        // }
         WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_SHARE_DOMAIN);
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
         modelAndView.setViewName("html/fmff/content");
@@ -191,14 +191,14 @@ public class WechatAritcleController {
     @RequestMapping("/jpzsff/{articleId}")
     public ModelAndView jpzsff(HttpServletRequest request, HttpServletResponse response, Model model,@PathVariable String articleId) {
         ModelAndView modelAndView = new ModelAndView();
-        if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.pinduoduo.com");
+        // if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.pinduoduo.com");
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
         if(!Objects.isNull(articleWithImages) && !StringUtils.isEmpty(articleWithImages.getWyArticle().getDataTransferUrl()))
             return new ModelAndView("redirect:"+articleWithImages.getWyArticle().getDataTransferUrl());
         //判断是否开启防封记录，如何开启，则打开记录防封
-        if(articleWithImages.getWyArticle().getForcedShare() && redislogff(request)) {
-           return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".fffds.cn/24");
-       }
+       //  if(articleWithImages.getWyArticle().getForcedShare() && redislogff(request)) {
+       //     return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".fffds.cn/24");
+       // }
         /***********************************内容展示start*************************/
 
         //获取图片相关信息
