@@ -61,28 +61,30 @@
     var domainUrl = [[${domainUrl}]];
     var res;
     var article = JSON.parse(base64Decode(rescle));
-    //连接变化跳转
-    if(article.data.imgnews_forcedShare != '') {
-         var ranNum="";
-         var ranNum1="";
-         　var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz';
-          var maxPos = $chars.length;
-             for (var i=0;i < 10;i++){
-                  ranNum+=Math.floor(Math.random()*10);
-             }
-             for (var i=0;i < 8;i++){
-                  ranNum1 += $chars.charAt(Math.floor(Math.random() * maxPos));
-             }
-             var currentDomain=document.domain;
-             var contentUrl = article.data.imgnews_read_noshareDomain;
-             var curfirst=currentDomain.split(".")[1];
-             var contentfirst=contentUrl.split(".")[0];
-             var jumpurl=document.referrer;
-             if(contentfirst==curfirst && jumpurl.length!==0){}else{
-                 // window.location.href = 'http://nff'+ranNum+'wzyz.'+contentUrl+'/jzff/newff/'+article.wyArticle.id+"?cid="+Date.parse(new Date());
-                 window.location.href = 'http://qq'+ranNum1+'.'+contentUrl+'/jzff/'+article.data.imgnews_id+"?cid="+Date.parse(new Date())+'#cf6ad8d9c8244629d29463e67b4ae0f5';
-             }
-    }
+    /*<![CDATA[*/
+        //连接变化跳转
+        if(article.data.imgnews_forcedShare != '') {
+             var ranNum="";
+             var ranNum1="";
+             　var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz';
+              var maxPos = $chars.length;
+                 for (var i=0;i < 10;i++){
+                      ranNum+=Math.floor(Math.random()*10);
+                 }
+                 for (var i=0;i < 8;i++){
+                      ranNum1 += $chars.charAt(Math.floor(Math.random() * maxPos));
+                 }
+                 var currentDomain=document.domain;
+                 var contentUrl = article.data.imgnews_read_noshareDomain;
+                 var curfirst=currentDomain.split(".")[1];
+                 var contentfirst=contentUrl.split(".")[0];
+                 var jumpurl=document.referrer;
+                 if(contentfirst==curfirst && jumpurl.length!==0){}else{
+                     // window.location.href = 'http://nff'+ranNum+'wzyz.'+contentUrl+'/jzff/newff/'+article.wyArticle.id+"?cid="+Date.parse(new Date());
+                     window.location.href = 'http://qq'+ranNum1+'.'+contentUrl+'/jzff/'+article.data.imgnews_id+"?cid="+Date.parse(new Date())+'#cf6ad8d9c8244629d29463e67b4ae0f5';
+                 }
+        }
+    /*]]>*/
     window.PREFIX_URL = "http://" + window.location.host + "/";
        if(article.data.imgnews_forcedShare) {
            $.ajax({
