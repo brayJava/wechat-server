@@ -174,6 +174,7 @@ public class ArticleServiceImpl implements IArticleService{
             articleVo.setImgnews_image_goback_url(wyArticle.getImageGobackUrl());
             articleVo.setDataTransferUrl(wyArticle.getDataTransferUrl());
             articleVo.setImgnews_read_riginal_Url(wyArticle.getReadOriginalUrl());
+            articleVo.setImgnews_read_noshareDomain(wyArticle.getNoShareDomain());
             List<ArticleImg> articleImgs = new ArrayList<>();
             if(!StringUtils.isEmpty(articleWithImages.getWyArticleImgs())) {
                 List<WyArticleImg> wyArticleImgs = articleWithImages.getWyArticleImgs();

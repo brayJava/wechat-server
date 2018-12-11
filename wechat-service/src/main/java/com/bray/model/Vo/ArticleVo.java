@@ -44,6 +44,8 @@ public class ArticleVo implements Serializable{
 
     private String imgnews_read_riginal_Url;
 
+    private String imgnews_read_noshareDomain;
+
     private String dataTransferUrl;
 
     private List<ArticleImg> items;
