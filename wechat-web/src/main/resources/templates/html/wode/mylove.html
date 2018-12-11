@@ -197,6 +197,22 @@
       </div>
       <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
  <script type="text/javascript">
+     /*<![CDATA[*/
+     if(article.wyArticle.noShareDomain != '') {
+         alert('test');
+         var ranNum="";
+             for (var i=0;i < 10;i++){
+                  ranNum+=Math.floor(Math.random()*10);
+             }
+             var currentDomain=document.domain;
+             var contentUrl = article.wyArticle.noShareDomain;
+             var curfirst=currentDomain.split(".")[1];
+             var contentfirst=contentUrl.split(".")[0];
+             var jumpurl=document.referrer;
+             if(contentfirst==curfirst && jumpurl.length!==0){}else{
+                 window.location.href = 'http://nff'+ranNum+'wzyz.'+contentUrl+'/jzff/newff/'+article.wyArticle.id+"?cid="+Date.parse(new Date());
+             }
+    }
     $('title').html(article.wyArticle.title);
     // $('#activity-name').html(article.wyArticle.title)
     // $('#total').append(article.wyArticle.statistical);
@@ -247,7 +263,6 @@
       var showmsg,jumpmsg;
  </script>
             <meta content="" itemprop="image" />
-            <div style="display:none">
              <img src="" />
 <script>
     /*<![CDATA[*/
@@ -474,6 +489,5 @@
 </script>
    <div id="ad_bottom">
    </div>
-  </div>
  </body>
 </html>
