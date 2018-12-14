@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class IndexController {
     @RequestMapping("/welcome")
     public String welcome(Model model) {
         List<WyOrderLog> wyOrderLogs = iOrderAdminService.queryOrderLogData();
+        wyOrderLogs = new ArrayList<WyOrderLog>();
         model.addAttribute("wyOrderLogs",wyOrderLogs);
         model.addAttribute("currentTime",new Date());
         return "index/welcome";

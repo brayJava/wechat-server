@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class OrderController {
         String startDate = DateUtil.getStartDate(dateStr);
         String endDate = DateUtil.getEndDate(dateStr);
         List<WyOrder> wyOrders = (List<WyOrder>) iOrderService.queryAllOrder(startDate, endDate);
+        wyOrders = new ArrayList<>();
         model.addAttribute("wyOrders",wyOrders);
         log.info("-------订单数据为：{}", JSONObject.toJSONString(wyOrders));
         return "order/order-list";
