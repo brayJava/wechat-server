@@ -45,6 +45,14 @@ public class WechatOrderController {
     /**
      * 订单文案跳转
      */
+    @RequestMapping("/pleasantly")
+    String pleasantlyOrder() {
+        iOrderWebService.insertOrderLog(OrderLogType.STORY_TYPE);
+        return "order/story";
+    }
+    /**
+     * 订单文案跳转
+     */
     @RequestMapping("/jump-story2")
     String orderStory() {
         iOrderWebService.insertOrderLog(OrderLogType.STORY_TYPE);
@@ -108,7 +116,7 @@ public class WechatOrderController {
             helper = new MimeMessageHelper(msg, true,"utf-8");
             helper.setFrom("goodboy_bray@163.com");
             helper.setCc("goodboy_bray@163.com");
-            helper.setTo(new String[]{"1318134732@qq.com","937085200@qq.com"});
+            helper.setTo(new String[]{"619105979@qq.com"});
             helper.setText(orderBuf.toString());
             helper.setSubject("来了新的订单");
         } catch (MessagingException e) {
