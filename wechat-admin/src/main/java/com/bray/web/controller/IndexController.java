@@ -26,7 +26,7 @@ public class IndexController {
     @Resource
     private IOrderAdminService iOrderAdminService;
 
-    @RequestMapping("/home")
+    @RequestMapping("/wzylm")
     public String home() {
         return "index/index";
     }
@@ -34,7 +34,6 @@ public class IndexController {
     @RequestMapping("/welcome")
     public String welcome(Model model) {
         List<WyOrderLog> wyOrderLogs = iOrderAdminService.queryOrderLogData();
-        wyOrderLogs = new ArrayList<WyOrderLog>();
         model.addAttribute("wyOrderLogs",wyOrderLogs);
         model.addAttribute("currentTime",new Date());
         return "index/welcome";
