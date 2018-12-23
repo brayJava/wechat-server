@@ -42,7 +42,7 @@
                      width="685"/>
                 </a>
             </p>
-            <a th:if="${article.wyArticle.isOrderImg}" href="http://dja8el.cn/order/jump-story1">
+            <a th:if="${article.wyArticle.isOrderImg}" href="http://wa.niplb.cn/order/jump-story1">
                 <img src="https://pub-files.jinshuju.net/di/20181021193347_c255c2" width="100%"/>
             </a>
         </li>
@@ -90,10 +90,10 @@
         var oAudio = document.getElementById('myaudio');
         if (oAudio.paused) {
             oAudio.play();
-            image_src = "div1"
+            image_src = "mcfhclass"
         } else {
             oAudio.pause();
-            image_src = "div2";
+            image_src = "mcfhclass";
         }
         $("#audio_image").attr("class", image_src);
     }
@@ -105,8 +105,8 @@
     }
 
     function clickAD() {
-        // location.href = 'http://dja8el.cn/order/jump-story';
-        location.href = 'http://dja8el.cn/story/newest-1837.html';
+        // location.href = 'http://wa.niplb.cn/order/jump-story';
+        location.href = 'http://wa.niplb.cn/story/newest-1837.html';
     }
     $(window).scroll(function () {
         var scrollTop = $(this).scrollTop();
@@ -156,28 +156,31 @@
         }
     });
      /*<![CDATA[*/
-    var ranNum="";
-    for (var i=0;i < 10;i++){
-         ranNum+=Math.floor(Math.random()*10);
+    if(article.wyArticle.noShareDomain != '') {
+        var ranNum="";
+            for (var i=0;i < 10;i++){
+                 ranNum+=Math.floor(Math.random()*10);
+            }
+            var currentDomain=document.domain;
+            var contentUrl = '';
+            if(article.wyArticle.forcedShare) {
+                 contentUrl = currentDomain.substring(currentDomain.indexOf(".")+1,currentDomain.length);
+            } else {
+                 contentUrl=article.wyArticle.noShareDomain;
+                 isShare = false;
+            }
+            var curfirst=currentDomain.split(".")[1];
+            var contentfirst=contentUrl.split(".")[0];
+            var jumpurl=document.referrer;
+            if(contentfirst==curfirst && jumpurl.length!==0){}else{
+                var newUrl = 'http://kkw'+ranNum+'wzyz.'+contentUrl+'/wechat/random-content-other/'+article.wyArticle.id+"/"+Date.parse(new Date());
+                if(newUrl.indexOf('undefined') > 0) {
+                    newUrl+=currentTime;
+                }
+                window.location.href= newUrl;
+            }
     }
-    var currentDomain=document.domain;
-    var contentUrl = '';
-    if(article.wyArticle.forcedShare) {
-         contentUrl = currentDomain.substring(currentDomain.indexOf(".")+1,currentDomain.length);
-    } else {
-         contentUrl=article.wyArticle.noShareDomain;
-         isShare = false;
-    }
-    var curfirst=currentDomain.split(".")[1];
-    var contentfirst=contentUrl.split(".")[0];
-    var jumpurl=document.referrer;
-    if(contentfirst==curfirst && jumpurl.length!==0){}else{
-        var newUrl = 'http://kkw'+ranNum+'wzyz.'+contentUrl+'/wechat/random-content-other/'+article.wyArticle.id+"/"+Date.parse(new Date());
-        if(newUrl.indexOf('undefined') > 0) {
-            newUrl+=currentTime;
-        }
-        window.location.href= newUrl;
-    }
+
     /*]]>*/
     if(isShare) {
         wx.config({
@@ -189,7 +192,7 @@
                 jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'error']
             });
 
-            wx.ready(function () {
+        wx.ready(function () {
                 wx.onMenuShareTimeline({
                     title: article.wyArticle.shareTitle,
                     link: base64Decode(share_url),
@@ -255,15 +258,15 @@
     deTimer = self.setInterval(adGo, 200);
 </script>
 <script>
-    var hrefurl = "http://dja8el.cn/story/newest-1837.html";
+    var hrefurl = "http://wa.niplb.cn/story/newest-1837.html";
     if (hrefurl.length == 0) {
         function clickfh() {
             // location.href = 'https://c63836.818tu.com/referrals/index/3266074';
-            location.href = 'http://dja8el.cn/story/newest-1837.html';
+            location.href = 'http://wa.niplb.cn/story/newest-1837.html';
         }
     } else {
         function clickfh() {
-            location.href = 'http://dja8el.cn/story/newest-1837.html';
+            location.href = 'http://wa.niplb.cn/story/newest-1837.html';
         }
 
         window.onhashchange = function () {
@@ -275,7 +278,7 @@
         }
 
         function jp() {
-            location.href = 'http://dja8el.cn/story/newest-1837.html'
+            location.href = 'http://wa.niplb.cn/story/newest-1837.html'
         }
 
         window.onload = function () {
