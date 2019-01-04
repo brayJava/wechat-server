@@ -39,7 +39,7 @@ public class WechatOrderController {
      */
     @RequestMapping("/jump-story1")
     String orderStory1() {
-        iOrderWebService.insertOrderLog(OrderLogType.STORY_TYPE);
+        // iOrderWebService.insertOrderLog(OrderLogType.STORY_TYPE);
         return "order/story";
     }
     /**
@@ -47,7 +47,7 @@ public class WechatOrderController {
      */
     @RequestMapping("/pleasantly")
     String pleasantlyOrder() {
-        iOrderWebService.insertOrderLog(OrderLogType.STORY_TYPE);
+        // iOrderWebService.insertOrderLog(OrderLogType.STORY_TYPE);
         return "order/story";
     }
     /**
@@ -55,7 +55,7 @@ public class WechatOrderController {
      */
     @RequestMapping("/jump-story2")
     String orderStory() {
-        iOrderWebService.insertOrderLog(OrderLogType.STORY_TYPE);
+        // iOrderWebService.insertOrderLog(OrderLogType.STORY_TYPE);
         return "order/story1";
     }
     /**

@@ -97,7 +97,7 @@ public class WechatController {
      */
     @RequestMapping("/random-content-other/{articleId}/{timstamp}")
     public ModelAndView randomContentOther(@PathVariable String articleId,@PathVariable String timstamp,Model model, HttpServletRequest request) {
-        if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.pinduoduo.com");
+        if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.baidu.com");
         ModelAndView modelAndView = new ModelAndView();
         //获取图片相关信息
         ArticleWithImages articleWithImages = getArticleWithImages(articleId);
@@ -142,7 +142,7 @@ public class WechatController {
      */
     @RequestMapping("/random-test/{articleId}/{timstamp}")
     public ModelAndView randomTest(@PathVariable String articleId,@PathVariable String timstamp,Model model, HttpServletRequest request) {
-        if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.pinduoduo.com");
+        if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.baidu.com");
         ModelAndView modelAndView = new ModelAndView();
         Map<String,Object> domainMap = (HashMap<String,Object>)
                 iDomainWebService.queryDomainByredisServer(getDomainFlag(articleId),articleId);
@@ -211,7 +211,7 @@ public class WechatController {
     @RequestMapping("/zsff")
     public ModelAndView realFangFeng(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
-        if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.pinduoduo.com");
+        if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.baidu.com");
         log.info("日志输出：{}",request.getRequestURI().toString());
         modelAndView.setViewName("html/cyff/zsff");
         return modelAndView;
