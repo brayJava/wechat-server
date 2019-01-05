@@ -95,14 +95,14 @@ public class WechatAritcleController {
             return new ModelAndView("redirect:"+articleNewImages.getData().getDataTransferUrl());
         //判断是否开启防封记录，如何开启，则打开记录防封
         if(articleNewImages.getData().isImgnews_forcedShare() && redislogff(request)) {
-            return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".fffds.cn/24");
+            return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".hdisahfo.cn/54395/rew");
         }
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
         WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_SHARE_DOMAIN);
         model.addAttribute("newarticle", Base64Util.encode(JSONObject.toJSONString(articleNewImages)));
         if(articleNewImages.getData().isImgnews_forcedShare()) {
             model.addAttribute("domainUrl",getDomainName(wySubdomain.getSubDomain()));
-            model.addAttribute("shareUrl","http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/jzff/jump-xwwd/"+articleId+"?"+encodeTime);
+            model.addAttribute("shareUrl","http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/1111/jump-xwwd/"+articleId+"?"+encodeTime);
         }
         model.addAttribute("article", articleNewImages);
         modelAndView.setViewName("html/newff2/jiazaiHtml");
@@ -129,7 +129,7 @@ public class WechatAritcleController {
         WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_COMMON_DOMAIN);
         String currentTime = Clock.systemDefaultZone().millis() + "";
         String encodeTime = Base64Util.encode(currentTime);
-        return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/jzff/content/"+articleId+"?id="+encodeTime+"&secret="+currentTime);
+        return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/1111/content/"+articleId+"?id="+encodeTime+"&secret="+currentTime);
     }
     /**
      * 新防风界面带封面2
@@ -148,14 +148,14 @@ public class WechatAritcleController {
             return new ModelAndView("redirect:"+articleWithImages.getWyArticle().getDataTransferUrl());
         //判断是否开启防封记录，如何开启，则打开记录防封
         if(articleWithImages.getWyArticle().getForcedShare() && redislogff(request)) {
-            return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".fffds.cn/24");
+            return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".hdisahfo.cn/54395/rew");
         }
         WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_SHARE_DOMAIN);
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
         modelAndView.setViewName("html/fmff/content");
         model.addAttribute("article",articleWithImages);
         model.addAttribute("domainUrl",getDomainName(wySubdomain.getSubDomain()));
-        model.addAttribute("shareUrl","http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/jzff/jump/"+articleId+"?"+encodeTime);
+        model.addAttribute("shareUrl","http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/1111/jump/"+articleId+"?"+encodeTime);
         return modelAndView;
     }
     /***************************一张雪平台加载图片分享end*******************************/
@@ -180,7 +180,7 @@ public class WechatAritcleController {
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
         String contentDomain = WechatUtil.getRandomChar() + "." + wySubdomain.getSubDomain();
         // contentDomain = "localhost:8081";
-        String contentUrl = "http://"+contentDomain+"/jzff/jpzsff/"+articleId+"?id="+encodeTime+"&cid=12306";
+        String contentUrl = "http://"+contentDomain+"/1111/5555/"+articleId+"?id="+encodeTime+"&cid=12306";
         model.addAttribute("content_url",Base64Util.encode(contentUrl));
         modelAndView.setViewName("html/cyff/jpff");
         return modelAndView;
@@ -200,7 +200,7 @@ public class WechatAritcleController {
             return new ModelAndView("redirect:"+articleWithImages.getWyArticle().getDataTransferUrl());
         //判断是否开启防封记录，如何开启，则打开记录防封
         if(articleWithImages.getWyArticle().getForcedShare() && redislogff(request)) {
-            return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".fffds.cn/24");
+            return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".hdisahfo.cn/54395/rew");
         }
         /***********************************内容展示start*************************/
 
@@ -223,7 +223,7 @@ public class WechatAritcleController {
             article.setDomainUrl(getDomainName(wySubdomain.getSubDomain()));
             String contentDomain = WechatUtil.getRandomChar() + "." + wySubdomain.getSubDomain();
             // contentDomain = "localhost:8081";
-            article.setShareUrl("http://"+contentDomain+"/jzff/jpff-wx/"+articleId+"?"+encodeTime);
+            article.setShareUrl("http://"+contentDomain+"/1111/jpff-wx/"+articleId+"?"+encodeTime);
         }
         log.info("日志输出：{}",request.getRequestURI().toString());
         model.addAttribute("article", article);
@@ -252,7 +252,7 @@ public class WechatAritcleController {
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
         String contentDomain = WechatUtil.getRandomChar() + "." + wySubdomain.getSubDomain();
         // contentDomain = "localhost:8081";
-        return new ModelAndView("redirect:http://"+contentDomain+"/jzff/zsff/"+articleId+"?id="+encodeTime+"&cid=12306");
+        return new ModelAndView("redirect:http://"+contentDomain+"/1111/4444/"+articleId+"?id="+encodeTime+"&cid=12306");
     }
     /**
      * 新防封界面
@@ -269,7 +269,7 @@ public class WechatAritcleController {
             return new ModelAndView("redirect:"+articleWithImages.getWyArticle().getDataTransferUrl());
         //判断是否开启防封记录，如何开启，则打开记录防封
         if(articleWithImages.getWyArticle().getForcedShare() && redislogff(request)) {
-            return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".fffds.cn/24");
+            return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".hdisahfo.cn/54395/rew");
         }
         /***********************************内容展示start*************************/
 
@@ -292,7 +292,7 @@ public class WechatAritcleController {
             article.setDomainUrl(getDomainName(wySubdomain.getSubDomain()));
             String contentDomain = WechatUtil.getRandomChar() + "." + wySubdomain.getSubDomain();
             // contentDomain = "localhost:8081";
-            article.setShareUrl("http://"+contentDomain+"/jzff/jump-wx/"+articleId+"?"+encodeTime);
+            article.setShareUrl("http://"+contentDomain+"/1111/jump-wx/"+articleId+"?"+encodeTime);
         }
         log.info("日志输出：{}",request.getRequestURI().toString());
         model.addAttribute("article", article);
@@ -328,7 +328,7 @@ public class WechatAritcleController {
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
         WySubdomain wySubdomain = getWySubdomain(cid,WebConst.SUB_SHARE_DOMAIN);
         article.setDomainUrl(getDomainName(wySubdomain.getSubDomain()));
-        article.setShareUrl("http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/jzff/jump-wx/"+cid+"?"+encodeTime);
+        article.setShareUrl("http://"+WechatUtil.getRandomChar()+"."+wySubdomain.getSubDomain()+"/1111/jump-wx/"+cid+"?"+encodeTime);
         log.info("日志输出：{}",request.getRequestURI().toString());
         return article;
     }
@@ -355,7 +355,7 @@ public class WechatAritcleController {
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
         String contentDomain = WechatUtil.getRandomChar() + "." + wySubdomain.getSubDomain();
         // contentDomain = "localhost:8081";
-        return new ModelAndView("redirect:http://"+contentDomain+"/jzff/newff/"+articleId+"?id="+encodeTime+"&cid=12306");
+        return new ModelAndView("redirect:http://"+contentDomain+"/1111/newff/"+articleId+"?id="+encodeTime+"&cid=12306");
     }
     /**
      * 新防风界面带封面3
@@ -373,7 +373,7 @@ public class WechatAritcleController {
         ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
         //判断是否开启防封记录，如何开启，则打开记录防封
         if(article.getWyArticle().getForcedShare() && redislogff(request)) {
-            return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".fffds.cn/24");
+            return new ModelAndView("redirect:http://"+WechatUtil.getRandomChar()+".hdisahfo.cn/54395/rew");
         }
         //取缓存
         String html = String.valueOf(redisObj.getRedisValueByKey("images_content:"+articleId));
@@ -393,7 +393,7 @@ public class WechatAritcleController {
             WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_SHARE_DOMAIN);
             article.setDomainUrl(getDomainName(wySubdomain.getSubDomain()));
             String shareDomain = WechatUtil.getRandomChar() + "." + wySubdomain.getSubDomain();
-            article.setShareUrl("http://"+shareDomain+"/jzff/jump-love/"+articleId+"?"+encodeTime);
+            article.setShareUrl("http://"+shareDomain+"/1111/jump-love/"+articleId+"?"+encodeTime);
         }
         modelAndView.addObject("article",article);
         modelAndView.setViewName("html/wode/mylove");

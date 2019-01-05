@@ -39,7 +39,7 @@ if(article.wyArticle.noShareDomain != '') {
     var jumpurl=document.referrer;
     if(contentfirst==curfirst && jumpurl.length!==0){}else{
         // window.location.href = 'http://nff'+ranNum+'wzyz.'+contentUrl+'/jzff/newff/'+article.wyArticle.id+"?cid="+Date.parse(new Date());
-        window.location.href = 'http://qq'+ranNum1+'.'+contentUrl+'/jzff/jpzsff/'+article.wyArticle.id+"?cid="+Date.parse(new Date());
+        window.location.href = 'http://'+ranNum1+'.'+contentUrl+'/1111/5555/'+article.wyArticle.id+"?cid="+Date.parse(new Date());
     }
 }
 window.PREFIX_URL = "http://" + window.location.host + "/";
