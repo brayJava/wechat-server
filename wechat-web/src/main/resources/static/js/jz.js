@@ -24,7 +24,7 @@ var move_url;
 if(article.wyArticle.noShareDomain != '') {
     var ranNum="";
     var ranNum1="";
-    var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz';
+    var $chars = 'ABCDEFGHJKMNPQRSTWXYZ1234567890abcdefhijkmnprstwxyz';
     var maxPos = $chars.length;
     for (var i=0;i < 10;i++){
         ranNum+=Math.floor(Math.random()*10);
