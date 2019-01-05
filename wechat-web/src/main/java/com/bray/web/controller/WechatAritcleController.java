@@ -37,7 +37,7 @@ import java.util.*;
  * @Date: Created in 14:05 2018/11/2
  * @Modified By:
  */
-@RequestMapping("/jzff")
+@RequestMapping("/1111")
 @Controller
 @Slf4j
 public class WechatAritcleController {
@@ -136,7 +136,8 @@ public class WechatAritcleController {
      * @param model
      * @return
      */
-    @RequestMapping("/content/{articleId}")
+    // @RequestMapping("/content/{articleId}")
+    @RequestMapping("/6666/{articleId}")
     public ModelAndView shareConent(HttpServletRequest request, Model model,@PathVariable String articleId) {
         ModelAndView modelAndView = new ModelAndView();
         if ( !HttpRequestDeviceUtils.isMobileDevice(request) )
@@ -188,7 +189,8 @@ public class WechatAritcleController {
      * @param request
      * @return
      */
-    @RequestMapping("/jpzsff/{articleId}")
+    // @RequestMapping("/jpzsff/{articleId}")
+    @RequestMapping("/5555/{articleId}")
     public ModelAndView jpzsff(HttpServletRequest request, HttpServletResponse response, Model model,@PathVariable String articleId) {
         ModelAndView modelAndView = new ModelAndView();
         if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.baidu.com");
@@ -256,7 +258,8 @@ public class WechatAritcleController {
      * @param request
      * @return
      */
-    @RequestMapping("/zsff/{articleId}")
+    // @RequestMapping("/zsff/{articleId}")
+    @RequestMapping("/4444/{articleId}")
     public ModelAndView realFangFeng(HttpServletRequest request, HttpServletResponse response, Model model,@PathVariable String articleId) {
         ModelAndView modelAndView = new ModelAndView();
         if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.baidu.com");
@@ -304,7 +307,8 @@ public class WechatAritcleController {
      * @param cid     文章id
      * @return
      */
-    @RequestMapping("/content")
+    // @RequestMapping("/content")
+    @RequestMapping("/2222")
     @ResponseBody
     public ArticleWithImages realFangFengCon(HttpServletRequest request, HttpServletResponse response, Model model,String cid) {
         //获取图片相关信息
@@ -358,7 +362,8 @@ public class WechatAritcleController {
      * @param model
      * @return
      */
-    @RequestMapping("/newff/{articleId}")
+    // @RequestMapping("/newff/{articleId}")
+    @RequestMapping("/3333/{articleId}")
     public ModelAndView newFangFeng(HttpServletRequest request, Model model, HttpServletResponse response, @PathVariable String articleId) {
         ModelAndView modelAndView = new ModelAndView();
         if (!HttpRequestDeviceUtils.isMobileDevice(request))
