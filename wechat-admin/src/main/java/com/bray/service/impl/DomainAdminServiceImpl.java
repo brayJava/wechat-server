@@ -168,29 +168,29 @@ public class DomainAdminServiceImpl implements IDomainAdminService {
             e.printStackTrace();
         }
     }
-    /**
-     * 通过域名id更新对应文章域名域
-     * @param id 域名id8
-     */
-    @Override
-    public void refreshDomainByArticleId(int id) {
-        WyDomain wyDomain = wyDomainMapper.selectByPrimaryKey(id);
-        if(!Objects.isNull(wyDomain)) {
-            if(!StringUtils.isEmpty(wyDomain.getArticleId())) {
-                try {
-                    String[] articleIds = wyDomain.getArticleId().split(",");
-                    if(articleIds == null || articleIds.length == 0) {
-                        articleIds = wyDomain.getArticleId().split("，");
-                    }
-                    Arrays.stream(articleIds).forEach(articleId -> {
-                        redisCache.deleteDataOfRedis(ConstatFinal.DOMAIN_MAP+"_"+articleId.trim());
-                    });
-                } catch (Exception e) {
-                    log.error("------redis key({})删除失败",ConstatFinal.DOMAIN_MAP+"_"+wyDomain.getArticleId());
-                    e.printStackTrace();
-                }
-            }
-        }
-
-    }
+    // /**
+    //  * 通过域名id更新对应文章域名域
+    //  * @param id 域名id8
+    //  */
+    // @Override
+    // public void refreshDomainByArticleId(int id) {
+    //     WyDomain wyDomain = wyDomainMapper.selectByPrimaryKey(id);
+    //     if(!Objects.isNull(wyDomain)) {
+    //         if(!StringUtils.isEmpty(wyDomain.getArticleId())) {
+    //             try {
+    //                 String[] articleIds = wyDomain.getArticleId().split(",");
+    //                 if(articleIds == null || articleIds.length == 0) {
+    //                     articleIds = wyDomain.getArticleId().split("，");
+    //                 }
+    //                 Arrays.stream(articleIds).forEach(articleId -> {
+    //                     redisCache.deleteDataOfRedis(ConstatFinal.DOMAIN_MAP+"_"+articleId.trim());
+    //                 });
+    //             } catch (Exception e) {
+    //                 log.error("------redis key({})删除失败",ConstatFinal.DOMAIN_MAP+"_"+wyDomain.getArticleId());
+    //                 e.printStackTrace();
+    //             }
+    //         }
+    //     }
+    //
+    // }
 }

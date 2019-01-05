@@ -58,7 +58,7 @@ public class WyDomainSqlProvider {
         }
         
         if (record.getArticleId() != null) {
-            VALUES("article_id", "#{articleId,jdbcType=VARCHAR}");
+            VALUES("article_id", "#{articleId,jdbcType=INTEGER}");
         }
         
         if (record.getAppId() != null) {
@@ -134,7 +134,7 @@ public class WyDomainSqlProvider {
         }
         
         if (record.getArticleId() != null) {
-            SET("article_id = #{record.articleId,jdbcType=VARCHAR}");
+            SET("article_id = #{record.articleId,jdbcType=INTEGER}");
         }
         
         if (record.getAppId() != null) {
@@ -169,7 +169,7 @@ public class WyDomainSqlProvider {
         SET("domain = #{record.domain,jdbcType=VARCHAR}");
         SET("domain_from = #{record.domainFrom,jdbcType=VARCHAR}");
         SET("type = #{record.type,jdbcType=VARCHAR}");
-        SET("article_id = #{record.articleId,jdbcType=VARCHAR}");
+        SET("article_id = #{record.articleId,jdbcType=INTEGER}");
         SET("app_id = #{record.appId,jdbcType=VARCHAR}");
         SET("status = #{record.status,jdbcType=INTEGER}");
         SET("is_del = #{record.isDel,jdbcType=INTEGER}");
@@ -198,7 +198,7 @@ public class WyDomainSqlProvider {
         }
         
         if (record.getArticleId() != null) {
-            SET("article_id = #{articleId,jdbcType=VARCHAR}");
+            SET("article_id = #{articleId,jdbcType=INTEGER}");
         }
         
         if (record.getAppId() != null) {

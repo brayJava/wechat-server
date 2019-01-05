@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class WyArticle implements Serializable{
-    private String id;
+    private Integer id;
 
     private String title;
 
@@ -24,9 +24,9 @@ public class WyArticle implements Serializable{
 
     private String gobackUrl;
 
-    private String imageGobackUrl;
-
     private String readOriginalUrl;
+
+    private String imageGobackUrl;
 
     private String orderImgUrl;
 
@@ -52,12 +52,12 @@ public class WyArticle implements Serializable{
 
     private Date updateTime;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -132,20 +132,20 @@ public class WyArticle implements Serializable{
         this.gobackUrl = gobackUrl == null ? null : gobackUrl.trim();
     }
 
-    public String getImageGobackUrl() {
-        return imageGobackUrl;
-    }
-
-    public void setImageGobackUrl(String imageGobackUrl) {
-        this.imageGobackUrl = imageGobackUrl == null ? null : imageGobackUrl.trim();
-    }
-
     public String getReadOriginalUrl() {
         return readOriginalUrl;
     }
 
     public void setReadOriginalUrl(String readOriginalUrl) {
         this.readOriginalUrl = readOriginalUrl == null ? null : readOriginalUrl.trim();
+    }
+
+    public String getImageGobackUrl() {
+        return imageGobackUrl;
+    }
+
+    public void setImageGobackUrl(String imageGobackUrl) {
+        this.imageGobackUrl = imageGobackUrl == null ? null : imageGobackUrl.trim();
     }
 
     public String getOrderImgUrl() {

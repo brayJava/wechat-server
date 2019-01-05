@@ -52,7 +52,7 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
         String articleId = GUIDUtil.buildMd5GUID();
         ArticleModelVo article = (ArticleModelVo) articleModelVo;
         WyArticle wyArticle = new WyArticle();
-        wyArticle.setId(articleId);
+        // wyArticle.setId(articleId);
         wyArticle.setTitle(article.getTitle());
         wyArticle.setBgmUrl(article.getBgmUrl());
         wyArticle.setAuthor(article.getAuthor());
@@ -79,7 +79,7 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
      * @param imgPath
      */
     @Override
-    public void insertArticleImg(String articleId, String imgPath) {
+    public void insertArticleImg(int articleId, String imgPath) {
         WyArticleImg wyArticleImg = new WyArticleImg();
         wyArticleImg.setArticleId(articleId);
         wyArticleImg.setImgPath(imgPath);
@@ -98,10 +98,10 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
      */
     @Override
     public void insertOtherArticleImg(Object obj) {
-        String articleId = GUIDUtil.buildMd5GUID();
+        // String articleId = GUIDUtil.buildMd5GUID();
         ArticleOtherModelVo articleOtherModelVo = (ArticleOtherModelVo) obj;
         WyArticle wyArticle = new WyArticle();
-        wyArticle.setId(articleId);
+        // wyArticle.setId(articleId);
         wyArticle.setTitle(articleOtherModelVo.getTitle());
         wyArticle.setBgmUrl(articleOtherModelVo.getBgmUrl());
         wyArticle.setAuthor(articleOtherModelVo.getAuthor());
@@ -134,7 +134,12 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
         }
         // String[] outerImgUrls = articleOtherModelVo.getOuterImgUrl();
         //插入新的文章图片
-        insertNewArticleImages(articleId, articleOtherModelVo);
+        WyArticle wy = wyArticleMapper.selectLastArticle();
+        int arid = 1;
+        if(!StringUtils.isEmpty(wy.getId())) {
+            arid = wy.getId();
+        }
+        insertNewArticleImages(arid, articleOtherModelVo);
     }
     /**
      * 文章修改
@@ -208,7 +213,7 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
      * @param articleId
      * @param articleOtherModelVo
      */
-    private void insertNewArticleImages(String articleId, ArticleOtherModelVo articleOtherModelVo) {
+    private void insertNewArticleImages(int articleId, ArticleOtherModelVo articleOtherModelVo) {
         String imagesUrlStr = articleOtherModelVo.getImagesUrl().trim();
         String replaceUrlStr = imagesUrlStr.replace(" ", "");
         String[] imagesUrls = replaceUrlStr.split("\n");
@@ -333,10 +338,8 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
      * @param articleId 文章id
      */
     @Override
-    public void articleCopy(String articleId) {
+    public void articleCopy(int articleId) {
         WyArticle wyArticle = wyArticleMapper.selectByPrimaryKey(articleId);
-        String newArticleId = GUIDUtil.buildMd5GUID();
-        wyArticle.setId(newArticleId);
         wyArticle.setCreateTime(new Date());
         wyArticle.setUpdateTime(new Date());
         wyArticle.setAuthor(wyArticle.getAuthor()+"复制文章");
@@ -353,10 +356,11 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
                 .andStatusEqualTo(EffectiveType.EFFECTIVE_YES)
                 .andArticleIdEqualTo(articleId);
         List<WyArticleImg> wyArticleImgs = wyArticleImgMapper.selectByExample(wyArticleImgExample);
+        WyArticle newArticleId = wyArticleMapper.selectLastArticle();
         try {
             wyArticleImgs.stream().forEach(wyArticleImg -> {
                 wyArticleImg.setId(null);
-                wyArticleImg.setArticleId(newArticleId);
+                wyArticleImg.setArticleId(newArticleId.getId());
                 wyArticleImg.setStatus(EffectiveType.EFFECTIVE_YES);
                 wyArticleImg.setCreateTime(new Date());
                 wyArticleImg.setUpdateTime(new Date());
@@ -372,7 +376,7 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
      * @param articleId 文章id
      */
     @Override
-    public void articleDel(String articleId) {
+    public void articleDel(int articleId) {
         WyArticle wyArticle = new WyArticle();
         wyArticle.setId(articleId);
         wyArticle.setStatus(EffectiveType.EFFECTIVE_NO);
@@ -380,6 +384,23 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
             wyArticleMapper.updateByPrimaryKeySelective(wyArticle);
         } catch (Exception e) {
             log.error("------删除文章失败-----");
+            e.printStackTrace();
+        }
+    }
+    /**
+     * 刷新文章
+     */
+    public void articleRefresh(int articleId) {
+        try {
+            redisCache.deleteDataOfRedis(ConstatFinal.AUTHOR+":"+articleId);
+            //删除图片相关内容
+            redisCache.deleteDataOfRedis(ConstatFinal.IMAGES_LIST+":"+articleId);
+            //删除新防封文案相关内容
+            redisCache.deleteDataOfRedis(ConstatFinal.NEW_ARTICLE_LIST+":"+articleId);
+
+            redisCache.deleteDataOfRedis(ConstatFinal.IMAGES_CONTENT+":"+articleId);
+        } catch (Exception e) {
+            log.error("-------文章redis更新");
             e.printStackTrace();
         }
     }

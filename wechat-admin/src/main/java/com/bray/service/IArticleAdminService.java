@@ -19,7 +19,7 @@ public interface IArticleAdminService {
      * @param articleId
      * @param imgPath
      */
-    void insertArticleImg(String articleId,String imgPath);
+    void insertArticleImg(int articleId,String imgPath);
     /**
      * 插入文章图片
      * @param obj
@@ -32,7 +32,7 @@ public interface IArticleAdminService {
     /**
      * 更新文章至线上
      */
-    void articleRefresh(String id);
+    void articleRefresh(int id);
     /**
      * 文章图片删除
      * @Param articleImgId 文章图片id
@@ -53,10 +53,10 @@ public interface IArticleAdminService {
      * 复制文章
      * @param articleId 文章id
      */
-    void articleCopy(String articleId);
+    void articleCopy(int articleId);
     /**
      * 删除文章
      * @param articleId 文章id
      */
-    void articleDel(String articleId);
+    void articleDel(int articleId);
 }

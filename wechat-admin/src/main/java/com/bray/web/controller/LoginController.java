@@ -19,7 +19,7 @@ public class LoginController {
     @RequestMapping("/login")
     public String login() {
 
-        return "login/login";
+        return "index/home";
     }
     /**
      * 用户登入校验

@@ -17,13 +17,13 @@ public interface IArticleService {
      * @param articleId
      * @return
      */
-    ArticleWithImages queryCurrentArticle(String articleId);
+    ArticleWithImages queryCurrentArticle(int articleId);
     /**
      * 查询数据库中信息
      * @param articleId
      * @return
      */
-    ArticleWithImages queryCurrentArticleBySql(String articleId);
+    ArticleWithImages queryCurrentArticleBySql(int articleId);
     /**
      * 查询所有文章
      * @return
@@ -33,7 +33,7 @@ public interface IArticleService {
      * 通过文章id获取非分享唯一域名
      * @return
      */
-    String getNoShareDomainByArticleId(String articleId);
+    String getNoShareDomainByArticleId(int articleId);
     /**
      * 获取文章唯一时间戳
      * @param timestmpStr 时间戳字符串
@@ -50,5 +50,5 @@ public interface IArticleService {
      * @param articleId 文章id
      * @return
      */
-    ArticleNewImages queryNewArticleImages(String articleId);
+    ArticleNewImages queryNewArticleImages(int articleId);
 }

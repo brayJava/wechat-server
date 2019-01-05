@@ -66,9 +66,9 @@ public class testController
      * @return
      */
     @RequestMapping("/jump-xwwd/{articleId}")
-    public ModelAndView test(HttpServletRequest request, Model model, @PathVariable String articleId) {
+    public ModelAndView test(HttpServletRequest request, Model model, @PathVariable int articleId) {
         // if (!HttpRequestDeviceUtils.isMobileDevice(request))
-        //     return new ModelAndView("redirect:http://www.pinduoduo.com");
+        //     return new ModelAndView("redirect:http://www.baidu.com");
         //获取域名集合map
         WySubdomain wySubdomain = getWySubdomain(articleId, WebConst.SUB_COMMON_DOMAIN);
         String fftime = Clock.systemDefaultZone().millis() + "";
@@ -84,10 +84,10 @@ public class testController
      * @return
      */
     @RequestMapping("/{articleId}")
-    public ModelAndView realFangFengCon(HttpServletRequest request, Model model, @PathVariable String articleId) {
+    public ModelAndView realFangFengCon(HttpServletRequest request, Model model, @PathVariable int articleId) {
         ModelAndView modelAndView = new ModelAndView();
         // if (!HttpRequestDeviceUtils.isMobileDevice(request))
-        //     return new ModelAndView("redirect:http://www.pinduoduo.com");
+        //     return new ModelAndView("redirect:http://www.baidu.com");
         ArticleNewImages articleNewImages = iArticleService.queryNewArticleImages(articleId);
         // if(!Objects.isNull(articleNewImages) && !StringUtils.isEmpty(articleNewImages.getData().getDataTransferUrl()))
         //     return new ModelAndView("redirect:"+articleNewImages.getData().getDataTransferUrl());
@@ -114,10 +114,10 @@ public class testController
      * @return
      */
     @RequestMapping("/jump/{articleId}")
-    public ModelAndView shareFangfang(HttpServletRequest request, Model model,@PathVariable String articleId) {
+    public ModelAndView shareFangfang(HttpServletRequest request, Model model,@PathVariable int articleId) {
         ModelAndView modelAndView = new ModelAndView();
         // if (!HttpRequestDeviceUtils.isMobileDevice(request))
-        //     return new ModelAndView("redirect:http://www.pinduoduo.com");
+        //     return new ModelAndView("redirect:http://www.baidu.com");
         //获取域名集合map
         WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_COMMON_DOMAIN);
         String fftime = Clock.systemDefaultZone().millis() + "";
@@ -133,10 +133,10 @@ public class testController
      * @return
      */
     @RequestMapping("/content/{articleId}")
-    public ModelAndView shareConent(HttpServletRequest request, Model model,@PathVariable String articleId) {
+    public ModelAndView shareConent(HttpServletRequest request, Model model,@PathVariable int articleId) {
         ModelAndView modelAndView = new ModelAndView();
         // if ( !HttpRequestDeviceUtils.isMobileDevice(request) )
-        //     return new ModelAndView("redirect:http://www.pinduoduo.com");
+        //     return new ModelAndView("redirect:http://www.baidu.com");
         WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_SHARE_DOMAIN);
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
@@ -160,10 +160,10 @@ public class testController
      * @return
      */
     @RequestMapping("/jump-wx/{articleId}")
-    public ModelAndView wmpt(HttpServletRequest request, Model model,@PathVariable String articleId) {
+    public ModelAndView wmpt(HttpServletRequest request, Model model,@PathVariable int articleId) {
         ModelAndView modelAndView = new ModelAndView();
         // if (!HttpRequestDeviceUtils.isMobileDevice(request))
-        //     return new ModelAndView("redirect:http://www.pinduoduo.com");
+        //     return new ModelAndView("redirect:http://www.baidu.com");
         //获取域名集合map
         WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_COMMON_DOMAIN);
         String fftime = Clock.systemDefaultZone().millis() + "";
@@ -178,9 +178,9 @@ public class testController
      * @return
      */
     @RequestMapping("new/zsff/{articleId}")
-    public ModelAndView realFangFeng(HttpServletRequest request,@PathVariable String articleId) {
+    public ModelAndView realFangFeng(HttpServletRequest request,@PathVariable int articleId) {
         ModelAndView modelAndView = new ModelAndView();
-        // if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.pinduoduo.com");
+        // if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.baidu.com");
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
         //         //判断是否开启防封记录，如何开启，则打开记录防封
         if(articleWithImages.getWyArticle().getForcedShare() && redislogff(request)) {
@@ -197,7 +197,7 @@ public class testController
      */
     @RequestMapping("/content")
     @ResponseBody
-    public ArticleWithImages realFangFengCon(HttpServletRequest request, HttpServletResponse response, Model model, String cid) {
+    public ArticleWithImages realFangFengCon(HttpServletRequest request, HttpServletResponse response, Model model, int cid) {
         //获取图片相关信息
         ArticleWithImages article = iArticleService.queryCurrentArticle(cid);
         //取缓存
@@ -226,10 +226,10 @@ public class testController
      * @return
      */
     @RequestMapping("/newff/{articleId}")
-    public ModelAndView newFangFeng(HttpServletRequest request, Model model, HttpServletResponse response, @PathVariable String articleId) {
+    public ModelAndView newFangFeng(HttpServletRequest request, Model model, HttpServletResponse response, @PathVariable int articleId) {
         ModelAndView modelAndView = new ModelAndView();
         if (!HttpRequestDeviceUtils.isMobileDevice(request))
-            return new ModelAndView("redirect:http://www.pinduoduo.com");
+            return new ModelAndView("redirect:http://www.baidu.com");
         //获取图片相关信息
         ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
         //取缓存
@@ -254,7 +254,7 @@ public class testController
      * @param articleId
      * @return
      */
-    private WySubdomain getWySubdomain(@PathVariable String articleId,String domainType) {
+    private WySubdomain getWySubdomain(@PathVariable int articleId,String domainType) {
         //获取域名集合map
         Map<String,Object> domainMap = (HashMap<String,Object>)
                 iDomainWebService.queryDomainByredisServer(getDomainFlag(articleId),articleId);
@@ -285,7 +285,8 @@ public class testController
      * @param articleId
      * @return
      */
-    private String getDomainFlag(@PathVariable String articleId) {
+    private String getDomainFlag(@PathVariable int articleId) {
+        String articleIds = articleId + "";
         return ConstFinal.DOMAIN_MAP+"_"+articleId;
     }
     /**

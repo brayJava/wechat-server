@@ -1,11 +1,10 @@
 package com.bray.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class WyArticleExample implements Serializable{
+public class WyArticleExample {
     protected String orderByClause;
 
     protected boolean distinct;
@@ -116,62 +115,52 @@ public class WyArticleExample implements Serializable{
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(String value) {
+        public Criteria andIdEqualTo(Integer value) {
             addCriterion("id =", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(String value) {
+        public Criteria andIdNotEqualTo(Integer value) {
             addCriterion("id <>", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(String value) {
+        public Criteria andIdGreaterThan(Integer value) {
             addCriterion("id >", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(String value) {
+        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("id >=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(String value) {
+        public Criteria andIdLessThan(Integer value) {
             addCriterion("id <", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(String value) {
+        public Criteria andIdLessThanOrEqualTo(Integer value) {
             addCriterion("id <=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLike(String value) {
-            addCriterion("id like", value, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdNotLike(String value) {
-            addCriterion("id not like", value, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdIn(List<String> values) {
+        public Criteria andIdIn(List<Integer> values) {
             addCriterion("id in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<String> values) {
+        public Criteria andIdNotIn(List<Integer> values) {
             addCriterion("id not in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(String value1, String value2) {
+        public Criteria andIdBetween(Integer value1, Integer value2) {
             addCriterion("id between", value1, value2, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(String value1, String value2) {
+        public Criteria andIdNotBetween(Integer value1, Integer value2) {
             addCriterion("id not between", value1, value2, "id");
             return (Criteria) this;
         }
@@ -796,76 +785,6 @@ public class WyArticleExample implements Serializable{
             return (Criteria) this;
         }
 
-        public Criteria andImageGobackUrlIsNull() {
-            addCriterion("image_goback_url is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andImageGobackUrlIsNotNull() {
-            addCriterion("image_goback_url is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andImageGobackUrlEqualTo(String value) {
-            addCriterion("image_goback_url =", value, "imageGobackUrl");
-            return (Criteria) this;
-        }
-
-        public Criteria andImageGobackUrlNotEqualTo(String value) {
-            addCriterion("image_goback_url <>", value, "imageGobackUrl");
-            return (Criteria) this;
-        }
-
-        public Criteria andImageGobackUrlGreaterThan(String value) {
-            addCriterion("image_goback_url >", value, "imageGobackUrl");
-            return (Criteria) this;
-        }
-
-        public Criteria andImageGobackUrlGreaterThanOrEqualTo(String value) {
-            addCriterion("image_goback_url >=", value, "imageGobackUrl");
-            return (Criteria) this;
-        }
-
-        public Criteria andImageGobackUrlLessThan(String value) {
-            addCriterion("image_goback_url <", value, "imageGobackUrl");
-            return (Criteria) this;
-        }
-
-        public Criteria andImageGobackUrlLessThanOrEqualTo(String value) {
-            addCriterion("image_goback_url <=", value, "imageGobackUrl");
-            return (Criteria) this;
-        }
-
-        public Criteria andImageGobackUrlLike(String value) {
-            addCriterion("image_goback_url like", value, "imageGobackUrl");
-            return (Criteria) this;
-        }
-
-        public Criteria andImageGobackUrlNotLike(String value) {
-            addCriterion("image_goback_url not like", value, "imageGobackUrl");
-            return (Criteria) this;
-        }
-
-        public Criteria andImageGobackUrlIn(List<String> values) {
-            addCriterion("image_goback_url in", values, "imageGobackUrl");
-            return (Criteria) this;
-        }
-
-        public Criteria andImageGobackUrlNotIn(List<String> values) {
-            addCriterion("image_goback_url not in", values, "imageGobackUrl");
-            return (Criteria) this;
-        }
-
-        public Criteria andImageGobackUrlBetween(String value1, String value2) {
-            addCriterion("image_goback_url between", value1, value2, "imageGobackUrl");
-            return (Criteria) this;
-        }
-
-        public Criteria andImageGobackUrlNotBetween(String value1, String value2) {
-            addCriterion("image_goback_url not between", value1, value2, "imageGobackUrl");
-            return (Criteria) this;
-        }
-
         public Criteria andReadOriginalUrlIsNull() {
             addCriterion("read_original_url is null");
             return (Criteria) this;
@@ -933,6 +852,76 @@ public class WyArticleExample implements Serializable{
 
         public Criteria andReadOriginalUrlNotBetween(String value1, String value2) {
             addCriterion("read_original_url not between", value1, value2, "readOriginalUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImageGobackUrlIsNull() {
+            addCriterion("image_goback_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andImageGobackUrlIsNotNull() {
+            addCriterion("image_goback_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andImageGobackUrlEqualTo(String value) {
+            addCriterion("image_goback_url =", value, "imageGobackUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImageGobackUrlNotEqualTo(String value) {
+            addCriterion("image_goback_url <>", value, "imageGobackUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImageGobackUrlGreaterThan(String value) {
+            addCriterion("image_goback_url >", value, "imageGobackUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImageGobackUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("image_goback_url >=", value, "imageGobackUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImageGobackUrlLessThan(String value) {
+            addCriterion("image_goback_url <", value, "imageGobackUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImageGobackUrlLessThanOrEqualTo(String value) {
+            addCriterion("image_goback_url <=", value, "imageGobackUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImageGobackUrlLike(String value) {
+            addCriterion("image_goback_url like", value, "imageGobackUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImageGobackUrlNotLike(String value) {
+            addCriterion("image_goback_url not like", value, "imageGobackUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImageGobackUrlIn(List<String> values) {
+            addCriterion("image_goback_url in", values, "imageGobackUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImageGobackUrlNotIn(List<String> values) {
+            addCriterion("image_goback_url not in", values, "imageGobackUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImageGobackUrlBetween(String value1, String value2) {
+            addCriterion("image_goback_url between", value1, value2, "imageGobackUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andImageGobackUrlNotBetween(String value1, String value2) {
+            addCriterion("image_goback_url not between", value1, value2, "imageGobackUrl");
             return (Criteria) this;
         }
 

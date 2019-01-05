@@ -25,7 +25,7 @@ public interface WyArticleImgMapper {
         "img_path, third_img_path, ",
         "img_url, status, ",
         "create_time, update_time)",
-        "values (#{id,jdbcType=INTEGER}, #{articleId,jdbcType=VARCHAR}, ",
+        "values (#{id,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}, ",
         "#{imgPath,jdbcType=VARCHAR}, #{thirdImgPath,jdbcType=VARCHAR}, ",
         "#{imgUrl,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, ",
         "#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})"
@@ -40,7 +40,7 @@ public interface WyArticleImgMapper {
     @SelectProvider(type=WyArticleImgSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="article_id", property="articleId", jdbcType=JdbcType.VARCHAR),
+        @Result(column="article_id", property="articleId", jdbcType=JdbcType.INTEGER),
         @Result(column="img_path", property="imgPath", jdbcType=JdbcType.VARCHAR),
         @Result(column="third_img_path", property="thirdImgPath", jdbcType=JdbcType.VARCHAR),
         @Result(column="img_url", property="imgUrl", jdbcType=JdbcType.VARCHAR),
@@ -58,7 +58,7 @@ public interface WyArticleImgMapper {
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="article_id", property="articleId", jdbcType=JdbcType.VARCHAR),
+        @Result(column="article_id", property="articleId", jdbcType=JdbcType.INTEGER),
         @Result(column="img_path", property="imgPath", jdbcType=JdbcType.VARCHAR),
         @Result(column="third_img_path", property="thirdImgPath", jdbcType=JdbcType.VARCHAR),
         @Result(column="img_url", property="imgUrl", jdbcType=JdbcType.VARCHAR),
@@ -79,7 +79,7 @@ public interface WyArticleImgMapper {
 
     @Update({
         "update wy_article_img",
-        "set article_id = #{articleId,jdbcType=VARCHAR},",
+        "set article_id = #{articleId,jdbcType=INTEGER},",
           "img_path = #{imgPath,jdbcType=VARCHAR},",
           "third_img_path = #{thirdImgPath,jdbcType=VARCHAR},",
           "img_url = #{imgUrl,jdbcType=VARCHAR},",
@@ -98,7 +98,7 @@ public interface WyArticleImgMapper {
     @Update({
             "update wy_article_img ",
             "set status = #{status,jdbcType=INTEGER}  ",
-            "where article_id = #{articleId,jdbcType=VARCHAR} "
+            "where article_id = #{articleId,jdbcType=INTEGER} "
     })
-    int updateByArticleId(@Param("status") int status ,@Param("articleId")String articleId);
+    int updateByArticleId(@Param("status") int status ,@Param("articleId")int articleId);
 }

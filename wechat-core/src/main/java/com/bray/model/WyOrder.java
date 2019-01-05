@@ -1,7 +1,8 @@
 package com.bray.model;
 
+import java.io.Serializable;
 import java.util.Date;
-public class WyOrder {
+public class WyOrder implements Serializable{
     private Integer id;
 
     private String name;

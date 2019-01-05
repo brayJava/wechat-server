@@ -49,7 +49,7 @@ public class ArticleServiceImpl implements IArticleService{
      */
     @Override
     @QueryCache(serviceType = ConstatFinal.AUTHOR)
-    public ArticleWithImages queryCurrentArticle(String articleId) {
+    public ArticleWithImages queryCurrentArticle(int articleId) {
         return getArticleWithImages(articleId);
     }
     /**
@@ -58,7 +58,7 @@ public class ArticleServiceImpl implements IArticleService{
      * @return
      */
     @Override
-    public ArticleWithImages queryCurrentArticleBySql(String articleId) {
+    public ArticleWithImages queryCurrentArticleBySql(int articleId) {
         return getArticleWithImages(articleId);
     }
     /**
@@ -68,7 +68,7 @@ public class ArticleServiceImpl implements IArticleService{
      */
     @Override
     @QueryCache(serviceType = ConstatFinal.NO_SHARE_DOMAIN)
-    public String getNoShareDomainByArticleId(String articleId) {
+    public String getNoShareDomainByArticleId(int articleId) {
         WyArticleExample wyArticleExample = new WyArticleExample();
         wyArticleExample.createCriteria().andIdEqualTo(articleId).andStatusEqualTo(EffectiveType.EFFECTIVE_YES);
         //获取文章
@@ -104,7 +104,7 @@ public class ArticleServiceImpl implements IArticleService{
      * @param articleId
      * @return
      */
-    private ArticleWithImages getArticleWithImages(String articleId) {
+    private ArticleWithImages getArticleWithImages(int articleId) {
         ArticleWithImages articleWithImages = new ArticleWithImages();
         if(!StringUtils.isEmpty(articleId)) {
             WyArticleExample wyArticleExample = new WyArticleExample();
@@ -150,7 +150,7 @@ public class ArticleServiceImpl implements IArticleService{
      */
     @Override
     @QueryCache(serviceType = ConstatFinal.NEW_ARTICLE_LIST)
-    public ArticleNewImages queryNewArticleImages(String articleId) {
+    public ArticleNewImages queryNewArticleImages(int articleId) {
         ArticleWithImages articleWithImages = this.getArticleWithImages(articleId);
         ArticleNewImages articleNewImages = new ArticleNewImages();
         ArticleVo articleVo = new ArticleVo();

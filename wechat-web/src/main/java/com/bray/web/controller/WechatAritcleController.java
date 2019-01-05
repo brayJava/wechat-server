@@ -65,7 +65,7 @@ public class WechatAritcleController {
      * @return
      */
     @RequestMapping("/jump-xwwd/{articleId}")
-    public ModelAndView JZFF(HttpServletRequest request, Model model,@PathVariable String articleId) {
+    public ModelAndView JZFF(HttpServletRequest request, Model model,@PathVariable int articleId) {
         ModelAndView modelAndView = new ModelAndView();
         if (!HttpRequestDeviceUtils.isMobileDevice(request))
             return new ModelAndView("redirect:http://www.baidu.com");
@@ -83,11 +83,12 @@ public class WechatAritcleController {
      * @param articleId 文章id
      * @return
      */
-    @RequestMapping("/{articleId}")
-    public ModelAndView realFangFengCon(HttpServletRequest request, Model model, @PathVariable String articleId) {
+    // @RequestMapping("/{articleId}")
+    @RequestMapping("/7777/{articleId}")
+    public ModelAndView realFangFengCon(HttpServletRequest request, Model model, @PathVariable int articleId) {
         ModelAndView modelAndView = new ModelAndView();
-        if (!HttpRequestDeviceUtils.isMobileDevice(request))
-            return new ModelAndView("redirect:http://www.baidu.com");
+        // if (!HttpRequestDeviceUtils.isMobileDevice(request))
+        //     return new ModelAndView("redirect:http://www.baidu.com");
         ArticleNewImages articleNewImages = iArticleService.queryNewArticleImages(articleId);
         //shuju qinayi
         if(!Objects.isNull(articleNewImages) && !StringUtils.isEmpty(articleNewImages.getData().getDataTransferUrl()))
@@ -117,7 +118,7 @@ public class WechatAritcleController {
      * @return
      */
     @RequestMapping("/jump/{articleId}")
-    public ModelAndView shareFangfang(HttpServletRequest request, Model model,@PathVariable String articleId) {
+    public ModelAndView shareFangfang(HttpServletRequest request, Model model,@PathVariable int articleId) {
         ModelAndView modelAndView = new ModelAndView();
         if (!HttpRequestDeviceUtils.isMobileDevice(request))
             return new ModelAndView("redirect:http://www.baidu.com");
@@ -138,10 +139,10 @@ public class WechatAritcleController {
      */
     // @RequestMapping("/content/{articleId}")
     @RequestMapping("/6666/{articleId}")
-    public ModelAndView shareConent(HttpServletRequest request, Model model,@PathVariable String articleId) {
+    public ModelAndView shareConent(HttpServletRequest request, Model model,@PathVariable int articleId) {
         ModelAndView modelAndView = new ModelAndView();
-        if ( !HttpRequestDeviceUtils.isMobileDevice(request) )
-            return new ModelAndView("redirect:http://www.baidu.com");
+        // if ( !HttpRequestDeviceUtils.isMobileDevice(request) )
+        //     return new ModelAndView("redirect:http://www.baidu.com");
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
         if(!Objects.isNull(articleWithImages) && !StringUtils.isEmpty(articleWithImages.getWyArticle().getDataTransferUrl()))
             return new ModelAndView("redirect:"+articleWithImages.getWyArticle().getDataTransferUrl());
@@ -167,7 +168,7 @@ public class WechatAritcleController {
      * @return
      */
     @RequestMapping("/jpff-wx/{articleId}")
-    public ModelAndView jpff(HttpServletRequest request, Model model,@PathVariable String articleId) {
+    public ModelAndView jpff(HttpServletRequest request, Model model,@PathVariable int articleId) {
         ModelAndView modelAndView = new ModelAndView();
         if (!HttpRequestDeviceUtils.isMobileDevice(request))
             return new ModelAndView("redirect:http://www.baidu.com");
@@ -191,9 +192,9 @@ public class WechatAritcleController {
      */
     // @RequestMapping("/jpzsff/{articleId}")
     @RequestMapping("/5555/{articleId}")
-    public ModelAndView jpzsff(HttpServletRequest request, HttpServletResponse response, Model model,@PathVariable String articleId) {
+    public ModelAndView jpzsff(HttpServletRequest request, HttpServletResponse response, Model model,@PathVariable int articleId) {
         ModelAndView modelAndView = new ModelAndView();
-        if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.baidu.com");
+        // if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.baidu.com");
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
         if(!Objects.isNull(articleWithImages) && !StringUtils.isEmpty(articleWithImages.getWyArticle().getDataTransferUrl()))
             return new ModelAndView("redirect:"+articleWithImages.getWyArticle().getDataTransferUrl());
@@ -239,7 +240,7 @@ public class WechatAritcleController {
      * @return
      */
     @RequestMapping("/jump-wx/{articleId}")
-    public ModelAndView wmpt(HttpServletRequest request, Model model,@PathVariable String articleId) {
+    public ModelAndView wmpt(HttpServletRequest request, Model model,@PathVariable int articleId) {
         ModelAndView modelAndView = new ModelAndView();
         if (!HttpRequestDeviceUtils.isMobileDevice(request))
             return new ModelAndView("redirect:http://www.baidu.com");
@@ -260,9 +261,9 @@ public class WechatAritcleController {
      */
     // @RequestMapping("/zsff/{articleId}")
     @RequestMapping("/4444/{articleId}")
-    public ModelAndView realFangFeng(HttpServletRequest request, HttpServletResponse response, Model model,@PathVariable String articleId) {
+    public ModelAndView realFangFeng(HttpServletRequest request, HttpServletResponse response, Model model,@PathVariable int articleId) {
         ModelAndView modelAndView = new ModelAndView();
-        if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.baidu.com");
+        // if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.baidu.com");
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
         if(!Objects.isNull(articleWithImages) && !StringUtils.isEmpty(articleWithImages.getWyArticle().getDataTransferUrl()))
             return new ModelAndView("redirect:"+articleWithImages.getWyArticle().getDataTransferUrl());
@@ -310,7 +311,7 @@ public class WechatAritcleController {
     // @RequestMapping("/content")
     @RequestMapping("/2222")
     @ResponseBody
-    public ArticleWithImages realFangFengCon(HttpServletRequest request, HttpServletResponse response, Model model,String cid) {
+    public ArticleWithImages realFangFengCon(HttpServletRequest request, HttpServletResponse response, Model model,int cid) {
         //获取图片相关信息
         ArticleWithImages article = iArticleService.queryCurrentArticle(cid);
         //取缓存
@@ -342,7 +343,7 @@ public class WechatAritcleController {
      * @return
      */
     @RequestMapping("/jump-love/{articleId}")
-    public ModelAndView mylove(HttpServletRequest request, Model model,@PathVariable String articleId) {
+    public ModelAndView mylove(HttpServletRequest request, Model model,@PathVariable int articleId) {
         ModelAndView modelAndView = new ModelAndView();
         if (!HttpRequestDeviceUtils.isMobileDevice(request))
             return new ModelAndView("redirect:http://www.baidu.com");
@@ -364,10 +365,10 @@ public class WechatAritcleController {
      */
     // @RequestMapping("/newff/{articleId}")
     @RequestMapping("/3333/{articleId}")
-    public ModelAndView newFangFeng(HttpServletRequest request, Model model, HttpServletResponse response, @PathVariable String articleId) {
+    public ModelAndView newFangFeng(HttpServletRequest request, Model model, HttpServletResponse response, @PathVariable int articleId) {
         ModelAndView modelAndView = new ModelAndView();
-        if (!HttpRequestDeviceUtils.isMobileDevice(request))
-              return new ModelAndView("redirect:http://www.baidu.com");
+        // if (!HttpRequestDeviceUtils.isMobileDevice(request))
+        //       return new ModelAndView("redirect:http://www.baidu.com");
         //获取图片相关信息
         ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
         //判断是否开启防封记录，如何开启，则打开记录防封
@@ -404,7 +405,7 @@ public class WechatAritcleController {
      * @param articleId
      * @return
      */
-    private WySubdomain getWySubdomain(@PathVariable String articleId,String domainType) {
+    private WySubdomain getWySubdomain(@PathVariable int articleId,String domainType) {
         //获取域名集合map
         Map<String,Object> domainMap = (HashMap<String,Object>)
                 iDomainWebService.queryDomainByredisServer(getDomainFlag(articleId),articleId);
@@ -435,8 +436,9 @@ public class WechatAritcleController {
      * @param articleId
      * @return
      */
-    private String getDomainFlag(@PathVariable String articleId) {
-        return ConstFinal.DOMAIN_MAP+"_"+articleId;
+    private String getDomainFlag(@PathVariable int articleId) {
+        String articleIds = articleId+"";
+        return ConstFinal.DOMAIN_MAP+"_"+articleIds;
     }
     /**
      * 是否添加了防封记录 ，存在就打不开

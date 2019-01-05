@@ -68,7 +68,7 @@ public class ArticleController {
     * 修改文章图片
     */
    @RequestMapping("/article-img-edit")
-   public String articleImgEdit(String articleId,Model model) {
+   public String articleImgEdit(int articleId,Model model) {
        ArticleWithImages articleWithImages = iArticleService.queryCurrentArticleBySql(articleId);
        model.addAttribute("articleImgs",articleWithImages.getWyArticleImgs());
        return "article/article-img-edit";
@@ -102,7 +102,7 @@ public class ArticleController {
     public RestResponseBo imageupdate(HttpServletRequest httpServletRequest) {
         String articleId = httpServletRequest.getParameter(ConstFinal.ARTICLE_ID);
         String imgPath = ArticleUtil.uploadFileTransfer((MultipartHttpServletRequest) httpServletRequest, articleId);
-        iArticleAdminService.insertArticleImg(articleId,imgPath);
+        // iArticleAdminService.insertArticleImg(articleId,imgPath);
         return RestResponseBo.ok();
     }
     /**
@@ -137,7 +137,7 @@ public class ArticleController {
      */
     @RequestMapping("/refresh-prod")
     @ResponseBody
-    public RestResponseBo articleRefresh(String articleId){
+    public RestResponseBo articleRefresh(int articleId){
         iArticleAdminService.articleRefresh(articleId);
         return RestResponseBo.ok();
     }
@@ -147,7 +147,7 @@ public class ArticleController {
      */
     @RequestMapping("/article-copy")
     @ResponseBody
-    public RestResponseBo articleCopy(String articleId){
+    public RestResponseBo articleCopy(int articleId){
         iArticleAdminService.articleCopy(articleId);
         return RestResponseBo.ok();
     }
@@ -157,7 +157,7 @@ public class ArticleController {
      */
     @RequestMapping("/article-del")
     @ResponseBody
-    public RestResponseBo articleDel(String articleId){
+    public RestResponseBo articleDel(int articleId){
         iArticleAdminService.articleDel(articleId);
         return RestResponseBo.ok();
     }

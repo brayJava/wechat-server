@@ -42,7 +42,7 @@ public class WyArticleSqlProvider {
         INSERT_INTO("wy_article");
         
         if (record.getId() != null) {
-            VALUES("id", "#{id,jdbcType=VARCHAR}");
+            VALUES("id", "#{id,jdbcType=INTEGER}");
         }
         
         if (record.getTitle() != null) {
@@ -81,12 +81,12 @@ public class WyArticleSqlProvider {
             VALUES("goback_url", "#{gobackUrl,jdbcType=VARCHAR}");
         }
         
-        if (record.getImageGobackUrl() != null) {
-            VALUES("image_goback_url", "#{imageGobackUrl,jdbcType=VARCHAR}");
-        }
-        
         if (record.getReadOriginalUrl() != null) {
             VALUES("read_original_url", "#{readOriginalUrl,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getImageGobackUrl() != null) {
+            VALUES("image_goback_url", "#{imageGobackUrl,jdbcType=VARCHAR}");
         }
         
         if (record.getOrderImgUrl() != null) {
@@ -156,8 +156,8 @@ public class WyArticleSqlProvider {
         SELECT("is_order_img");
         SELECT("data_transfer_url");
         SELECT("goback_url");
-        SELECT("image_goback_url");
         SELECT("read_original_url");
+        SELECT("image_goback_url");
         SELECT("order_img_url");
         SELECT("order_copy_url");
         SELECT("share_success_fail_url");
@@ -188,7 +188,7 @@ public class WyArticleSqlProvider {
         UPDATE("wy_article");
         
         if (record.getId() != null) {
-            SET("id = #{record.id,jdbcType=VARCHAR}");
+            SET("id = #{record.id,jdbcType=INTEGER}");
         }
         
         if (record.getTitle() != null) {
@@ -227,12 +227,12 @@ public class WyArticleSqlProvider {
             SET("goback_url = #{record.gobackUrl,jdbcType=VARCHAR}");
         }
         
-        if (record.getImageGobackUrl() != null) {
-            SET("image_goback_url = #{record.imageGobackUrl,jdbcType=VARCHAR}");
-        }
-        
         if (record.getReadOriginalUrl() != null) {
             SET("read_original_url = #{record.readOriginalUrl,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getImageGobackUrl() != null) {
+            SET("image_goback_url = #{record.imageGobackUrl,jdbcType=VARCHAR}");
         }
         
         if (record.getOrderImgUrl() != null) {
@@ -291,7 +291,7 @@ public class WyArticleSqlProvider {
         BEGIN();
         UPDATE("wy_article");
         
-        SET("id = #{record.id,jdbcType=VARCHAR}");
+        SET("id = #{record.id,jdbcType=INTEGER}");
         SET("title = #{record.title,jdbcType=VARCHAR}");
         SET("bgm_url = #{record.bgmUrl,jdbcType=VARCHAR}");
         SET("author = #{record.author,jdbcType=VARCHAR}");
@@ -301,8 +301,8 @@ public class WyArticleSqlProvider {
         SET("is_order_img = #{record.isOrderImg,jdbcType=BIT}");
         SET("data_transfer_url = #{record.dataTransferUrl,jdbcType=VARCHAR}");
         SET("goback_url = #{record.gobackUrl,jdbcType=VARCHAR}");
-        SET("image_goback_url = #{record.imageGobackUrl,jdbcType=VARCHAR}");
         SET("read_original_url = #{record.readOriginalUrl,jdbcType=VARCHAR}");
+        SET("image_goback_url = #{record.imageGobackUrl,jdbcType=VARCHAR}");
         SET("order_img_url = #{record.orderImgUrl,jdbcType=VARCHAR}");
         SET("order_copy_url = #{record.orderCopyUrl,jdbcType=VARCHAR}");
         SET("share_success_fail_url = #{record.shareSuccessFailUrl,jdbcType=VARCHAR}");
@@ -361,12 +361,12 @@ public class WyArticleSqlProvider {
             SET("goback_url = #{gobackUrl,jdbcType=VARCHAR}");
         }
         
-        if (record.getImageGobackUrl() != null) {
-            SET("image_goback_url = #{imageGobackUrl,jdbcType=VARCHAR}");
-        }
-        
         if (record.getReadOriginalUrl() != null) {
             SET("read_original_url = #{readOriginalUrl,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getImageGobackUrl() != null) {
+            SET("image_goback_url = #{imageGobackUrl,jdbcType=VARCHAR}");
         }
         
         if (record.getOrderImgUrl() != null) {
@@ -417,7 +417,7 @@ public class WyArticleSqlProvider {
             SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
         }
         
-        WHERE("id = #{id,jdbcType=VARCHAR}");
+        WHERE("id = #{id,jdbcType=INTEGER}");
         
         return SQL();
     }

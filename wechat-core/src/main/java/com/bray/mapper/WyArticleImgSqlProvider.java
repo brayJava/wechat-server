@@ -46,7 +46,7 @@ public class WyArticleImgSqlProvider {
         }
         
         if (record.getArticleId() != null) {
-            VALUES("article_id", "#{articleId,jdbcType=VARCHAR}");
+            VALUES("article_id", "#{articleId,jdbcType=INTEGER}");
         }
         
         if (record.getImgPath() != null) {
@@ -112,7 +112,7 @@ public class WyArticleImgSqlProvider {
         }
         
         if (record.getArticleId() != null) {
-            SET("article_id = #{record.articleId,jdbcType=VARCHAR}");
+            SET("article_id = #{record.articleId,jdbcType=INTEGER}");
         }
         
         if (record.getImgPath() != null) {
@@ -148,7 +148,7 @@ public class WyArticleImgSqlProvider {
         UPDATE("wy_article_img");
         
         SET("id = #{record.id,jdbcType=INTEGER}");
-        SET("article_id = #{record.articleId,jdbcType=VARCHAR}");
+        SET("article_id = #{record.articleId,jdbcType=INTEGER}");
         SET("img_path = #{record.imgPath,jdbcType=VARCHAR}");
         SET("third_img_path = #{record.thirdImgPath,jdbcType=VARCHAR}");
         SET("img_url = #{record.imgUrl,jdbcType=VARCHAR}");
@@ -166,7 +166,7 @@ public class WyArticleImgSqlProvider {
         UPDATE("wy_article_img");
         
         if (record.getArticleId() != null) {
-            SET("article_id = #{articleId,jdbcType=VARCHAR}");
+            SET("article_id = #{articleId,jdbcType=INTEGER}");
         }
         
         if (record.getImgPath() != null) {

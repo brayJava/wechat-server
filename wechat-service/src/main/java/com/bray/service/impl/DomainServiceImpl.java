@@ -43,7 +43,7 @@ public class DomainServiceImpl extends DomainBaseService
      *查询所有有效域名{“主域名”：{"主域名"：primaryDomain,[{"子域名"：subDomain}]}}
      * @return
      */
-    public Object queryAllEffectiveDomain(String queryType,String articleId) {
+    public Object queryAllEffectiveDomain(String queryType,int articleId) {
         WyDomainExample wyDomainExample = new WyDomainExample();
         //如果是admin查询则返回所有没被删除的
         if(ConstatFinal.QUERY_ADMIN.equals(queryType))
@@ -54,7 +54,7 @@ public class DomainServiceImpl extends DomainBaseService
                     .andIsDelEqualTo(EffectiveType.EFFECTIVE_YES)
                     .andStatusEqualTo(EffectiveType.EFFECTIVE_YES)
                     // .andArticleIdEqualTo(articleId)
-                    .andArticleIdLike(articleId);
+                    .andArticleIdEqualTo(articleId);
         }
         wyDomainExample.setOrderByClause("create_time desc");
         List<WyDomain> wyDomains = wyDomainMapper.selectByExample(wyDomainExample);
@@ -81,7 +81,7 @@ public class DomainServiceImpl extends DomainBaseService
      * @param articleId
      * @return
      */
-    public Object queryPrimarySubDomainMap(String queryType,String articleId) {
+    public Object queryPrimarySubDomainMap(String queryType,int articleId) {
 
         Map<String,Object> primarySubMap = new LinkedHashMap<>();
         List<PrimarySubDomain> primarySubDomainList =

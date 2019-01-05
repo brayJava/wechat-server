@@ -64,7 +64,7 @@ public class WechatController {
      * 首页跳转
      */
     @RequestMapping("/jump/{articleId}/{temstamp}")
-    public String index(@PathVariable String articleId,@PathVariable String temstamp, Model model) {
+    public String index(@PathVariable int articleId,@PathVariable String temstamp, Model model) {
         Map<String,Object> domainMap = (HashMap<String,Object>)
                 iDomainWebService.queryDomainByredisServer(getDomainFlag(articleId),articleId);
         //获取内容跳转链接
@@ -80,7 +80,7 @@ public class WechatController {
      * 首页跳转测试用
      */
     @RequestMapping("/jump-test/{articleId}/{temstamp}")
-    public String indexTest(@PathVariable String articleId,@PathVariable String temstamp, Model model) {
+    public String indexTest(@PathVariable int articleId,@PathVariable String temstamp, Model model) {
         Map<String,Object> domainMap = (HashMap<String,Object>)
                 iDomainWebService.queryDomainByredisServer(getDomainFlag(articleId),articleId);
         //获取内容跳转链接
@@ -96,7 +96,7 @@ public class WechatController {
      * 内容跳转
      */
     @RequestMapping("/random-content-other/{articleId}/{timstamp}")
-    public ModelAndView randomContentOther(@PathVariable String articleId,@PathVariable String timstamp,Model model, HttpServletRequest request) {
+    public ModelAndView randomContentOther(@PathVariable int articleId,@PathVariable String timstamp,Model model, HttpServletRequest request) {
         if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.baidu.com");
         ModelAndView modelAndView = new ModelAndView();
         //获取图片相关信息
@@ -141,7 +141,7 @@ public class WechatController {
      * 内容跳转测试用
      */
     @RequestMapping("/random-test/{articleId}/{timstamp}")
-    public ModelAndView randomTest(@PathVariable String articleId,@PathVariable String timstamp,Model model, HttpServletRequest request) {
+    public ModelAndView randomTest(@PathVariable int articleId,@PathVariable String timstamp,Model model, HttpServletRequest request) {
         if(!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("redirect:http://www.baidu.com");
         ModelAndView modelAndView = new ModelAndView();
         Map<String,Object> domainMap = (HashMap<String,Object>)
@@ -168,7 +168,7 @@ public class WechatController {
      * 内容跳转
      */
     @RequestMapping("/random-content/{articleId}/{timstamp}")
-    public ModelAndView randomContent(@PathVariable String articleId,@PathVariable String timstamp,Model model, HttpServletRequest request) {
+    public ModelAndView randomContent(@PathVariable int articleId,@PathVariable String timstamp,Model model, HttpServletRequest request) {
         Map<String,Object> domainMap = (HashMap<String,Object>)
                 iDomainWebService.queryDomainByredisServer(getDomainFlag(articleId),articleId);
         JSONObject jsonObject = WechatUtil.nextUrlBuild(WebConst.SUB_SHARE_DOMAIN, UrlConstant.PATH_JUMP_RUL,articleId, domainMap);
@@ -187,7 +187,7 @@ public class WechatController {
      * 无需强制分享普通界面
      */
     @RequestMapping("/random-common/{articleId}/{timstamp}")
-    public String randomCommon(@PathVariable String articleId, @PathVariable String timstamp, Model model, HttpServletRequest request) {
+    public String randomCommon(@PathVariable int articleId, @PathVariable String timstamp, Model model, HttpServletRequest request) {
         //获取域名集合map
         Map<String,Object> domainMap = (HashMap<String,Object>)
                 iDomainWebService.queryDomainByredisServer(getDomainFlag(articleId),articleId);
@@ -221,8 +221,9 @@ public class WechatController {
      * @param articleId
      * @return
      */
-    private String getDomainFlag(@PathVariable String articleId) {
-        return ConstFinal.DOMAIN_MAP+"_"+articleId;
+    private String getDomainFlag(@PathVariable int articleId) {
+        String articleIds = articleId + "";
+        return ConstFinal.DOMAIN_MAP+"_"+articleIds;
     }
     /**
      * 获取文章信息
@@ -230,7 +231,7 @@ public class WechatController {
      * @param domain
      * @return
      */
-    private ArticleWithImages getArticleWithImages(@PathVariable String articleId, String domain) {
+    private ArticleWithImages getArticleWithImages(@PathVariable int articleId, String domain) {
         //获取图片相关信息
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
         if(!Objects.isNull(articleWithImages) && articleWithImages.getWyArticle() != null) {
@@ -259,7 +260,7 @@ public class WechatController {
      * @param articleId
      * @return
      */
-    private ArticleWithImages getArticleWithImages(@PathVariable String articleId) {
+    private ArticleWithImages getArticleWithImages(@PathVariable int articleId) {
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
         WyArticle wyArticle = articleWithImages.getWyArticle();
         wyArticle.setNoShareDomain(iArticleService.getNoShareDomainByArticleId(articleId));
@@ -277,5 +278,13 @@ public class WechatController {
             domain = domain.substring(domain.indexOf(".")+1, domain.length());
         }
         return domain;
+    }
+    /**
+     * 首页跳转
+     */
+    @RequestMapping("/wxy")
+    public String wxy() {
+
+        return "html/h5/wxy";
     }
 }

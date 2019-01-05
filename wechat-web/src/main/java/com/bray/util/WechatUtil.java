@@ -27,7 +27,7 @@ public class WechatUtil {
      * @param domainMap
      * @return
      */
-    public static JSONObject nextUrlBuild(String domainType, String path, String articleId, Map<String, Object> domainMap) {
+    public static JSONObject nextUrlBuild(String domainType, String path, int articleId, Map<String, Object> domainMap) {
         JSONObject jsonObject = new JSONObject();
         long millis = Clock.systemDefaultZone().millis();
         String wySub = "wlzy";

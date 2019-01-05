@@ -3,17 +3,8 @@ package com.bray.mapper;
 import com.bray.model.WyDomain;
 import com.bray.model.WyDomainExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.InsertProvider;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectProvider;
-import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.UpdateProvider;
+
+import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 
 public interface WyDomainMapper {
@@ -37,13 +28,16 @@ public interface WyDomainMapper {
         "update_time)",
         "values (#{id,jdbcType=INTEGER}, #{domain,jdbcType=VARCHAR}, ",
         "#{domainFrom,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, ",
-        "#{articleId,jdbcType=VARCHAR}, #{appId,jdbcType=VARCHAR}, ",
+        "#{articleId,jdbcType=INTEGER}, #{appId,jdbcType=VARCHAR}, ",
         "#{status,jdbcType=INTEGER}, #{isDel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
         "#{updateTime,jdbcType=TIMESTAMP})"
     })
+    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     int insert(WyDomain record);
 
+
     @InsertProvider(type=WyDomainSqlProvider.class, method="insertSelective")
+    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     int insertSelective(WyDomain record);
 
     @SelectProvider(type=WyDomainSqlProvider.class, method="selectByExample")
@@ -52,7 +46,7 @@ public interface WyDomainMapper {
         @Result(column="domain", property="domain", jdbcType=JdbcType.VARCHAR),
         @Result(column="domain_from", property="domainFrom", jdbcType=JdbcType.VARCHAR),
         @Result(column="type", property="type", jdbcType=JdbcType.VARCHAR),
-        @Result(column="article_id", property="articleId", jdbcType=JdbcType.VARCHAR),
+        @Result(column="article_id", property="articleId", jdbcType=JdbcType.INTEGER),
         @Result(column="app_id", property="appId", jdbcType=JdbcType.VARCHAR),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
         @Result(column="is_del", property="isDel", jdbcType=JdbcType.INTEGER),
@@ -73,7 +67,7 @@ public interface WyDomainMapper {
         @Result(column="domain", property="domain", jdbcType=JdbcType.VARCHAR),
         @Result(column="domain_from", property="domainFrom", jdbcType=JdbcType.VARCHAR),
         @Result(column="type", property="type", jdbcType=JdbcType.VARCHAR),
-        @Result(column="article_id", property="articleId", jdbcType=JdbcType.VARCHAR),
+        @Result(column="article_id", property="articleId", jdbcType=JdbcType.INTEGER),
         @Result(column="app_id", property="appId", jdbcType=JdbcType.VARCHAR),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
         @Result(column="is_del", property="isDel", jdbcType=JdbcType.INTEGER),
@@ -96,7 +90,7 @@ public interface WyDomainMapper {
         "set domain = #{domain,jdbcType=VARCHAR},",
           "domain_from = #{domainFrom,jdbcType=VARCHAR},",
           "type = #{type,jdbcType=VARCHAR},",
-          "article_id = #{articleId,jdbcType=VARCHAR},",
+          "article_id = #{articleId,jdbcType=INTEGER},",
           "app_id = #{appId,jdbcType=VARCHAR},",
           "status = #{status,jdbcType=INTEGER},",
           "is_del = #{isDel,jdbcType=INTEGER},",

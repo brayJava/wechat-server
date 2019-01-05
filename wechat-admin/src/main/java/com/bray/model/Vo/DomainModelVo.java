@@ -19,7 +19,7 @@ public class DomainModelVo {
 
     private String domainType;
 
-    private String articleId;
+    private int articleId;
     /**
      * 公众号id
      */

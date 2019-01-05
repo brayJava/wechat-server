@@ -6,7 +6,7 @@ import java.util.Date;
 public class WyArticleImg implements Serializable{
     private Integer id;
 
-    private String articleId;
+    private Integer articleId;
 
     private String imgPath;
 
@@ -28,12 +28,12 @@ public class WyArticleImg implements Serializable{
         this.id = id;
     }
 
-    public String getArticleId() {
+    public Integer getArticleId() {
         return articleId;
     }
 
-    public void setArticleId(String articleId) {
-        this.articleId = articleId == null ? null : articleId.trim();
+    public void setArticleId(Integer articleId) {
+        this.articleId = articleId;
     }
 
     public String getImgPath() {

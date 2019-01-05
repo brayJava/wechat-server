@@ -13,7 +13,7 @@ public class ArticleImgModelVo {
 
     private int articleImgId;
 
-    private String articleId;
+    private int articleId;
 
     private String insertType;
 

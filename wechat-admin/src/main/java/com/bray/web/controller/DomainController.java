@@ -46,7 +46,7 @@ public class DomainController {
         // List<PrimarySubDomain> primarySubDomainList =
         //         (List<PrimarySubDomain>) domainService.queryAllEffectiveDomain(ConstatFinal.QUERY_ADMIN,"");
         HashMap<String,List<PrimarySubDomain>> primarySubDomainMap =
-                (HashMap<String,List<PrimarySubDomain>>)domainService.queryPrimarySubDomainMap(ConstatFinal.QUERY_ADMIN, "");
+                (HashMap<String,List<PrimarySubDomain>>)domainService.queryPrimarySubDomainMap(ConstatFinal.QUERY_ADMIN, 1);
         model.addAttribute(WebConst.ALL_MAP_DOMAIN,primarySubDomainMap);
         // model.addAttribute(WebConst.ALL_DOMAIN,primarySubDomainList);
         return "domain/domain";
@@ -109,7 +109,7 @@ public class DomainController {
     @ResponseBody
     @RequestMapping("/refresh-prod")
     public RestResponseBo refreshProd(int id) {
-        iDomainAdminService.refreshDomainByArticleId(id);
+        // iDomainAdminService.refreshDomainByArticleId(id);
         return RestResponseBo.ok();
     }
     /**

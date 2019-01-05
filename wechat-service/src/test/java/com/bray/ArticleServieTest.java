@@ -28,14 +28,14 @@ public class ArticleServieTest {
     private IArticleService iArticleService;
     @Test
     public void queryArticleById() {
-        ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle("1f749c7657364920924c4d3d407463dd");
+        ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(1);
         log.info("返回文章属性：{}", JSONObject.toJSONString(articleWithImages));
         Assert.assertNotNull(articleWithImages);
 
     }
     @Test
     public void queryNewArticleById() {
-        ArticleNewImages articleNewImages = iArticleService.queryNewArticleImages("a1d9b1e5d8f44a1e9e1e376a25c2ec0d");
+        ArticleNewImages articleNewImages = iArticleService.queryNewArticleImages(1);
         log.info("返回文章属性：{}", JSONObject.toJSONString(articleNewImages));
         Assert.assertNotNull(articleNewImages);
 

@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 public class ArticleVo implements Serializable{
 
-    private String imgnews_id;
+    private int imgnews_id;
 
     private String imgnews_cate;
 

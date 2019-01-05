@@ -12,7 +12,7 @@ public class WyDomain implements Serializable{
 
     private String type;
 
-    private String articleId;
+    private Integer articleId;
 
     private String appId;
 
@@ -56,12 +56,12 @@ public class WyDomain implements Serializable{
         this.type = type == null ? null : type.trim();
     }
 
-    public String getArticleId() {
+    public Integer getArticleId() {
         return articleId;
     }
 
-    public void setArticleId(String articleId) {
-        this.articleId = articleId == null ? null : articleId.trim();
+    public void setArticleId(Integer articleId) {
+        this.articleId = articleId;
     }
 
     public String getAppId() {

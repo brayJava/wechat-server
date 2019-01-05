@@ -19,6 +19,5 @@ public class Application {
         // 启动嵌入式的 Tomcat 并初始化 Spring 环境及其各 Spring x组件
         SpringApplication.run(Application.class,args);
 
-
     }
 }

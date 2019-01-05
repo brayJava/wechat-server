@@ -15,7 +15,7 @@ public class ArticleImg implements Serializable{
 
     private String item_id;
 
-    private String item_news_id;
+    private int item_news_id;
 
     private String item_img_url;
 
