@@ -94,7 +94,7 @@ window.onhashchange = function () {
 };
 
 function hh() {
-    history.pushState(history.length + 1, "app", "#lmwz_" + new Date().getTime());
+    history.pushState(history.length + 1, "app", "#fdsfjlsj" + new Date().getTime());
     // let ua = navigator.userAgent.toLowerCase();
     // if(ua.match(/MicroMessenger/i) == "micromessenger") {
     //     history.replaceState(history.state, null, window.location.pathname);
