@@ -401,6 +401,64 @@ public class WechatAritcleController {
     }
     /***************************mylove界面end*******************************/
     /**
+     * 获取内容
+     * @param request
+     * @return
+     */
+    @RequestMapping("/8888")
+    public String wxy(HttpServletRequest request, HttpServletResponse response, Model model,int id) {
+
+
+        return "html/h5/wxy";
+
+    }
+    /**
+     * 获取内容
+     * @param request
+     * @return
+     */
+    @RequestMapping("/getArticle/{articleId}")
+    @ResponseBody
+    public ArticleWithImages newlove(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable int articleId) {
+
+        //获取图片相关信息
+        ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
+        //取缓存
+        String html = String.valueOf(redisObj.getRedisValueByKey("images_content:"+articleId));
+        if(StringUtils.isEmpty(html) || "null".equals(html)) {
+            model.addAttribute("article", article);
+            log.info("返回连接：{}",article.getWyArticle().getGobackUrl());
+            //手动渲染
+            SpringWebContext ctx = new SpringWebContext(request,response,
+                    request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+            html = thymeleafViewResolver.getTemplateEngine().process("html/wode/image_content", ctx);
+            redisObj.saveDataToRedis("images_content:"+articleId,html);
+        }
+        article.setContentHtml(html);
+        String noShareDomain = article.getWyArticle().getNoShareDomain();
+        if(!StringUtils.isEmpty(noShareDomain)) {
+            String[] wySubs = noShareDomain.split(",");
+            int v = (int)Math.floor(Math.random() * wySubs.length); //在域名中求整数
+            noShareDomain = wySubs[v];
+        }
+        article.getWyArticle().setNoShareDomain(noShareDomain);
+        return article;
+
+    }
+    /**
+     * 获取内容
+     * @param request
+     * @return
+     */
+    @RequestMapping("/u-9999/{articleId}")
+    public ModelAndView othernew(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable int articleId) {
+
+        //获取图片相关信息
+        ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
+        return new ModelAndView("redirect:http://"+article.getWyArticle().getNoShareDomain()+"/1111/8888?id="+articleId);
+
+    }
+    /**
      * 获取域名
      * @param articleId
      * @return
