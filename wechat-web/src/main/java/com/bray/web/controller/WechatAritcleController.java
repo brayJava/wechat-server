@@ -436,11 +436,7 @@ public class WechatAritcleController {
         }
         article.setContentHtml(html);
         String noShareDomain = article.getWyArticle().getNoShareDomain();
-        if(!StringUtils.isEmpty(noShareDomain)) {
-            String[] wySubs = noShareDomain.split(",");
-            int v = (int)Math.floor(Math.random() * wySubs.length); //在域名中求整数
-            noShareDomain = wySubs[v];
-        }
+        noShareDomain = getString(noShareDomain);
         article.getWyArticle().setNoShareDomain(noShareDomain);
         return article;
 
@@ -455,8 +451,17 @@ public class WechatAritcleController {
 
         //获取图片相关信息
         ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
-        return new ModelAndView("redirect:http://"+article.getWyArticle().getNoShareDomain()+"/1111/8888?id="+articleId);
+        String noShareDomain = getString(article.getWyArticle().getNoShareDomain());
+        return new ModelAndView("redirect:http://"+noShareDomain+"/1111/8888?id="+articleId);
 
+    }
+    private String getString(String noShareDomain) {
+        if(!StringUtils.isEmpty(noShareDomain)) {
+            String[] wySubs = noShareDomain.split(",");
+            int v = (int)Math.floor(Math.random() * wySubs.length); //在域名中求整数
+            noShareDomain = wySubs[v];
+        }
+        return noShareDomain;
     }
     /**
      * 获取域名
