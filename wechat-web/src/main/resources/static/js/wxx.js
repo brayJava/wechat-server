@@ -14457,7 +14457,7 @@
                         jump: function(t) {
                             if (0 === document.referrer.length &&  this.aUrl.length != 0 ) {
                                 var e = this.randomString(5),
-                                    n = "http://aaa." + this.aUrl + "1111/u-9999/" + t;
+                                    n = "http://aaa." + this.aUrl + "/1111/u-9999/" + t;
                                     // n = "http://" + this.aUrl + "/1111/u-9999/" + t;
                                 console.log(n)
                                 location.href = n.replace("aaa", e)
