@@ -406,10 +406,13 @@ public class WechatAritcleController {
      * @return
      */
     @RequestMapping("/8888")
-    public String wxy(HttpServletRequest request, HttpServletResponse response, Model model,int id) {
+    public ModelAndView wxy(HttpServletRequest request, HttpServletResponse response, Model model,int id) {
+        ModelAndView modelAndView = new ModelAndView();
 
-
-        return "html/h5/wxy";
+        if (!HttpRequestDeviceUtils.isMobileDevice(request))
+            return new ModelAndView("redirect:http://www.baidu.com");
+        modelAndView.setViewName("html/h5/wxy");
+        return modelAndView;
 
     }
     /**
