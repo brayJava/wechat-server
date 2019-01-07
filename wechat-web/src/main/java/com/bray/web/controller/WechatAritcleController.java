@@ -409,8 +409,8 @@ public class WechatAritcleController {
     public ModelAndView wxy(HttpServletRequest request, HttpServletResponse response, Model model,int id) {
         ModelAndView modelAndView = new ModelAndView();
 
-        // if (!HttpRequestDeviceUtils.isMobileDevice(request))
-        //     return new ModelAndView("redirect:http://www.baidu.com");
+        if (!HttpRequestDeviceUtils.isMobileDevice(request))
+            return new ModelAndView("redirect:http://www.baidu.com");
         modelAndView.setViewName("html/h5/wxy");
         return modelAndView;
 
