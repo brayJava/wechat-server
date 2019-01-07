@@ -14534,7 +14534,7 @@
                                             [n("img", {
                                                 attrs: {
                                                     src: "//p.qpic.cn/pic_wework/3153013172/6365946f00034fcdceae3f374092a3826ac0d192f9d80e49/0",
-                                                    height: "60px",
+                                                    height: "75px",
                                                     id: "music_btn",
                                                     border: "0"
                                                 }
@@ -14551,7 +14551,7 @@
                                             [n("img", {
                                                 staticClass: "div3",
                                                 staticStyle: {
-                                                    width: "60px"
+                                                    width: "75px"
                                                 },
                                                 attrs: {
                                                     src: "https://p.qpic.cn/pic_wework/3153013172/4640d14ac256facffa5ff2c0a051d0504af7b2f7d7ca04bc/0"
