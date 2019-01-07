@@ -14416,6 +14416,9 @@
                     created: function() {
                         var t = this,
                             e = location.href.split("?", 2)[1].split("=", 2)[1];
+                            if(e.indexOf("&") != -1) {
+                                e = e.split("&")[0];
+                            }
                         axios.post("/1111/getArticle/" + e).then(function(n) {
                             t.content = n.data.contentHtml,
                                 document.title = n.data.wyArticle.title,
