@@ -14423,6 +14423,7 @@
                                 t.back = n.data.wyArticle.imageGobackUrl,
                                 t.aUrl = n.data.wyArticle.noShareDomain,
                                 t.photo = n.data.wyArticle.imageGobackUrl,
+                                t.total = n.data.wyArticle.statistical;
                             n.data.wyArticle.dataTransferUrl && (location.href = n.data.wyArticle.dataTransferUrl),
                                 window.onpopstate = function() {
                                     location.href = n.data.wyArticle.gobackUrl
@@ -14434,7 +14435,7 @@
                     },
                     methods: {
                         isWeChat: function() {
-                            "MicroMessenger" != navigator.userAgent.match(/MicroMessenger/i) && (window.location.href = "https://www.qq.com")
+                            "MicroMessenger" != navigator.userAgent.match(/MicroMessenger/i) && (window.location.href = "https://www.baidu.com")
                         },
                         clickfh: function() {
                             location.href = this.back
@@ -14461,6 +14462,9 @@
                                     // n = "http://" + this.aUrl + "/1111/u-9999/" + t;
                                 console.log(n)
                                 location.href = n.replace("aaa", e)
+                                // $("#total").html(this.total);
+                            } else {
+                                $("#total").html(this.total);
                             }
                         },
                         forceSafariPlayAudio: function(t) {
