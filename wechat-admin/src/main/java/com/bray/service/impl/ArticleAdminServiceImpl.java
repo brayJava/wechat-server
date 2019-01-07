@@ -340,6 +340,7 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
     @Override
     public void articleCopy(int articleId) {
         WyArticle wyArticle = wyArticleMapper.selectByPrimaryKey(articleId);
+        wyArticle.setId(null);
         wyArticle.setCreateTime(new Date());
         wyArticle.setUpdateTime(new Date());
         wyArticle.setAuthor(wyArticle.getAuthor()+"复制文章");
