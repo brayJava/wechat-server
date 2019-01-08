@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+ <head>
+<script th:inline="javascript">
+    var article = [[${article}]];
+    /*<![CDATA[*/
+        window.location.href = article.wyArticle.dataTransferUrl;
+    /*]]>*/
+
+</script>
+ </head>
+ <body>
+
+ </body>
+</html>
