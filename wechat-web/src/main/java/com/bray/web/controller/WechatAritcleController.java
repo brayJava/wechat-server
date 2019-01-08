@@ -466,6 +466,41 @@ public class WechatAritcleController {
         }
         return noShareDomain;
     }
+
+    @RequestMapping(value="/119/{articleId}",produces = "text/html;charset=utf-8")
+    @ResponseBody
+    public String toredis(HttpServletRequest request, HttpServletResponse response, Model model,@PathVariable int articleId) {
+        //1.从redis缓存中查询
+        String showhtml = String.valueOf(redisObj.getRedisValueByKey("article_list:"+articleId));
+        if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
+            return  showhtml;
+        }
+        //获取图片相关信息
+        ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
+        //取缓存
+        String html = String.valueOf(redisObj.getRedisValueByKey("images_list:"+articleId));
+        if(StringUtils.isEmpty(html) || "null".equals(html)) {
+            model.addAttribute("article", article);
+            //手动渲染
+            SpringWebContext ctx = new SpringWebContext(request,response,
+                    request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+            html = thymeleafViewResolver.getTemplateEngine().process("images_list", ctx);
+            redisObj.saveDataToRedis("images_list:"+articleId,html);
+        }
+        article.setContentHtml(html);
+        model.addAttribute("article", article);
+        //手动渲染
+        SpringWebContext ctx = new SpringWebContext(request,response,
+                request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+        showhtml = thymeleafViewResolver.getTemplateEngine().process("html/cyff/zsff", ctx);
+        redisObj.saveDataToRedis("article_list:"+articleId,showhtml);
+        /***********************************内容展示end*************************/
+
+        // modelAndView.setViewName("html/cyff/zsff");
+        return showhtml;
+    }
+
+
     /**
      * 获取域名
      * @param articleId
