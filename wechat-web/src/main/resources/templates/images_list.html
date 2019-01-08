@@ -5,13 +5,13 @@
 <head></head>
 <body>
    <li class="i_pri" style="text-align:center; line-height:0px; margin:-25px 0px 0px 0px;">
-     <p style="text-align: center;" th:if="${not #lists.isEmpty(article.wyArticleImgs)}" th:each="wyArticleImg,iterStat:${article.wyArticleImgs}">
+     <p style="text-align: center; margin: 0px" th:if="${not #lists.isEmpty(article.wyArticleImgs)}" th:each="wyArticleImg,iterStat:${article.wyArticleImgs}">
          <a th:href="${wyArticleImg.imgUrl}">
-        <img alt="" src="https://p.qpic.cn/pic_wework/4229309850/14128d18e38c8806b65b75107c237783c5cafcc93c3184fa/0" th:src="${wyArticleImg.thirdImgPath}" width="685" />
+        <img alt="" src="https://p.qpic.cn/pic_wework/4229309850/14128d18e38c8806b65b75107c237783c5cafcc93c3184fa/0" th:src="${wyArticleImg.thirdImgPath}" width="100%" />
         </a>
      </p>
       <a th:if="${article.wyArticle.isOrderImg}" th:href="${article.wyArticle.orderCopyUrl}">
-          <img th:src="${article.wyArticle.orderImgUrl}" width="685"/>
+          <img th:src="${article.wyArticle.orderImgUrl}" width="100%"/>
       </a>
    </li>
 </body>
