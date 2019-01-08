@@ -364,7 +364,7 @@ public class WechatAritcleController {
      * @return
      */
     // @RequestMapping("/newff/{articleId}")
-    @RequestMapping("/3333/{articleId}")
+    @RequestMapping("/120/{articleId}")
     public ModelAndView newFangFeng(HttpServletRequest request, Model model, HttpServletResponse response, @PathVariable int articleId) {
         ModelAndView modelAndView = new ModelAndView();
         if (!HttpRequestDeviceUtils.isMobileDevice(request))
@@ -406,7 +406,7 @@ public class WechatAritcleController {
      * @return
      */
     // @RequestMapping("/newff/{articleId}")
-    @RequestMapping(value="/120/{articleId}",produces = "text/html;charset=utf-8")
+    @RequestMapping(value="/3333/{articleId}",produces = "text/html;charset=utf-8")
     @ResponseBody
     public String sansan(HttpServletRequest request, Model model, HttpServletResponse response, @PathVariable int articleId) {
         // if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
