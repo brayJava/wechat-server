@@ -27,5 +27,7 @@ public interface ConstatFinal {
     String NEW_ARTICLE_LIST = "new_article_list";
     //新文章获取
     String IMAGES_CONTENT = "images_content";
+    //新文章获取
+    String ARTICLE_CONTENT = "article_list";
 
 }
