@@ -410,13 +410,21 @@ public class WechatAritcleController {
     @ResponseBody
     public String sansan(HttpServletRequest request, Model model, HttpServletResponse response, @PathVariable int articleId) {
         // if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
+
+        ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
+        if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getDataTransferUrl())) {
+            model.addAttribute("article", article);
+            SpringWebContext ctx = new SpringWebContext(request,response,
+                    request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+            String qyhtml = thymeleafViewResolver.getTemplateEngine().process("html/wode/qy", ctx);
+            return qyhtml;
+        }
         //1.从redis缓存中查询
         String showhtml = String.valueOf(redisObj.getRedisValueByKey("articlenew_list:"+articleId));
         if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
             return  showhtml;
         }
         //获取图片相关信息
-        ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
         //取缓存
         String html = String.valueOf(redisObj.getRedisValueByKey("images_content:"+articleId));
         if(StringUtils.isEmpty(html) || "null".equals(html)) {
