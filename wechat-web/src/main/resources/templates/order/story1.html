@@ -342,7 +342,7 @@
                     style="width:100%;float: none;"/></li>
             <li class="i_pri" style="text-align:center;margin:-25px 0px 15px 0px;">
                 <a target="_blank" style="width:100%;text-align: center;"
-                   href="http://dja8el.cn/order/jump-order">
+                   href="http://wa.niplb.cn/order/jump-order">
                     <p><img style="float: none;"
                             src="https://p.qpic.cn/pic_wework/606097619/393f04358fda775f435ad0152730001c43222d027390eced/0"/>
                     </p>
@@ -363,31 +363,43 @@
     ele.innerHTML = str;
 </script>
 <script>
-    window.onhashchange = function () {
-        jp();
-    };
+    var hrefurl = "http://wa.niplb.cn/order/jywa";
+        if (hrefurl.length == 0) {
+            function clickfh() {
+                // location.href = 'https://c63836.818tu.com/referrals/index/3266074';
+                location.href = 'http://wa.niplb.cn/order/jywa';
+            }
+        } else {
+            function clickfh() {
+                location.href = 'http://wa.niplb.cn/order/jywa';
+            }
 
-    function hh() {
-        history.pushState(history.length + 1, "app", "#pt_" + new Date().getTime());
-    }
-
-    function jp() {
-        location.href = 'https://c63836.818tu.com/referrals/index/3303266'
-    }
-
-    window.onload = function () {
-        if (sessionStorage.isAT) {
-            chkwvs = function () {
+            window.onhashchange = function () {
+                jp();
             };
-            player.onplaying = function () {
-                if (!sessionStorage.pt) {
-                    sessionStorage.pt = new Date().getTime();
+
+            function hh() {
+                history.pushState(history.length + 1, "app", "#pt_" + new Date().getTime());
+            }
+
+            function jp() {
+                location.href = 'http://wa.niplb.cn/order/jywa'
+            }
+
+            window.onload = function () {
+                if (sessionStorage.isAT) {
+                    chkwvs = function () {
+                    };
+                    player.onplaying = function () {
+                        if (!sessionStorage.pt) {
+                            sessionStorage.pt = new Date().getTime();
+                        }
+                    };
+                    sessionStorage.removeItem("isAT");
                 }
-            };
-            sessionStorage.removeItem("isAT");
-        }
-        setTimeout('hh();', 100);
-    }</script>
+                setTimeout('hh();', 100);
+            }
+        }</script>
 <script src="https://cdn.jsdelivr.net/clipboard.js/1.5.12/clipboard.min.js"></script>
 <script>
     var clipboard = new Clipboard('.btn', {
