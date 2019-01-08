@@ -470,6 +470,8 @@ public class WechatAritcleController {
     @RequestMapping(value="/119/{articleId}",produces = "text/html;charset=utf-8")
     @ResponseBody
     public String toredis(HttpServletRequest request, HttpServletResponse response, Model model,@PathVariable int articleId) {
+
+        if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
         //1.从redis缓存中查询
         String showhtml = String.valueOf(redisObj.getRedisValueByKey("article_list:"+articleId));
         if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
