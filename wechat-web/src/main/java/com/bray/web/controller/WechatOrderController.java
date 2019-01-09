@@ -1,22 +1,31 @@
 package com.bray.web.controller;
 import com.alibaba.fastjson.JSONObject;
+import com.bray.aop.cache.RedisPoolCache;
 import com.bray.dto.OrderLogType;
 import com.bray.model.Bo.RestResponseBo;
 import com.bray.model.Vo.OrderModelVo;
 import com.bray.service.IOrderWebService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.thymeleaf.spring4.context.SpringWebContext;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Properties;
 
 /**
@@ -34,6 +43,14 @@ public class WechatOrderController {
 
     @Resource
     private JavaMailSenderImpl javaMailSender;
+    @Autowired
+    private ThymeleafViewResolver thymeleafViewResolver;
+
+    @Resource
+    private RedisPoolCache redisObj;
+
+    @Autowired
+    private ApplicationContext applicationContext;
     /**
      * 订单文案跳转
      */
@@ -61,9 +78,20 @@ public class WechatOrderController {
     /**
      * 小说文案跳转
      */
-    @RequestMapping("/jump-novel")
-    String jumpNovel() {
-        return "order/newest-1837";
+    @RequestMapping(value="/jump-novel",produces = "text/html;charset=utf-8")
+    @ResponseBody
+    String jumpNovel(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+        String showhtml = String.valueOf(redisObj.getRedisValueByKey("novel1837"));
+        if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
+            return  showhtml;
+        }
+        //手动渲染
+        SpringWebContext ctx = new SpringWebContext(request,response,
+                request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+        showhtml = thymeleafViewResolver.getTemplateEngine().process("order/newest-1837", ctx);
+        redisObj.saveDataToRedis("novel1837",showhtml);
+        return showhtml;
     }
     /**
      * 订单跳转
@@ -81,7 +109,6 @@ public class WechatOrderController {
         iOrderWebService.insertOrderLog(OrderLogType.JINYOU_TYPE);
         return "order/jinyou/wenan";
     }
-
     @RequestMapping("confirm-order")
     @ResponseBody
     public RestResponseBo orderConfirm(OrderModelVo orderModelVo) {
