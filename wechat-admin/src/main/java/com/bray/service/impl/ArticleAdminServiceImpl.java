@@ -356,6 +356,7 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
             wyArticleImgs.stream().forEach(wyArticleImg -> {
                 wyArticleImg.setId(null);
                 wyArticleImg.setArticleId(wyArticle.getId());
+                log.info("文章id："+wyArticle.getId());
                 wyArticleImg.setStatus(EffectiveType.EFFECTIVE_YES);
                 wyArticleImg.setCreateTime(new Date());
                 wyArticleImg.setUpdateTime(new Date());
