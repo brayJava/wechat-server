@@ -1,5 +1,7 @@
 package com.bray.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.bray.aop.cache.RedisPoolCache;
 import com.bray.dto.ConstFinal;
 import com.bray.dto.ConstatFinal;
@@ -333,10 +335,13 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
     @Override
     public void articleCopy(int articleId) {
         WyArticle wyArticle = wyArticleMapper.selectByPrimaryKey(articleId);
+        log.info("文章id articleId" + articleId);
         wyArticle.setId(null);
         wyArticle.setCreateTime(new Date());
         wyArticle.setUpdateTime(new Date());
         wyArticle.setAuthor(wyArticle.getAuthor()+"-复制");
+        String swyArticle = JSON.toJSONString(wyArticle);
+        log.info("文章json："+swyArticle);
         //插入新文章id
         try {
             if(!Objects.isNull(wyArticle.getId())) wyArticle.setId(null);
@@ -356,7 +361,6 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
             wyArticleImgs.stream().forEach(wyArticleImg -> {
                 wyArticleImg.setId(null);
                 wyArticleImg.setArticleId(wyArticle.getId());
-                log.info("文章id："+wyArticle.getId());
                 wyArticleImg.setStatus(EffectiveType.EFFECTIVE_YES);
                 wyArticleImg.setCreateTime(new Date());
                 wyArticleImg.setUpdateTime(new Date());
