@@ -132,14 +132,7 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
             log.error("-----------文章添加失败----------");
             e.printStackTrace();
         }
-        // String[] outerImgUrls = articleOtherModelVo.getOuterImgUrl();
-        //插入新的文章图片
-        WyArticle wy = wyArticleMapper.selectLastArticle();
-        int arid = 1;
-        if(!StringUtils.isEmpty(wy.getId())) {
-            arid = wy.getId();
-        }
-        insertNewArticleImages(arid, articleOtherModelVo);
+        insertNewArticleImages(wyArticle.getId(), articleOtherModelVo);
     }
     /**
      * 文章修改
@@ -343,10 +336,12 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
         wyArticle.setId(null);
         wyArticle.setCreateTime(new Date());
         wyArticle.setUpdateTime(new Date());
-        wyArticle.setAuthor(wyArticle.getAuthor()+"复制文章");
+        wyArticle.setAuthor(wyArticle.getAuthor()+"-复制");
         //插入新文章id
         try {
+            if(!Objects.isNull(wyArticle.getId())) wyArticle.setId(null);
             wyArticleMapper.insertSelective(wyArticle);
+            log.info(wyArticle+"");
         } catch (RuntimeException e) {
             log.error("--------插入新文章失败-----");
             e.printStackTrace();
@@ -357,11 +352,10 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
                 .andStatusEqualTo(EffectiveType.EFFECTIVE_YES)
                 .andArticleIdEqualTo(articleId);
         List<WyArticleImg> wyArticleImgs = wyArticleImgMapper.selectByExample(wyArticleImgExample);
-        WyArticle newArticleId = wyArticleMapper.selectLastArticle();
         try {
             wyArticleImgs.stream().forEach(wyArticleImg -> {
                 wyArticleImg.setId(null);
-                wyArticleImg.setArticleId(newArticleId.getId());
+                wyArticleImg.setArticleId(wyArticle.getId());
                 wyArticleImg.setStatus(EffectiveType.EFFECTIVE_YES);
                 wyArticleImg.setCreateTime(new Date());
                 wyArticleImg.setUpdateTime(new Date());

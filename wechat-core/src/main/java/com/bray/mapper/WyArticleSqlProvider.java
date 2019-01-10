@@ -41,10 +41,6 @@ public class WyArticleSqlProvider {
         BEGIN();
         INSERT_INTO("wy_article");
         
-        if (record.getId() != null) {
-            VALUES("id", "#{id,jdbcType=INTEGER}");
-        }
-        
         if (record.getTitle() != null) {
             VALUES("title", "#{title,jdbcType=VARCHAR}");
         }
