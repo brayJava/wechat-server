@@ -341,7 +341,7 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
         try {
             if(!Objects.isNull(wyArticle.getId())) wyArticle.setId(null);
             wyArticleMapper.insertSelective(wyArticle);
-            log.info(wyArticle+"");
+            log.info("文章id："+wyArticle.getId());
         } catch (RuntimeException e) {
             log.error("--------插入新文章失败-----");
             e.printStackTrace();
