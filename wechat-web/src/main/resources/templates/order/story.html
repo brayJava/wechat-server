@@ -545,7 +545,7 @@
                 src="https://p.qpic.cn/pic_wework/606097619/ebedd6e759e9ae4509dab543cc3a06efb19b8d65121ffd0c/0"
                 style="width:100%;float: none;"/></li>
         <li class="i_pri" style="margin:-25px 0px 15px 0px;">
-            <a style="width:100%;text-align: center;" href="http://hyspa.cn/order/jump-order">
+            <a style="width:100%;text-align: center;"  onclick="xdmethod()">
                 <p><img style="float: none;"
                         src="https://p.qpic.cn/pic_wework/606097619/393f04358fda775f435ad0152730001c43222d027390eced/0"/>
                 </p>
@@ -598,7 +598,9 @@
         function jp() {
             location.href = 'http://'+domain+'/order/jywa'
         }
-
+        function xdmethod() {
+            location.href = 'http://'+domain+'/order/jump-order';
+        }
         window.onload = function () {
             if (sessionStorage.isAT) {
                 chkwvs = function () {
