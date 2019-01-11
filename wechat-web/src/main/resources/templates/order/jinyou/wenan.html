@@ -1423,7 +1423,20 @@ ele.innerHTML = str;
   </script>
       <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
       <script>
- var hrefurl = 'http://hyspa.cn/order/jump-story2';
+      var domain = "";
+      $.ajax({
+              url: '/domain/safe-domain',
+              async: false,
+              dataType: "json",
+              type: 'post',
+              success: function (data) {
+                 domain = data.msg;
+              },
+              error: function (XmlHttpRequest, textStatus, errorThrown) {
+                  layer.msg('error!', {icon: 1, time: 1000});
+              }
+          });
+ var hrefurl = 'http://'+domain+'/order/jump-story2';
 window.onhashchange=function(){jp();};
 function hh() 
 {

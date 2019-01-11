@@ -17,6 +17,7 @@ import com.bray.model.WyArticleImg;
 import com.bray.model.WyArticleImgExample;
 import com.bray.service.IArticleAdminService;
 import com.bray.util.GUIDUtil;
+import com.bray.util.TStringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -124,7 +125,7 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
         wyArticle.setForcedShare(ConstFinal.SHARE_STATUS
                 .equals(articleOtherModelVo.getForcedShare()) ? true : false);
         //按字符逗号隔开格式存入
-        wyArticle.setNoShareDomain(dealNoShareDomain(articleOtherModelVo.getNoShareDomain()));
+        wyArticle.setNoShareDomain(TStringUtil.dealStr(articleOtherModelVo.getNoShareDomain()));
         wyArticle.setStatus(EffectiveType.EFFECTIVE_YES);
         wyArticle.setCreateTime(new Date());
         wyArticle.setUpdateTime(new Date());
@@ -162,7 +163,7 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
         wyArticle.setStatistical(articleOtherModelVo.getStatistical());
         wyArticle.setIsOrderImg(ConstFinal.ARTICLE_STATUS.equals(articleOtherModelVo.getOrderImg()) ? true : false);
         wyArticle.setForcedShare(ConstFinal.SHARE_STATUS.equals(articleOtherModelVo.getForcedShare()) ? true : false);
-        wyArticle.setNoShareDomain(dealNoShareDomain(articleOtherModelVo.getNoShareDomain()));
+        wyArticle.setNoShareDomain(TStringUtil.dealStr(articleOtherModelVo.getNoShareDomain()));
         wyArticle.setUpdateTime(new Date());
         this.articleRefresh(articleOtherModelVo.getArticleId());
         try {
@@ -228,19 +229,6 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
                 e.printStackTrace();
             }
         });
-    }
-    /**
-     * 处理非分享域名，将其多个用逗号隔开存入库中
-     * @param noShareDomain 非分享域名
-     * @return
-     */
-    private String dealNoShareDomain(String noShareDomain) {
-        if(StringUtils.isEmpty(noShareDomain)) return "";
-        String replaceUrlStr = noShareDomain.trim().replace(" ", "");
-        String[] noShareDomains = replaceUrlStr.split("\n");
-        if(Objects.isNull(noShareDomains) || noShareDomains.length == 0) return "";
-        String noShareDomainStr = Arrays.stream(noShareDomains).map(s -> s.trim()).collect(Collectors.joining(","));
-        return noShareDomainStr;
     }
     /**
      * 删除文章图片

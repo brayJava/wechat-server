@@ -4,10 +4,12 @@ import com.bray.aop.cache.RedisPoolCache;
 import com.bray.dto.ConstatFinal;
 import com.bray.dto.EffectiveType;
 import com.bray.mapper.WyDomainMapper;
+import com.bray.mapper.WySafedomainMapper;
 import com.bray.mapper.WySubdomainMapper;
 import com.bray.model.Vo.DomainModelVo;
 import com.bray.model.Vo.SubDomainModelVo;
 import com.bray.model.WyDomain;
+import com.bray.model.WySafedomain;
 import com.bray.model.WySubdomain;
 import com.bray.service.IDomainAdminService;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +36,8 @@ public class DomainAdminServiceImpl implements IDomainAdminService {
     private WyDomainMapper wyDomainMapper;
     @Resource
     private WySubdomainMapper wySubdomainMapper;
+    @Resource
+    private WySafedomainMapper wySafedomainMapper;
     @Resource
     private RedisPoolCache redisCache;
     /**
@@ -168,7 +172,30 @@ public class DomainAdminServiceImpl implements IDomainAdminService {
             e.printStackTrace();
         }
     }
-    // /**
+    /**
+     * 更新安全域名
+     * @param safeDomain
+     */
+    public void updateSafeDomain(String safeDomain) {
+        WySafedomain wySafedomain = new WySafedomain();
+        wySafedomain.setId(1);
+        wySafedomain.setSafeUrl(safeDomain);
+        wySafedomain.setUpdateTime(new Date());
+        try {
+            wySafedomainMapper.updateByPrimaryKeySelective(wySafedomain);
+        } catch (Exception e) {
+            log.error("----------安全域名更新失败");
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public WySafedomain querySafeDomain() {
+
+        WySafedomain wySafedomain = wySafedomainMapper.selectByPrimaryKey(1);
+        return wySafedomain;
+    }
+// /**
     //  * 通过域名id更新对应文章域名域
     //  * @param id 域名id8
     //  */

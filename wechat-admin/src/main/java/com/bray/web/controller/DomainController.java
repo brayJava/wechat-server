@@ -1,5 +1,6 @@
 package com.bray.web.controller;
 
+import com.bray.aop.cache.RedisPoolCache;
 import com.bray.config.WebConst;
 import com.bray.dto.ConstatFinal;
 import com.bray.dto.DomainType;
@@ -7,19 +8,26 @@ import com.bray.model.Bo.PrimarySubDomain;
 import com.bray.model.Bo.RestResponseBo;
 import com.bray.model.Vo.DomainModelVo;
 import com.bray.model.Vo.SubDomainModelVo;
+import com.bray.model.WySafedomain;
 import com.bray.service.IArticleService;
 import com.bray.service.IDomainAdminService;
 import com.bray.service.IDomainService;
+import com.bray.service.impl.DomainServiceImpl;
+import com.bray.util.TStringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @Author:wuzhiyuan
@@ -36,6 +44,8 @@ public class DomainController {
     private IDomainService domainService;
     @Autowired
     private IDomainAdminService iDomainAdminService;
+    @Resource
+    private RedisPoolCache redisObj;
     /**
      * 域名跳转
      * @return
@@ -130,4 +140,26 @@ public class DomainController {
         iDomainAdminService.updateStatus(status,domainId);
         return RestResponseBo.ok();
     }
+    /**
+     * 访问安全域名
+     */
+    @RequestMapping("/domain-safe")
+    public String domainSafe(Model model) {
+        WySafedomain wySafedomain = iDomainAdminService.querySafeDomain();
+        model.addAttribute("wySafedomain",wySafedomain);
+        return "domain/domain-safe";
+    }
+
+    /**
+     * 修改安全域名
+     */
+    @RequestMapping("/domain-safe-update")
+    @ResponseBody
+    public RestResponseBo domainSafeUpdate(String safedomains) {
+        String dealStr = TStringUtil.dealStr(safedomains);
+        redisObj.deleteDataOfRedis("safeDomains");
+        iDomainAdminService.updateSafeDomain(dealStr);
+        return RestResponseBo.ok();
+    }
+
 }

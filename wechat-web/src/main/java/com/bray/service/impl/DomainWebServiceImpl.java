@@ -4,8 +4,10 @@ import com.bray.aop.annotation.QueryCache;
 import com.bray.config.WebConst;
 import com.bray.dto.ConstFinal;
 import com.bray.dto.ConstatFinal;
+import com.bray.mapper.WySafedomainMapper;
 import com.bray.model.Bo.PrimarySubDomain;
 import com.bray.model.WyDomain;
+import com.bray.model.WySafedomain;
 import com.bray.model.WySubdomain;
 import com.bray.model.enums.DomainType;
 import com.bray.service.IDomainService;
@@ -34,6 +36,8 @@ public class DomainWebServiceImpl implements IDomainWebService{
 
     @Autowired
     private IDomainService domainService;
+    @Autowired
+    private WySafedomainMapper wySafedomainMapper;
     /**
      * redis缓存域名信息，
      * @param domainFlag
@@ -91,5 +95,14 @@ public class DomainWebServiceImpl implements IDomainWebService{
             wySubdomain.setSubDomain("www."+wyDomain);
         }
         return wySubdomain;
+    }
+
+    /**
+     * 获取安全域名
+     * @return
+     */
+    public WySafedomain getSafeDomain() {
+        WySafedomain wySafedomain = wySafedomainMapper.selectByPrimaryKey(1);
+        return wySafedomain;
     }
 }

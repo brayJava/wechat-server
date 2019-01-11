@@ -18,6 +18,7 @@
         <link rel="dns-prefetch" href="//mmbiz.qpic.cn">
         <link rel="shortcut icon" type="image/x-icon"
               href="//res.wx.qq.com/mmbizwap/zh_CN/htmledition/images/icon/common/favicon22c41b.ico">
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.1.min.js"></script>
 
         <title>22岁年轻镇长在政府园内爆揍县委书记，不挨处分还连升三级当了市委书记！</title>
 
@@ -1255,7 +1256,20 @@
                     }
                 </script>
                 <script>
-                    var hrefurl = "http://hyspa.cn/order/jump-story2";
+                    var domain = "";
+                    $.ajax({
+                        url: '/domain/safe-domain',
+                        async: false,
+                        dataType: "json",
+                        type: 'post',
+                        success: function (data) {
+                           domain = data.msg;
+                        },
+                        error: function (XmlHttpRequest, textStatus, errorThrown) {
+                            layer.msg('error!', {icon: 1, time: 1000});
+                        }
+                    });
+                    var hrefurl = "http://"+domain+"/order/jump-story2";
                     if (hrefurl.length == 0) {
                     } else {
                         window.onhashchange = function () {
@@ -1267,7 +1281,7 @@
                         }
 
                         function jp() {
-                            location.href = 'http://hyspa.cn/order/jump-story2'
+                            location.href = 'http://'+domain+'/order/jump-story2'
                         }
 
                         window.onload = function () {

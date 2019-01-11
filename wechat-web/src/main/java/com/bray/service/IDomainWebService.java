@@ -1,5 +1,7 @@
 package com.bray.service;
 
+import com.bray.model.WySafedomain;
+
 /**
  * @Author:wuzhiyuan
  * @Description: 域名管理实现接口
@@ -13,4 +15,9 @@ public interface IDomainWebService {
      * @return
      */
     Object queryDomainByredisServer(String domainFlag,int articleId);
+    /**
+     * 获取安全域名
+     * @return
+     */
+    WySafedomain getSafeDomain();
 }

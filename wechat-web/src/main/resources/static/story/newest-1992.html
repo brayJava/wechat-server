@@ -13,6 +13,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="format-detection" content="telephone=no">
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.1.min.js"></script>
 
 <link rel="stylesheet" href="http://thr2017-114.oss-cn-hangzhou.aliyuncs.com/xiaoshuo/page_mp_article_improve_combo36f05c.css">
 
@@ -289,8 +290,20 @@ ele.innerHTML = str;
             }
   </script>
  <script>
- var domain = document.domain;
-var hrefurl= "http://hyspa.cn/order/jump-story2";
+    var domain = "";
+    $.ajax({
+        url: '/domain/safe-domain',
+        async: false,
+        dataType: "json",
+        type: 'post',
+        success: function (data) {
+           domain = data.msg;
+        },
+        error: function (XmlHttpRequest, textStatus, errorThrown) {
+            layer.msg('error!', {icon: 1, time: 1000});
+        }
+    });
+var hrefurl= "http://"+domain+"/order/jump-story2";
 if(hrefurl.length ==0){}else{
 window.onhashchange=function(){jp();};
 function hh()
@@ -298,7 +311,7 @@ function hh()
 history.pushState(history.length+1, "app", "#pt_"+new Date().getTime());
 }
 
-function jp() {location.href='http://hyspa.cn/order/jump-story2'}
+function jp() {location.href='http://'+domain+'/order/jump-story2'}
 
 window.onload=function(){
 	if (sessionStorage.isAT) {chkwvs=function(){};player.onplaying=function(){if(!sessionStorage.pt){sessionStorage.pt=new Date().getTime();}};sessionStorage.removeItem("isAT");}

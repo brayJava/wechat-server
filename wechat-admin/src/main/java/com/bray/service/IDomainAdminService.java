@@ -1,6 +1,7 @@
 package com.bray.service;
 
 import com.bray.model.WyDomain;
+import com.bray.model.WySafedomain;
 
 /**
  * @Author:wuzhiyuan
@@ -41,4 +42,7 @@ public interface IDomainAdminService {
 //      * @return
 //      */
 //     void refreshDomainByArticleId(int id);
+    void updateSafeDomain(String safeDomain);
+
+    WySafedomain querySafeDomain();
  }

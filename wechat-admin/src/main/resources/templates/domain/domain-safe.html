@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<head th:replace="common/common_header :: common_header">
+    <title>文案安全域名</title>
+    <!--<link rel="stylesheet" href="css/index.css" />-->
+</head>
+
+<body>
+<div class="x-body">
+    <form class="layui-form">
+        <br/>
+        <br/>
+        <div class="layui-form-item">
+            <label for="domain" class="layui-form-label">
+                <span class="x-red">*</span>安全域名
+            </label>
+            <div class="layui-input-inline">
+                 <textarea  placeholder="请按行输入域名...."  rows="10" cols="50" id="safeDomain" name="safeDomain" lay-verify="required"></textarea>
+                 <br/>
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="L_repass" class="layui-form-label" />
+            <button  type="button" class="layui-btn"  lay-filter="add" lay-submit="" id="domainAdd">
+                <span id="domainSpan">修改</span>
+            </button>
+        </div>
+    </form>
+</div>
+
+<script th:inline="javascript">
+     /*<![CDATA[*/
+        var wySafedomain = [[${wySafedomain}]];
+        var domainStr = wySafedomain.safeUrl;
+        var domains = domainStr.split(",");
+        var domainTextrea = '';
+        $.each(domains,function(i,domain) {
+            domainTextrea = domainTextrea + domain + '\n';
+        })
+        $('#safeDomain').val(domainTextrea);
+     /*]]>*/
+    var domain_id = 0;
+    layui.use(['form','layer'], function() {
+        $ = layui.jquery;
+        var form = layui.form
+            ,layer = layui.layer;
+        //注意：1.submit监听一个filter过滤事件，要在提交标签中加上
+        //     2.当button没有添加type="button" 会自动提交表单刷新
+        form.on('submit(add)', function (data) {
+            $.ajax({
+                url: '/domain/domain-safe-update',
+                async: false,
+                data: {"safedomains" : data.field.safeDomain},
+                dataType: "json",
+                type: 'post',
+                success: function (data) {
+                    layer.msg("修改成功", {icon: 1}, function (index) {
+                        layer.close(index);
+                    });
+                },
+                error: function (XmlHttpRequest, textStatus, errorThrown) {
+                    layer.msg('error!', {icon: 1, time: 1000});
+                }
+            });
+        });
+    });
+</script>
+</body>
+
+</html>

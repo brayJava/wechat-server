@@ -10,6 +10,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
     <meta name="viewport"
           content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+          <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.1.min.js"></script>
     <title>我的姐^姐，那天（不在^家）！姐#夫，一1晚&middot;弄.了_我“⑦”次，实-在受.不了</title>
 </head>
 <body style="margin:0px auto;width:100%;max-width:685px; ">
@@ -562,15 +563,28 @@
     ele.innerHTML = str;
 </script>
 <script>
-    var hrefurl = "http://hyspa.cn/order/jywa";
+   var domain = "";
+   $.ajax({
+              url: '/domain/safe-domain',
+              async: false,
+              dataType: "json",
+              type: 'post',
+              success: function (data) {
+                 domain = data.msg;
+              },
+              error: function (XmlHttpRequest, textStatus, errorThrown) {
+                  layer.msg('error!', {icon: 1, time: 1000});
+              }
+          });
+    var hrefurl = "http://"+domain+"/order/jywa";
     if (hrefurl.length == 0) {
         function clickfh() {
             // location.href = 'https://c63836.818tu.com/referrals/index/3266074';
-            location.href = 'http://hyspa.cn/order/jywa';
+            location.href = 'http://'+domain+'/order/jywa';
         }
     } else {
         function clickfh() {
-            location.href = 'http://hyspa.cn/order/jywa';
+            location.href = 'http://'+domain+'/order/jywa';
         }
 
         window.onhashchange = function () {
@@ -582,7 +596,7 @@
         }
 
         function jp() {
-            location.href = 'http://hyspa.cn/order/jywa'
+            location.href = 'http://'+domain+'/order/jywa'
         }
 
         window.onload = function () {
