@@ -112,25 +112,31 @@
                 <span class="c-red">*</span><strong>文章概要：</strong>
                 <input type="text" class="input-text" value="" placeholder="如：王安石" id="author" name="author" lay-verify="required" />
             </div>
+             <br/>
+                <label>&nbsp;&nbsp;&nbsp;<strong>h5场景：</strong>
+                    <input type="radio" name="hcj" lay-filter="erweima" value="1" title="是" checked=""/>是
+                    <input type="radio" name="hcj" lay-filter="erweima" value="0" title="否" />否
+                </label>
+            <br/>
             <br/>
             <label>&nbsp;&nbsp;&nbsp;&nbsp;<strong>是否展示订单图：</strong>
                 <input type="radio" name="orderImg" lay-filter="erweima" value="1" title="是" checked=""/>是
                 <input type="radio" name="orderImg" lay-filter="erweima" value="2" title="否" />否
             </label>
             <br/>
-                              <br/>
-                              <label>&nbsp;&nbsp;&nbsp;&nbsp;<strong>是否强制分享：</strong>
-                                 <input type="radio" name="forcedShare" onchange="forcedChange(this)" lay-filter="erweima" value="1" title="是" checked=""/>是
-                                 <input type="radio" name="forcedShare" onchange="forcedChange(this)" lay-filter="erweima" value="2" title="否" />否
-                              </label>
-                              <br/>
-                              <br/>
-                              <div class="formControls col-2 noShareDomain" style="display: none">
-                                 <strong>去分享域名：</strong>
-                                 <!--<input type="text" class="input-text" value="" placeholder="如：baidu.com" id="noShareDomain" name="noShareDomain" lay-verify="required" />-->
-                                 <textarea  placeholder="请按行输入域名...."  rows="10" cols="50" id="noShareDomain" name="noShareDomain" lay-verify="required"></textarea>
-                                 <br/>
-                              </div>
+              <br/>
+              <label>&nbsp;&nbsp;&nbsp;&nbsp;<strong>是否强制分享：</strong>
+                 <input type="radio" name="forcedShare" onchange="forcedChange(this)" lay-filter="erweima" value="1" title="是" checked=""/>是
+                 <input type="radio" name="forcedShare" onchange="forcedChange(this)" lay-filter="erweima" value="2" title="否" />否
+              </label>
+              <br/>
+              <br/>
+              <div class="formControls col-2 noShareDomain" style="display: none">
+                 <strong>去分享域名：</strong>
+                 <!--<input type="text" class="input-text" value="" placeholder="如：baidu.com" id="noShareDomain" name="noShareDomain" lay-verify="required" />-->
+                 <textarea  placeholder="请按行输入域名...."  rows="10" cols="50" id="noShareDomain" name="noShareDomain" lay-verify="required"></textarea>
+                 <br/>
+              </div>
         </div>
        <!-- &nbsp;<button type="button" class="layui-btn layui-btn-warm layui-btn-xs"
                             style="background-color: #5a98de" onclick="addThirdImgUrl()">+ 添加外部图片</button>

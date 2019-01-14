@@ -31,10 +31,12 @@ public interface WyArticleImgMapper {
         "#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})"
     })
     @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(WyArticleImg record);
 
     @InsertProvider(type=WyArticleImgSqlProvider.class, method="insertSelective")
     @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insertSelective(WyArticleImg record);
 
     @SelectProvider(type=WyArticleImgSqlProvider.class, method="selectByExample")

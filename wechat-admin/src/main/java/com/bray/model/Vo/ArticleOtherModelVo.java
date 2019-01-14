@@ -50,4 +50,6 @@ public class ArticleOtherModelVo {
     private String[] outerImgUrl;
 
     private String imagesUrl;
+
+    private String hcj;
 }

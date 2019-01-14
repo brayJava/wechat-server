@@ -6,14 +6,13 @@ import com.bray.dto.ConstatFinal;
 import com.bray.dto.EffectiveType;
 import com.bray.mapper.WyArticleImgMapper;
 import com.bray.mapper.WyArticleMapper;
+import com.bray.mapper.WySubImgMapper;
+import com.bray.model.*;
+import com.bray.model.Bo.ArticleSubImages;
 import com.bray.model.Bo.ArticleWithImages;
 import com.bray.model.Vo.ArticleImg;
 import com.bray.model.Vo.ArticleNewImages;
 import com.bray.model.Vo.ArticleVo;
-import com.bray.model.WyArticle;
-import com.bray.model.WyArticleExample;
-import com.bray.model.WyArticleImg;
-import com.bray.model.WyArticleImgExample;
 import com.bray.service.IArticleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -40,6 +39,8 @@ public class ArticleServiceImpl implements IArticleService{
     private WyArticleMapper wyArticleMapper;
     @Resource
     private WyArticleImgMapper wyArticleImgMapper;
+    @Resource
+    private WySubImgMapper wySubImgMapper;
     @Resource
     private RedisPoolCache redisCache;
     /**
@@ -106,6 +107,7 @@ public class ArticleServiceImpl implements IArticleService{
      */
     private ArticleWithImages getArticleWithImages(int articleId) {
         ArticleWithImages articleWithImages = new ArticleWithImages();
+        List<ArticleSubImages> subImages = new ArrayList<>();
         if(!StringUtils.isEmpty(articleId)) {
             WyArticleExample wyArticleExample = new WyArticleExample();
             wyArticleExample.createCriteria().andIdEqualTo(articleId).andStatusEqualTo(EffectiveType.EFFECTIVE_YES);
@@ -117,8 +119,25 @@ public class ArticleServiceImpl implements IArticleService{
             WyArticleImgExample wyArticleImgExample = new WyArticleImgExample();
             wyArticleImgExample.createCriteria().andArticleIdEqualTo(articleId).andStatusEqualTo(EffectiveType.EFFECTIVE_YES);
             List<WyArticleImg> wyArticleImgs = wyArticleImgMapper.selectByExample(wyArticleImgExample);
-            articleWithImages.setWyArticleImgs(wyArticleImgs);
+            wyArticleImgs.stream().forEach(wyArticleImg -> {
+                ArticleSubImages articleSubImages = new ArticleSubImages();
+                WySubImgExample wySubImgExample = new WySubImgExample();
+                wySubImgExample.createCriteria().andImgIdEqualTo(wyArticleImg.getId());
+                List<WySubImg> wySubImgs = wySubImgMapper.selectByExample(wySubImgExample);
+                articleSubImages.setWyArticleImg(wyArticleImg);
+                if(!CollectionUtils.isEmpty(wySubImgs)) {
+                   articleSubImages.setSubimg1(wySubImgs.get(0));
+                   articleSubImages.setSubimg2(wySubImgs.get(1));
+                   articleSubImages.setSubimg3(wySubImgs.get(2));
+                }
+                subImages.add(articleSubImages);
+            });
+
+            // articleWithImages.setWyArticleImgs(wyArticleImgs);
+            articleWithImages.setArticleSubImages(subImages);
+
         }
+
         return articleWithImages;
     }
     /**

@@ -406,7 +406,7 @@ public class WechatAritcleController {
      * @return
      */
     // @RequestMapping("/newff/{articleId}")
-    @RequestMapping(value="/3333/{articleId}",produces = "text/html;charset=utf-8")
+    @RequestMapping(value="/showarticle/{articleId}",produces = "text/html;charset=utf-8")
     @ResponseBody
     public String sansan(HttpServletRequest request, Model model, HttpServletResponse response, @PathVariable int articleId) {
         // if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";

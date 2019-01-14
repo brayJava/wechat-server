@@ -43,8 +43,9 @@ public interface IArticleAdminService {
      * @Param articleImgId 文章图片id
      * @Param imgUrl 图片链接地址
      * @Param imgUrlHref 图片超导链接
+     * @Param subimgs 子连接图片
      */
-    void updateArticleImg(int articleImgId, String imgUrl, String imgUrlHref);
+    void updateArticleImg(int articleImgId, String imgUrl, String imgUrlHref,String subimgs);
     /**
      * 文章图片删除
      */

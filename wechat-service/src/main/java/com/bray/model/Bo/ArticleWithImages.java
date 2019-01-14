@@ -2,6 +2,7 @@ package com.bray.model.Bo;
 
 import com.bray.model.WyArticle;
 import com.bray.model.WyArticleImg;
+import com.bray.model.WySubImg;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -31,4 +32,6 @@ public class ArticleWithImages implements Serializable{
     private String shareUrl;
 
     private List<WyArticleImg> wyArticleImgs;
+
+    private List<ArticleSubImages> articleSubImages;
 }

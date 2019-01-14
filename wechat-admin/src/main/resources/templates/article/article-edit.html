@@ -120,6 +120,12 @@
             </div>
         </div>
         <div class="row cl">
+             <br/>
+            <label>&nbsp;&nbsp;&nbsp;<strong>h5场景：</strong>
+                <input type="radio" name="hcj" lay-filter="erweima" value="1" title="是" checked=""/>是
+                <input type="radio" name="hcj" lay-filter="erweima" value="0" title="否" />否
+            </label>
+            <br/>
             <br/>
             <label>&nbsp;&nbsp;&nbsp;<strong>是否展示订单图：</strong>
                 <input type="radio" name="orderImg" lay-filter="erweima" value="1" title="是" checked=""/>是
@@ -257,6 +263,11 @@
             $("input[name='orderImg'][value='1']").attr("checked",true);
         } else {
             $("input[name='orderImg'][value='0']").attr("checked",true);
+        }
+        if(arcitle.isPublish) {
+            $("input[name='hcj'][value='1']").attr("checked",true);
+        } else {
+            $("input[name='hcj'][value='0']").attr("checked",true);
         }
         if(arcitle.forcedShare) {
             $("input[name='forcedShare'][value='1']").attr("checked",true);

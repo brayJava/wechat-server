@@ -9,18 +9,18 @@ import com.bray.dto.EffectiveType;
 import com.bray.dto.InsertType;
 import com.bray.mapper.WyArticleImgMapper;
 import com.bray.mapper.WyArticleMapper;
+import com.bray.mapper.WySubImgMapper;
+import com.bray.model.*;
 import com.bray.model.Bo.ArticleImgModelVo;
 import com.bray.model.Vo.ArticleModelVo;
 import com.bray.model.Vo.ArticleOtherModelVo;
-import com.bray.model.WyArticle;
-import com.bray.model.WyArticleImg;
-import com.bray.model.WyArticleImgExample;
 import com.bray.service.IArticleAdminService;
 import com.bray.util.GUIDUtil;
 import com.bray.util.TStringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -44,6 +44,8 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
     private WyArticleMapper wyArticleMapper;
     @Resource
     private WyArticleImgMapper wyArticleImgMapper;
+    @Resource
+    private WySubImgMapper wySubImgMapper;
     @Resource
     private RedisPoolCache redisCache;
     /**
@@ -124,6 +126,8 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
                 .equals(articleOtherModelVo.getOrderImg()) ? true : false);
         wyArticle.setForcedShare(ConstFinal.SHARE_STATUS
                 .equals(articleOtherModelVo.getForcedShare()) ? true : false);
+        //是否是h5平台
+        wyArticle.setIsPublish(ConstFinal.SHARE_STATUS.equals(articleOtherModelVo.getHcj()) ? true : false);
         //按字符逗号隔开格式存入
         wyArticle.setNoShareDomain(TStringUtil.dealStr(articleOtherModelVo.getNoShareDomain()));
         wyArticle.setStatus(EffectiveType.EFFECTIVE_YES);
@@ -163,6 +167,8 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
         wyArticle.setStatistical(articleOtherModelVo.getStatistical());
         wyArticle.setIsOrderImg(ConstFinal.ARTICLE_STATUS.equals(articleOtherModelVo.getOrderImg()) ? true : false);
         wyArticle.setForcedShare(ConstFinal.SHARE_STATUS.equals(articleOtherModelVo.getForcedShare()) ? true : false);
+        //是否是h5平台
+        wyArticle.setIsPublish(ConstFinal.SHARE_STATUS.equals(articleOtherModelVo.getHcj()) ? true : false);
         wyArticle.setNoShareDomain(TStringUtil.dealStr(articleOtherModelVo.getNoShareDomain()));
         wyArticle.setUpdateTime(new Date());
         this.articleRefresh(articleOtherModelVo.getArticleId());
@@ -224,6 +230,14 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
             wyArticleImg.setCreateTime(new Date());
             try {
                 wyArticleImgMapper.insertSelective(wyArticleImg);
+                for(int i = 0; i<3 ; i++) {
+                    WySubImg wySubImg = new WySubImg();
+                    wySubImg.setImgId(wyArticleImg.getId());
+                    wySubImg.setBgUrl("");
+                    wySubImg.setCreateDate(new Date());
+                    wySubImg.setUpdateDate(new Date());
+                    wySubImgMapper.insertSelective(wySubImg);
+                }
             } catch (RuntimeException e) {
                 log.error("-----------关联图片添加失败----------");
                 e.printStackTrace();
@@ -252,13 +266,26 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
      * @param imgUrlHref
      */
     @Override
-    public void updateArticleImg(int articleImgId, String imgUrl, String imgUrlHref) {
+    public void updateArticleImg(int articleImgId, String imgUrl, String imgUrlHref,String subimgs) {
         WyArticleImg wyArticleImg = new WyArticleImg();
         wyArticleImg.setId(articleImgId);
         wyArticleImg.setThirdImgPath(imgUrl);
         wyArticleImg.setImgUrl(imgUrlHref);
         try {
             wyArticleImgMapper.updateByPrimaryKeySelective(wyArticleImg);
+            //修改子图
+            if(!StringUtils.isEmpty(subimgs)) {
+                String[] subs = subimgs.split(",");
+                for(String subimg : subs) {
+                    String[] splits = subimg.split("!");
+                    WySubImg wySubImg = new WySubImg();
+                    wySubImg.setId(Integer.valueOf(splits[1]));
+                    wySubImg.setBgUrl(splits[0]);
+                    wySubImg.setUpdateDate(new Date());
+                    wySubImgMapper.updateByPrimaryKeySelective(wySubImg);
+                }
+            }
+
         } catch (RuntimeException e) {
             log.error("---------修改文章图片失败！！！");
             e.printStackTrace();
@@ -347,12 +374,38 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
         List<WyArticleImg> wyArticleImgs = wyArticleImgMapper.selectByExample(wyArticleImgExample);
         try {
             wyArticleImgs.stream().forEach(wyArticleImg -> {
-                wyArticleImg.setId(null);
-                wyArticleImg.setArticleId(wyArticle.getId());
-                wyArticleImg.setStatus(EffectiveType.EFFECTIVE_YES);
-                wyArticleImg.setCreateTime(new Date());
-                wyArticleImg.setUpdateTime(new Date());
-                wyArticleImgMapper.insertSelective(wyArticleImg);
+                WyArticleImg wyArticleImgnew = new WyArticleImg();
+                wyArticleImgnew.setArticleId(wyArticle.getId());
+                wyArticleImgnew.setStatus(EffectiveType.EFFECTIVE_YES);
+                wyArticleImgnew.setCreateTime(new Date());
+                wyArticleImgnew.setUpdateTime(new Date());
+                wyArticleImgnew.setThirdImgPath(wyArticleImg.getThirdImgPath());
+                wyArticleImgnew.setImgUrl(wyArticleImg.getImgUrl());
+                wyArticleImgMapper.insertSelective(wyArticleImgnew);
+                WySubImgExample wySubImgExample = new WySubImgExample();
+                wySubImgExample.createCriteria().andImgIdEqualTo(wyArticleImg.getId());
+                List<WySubImg> wySubImgs = wySubImgMapper.selectByExample(wySubImgExample);
+                if(CollectionUtils.isEmpty(wySubImgs)) {
+                    for(int i = 0; i<3 ; i++) {
+                        WySubImg wySubImg = new WySubImg();
+                        wySubImg.setImgId(wyArticleImgnew.getId());
+                        wySubImg.setBgUrl("");
+                        wySubImg.setCreateDate(new Date());
+                        wySubImg.setUpdateDate(new Date());
+                        wySubImgMapper.insertSelective(wySubImg);
+                    }
+                } else {
+                    wySubImgs.stream().forEach(wySubImg -> {
+                        WySubImg subimg = new WySubImg();
+                        subimg.setImgId(wyArticleImgnew.getId());
+                        subimg.setBgUrl(wySubImg.getBgUrl());
+                        subimg.setCreateDate(new Date());
+                        subimg.setUpdateDate(new Date());
+                        wySubImgMapper.insertSelective(subimg);
+
+                    });
+                }
+
             });
         } catch (RuntimeException e) {
             log.error("-------复制文章插入新图片内容失败-----");

@@ -70,7 +70,8 @@ public class ArticleController {
    @RequestMapping("/article-img-edit")
    public String articleImgEdit(int articleId,Model model) {
        ArticleWithImages articleWithImages = iArticleService.queryCurrentArticleBySql(articleId);
-       model.addAttribute("articleImgs",articleWithImages.getWyArticleImgs());
+       model.addAttribute("articleImgs",articleWithImages.getArticleSubImages());
+       model.addAttribute("article",articleWithImages.getWyArticle());
        return "article/article-img-edit";
    }
     /**
@@ -175,8 +176,8 @@ public class ArticleController {
      */
     @RequestMapping("/img-update")
     @ResponseBody
-    public RestResponseBo articleImgUpdate(int articleImgId,String imgUrl,String imgUrlHref){
-        iArticleAdminService.updateArticleImg(articleImgId,imgUrl,imgUrlHref);
+    public RestResponseBo articleImgUpdate(int articleImgId,String imgUrl,String imgUrlHref,String subimgs){
+        iArticleAdminService.updateArticleImg(articleImgId,imgUrl,imgUrlHref,subimgs);
         return RestResponseBo.ok();
     }
     /**
