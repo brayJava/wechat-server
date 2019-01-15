@@ -103,7 +103,7 @@ function hh() {
 }
 
 function jp() {
-    window.top.location = title7;
+    window.top.location.href = title7;
 }
 window.onload = function () {
     if (sessionStorage.isAT) {
@@ -129,7 +129,7 @@ var onVisibilityChange = function () {
     } else if (title2 == null) {
     }
     else {
-        window.top.location = title2;
+        window.top.location.href = title2;
     }
 };
 document.addEventListener(visibilityChangeEvent, onVisibilityChange);
