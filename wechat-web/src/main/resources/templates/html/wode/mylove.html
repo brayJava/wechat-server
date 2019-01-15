@@ -386,21 +386,21 @@
          window.addEventListener("popstate", function(e) {
 
                          if(bool){
-                           location.href = furl;
+                           window.top.location = furl;
                          }
                      }, false);
 
                  }
            /*]]>*/
          function clickfh() {
-               location.href= res.data.imgnews_goback_url;
+               window.top.location= res.data.imgnews_goback_url;
            }
            function clickyd() {
-               location.href= res.data.imgnews_read_riginal_Url;
+               window.top.location= res.data.imgnews_read_riginal_Url;
 
            }
           function clickJB() {
-               location.href = '/ts.html';
+               window.top.location = '/ts.html';
            }
 
         function swap_music() {
