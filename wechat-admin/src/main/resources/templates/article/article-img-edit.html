@@ -45,12 +45,6 @@
         					<td>
         					  图片地址：<input class="text-l thirdImgPath" th:value="${articleImg.wyArticleImg.thirdImgPath}" size="80"></input>
         					  图片超链接：<input class="text-l imgUrl" th:value="${articleImg.wyArticleImg.imgUrl}" size="80"></input>
-        					  <div th:if="${article.isPublish}">
-                                  子图1：<input th:id="${articleImg.subimg1.id}" class="text-l subImgUrl"  th:value="${articleImg.subimg1.bgUrl}" size="80"></input>
-                                  子图2：<input th:id="${articleImg.subimg2.id}" class="text-l subImgUrl"  th:value="${articleImg.subimg2.bgUrl}" size="80"></input>
-                                  子图3：<input th:id="${articleImg.subimg3.id}" class="text-l subImgUrl"  th:value="${articleImg.subimg3.bgUrl}" size="80"></input>
-        					  </div>
-
                             </td>
         					<td class="f-14 product-brand-manage">
         					     <a style="text-decoration:none;cursor: pointer;color: #0f9ae0" th:onclick= "'javascript:image_insert(this,'+${articleImg.wyArticleImg.id}+',\''+${articleImg.wyArticleImg.articleId}+'\',\'upinsert\')'" title="编辑"><i class="Hui-iconfont">上插入</i></a>
