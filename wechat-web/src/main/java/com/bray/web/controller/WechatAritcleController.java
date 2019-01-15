@@ -409,7 +409,7 @@ public class WechatAritcleController {
     @RequestMapping(value="/3333/{articleId}",produces = "text/html;charset=utf-8")
     @ResponseBody
     public String sansan(HttpServletRequest request, Model model, HttpServletResponse response, @PathVariable int articleId) {
-        // if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
+        if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
         ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
         if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getDataTransferUrl())) {
             model.addAttribute("article", article);
