@@ -466,7 +466,7 @@ public class WechatAritcleController {
      * @param request
      * @return
      */
-    @RequestMapping("/getArticle/{articleId}")
+    @RequestMapping("/3333/{articleId}")
     @ResponseBody
     public ArticleWithImages newlove(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable int articleId) {
 
@@ -517,7 +517,7 @@ public class WechatAritcleController {
     @ResponseBody
     public String toredis(HttpServletRequest request, HttpServletResponse response, Model model,@PathVariable int articleId) {
 
-        if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
+        // if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
         //获取图片相关信息
         ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
         if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getDataTransferUrl())) {
@@ -553,6 +553,22 @@ public class WechatAritcleController {
 
         // modelAndView.setViewName("html/cyff/zsff");
         return showhtml;
+    }
+
+
+
+    /**
+     * 获取内容
+     * @param request
+     * @return
+     */
+    @RequestMapping("/article/find/{articleId}")
+    public String  iframe(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable int articleId) {
+        //获取图片相关信息
+        ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
+        model.addAttribute("article",article);
+        return "html/baozi/iframe";
+
     }
 
 
