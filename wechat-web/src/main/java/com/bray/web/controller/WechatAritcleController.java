@@ -409,8 +409,10 @@ public class WechatAritcleController {
     @RequestMapping(value="/3333/{articleId}",produces = "text/html;charset=utf-8")
     @ResponseBody
     public String sansan(HttpServletRequest request, Model model, HttpServletResponse response, @PathVariable int articleId) {
-        if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
         ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
+        if(article.getWyArticle().getIsOrderImg()) {
+            if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
+        }
         if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getDataTransferUrl())) {
             model.addAttribute("article", article);
             SpringWebContext ctx = new SpringWebContext(request,response,
@@ -532,9 +534,10 @@ public class WechatAritcleController {
     @ResponseBody
     public String toredis(HttpServletRequest request, HttpServletResponse response, Model model,@PathVariable int articleId) {
 
-        if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
-        //获取图片相关信息
         ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
+        if(article.getWyArticle().getIsOrderImg()) {
+            if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
+        }
         if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getDataTransferUrl())) {
             model.addAttribute("article", article);
             SpringWebContext ctx = new SpringWebContext(request,response,
@@ -577,13 +580,26 @@ public class WechatAritcleController {
      * @param request
      * @return
      */
-    @RequestMapping("/article/find/{articleId}")
+    // @RequestMapping("/article/find/{articleId}")
+    @RequestMapping(value="/article/find/{articleId}",produces = "text/html;charset=utf-8")
+    @ResponseBody
     public String  iframe(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable int articleId) {
-        if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
         //获取图片相关信息
         ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
+        if(article.getWyArticle().getIsOrderImg()) {
+            if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
+        }
+        String showhtml = String.valueOf(redisObj.getRedisValueByKey("iframe_list:"+articleId));
+        if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
+            return  showhtml;
+        }
         model.addAttribute("article",article);
-        return "html/baozi/iframe";
+        //手动渲染
+        SpringWebContext ctx = new SpringWebContext(request,response,
+                request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+        showhtml = thymeleafViewResolver.getTemplateEngine().process("html/baozi/iframe", ctx);
+        redisObj.saveDataToRedis("iframe_list:"+articleId,showhtml);
+        return showhtml;
 
     }
 
