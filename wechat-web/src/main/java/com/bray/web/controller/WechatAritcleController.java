@@ -517,7 +517,7 @@ public class WechatAritcleController {
     @ResponseBody
     public String toredis(HttpServletRequest request, HttpServletResponse response, Model model,@PathVariable int articleId) {
 
-        // if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
+        if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
         //获取图片相关信息
         ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
         if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getDataTransferUrl())) {
@@ -564,6 +564,7 @@ public class WechatAritcleController {
      */
     @RequestMapping("/article/find/{articleId}")
     public String  iframe(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable int articleId) {
+        if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
         //获取图片相关信息
         ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
         model.addAttribute("article",article);
