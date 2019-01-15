@@ -32,4 +32,7 @@ public interface ConstatFinal {
     //新文章获取
     String ARTICLENEW_CONTENT = "articlenew_list";
 
+    String IFRAMELIST = "iframe_list";
+
+
 }
