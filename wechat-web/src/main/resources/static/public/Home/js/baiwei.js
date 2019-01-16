@@ -212,7 +212,7 @@
             //防止重复提交
             $(this).attr("disabled","disabled");
             $.ajax({
-                url: "/mq/confirm-order",
+                url: "/mq/order",
                 async: false,
                 data: submitJson,
                 dataType: "json",
@@ -227,6 +227,11 @@
                 },
                 error: function (XmlHttpRequest, textStatus, errorThrown) {
                     layer.msg('error!', {icon: 1, time: 1000});
+                    layer.msg("恭喜下单成功，请耐心等待发货！！", {icon: 1}, function (index) {
+                        $(this).removeAttr("disabled");
+                        location.reload();
+
+                    });
                 }
             });
 			// $.post(window.PREFIX_URL+post_order,submitJson,function(data){
