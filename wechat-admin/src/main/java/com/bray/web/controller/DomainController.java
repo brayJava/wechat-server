@@ -155,10 +155,11 @@ public class DomainController {
      */
     @RequestMapping("/domain-safe-update")
     @ResponseBody
-    public RestResponseBo domainSafeUpdate(String safedomains) {
+    public RestResponseBo domainSafeUpdate(String safedomains,String mail) {
         String dealStr = TStringUtil.dealStr(safedomains);
+        String mailStr = TStringUtil.dealStr(mail);
         redisObj.deleteDataOfRedis("safeDomains");
-        iDomainAdminService.updateSafeDomain(dealStr);
+        iDomainAdminService.updateSafeDomain(dealStr,mailStr);
         return RestResponseBo.ok();
     }
 

@@ -45,6 +45,10 @@ public class WySafedomainSqlProvider {
             VALUES("safe_url", "#{safeUrl,jdbcType=VARCHAR}");
         }
         
+        if (record.getMail() != null) {
+            VALUES("mail", "#{mail,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCreateTime() != null) {
             VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
@@ -64,6 +68,7 @@ public class WySafedomainSqlProvider {
             SELECT("id");
         }
         SELECT("safe_url");
+        SELECT("mail");
         SELECT("create_time");
         SELECT("update_time");
         FROM("wy_safedomain");
@@ -91,6 +96,10 @@ public class WySafedomainSqlProvider {
             SET("safe_url = #{record.safeUrl,jdbcType=VARCHAR}");
         }
         
+        if (record.getMail() != null) {
+            SET("mail = #{record.mail,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCreateTime() != null) {
             SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
@@ -109,6 +118,7 @@ public class WySafedomainSqlProvider {
         
         SET("id = #{record.id,jdbcType=INTEGER}");
         SET("safe_url = #{record.safeUrl,jdbcType=VARCHAR}");
+        SET("mail = #{record.mail,jdbcType=VARCHAR}");
         SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         
@@ -123,6 +133,10 @@ public class WySafedomainSqlProvider {
         
         if (record.getSafeUrl() != null) {
             SET("safe_url = #{safeUrl,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getMail() != null) {
+            SET("mail = #{mail,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {

@@ -8,6 +8,8 @@ public class WySafedomain implements Serializable{
 
     private String safeUrl;
 
+    private String mail;
+
     private Date createTime;
 
     private Date updateTime;
@@ -26,6 +28,14 @@ public class WySafedomain implements Serializable{
 
     public void setSafeUrl(String safeUrl) {
         this.safeUrl = safeUrl == null ? null : safeUrl.trim();
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail == null ? null : mail.trim();
     }
 
     public Date getCreateTime() {

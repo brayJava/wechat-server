@@ -34,5 +34,7 @@ public interface ConstatFinal {
 
     String IFRAMELIST = "iframe_list";
 
+    String ORDERVAL99 = "ORDERVAL99";
+
 
 }

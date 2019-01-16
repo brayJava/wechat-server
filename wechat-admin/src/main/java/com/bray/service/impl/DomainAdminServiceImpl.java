@@ -176,10 +176,11 @@ public class DomainAdminServiceImpl implements IDomainAdminService {
      * 更新安全域名
      * @param safeDomain
      */
-    public void updateSafeDomain(String safeDomain) {
+    public void updateSafeDomain(String safeDomain,String mail) {
         WySafedomain wySafedomain = new WySafedomain();
         wySafedomain.setId(1);
         wySafedomain.setSafeUrl(safeDomain);
+        wySafedomain.setMail(mail);
         wySafedomain.setUpdateTime(new Date());
         try {
             wySafedomainMapper.updateByPrimaryKeySelective(wySafedomain);

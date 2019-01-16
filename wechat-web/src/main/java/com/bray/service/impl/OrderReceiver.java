@@ -2,9 +2,11 @@ package com.bray.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.bray.mapper.WyOrderMapper;
+import com.bray.mapper.WySafedomainMapper;
 import com.bray.model.Vo.OrderModelVo;
 import com.bray.model.WyOrder;
 import com.bray.model.WyOrderExample;
+import com.bray.model.WySafedomain;
 import com.bray.service.IOrderWebService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
@@ -36,6 +38,9 @@ public class OrderReceiver {
 
     @Resource
     private IOrderWebService iOrderWebService;
+
+    @Resource
+    private WySafedomainMapper wySafedomainMapper;
 
 
     @RabbitHandler
@@ -70,12 +75,19 @@ public class OrderReceiver {
             orderBuf.append("顾客留言："+orderModelVo.getMessage());
         MimeMessage msg = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = null;
+        WySafedomain wySafedomain = wySafedomainMapper.selectByPrimaryKey(1);
+        String[] mails = null;
+        if(StringUtils.isEmpty(wySafedomain.getMail()))
+            mails = new String[]{"1318134732@qq.com"};
+        else
+            mails = wySafedomain.getMail().split(",");
         try {
             log.info("下单："+orderModelVo.getName());
             helper = new MimeMessageHelper(msg, true,"utf-8");
             helper.setFrom("goodboy_bray@163.com");
             helper.setCc("goodboy_bray@163.com");
-            helper.setTo(new String[]{"78901623@qq.com","937085200@qq.com","619105979@qq.com","527297994@qq.com","1194633142@qq.com","1318134732@qq.com"});
+            // helper.setTo(new String[]{"78901623@qq.com","937085200@qq.com","619105979@qq.com","527297994@qq.com","1194633142@qq.com","1318134732@qq.com"});
+            helper.setTo(mails);
             helper.setText(orderBuf.toString());
             helper.setSubject("来了新的订单啦!【"+orderModelVo.getName()+"】");
         } catch (MessagingException e) {

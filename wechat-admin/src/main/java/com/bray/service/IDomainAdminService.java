@@ -42,7 +42,7 @@ public interface IDomainAdminService {
 //      * @return
 //      */
 //     void refreshDomainByArticleId(int id);
-    void updateSafeDomain(String safeDomain);
+    void updateSafeDomain(String safeDomain,String mail);
 
     WySafedomain querySafeDomain();
  }

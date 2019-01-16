@@ -31,10 +31,10 @@ public interface WySafedomainMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into wy_safedomain (safe_url, create_time, ",
-        "update_time)",
-        "values (#{safeUrl,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{updateTime,jdbcType=TIMESTAMP})"
+        "insert into wy_safedomain (safe_url, mail, ",
+        "create_time, update_time)",
+        "values (#{safeUrl,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR}, ",
+        "#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(WySafedomain record);
@@ -47,6 +47,7 @@ public interface WySafedomainMapper {
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="safe_url", property="safeUrl", jdbcType=JdbcType.VARCHAR),
+        @Result(column="mail", property="mail", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -54,13 +55,14 @@ public interface WySafedomainMapper {
 
     @Select({
         "select",
-        "id, safe_url, create_time, update_time",
+        "id, safe_url, mail, create_time, update_time",
         "from wy_safedomain",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="safe_url", property="safeUrl", jdbcType=JdbcType.VARCHAR),
+        @Result(column="mail", property="mail", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -78,6 +80,7 @@ public interface WySafedomainMapper {
     @Update({
         "update wy_safedomain",
         "set safe_url = #{safeUrl,jdbcType=VARCHAR},",
+          "mail = #{mail,jdbcType=VARCHAR},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "update_time = #{updateTime,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"
