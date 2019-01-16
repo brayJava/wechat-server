@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @Modified By:
  */
 @Controller
-@RequestMapping("mq")
+@RequestMapping("/mq")
 public class PublisherController {
 
     @Autowired
     private PublisherService publisherService;
 
-    @RequestMapping("/confirm-order")
+    @RequestMapping("confirm-order")
     @ResponseBody
     public RestResponseBo sendMessage(OrderModelVo orderModelVo) {
         publisherService.sendMessage(orderModelVo);
