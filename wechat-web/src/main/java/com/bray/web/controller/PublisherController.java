@@ -1,8 +1,11 @@
 package com.bray.web.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bray.model.Bo.RestResponseBo;
 import com.bray.model.Vo.OrderModelVo;
+import com.bray.service.impl.OrderSender;
 import com.bray.service.impl.PublisherService;
+import io.undertow.io.Sender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,10 +25,20 @@ public class PublisherController {
     @Autowired
     private PublisherService publisherService;
 
-    @RequestMapping("confirm-order")
+    @Autowired
+    private OrderSender orderSender;
+
+    @RequestMapping("xiadan")
     @ResponseBody
     public RestResponseBo sendMessage(OrderModelVo orderModelVo) {
         publisherService.sendMessage(orderModelVo);
+        return RestResponseBo.ok();
+    }
+
+    @RequestMapping("order")
+    @ResponseBody
+    public RestResponseBo order(OrderModelVo orderModelVo) {
+        orderSender.send(JSONObject.toJSONString(orderModelVo));
         return RestResponseBo.ok();
     }
 }
