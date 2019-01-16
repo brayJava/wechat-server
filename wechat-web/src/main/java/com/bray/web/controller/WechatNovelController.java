@@ -1,6 +1,7 @@
 package com.bray.web.controller;
 
 import com.bray.aop.cache.RedisPoolCache;
+import com.bray.util.HttpRequestDeviceUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -41,6 +42,7 @@ public class WechatNovelController {
     @RequestMapping(value="/12345",produces = "text/html;charset=utf-8")
     @ResponseBody
     String jumpnv(HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
         String showhtml = String.valueOf(redisObj.getRedisValueByKey("novel:12345"));
         if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
             return  showhtml;

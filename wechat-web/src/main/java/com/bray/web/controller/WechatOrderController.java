@@ -5,6 +5,7 @@ import com.bray.dto.OrderLogType;
 import com.bray.model.Bo.RestResponseBo;
 import com.bray.model.Vo.OrderModelVo;
 import com.bray.service.IOrderWebService;
+import com.bray.util.HttpRequestDeviceUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -81,7 +82,7 @@ public class WechatOrderController {
     @RequestMapping(value="/jump-novel",produces = "text/html;charset=utf-8")
     @ResponseBody
     String jumpNovel(HttpServletRequest request, HttpServletResponse response, Model model) {
-
+        if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
         String showhtml = String.valueOf(redisObj.getRedisValueByKey("novel1837"));
         if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
             return  showhtml;
@@ -99,6 +100,7 @@ public class WechatOrderController {
     @RequestMapping(value="/jump-order",produces = "text/html;charset=utf-8")
     @ResponseBody
     String order(HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
         iOrderWebService.insertOrderLog(OrderLogType.ORDER_TYPE);
         String showhtml = String.valueOf(redisObj.getRedisValueByKey("ORDERVAL99"));
         if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
