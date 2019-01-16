@@ -212,7 +212,7 @@
             //防止重复提交
             $(this).attr("disabled","disabled");
             $.ajax({
-                url: "/order/confirm-order",
+                url: "/mq/confirm-order",
                 async: false,
                 data: submitJson,
                 dataType: "json",
