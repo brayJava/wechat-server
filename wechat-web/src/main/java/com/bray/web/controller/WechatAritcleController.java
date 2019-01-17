@@ -349,7 +349,7 @@ public class WechatAritcleController {
             return new ModelAndView("redirect:http://www.baidu.com");
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
         if(!Objects.isNull(articleWithImages) && !StringUtils.isEmpty(articleWithImages.getWyArticle().getDataTransferUrl()))
-            return new ModelAndView("redirect:"+articleWithImages.getWyArticle().getDataTransferUrl());
+        return new ModelAndView("redirect:"+articleWithImages.getWyArticle().getDataTransferUrl());
         //获取域名集合map
         WySubdomain wySubdomain = getWySubdomain(articleId,WebConst.SUB_COMMON_DOMAIN);
         String encodeTime = Base64Util.encode(Clock.systemDefaultZone().millis() + "");
@@ -588,6 +588,14 @@ public class WechatAritcleController {
         ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
         if(article.getWyArticle().getIsOrderImg()) {
             if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
+        }
+        //数据迁移
+        if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getDataTransferUrl())) {
+            model.addAttribute("article", article);
+            SpringWebContext ctx = new SpringWebContext(request,response,
+                    request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+            String qyhtml = thymeleafViewResolver.getTemplateEngine().process("html/wode/qy", ctx);
+            return qyhtml;
         }
         String showhtml = String.valueOf(redisObj.getRedisValueByKey("iframe_list:"+articleId));
         if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
