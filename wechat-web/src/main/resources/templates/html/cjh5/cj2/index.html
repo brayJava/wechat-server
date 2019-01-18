@@ -5,8 +5,8 @@
       layout:decorate="~{layouts/layout}">
 <head>
 	<title>进击的搜房 勇踏前人未至之境</title>
-<meta name="description" content="这是搜房15年来动作最大的一次变革,全新的界面 更加贴心的体验,我们一起见证."/>
-<meta name="keywords" content="首页改版，全新启程，西安买房，西安房价，西安搜房网，西安新房"/>
+<meta name="description" content="lalallalalal"/>
+<meta name="keywords" content="hahahahahahh"/>
 <meta content="text/html; charset=gb2312" http-equiv="Content-Type"/>
 
 	<link rel="stylesheet" href="/css/zywxer.css"/>
@@ -52,18 +52,21 @@
 			<div class="s-jiantou"><img src="/images/xshang.png" alt=""/></div>
 		</section>
 	</section>
-	<div id="fanhui">
+	<div id="fanhui" style="position: fixed; left: 20px; top: 20px; z-index: 50000; visibility: visible;">
         <a target="_blank"   th:href="${article.gobackUrl}">
            <img class="fhclass" src="https://pub-files.jinshuju.net/di/20181015160222_ae4f6c" />
         </a>
    </div>
+       <div id="upla" style="position: fixed; left: 180px; top: 640px; z-index: 50000; visibility: visible;">
+              <img class="upfhclass" src="/images/xshang.png" width="30" height="10"/>
+      </div>
 
         <audio id='myaudio' loop='loop' preload='auto' autoplay='autoplay'>
             <source src='http://dl.stream.qqmusic.qq.com/C400003vYunL3xOXiM.m4a?vkey=F16BE69A31B7753F69D7FB879ABCDCD2253E61AB90A9F07CA3DBBD3DD4C9D02735699DF34A0B23DD2E8E65618B1FD71CB704EAA30D1EB8CA&amp;guid=5119412828&amp;uin=0&amp;fromtag=66'
             th:src="${article.bgmUrl}" type='audio/mp3' />
         </audio>
         <img id='audio_image' class="mcfhclass" onclick='swap_music()' src='https://pub-files.jinshuju.net/di/20181015160315_5fca3a'
-        style='width: 30px;' />
+                                       style="position: fixed; right: 20px; top: 20px; z-index: 50000; visibility: visible;" />
 	<!-- 引入脚本 -->
 	<!--# 微信分享组件 #-->
 	<script src="/js/h5/plug.preload.js"></script>
@@ -78,6 +81,7 @@
 <script th:inline="javascript">
     var article = [[${article}]];
     var furl = article.gobackUrl;
+    $('title').html(article.title);
     if(furl !=''){
      pushHistory();
       var bool=false;
@@ -144,7 +148,7 @@
 </script>
  <div id="total" style="display: none">
     	<script>
-    		document.write(article.wyArticle.statistical)
+    		document.write(article.statistical)
     	</script>
 </div>
 </body>
