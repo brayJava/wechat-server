@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html class="ks-webkit537 ks-webkit ks-chrome21 ks-chrome" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+	<title>进击的搜房 勇踏前人未至之境</title>
+<meta name="description" content="这是搜房15年来动作最大的一次变革,全新的界面 更加贴心的体验,我们一起见证."/>
+<meta name="keywords" content="首页改版，全新启程，西安买房，西安房价，西安搜房网，西安新房"/>
+<meta content="text/html; charset=gb2312" http-equiv="Content-Type"/>
+
+	<link rel="stylesheet" href="/css/zywxer.css"/>
+
+	<link rel="apple-touch-icon-precomposed" href="images/ico-startup-57x57.png"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no"/>
+	<meta http-equiv="Cache-Control" content="max-age=0"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<script type="text/javascript" async="" src="http://js.soufunimg.com/count/load.min.js"></script>
+<script type="text/javascript">
+    var _dctc=_dctc || {};
+    _dctc._account=_dctc._account ||['UA-24140496-1','UA-24140496-20'];
+    _dctc.isNorth = _dctc.isNorth || 'Y';
+    _dctc.bid = '1';
+    (function() {
+    var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+    script.src = 'http://js.soufunimg.com/count/load.min.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+</script>
+</head>
+<body>
+	<section class="p-index" style="height: 667px; display: block;" th:if="${not #lists.isEmpty(articleImgs)}" th:each="articleImg,iterStat:${articleImgs}">
+		<section class="m-page m-page2 show" style="height: 101%; top: 0px;" th:if="${iterStat.index == 0}">
+			<div class="m-img m-img01">
+				<a th:href="${articleImg.wyArticleImg.imgUrl}">
+				    <img class="animated fadeInDown J_fTxt" th:src="${articleImg.wyArticleImg.thirdImgPath}" style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%; display: inline;"/>
+				</a>
+				<a href="javascript:;" class="help-up"><img src="/images/jiantou.png"></img></a>
+			</div>
+			<div class="s-jiantou"><img src="/images/xshang.png" alt=""/></div>
+		</section>
+		<section class="m-page m-page2 hide" style="height: 101%; top: 0px;" th:unless="${iterStat.index == 0}">
+			<div class="m-img m-img01" >
+				<a th:href="${articleImg.wyArticleImg.imgUrl}">
+				    <img class="animated fadeInDown J_fTxt" th:src="${articleImg.wyArticleImg.thirdImgPath}" style="position:absolute; left:0px; top:0px; width: 100%; height:100%; display: none; "/>
+				</a>
+				<a href="javascript:;" class="help-up"></a>
+			</div>
+			<div class="s-jiantou"><img src="/images/xshang.png" alt=""/></div>
+		</section>
+	</section>
+	<div id="fanhui">
+        <a target="_blank"   th:href="${article.gobackUrl}">
+           <img class="fhclass" src="https://pub-files.jinshuju.net/di/20181015160222_ae4f6c" />
+        </a>
+   </div>
+
+        <audio id='myaudio' loop='loop' preload='auto' autoplay='autoplay'>
+            <source src='http://dl.stream.qqmusic.qq.com/C400003vYunL3xOXiM.m4a?vkey=F16BE69A31B7753F69D7FB879ABCDCD2253E61AB90A9F07CA3DBBD3DD4C9D02735699DF34A0B23DD2E8E65618B1FD71CB704EAA30D1EB8CA&amp;guid=5119412828&amp;uin=0&amp;fromtag=66'
+            th:src="${article.bgmUrl}" type='audio/mp3' />
+        </audio>
+        <img id='audio_image' class="mcfhclass" onclick='swap_music()' src='https://pub-files.jinshuju.net/di/20181015160315_5fca3a'
+        style='width: 30px;' />
+	<!-- 引入脚本 -->
+	<!--# 微信分享组件 #-->
+	<script src="/js/h5/plug.preload.js"></script>
+	<script src="/js/h5/jquery-1.8.2.min.js"></script>
+	<script src="/js/h5/jquery.easing.1.3.js"></script>
+	<script src="/js/h5/99_main.js"></script>
+	<script src="/js/h5/seed-min.js" data-config="{combine:true}"></script>
+
+	<!--分享弹出窗口 <div class="share-tips"></div> -->
+
+<script async="" src="//static.soufunimg.com/ggcp/uv/new/uv.js"></script>
+<script th:inline="javascript">
+    var article = [[${article}]];
+    var furl = article.gobackUrl;
+    if(furl !=''){
+     pushHistory();
+      var bool=false;
+      setTimeout(function(){
+          bool=true;
+      },1500);
+     window.addEventListener("popstate", function(e) {
+             if(bool){
+               window.top.location.href = furl;
+             }
+         }, false);
+     }
+     function pushHistory() {
+          var state = {
+              title: "title",
+              url: "#"
+          };
+          window.history.pushState(state, "title", "#");
+     }
+      function swap_music() {
+            var oAudio = document.getElementById('myaudio');
+            if (oAudio.paused) {
+                oAudio.play();
+                image_src = "mcfhclass"
+            } else {
+                oAudio.pause();
+                image_src = "mcfhclass";
+            }
+            $("#audio_image").attr("class", image_src);
+       }
+       document.addEventListener("WeixinJSBridgeReady", function () {
+           document.getElementById('myaudio').play();
+       }, false);
+       function forceSafariPlayAudio() {
+           audioEl.load(); // iOS 9   还需要额外的 load 一下, 否则直接 play 无效
+           audioEl.play(); // iOS 7/8 仅需要 play 一下
+       }
+       var audioEl = document.getElementById('myaudio');
+       audioEl.addEventListener('loadstart', function() {
+           console.log('loadstart');
+       }, false);
+       audioEl.addEventListener('loadeddata', function() {
+           console.log('loadeddata');
+       }, false);
+       audioEl.addEventListener('loadedmetadata', function() {
+           console.log('loadedmetadata');
+       }, false);
+       audioEl.addEventListener('canplay', function() {
+           console.log('canplay');
+       }, false);
+       audioEl.addEventListener('play', function() {
+           console.log('play');
+           window.removeEventListener('touchstart', forceSafariPlayAudio, false);
+       }, false);
+       audioEl.addEventListener('playing', function() {
+           console.log('playing');
+       }, false);
+       audioEl.addEventListener('pause', function() {
+           console.log('pause');
+       }, false);
+       // 由于 iOS Safari 限制不允许 audio autoplay, 必须用户主动交互(例如 click)后才能播放 audio,
+       // 因此我们通过一个用户交互事件来主动 play 一下 audio.
+       window.addEventListener('touchstart', forceSafariPlayAudio, false);
+</script>
+ <div id="total" style="display: none">
+    	<script>
+    		document.write(article.wyArticle.statistical)
+    	</script>
+</div>
+</body>
+</html>

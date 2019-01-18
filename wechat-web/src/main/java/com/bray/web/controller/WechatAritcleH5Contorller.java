@@ -45,10 +45,29 @@ public class WechatAritcleH5Contorller {
      */
     @RequestMapping("/h5/{articleId}")
     public String JZFF(HttpServletRequest request, Model model,@PathVariable int articleId) {
+        getArticleWithImages(model, articleId);
+        return "html/cjh5/cj1/h5";
+    }
 
+    /**
+     * 单张图片翻阅式h5
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/tieme/{articleId}")
+    public String fanyue(HttpServletRequest request, Model model,@PathVariable int articleId) {
+        getArticleWithImages(model, articleId);
+        return "html/cjh5/cj2/index";
+    }
+    /**
+     * 获取图文信息
+     * @param model
+     * @param articleId
+     */
+    private void getArticleWithImages(Model model, @PathVariable int articleId) {
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
         model.addAttribute("article",articleWithImages.getWyArticle());
         model.addAttribute("articleImgs",articleWithImages.getArticleSubImages());
-        return "html/cjh5/cj1/h5";
     }
 }
