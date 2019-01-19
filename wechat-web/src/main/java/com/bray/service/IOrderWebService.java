@@ -11,6 +11,8 @@ import com.bray.model.Vo.OrderModelVo;
 public interface IOrderWebService {
 
     void insert(OrderModelVo orderModelVo);
+
+    void insertCopy(OrderModelVo orderModelVo);
     /**
      *  订单相关日志
      * @param type

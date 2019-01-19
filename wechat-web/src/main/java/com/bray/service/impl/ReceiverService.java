@@ -2,10 +2,13 @@ package com.bray.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.bray.mapper.WyOrderMapper;
+import com.bray.mapper.WySafedomainMapper;
 import com.bray.model.Vo.OrderModelVo;
 import com.bray.model.WyOrder;
 import com.bray.model.WyOrderExample;
+import com.bray.model.WySafedomain;
 import com.bray.service.IOrderWebService;
+import com.bray.util.SendEmailUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +41,9 @@ public class ReceiverService  implements MessageListener {
     @Autowired
     private StringRedisTemplate redisTemplate;
 
+    @Autowired
+    private WySafedomainMapper wySafedomainMapper;
+
     @Resource
     private WyOrderMapper wyOrderMapper;
 
@@ -54,14 +60,15 @@ public class ReceiverService  implements MessageListener {
         logger.info("收到订单数据" + deserialize);
         OrderModelVo orderModelVo = JSONObject.parseObject(deserialize, OrderModelVo.class);
         try {
-            // iOrderWebService.insert(orderModelVo);
+             iOrderWebService.insert(orderModelVo);
         } catch (Exception e) {
             e.printStackTrace();
             logger.error("插入订单失败...");
         }
         try {
+            WySafedomain wySafedomain = wySafedomainMapper.selectByPrimaryKey(1);
             //发送email
-            // sendEmailWithOrder(orderModelVo);
+            SendEmailUtil.sendEmail(javaMailSender,orderModelVo,wySafedomain.getMail());
         } catch (Exception e) {
             logger.error("---------email发送错误");
             e.printStackTrace();
@@ -89,10 +96,10 @@ public class ReceiverService  implements MessageListener {
         try {
             logger.info("下单："+orderModelVo.getName());
             helper = new MimeMessageHelper(msg, true,"utf-8");
-            helper.setFrom("goodboy_bray@163.com");
-            helper.setCc("goodboy_bray@163.com");
+            helper.setFrom("goodboy_ooooo@163.com");
+            helper.setCc("goodboy_ooooo@163.com");
             helper.setTo(new String[]{"1318134732@qq.com"});
-            helper.setText(orderBuf.toString());
+            helper.setText(orderBuf.toString().replace("￥",""));
             helper.setSubject("来了新的订单啦!【"+orderModelVo.getName()+"】");
         } catch (MessagingException e) {
             e.printStackTrace();

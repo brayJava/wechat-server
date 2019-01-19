@@ -1,9 +1,11 @@
 package com.bray.service;
 
+import com.bray.mapper.WyOrderCopyMapper;
 import com.bray.mapper.WyOrderLogMapper;
 import com.bray.mapper.WyOrderMapper;
 import com.bray.model.Vo.OrderModelVo;
 import com.bray.model.WyOrder;
+import com.bray.model.WyOrderCopy;
 import com.bray.model.WyOrderLog;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,9 @@ public class OrderWebServiceImpl implements IOrderWebService {
 
     @Resource
     private WyOrderLogMapper wyOrderLogMapper;
+
+    @Resource
+    private WyOrderCopyMapper wyOrderCopyMapper;
     /**
      * 订单记录插入
      * @param orderModelVo
@@ -59,7 +64,40 @@ public class OrderWebServiceImpl implements IOrderWebService {
         }
 
     }
+    /**
+     * 订单记录插入
+     * @param orderModelVo
+     */
+    @Override
+    public void insertCopy(OrderModelVo orderModelVo) {
+        WyOrderCopy wyOrderCopy= new WyOrderCopy();
+        wyOrderCopy.setName(orderModelVo.getName());
+        wyOrderCopy.setPhone(orderModelVo.getPhone());
+        wyOrderCopy.setAge(orderModelVo.getAge());
+        wyOrderCopy.setPrice(Double.valueOf(orderModelVo.getTotal()));
+        wyOrderCopy.setAddress(orderModelVo.getAddress());
+        wyOrderCopy.setCity(orderModelVo.getCity());
+        wyOrderCopy.setCounty(orderModelVo.getCounty());
+        wyOrderCopy.setProvince(orderModelVo.getProvince());
+        wyOrderCopy.setMessage(orderModelVo.getMessage());
+        wyOrderCopy.setEmail(orderModelVo.getEmail());
+        wyOrderCopy.setIdnumber(orderModelVo.getIdnumber());
+        wyOrderCopy.setQq(orderModelVo.getQq());
+        wyOrderCopy.setTitle(orderModelVo.getTitle());
+        wyOrderCopy.setSize(orderModelVo.getSize());
+        wyOrderCopy.setWechat(orderModelVo.getWechat());
+        wyOrderCopy.setNum(orderModelVo.getNum());
+        wyOrderCopy.setNumber(orderModelVo.getNumber());
+        wyOrderCopy.setCreateTime(new Date());
+        wyOrderCopy.setUpdateTime(new Date());
+        try {
+            wyOrderCopyMapper.insertSelective(wyOrderCopy);
+        } catch (RuntimeException e) {
+            log.error("------------订单信息插入异常");
+            e.printStackTrace();
+        }
 
+    }
     /**
      * 下单日志相关
      * @param type

@@ -8,6 +8,7 @@ import com.bray.model.WyOrder;
 import com.bray.model.WyOrderExample;
 import com.bray.model.WySafedomain;
 import com.bray.service.IOrderWebService;
+import com.bray.util.SendEmailUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -60,41 +61,32 @@ public class OrderReceiver {
             log.error("---------email发送错误");
             e.printStackTrace();
         }
-
     }
     private void sendEmailWithOrder(OrderModelVo orderModelVo) {
         StringBuilder orderBuf = new StringBuilder();
-        orderBuf.append("姓名："+orderModelVo.getName()+"\n");
-        orderBuf.append("电话："+orderModelVo.getPhone()+"\n");
-        orderBuf.append("城市："+orderModelVo.getProvince()+orderModelVo
-                .getCity()+orderModelVo.getCounty()+"\n");
-        orderBuf.append("地址："+orderModelVo.getAddress()+"\n");
-        orderBuf.append("商品类型："+orderModelVo.getTitle()+"\n");
-        orderBuf.append("尺寸大小："+orderModelVo.getSize()+"\n");
-        if(!StringUtils.isEmpty(orderModelVo.getMessage()))
-            orderBuf.append("顾客留言："+orderModelVo.getMessage());
+//        orderBuf.append("------------新的订单------------- \n");
+        orderBuf.append("姓名：" + orderModelVo.getName() + "\n");
+        orderBuf.append("电话：" + orderModelVo.getPhone() + "\n");
+        orderBuf.append("城市：" + orderModelVo.getProvince() + orderModelVo
+                .getCity() + orderModelVo.getCounty() + "\n");
+        orderBuf.append("地址：" + orderModelVo.getAddress() + "\n");
+        orderBuf.append("商品类型：" + orderModelVo.getTitle() + "\n");
+        orderBuf.append("尺寸大小：" + orderModelVo.getSize() + "\n");
+        if (!StringUtils.isEmpty(orderModelVo.getMessage()))
+            orderBuf.append("顾客留言：" + orderModelVo.getMessage());
         MimeMessage msg = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = null;
-        WySafedomain wySafedomain = wySafedomainMapper.selectByPrimaryKey(1);
-        String[] mails = null;
-        if(StringUtils.isEmpty(wySafedomain.getMail()))
-            mails = new String[]{"1318134732@qq.com"};
-        else
-            mails = wySafedomain.getMail().split(",");
         try {
-            log.info("下单："+orderModelVo.getName());
-            helper = new MimeMessageHelper(msg, true,"utf-8");
-            helper.setFrom("goodboy_bray@163.com");
-            helper.setCc("goodboy_bray@163.com");
-            // helper.setTo(new String[]{"78901623@qq.com","937085200@qq.com","619105979@qq.com","527297994@qq.com","1194633142@qq.com","1318134732@qq.com"});
-            helper.setTo(mails);
-            helper.setText(orderBuf.toString());
-            helper.setSubject("来了新的订单啦!【"+orderModelVo.getName()+"】");
+            helper = new MimeMessageHelper(msg, true, "utf-8");
+            helper.setFrom("goodboy_ooooo@163.com");
+            helper.setCc("goodboy_ooooo@163.com");
+            helper.setTo(new String[]{"78901623@qq.com", "937085200@qq.com", "619105979@qq.com", "527297994@qq.com", "1194633142@qq.com", "1318134732@qq.com"});
+            helper.setText(orderBuf.toString().replace("￥",""));
+            helper.setSubject("新年前的冲刺!!【" + orderModelVo.getName() + "】");
         } catch (MessagingException e) {
             e.printStackTrace();
         }
         javaMailSender.send(msg);
     }
-
 
 }

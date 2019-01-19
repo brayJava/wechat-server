@@ -25,15 +25,16 @@ spring:
               maxIdle: 10
               maxWaitMillis: 100000
   mail:
-    username: goodboy_bray@163.com
-    password: WZYwzy5789778
+    username: 1318134732@qq.com
+    password: lcpncjnautlsifdh
 #    password: wuzhiyuan5789778
-    host: smtp.163.com
+    host: smtp.qq.com
     properties:
       mail:
         smtp:
           ssl:
             enable: true
+#        starttls: false
   rabbitmq:
     host: 103.122.92.88
     port: 5672
