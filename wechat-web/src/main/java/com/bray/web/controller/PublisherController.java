@@ -42,7 +42,7 @@ public class PublisherController {
     @Autowired
     private IOrderWebService iOrderWebService;
 
-    @RequestMapping("order")
+    @RequestMapping("xiadan")
     @ResponseBody
     public RestResponseBo sendMessage(OrderModelVo orderModelVo) {
         //插入订单备用表
@@ -51,7 +51,7 @@ public class PublisherController {
         return RestResponseBo.ok();
     }
 
-    @RequestMapping("xiadan")
+    @RequestMapping("order")
     @ResponseBody
     public RestResponseBo order(OrderModelVo orderModelVo) {
         //插入订单备用表

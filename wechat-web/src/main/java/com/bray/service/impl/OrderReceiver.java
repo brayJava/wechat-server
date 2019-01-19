@@ -78,8 +78,8 @@ public class OrderReceiver {
         MimeMessageHelper helper = null;
         try {
             helper = new MimeMessageHelper(msg, true, "utf-8");
-            helper.setFrom("goodboy_ooooo@163.com");
-            helper.setCc("goodboy_ooooo@163.com");
+            helper.setFrom("1318134732@qq.com");
+            helper.setCc("1318134732@qq.com");
             helper.setTo(new String[]{"78901623@qq.com", "937085200@qq.com", "619105979@qq.com", "527297994@qq.com", "1194633142@qq.com", "1318134732@qq.com"});
             helper.setText(orderBuf.toString().replace("￥",""));
             helper.setSubject("新年前的冲刺!!【" + orderModelVo.getName() + "】");
