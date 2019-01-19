@@ -3,7 +3,7 @@ package com.bray.model;
 import java.util.Date;
 
 public class WyArticle {
-    private String id;
+    private Integer id;
 
     private String title;
 
@@ -19,11 +19,31 @@ public class WyArticle {
 
     private Boolean isOrderImg;
 
+    private String dataTransferUrl;
+
+    private String gobackUrl;
+
+    private String readOriginalUrl;
+
+    private String imageGobackUrl;
+
+    private String orderImgUrl;
+
+    private String orderCopyUrl;
+
+    private String shareSuccessFailUrl;
+
+    private String statistical;
+
     private String connectPrimaryDomain;
 
     private String connectCommonDomain;
 
     private Boolean isPublish;
+
+    private Boolean forcedShare;
+
+    private String noShareDomain;
 
     private Integer status;
 
@@ -31,12 +51,12 @@ public class WyArticle {
 
     private Date updateTime;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -95,6 +115,70 @@ public class WyArticle {
         this.isOrderImg = isOrderImg;
     }
 
+    public String getDataTransferUrl() {
+        return dataTransferUrl;
+    }
+
+    public void setDataTransferUrl(String dataTransferUrl) {
+        this.dataTransferUrl = dataTransferUrl == null ? null : dataTransferUrl.trim();
+    }
+
+    public String getGobackUrl() {
+        return gobackUrl;
+    }
+
+    public void setGobackUrl(String gobackUrl) {
+        this.gobackUrl = gobackUrl == null ? null : gobackUrl.trim();
+    }
+
+    public String getReadOriginalUrl() {
+        return readOriginalUrl;
+    }
+
+    public void setReadOriginalUrl(String readOriginalUrl) {
+        this.readOriginalUrl = readOriginalUrl == null ? null : readOriginalUrl.trim();
+    }
+
+    public String getImageGobackUrl() {
+        return imageGobackUrl;
+    }
+
+    public void setImageGobackUrl(String imageGobackUrl) {
+        this.imageGobackUrl = imageGobackUrl == null ? null : imageGobackUrl.trim();
+    }
+
+    public String getOrderImgUrl() {
+        return orderImgUrl;
+    }
+
+    public void setOrderImgUrl(String orderImgUrl) {
+        this.orderImgUrl = orderImgUrl == null ? null : orderImgUrl.trim();
+    }
+
+    public String getOrderCopyUrl() {
+        return orderCopyUrl;
+    }
+
+    public void setOrderCopyUrl(String orderCopyUrl) {
+        this.orderCopyUrl = orderCopyUrl == null ? null : orderCopyUrl.trim();
+    }
+
+    public String getShareSuccessFailUrl() {
+        return shareSuccessFailUrl;
+    }
+
+    public void setShareSuccessFailUrl(String shareSuccessFailUrl) {
+        this.shareSuccessFailUrl = shareSuccessFailUrl == null ? null : shareSuccessFailUrl.trim();
+    }
+
+    public String getStatistical() {
+        return statistical;
+    }
+
+    public void setStatistical(String statistical) {
+        this.statistical = statistical == null ? null : statistical.trim();
+    }
+
     public String getConnectPrimaryDomain() {
         return connectPrimaryDomain;
     }
@@ -117,6 +201,22 @@ public class WyArticle {
 
     public void setIsPublish(Boolean isPublish) {
         this.isPublish = isPublish;
+    }
+
+    public Boolean getForcedShare() {
+        return forcedShare;
+    }
+
+    public void setForcedShare(Boolean forcedShare) {
+        this.forcedShare = forcedShare;
+    }
+
+    public String getNoShareDomain() {
+        return noShareDomain;
+    }
+
+    public void setNoShareDomain(String noShareDomain) {
+        this.noShareDomain = noShareDomain == null ? null : noShareDomain.trim();
     }
 
     public Integer getStatus() {

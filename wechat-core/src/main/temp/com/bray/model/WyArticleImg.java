@@ -5,11 +5,13 @@ import java.util.Date;
 public class WyArticleImg {
     private Integer id;
 
-    private String articleId;
+    private Integer articleId;
 
     private String imgPath;
 
     private String thirdImgPath;
+
+    private String imgUrl;
 
     private Integer status;
 
@@ -25,12 +27,12 @@ public class WyArticleImg {
         this.id = id;
     }
 
-    public String getArticleId() {
+    public Integer getArticleId() {
         return articleId;
     }
 
-    public void setArticleId(String articleId) {
-        this.articleId = articleId == null ? null : articleId.trim();
+    public void setArticleId(Integer articleId) {
+        this.articleId = articleId;
     }
 
     public String getImgPath() {
@@ -47,6 +49,14 @@ public class WyArticleImg {
 
     public void setThirdImgPath(String thirdImgPath) {
         this.thirdImgPath = thirdImgPath == null ? null : thirdImgPath.trim();
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl == null ? null : imgUrl.trim();
     }
 
     public Integer getStatus() {

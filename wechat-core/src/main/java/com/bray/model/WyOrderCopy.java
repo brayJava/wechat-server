@@ -1,9 +1,9 @@
 package com.bray.model;
 
-import java.math.BigDecimal;
+import java.io.Serializable;
 import java.util.Date;
 
-public class WyOrder {
+public class WyOrderCopy implements Serializable{
     private Integer id;
 
     private String name;
@@ -14,7 +14,7 @@ public class WyOrder {
 
     private String size;
 
-    private BigDecimal price;
+    private double price;
 
     private String province;
 
@@ -86,11 +86,11 @@ public class WyOrder {
         this.size = size == null ? null : size.trim();
     }
 
-    public BigDecimal getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

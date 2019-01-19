@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class WyOrderExample {
+public class WyOrderCopyExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public WyOrderExample() {
+    public WyOrderCopyExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 

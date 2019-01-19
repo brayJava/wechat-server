@@ -11,7 +11,13 @@ public class WyDomain {
 
     private String type;
 
+    private Integer articleId;
+
+    private String appId;
+
     private Integer status;
+
+    private Integer isDel;
 
     private Date createTime;
 
@@ -49,12 +55,36 @@ public class WyDomain {
         this.type = type == null ? null : type.trim();
     }
 
+    public Integer getArticleId() {
+        return articleId;
+    }
+
+    public void setArticleId(Integer articleId) {
+        this.articleId = articleId;
+    }
+
+    public String getAppId() {
+        return appId;
+    }
+
+    public void setAppId(String appId) {
+        this.appId = appId == null ? null : appId.trim();
+    }
+
     public Integer getStatus() {
         return status;
     }
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getIsDel() {
+        return isDel;
+    }
+
+    public void setIsDel(Integer isDel) {
+        this.isDel = isDel;
     }
 
     public Date getCreateTime() {

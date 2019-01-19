@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class WyArticleImgExample {
+public class WyWechatAuthExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public WyArticleImgExample() {
+    public WyWechatAuthExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -165,273 +165,413 @@ public class WyArticleImgExample {
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdIsNull() {
-            addCriterion("article_id is null");
+        public Criteria andWeixinIdIsNull() {
+            addCriterion("weixin_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdIsNotNull() {
-            addCriterion("article_id is not null");
+        public Criteria andWeixinIdIsNotNull() {
+            addCriterion("weixin_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdEqualTo(Integer value) {
-            addCriterion("article_id =", value, "articleId");
+        public Criteria andWeixinIdEqualTo(String value) {
+            addCriterion("weixin_id =", value, "weixinId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdNotEqualTo(Integer value) {
-            addCriterion("article_id <>", value, "articleId");
+        public Criteria andWeixinIdNotEqualTo(String value) {
+            addCriterion("weixin_id <>", value, "weixinId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdGreaterThan(Integer value) {
-            addCriterion("article_id >", value, "articleId");
+        public Criteria andWeixinIdGreaterThan(String value) {
+            addCriterion("weixin_id >", value, "weixinId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("article_id >=", value, "articleId");
+        public Criteria andWeixinIdGreaterThanOrEqualTo(String value) {
+            addCriterion("weixin_id >=", value, "weixinId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdLessThan(Integer value) {
-            addCriterion("article_id <", value, "articleId");
+        public Criteria andWeixinIdLessThan(String value) {
+            addCriterion("weixin_id <", value, "weixinId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdLessThanOrEqualTo(Integer value) {
-            addCriterion("article_id <=", value, "articleId");
+        public Criteria andWeixinIdLessThanOrEqualTo(String value) {
+            addCriterion("weixin_id <=", value, "weixinId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdIn(List<Integer> values) {
-            addCriterion("article_id in", values, "articleId");
+        public Criteria andWeixinIdLike(String value) {
+            addCriterion("weixin_id like", value, "weixinId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdNotIn(List<Integer> values) {
-            addCriterion("article_id not in", values, "articleId");
+        public Criteria andWeixinIdNotLike(String value) {
+            addCriterion("weixin_id not like", value, "weixinId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdBetween(Integer value1, Integer value2) {
-            addCriterion("article_id between", value1, value2, "articleId");
+        public Criteria andWeixinIdIn(List<String> values) {
+            addCriterion("weixin_id in", values, "weixinId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("article_id not between", value1, value2, "articleId");
+        public Criteria andWeixinIdNotIn(List<String> values) {
+            addCriterion("weixin_id not in", values, "weixinId");
             return (Criteria) this;
         }
 
-        public Criteria andImgPathIsNull() {
-            addCriterion("img_path is null");
+        public Criteria andWeixinIdBetween(String value1, String value2) {
+            addCriterion("weixin_id between", value1, value2, "weixinId");
             return (Criteria) this;
         }
 
-        public Criteria andImgPathIsNotNull() {
-            addCriterion("img_path is not null");
+        public Criteria andWeixinIdNotBetween(String value1, String value2) {
+            addCriterion("weixin_id not between", value1, value2, "weixinId");
             return (Criteria) this;
         }
 
-        public Criteria andImgPathEqualTo(String value) {
-            addCriterion("img_path =", value, "imgPath");
+        public Criteria andWeixinSecretIsNull() {
+            addCriterion("weixin_secret is null");
             return (Criteria) this;
         }
 
-        public Criteria andImgPathNotEqualTo(String value) {
-            addCriterion("img_path <>", value, "imgPath");
+        public Criteria andWeixinSecretIsNotNull() {
+            addCriterion("weixin_secret is not null");
             return (Criteria) this;
         }
 
-        public Criteria andImgPathGreaterThan(String value) {
-            addCriterion("img_path >", value, "imgPath");
+        public Criteria andWeixinSecretEqualTo(String value) {
+            addCriterion("weixin_secret =", value, "weixinSecret");
             return (Criteria) this;
         }
 
-        public Criteria andImgPathGreaterThanOrEqualTo(String value) {
-            addCriterion("img_path >=", value, "imgPath");
+        public Criteria andWeixinSecretNotEqualTo(String value) {
+            addCriterion("weixin_secret <>", value, "weixinSecret");
             return (Criteria) this;
         }
 
-        public Criteria andImgPathLessThan(String value) {
-            addCriterion("img_path <", value, "imgPath");
+        public Criteria andWeixinSecretGreaterThan(String value) {
+            addCriterion("weixin_secret >", value, "weixinSecret");
             return (Criteria) this;
         }
 
-        public Criteria andImgPathLessThanOrEqualTo(String value) {
-            addCriterion("img_path <=", value, "imgPath");
+        public Criteria andWeixinSecretGreaterThanOrEqualTo(String value) {
+            addCriterion("weixin_secret >=", value, "weixinSecret");
             return (Criteria) this;
         }
 
-        public Criteria andImgPathLike(String value) {
-            addCriterion("img_path like", value, "imgPath");
+        public Criteria andWeixinSecretLessThan(String value) {
+            addCriterion("weixin_secret <", value, "weixinSecret");
             return (Criteria) this;
         }
 
-        public Criteria andImgPathNotLike(String value) {
-            addCriterion("img_path not like", value, "imgPath");
+        public Criteria andWeixinSecretLessThanOrEqualTo(String value) {
+            addCriterion("weixin_secret <=", value, "weixinSecret");
             return (Criteria) this;
         }
 
-        public Criteria andImgPathIn(List<String> values) {
-            addCriterion("img_path in", values, "imgPath");
+        public Criteria andWeixinSecretLike(String value) {
+            addCriterion("weixin_secret like", value, "weixinSecret");
             return (Criteria) this;
         }
 
-        public Criteria andImgPathNotIn(List<String> values) {
-            addCriterion("img_path not in", values, "imgPath");
+        public Criteria andWeixinSecretNotLike(String value) {
+            addCriterion("weixin_secret not like", value, "weixinSecret");
             return (Criteria) this;
         }
 
-        public Criteria andImgPathBetween(String value1, String value2) {
-            addCriterion("img_path between", value1, value2, "imgPath");
+        public Criteria andWeixinSecretIn(List<String> values) {
+            addCriterion("weixin_secret in", values, "weixinSecret");
             return (Criteria) this;
         }
 
-        public Criteria andImgPathNotBetween(String value1, String value2) {
-            addCriterion("img_path not between", value1, value2, "imgPath");
+        public Criteria andWeixinSecretNotIn(List<String> values) {
+            addCriterion("weixin_secret not in", values, "weixinSecret");
             return (Criteria) this;
         }
 
-        public Criteria andThirdImgPathIsNull() {
-            addCriterion("third_img_path is null");
+        public Criteria andWeixinSecretBetween(String value1, String value2) {
+            addCriterion("weixin_secret between", value1, value2, "weixinSecret");
             return (Criteria) this;
         }
 
-        public Criteria andThirdImgPathIsNotNull() {
-            addCriterion("third_img_path is not null");
+        public Criteria andWeixinSecretNotBetween(String value1, String value2) {
+            addCriterion("weixin_secret not between", value1, value2, "weixinSecret");
             return (Criteria) this;
         }
 
-        public Criteria andThirdImgPathEqualTo(String value) {
-            addCriterion("third_img_path =", value, "thirdImgPath");
+        public Criteria andWeixinCacheIsNull() {
+            addCriterion("weixin_cache is null");
             return (Criteria) this;
         }
 
-        public Criteria andThirdImgPathNotEqualTo(String value) {
-            addCriterion("third_img_path <>", value, "thirdImgPath");
+        public Criteria andWeixinCacheIsNotNull() {
+            addCriterion("weixin_cache is not null");
             return (Criteria) this;
         }
 
-        public Criteria andThirdImgPathGreaterThan(String value) {
-            addCriterion("third_img_path >", value, "thirdImgPath");
+        public Criteria andWeixinCacheEqualTo(String value) {
+            addCriterion("weixin_cache =", value, "weixinCache");
             return (Criteria) this;
         }
 
-        public Criteria andThirdImgPathGreaterThanOrEqualTo(String value) {
-            addCriterion("third_img_path >=", value, "thirdImgPath");
+        public Criteria andWeixinCacheNotEqualTo(String value) {
+            addCriterion("weixin_cache <>", value, "weixinCache");
             return (Criteria) this;
         }
 
-        public Criteria andThirdImgPathLessThan(String value) {
-            addCriterion("third_img_path <", value, "thirdImgPath");
+        public Criteria andWeixinCacheGreaterThan(String value) {
+            addCriterion("weixin_cache >", value, "weixinCache");
             return (Criteria) this;
         }
 
-        public Criteria andThirdImgPathLessThanOrEqualTo(String value) {
-            addCriterion("third_img_path <=", value, "thirdImgPath");
+        public Criteria andWeixinCacheGreaterThanOrEqualTo(String value) {
+            addCriterion("weixin_cache >=", value, "weixinCache");
             return (Criteria) this;
         }
 
-        public Criteria andThirdImgPathLike(String value) {
-            addCriterion("third_img_path like", value, "thirdImgPath");
+        public Criteria andWeixinCacheLessThan(String value) {
+            addCriterion("weixin_cache <", value, "weixinCache");
             return (Criteria) this;
         }
 
-        public Criteria andThirdImgPathNotLike(String value) {
-            addCriterion("third_img_path not like", value, "thirdImgPath");
+        public Criteria andWeixinCacheLessThanOrEqualTo(String value) {
+            addCriterion("weixin_cache <=", value, "weixinCache");
             return (Criteria) this;
         }
 
-        public Criteria andThirdImgPathIn(List<String> values) {
-            addCriterion("third_img_path in", values, "thirdImgPath");
+        public Criteria andWeixinCacheLike(String value) {
+            addCriterion("weixin_cache like", value, "weixinCache");
             return (Criteria) this;
         }
 
-        public Criteria andThirdImgPathNotIn(List<String> values) {
-            addCriterion("third_img_path not in", values, "thirdImgPath");
+        public Criteria andWeixinCacheNotLike(String value) {
+            addCriterion("weixin_cache not like", value, "weixinCache");
             return (Criteria) this;
         }
 
-        public Criteria andThirdImgPathBetween(String value1, String value2) {
-            addCriterion("third_img_path between", value1, value2, "thirdImgPath");
+        public Criteria andWeixinCacheIn(List<String> values) {
+            addCriterion("weixin_cache in", values, "weixinCache");
             return (Criteria) this;
         }
 
-        public Criteria andThirdImgPathNotBetween(String value1, String value2) {
-            addCriterion("third_img_path not between", value1, value2, "thirdImgPath");
+        public Criteria andWeixinCacheNotIn(List<String> values) {
+            addCriterion("weixin_cache not in", values, "weixinCache");
             return (Criteria) this;
         }
 
-        public Criteria andImgUrlIsNull() {
-            addCriterion("img_url is null");
+        public Criteria andWeixinCacheBetween(String value1, String value2) {
+            addCriterion("weixin_cache between", value1, value2, "weixinCache");
             return (Criteria) this;
         }
 
-        public Criteria andImgUrlIsNotNull() {
-            addCriterion("img_url is not null");
+        public Criteria andWeixinCacheNotBetween(String value1, String value2) {
+            addCriterion("weixin_cache not between", value1, value2, "weixinCache");
             return (Criteria) this;
         }
 
-        public Criteria andImgUrlEqualTo(String value) {
-            addCriterion("img_url =", value, "imgUrl");
+        public Criteria andWeixinNameIsNull() {
+            addCriterion("weixin_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andImgUrlNotEqualTo(String value) {
-            addCriterion("img_url <>", value, "imgUrl");
+        public Criteria andWeixinNameIsNotNull() {
+            addCriterion("weixin_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andImgUrlGreaterThan(String value) {
-            addCriterion("img_url >", value, "imgUrl");
+        public Criteria andWeixinNameEqualTo(String value) {
+            addCriterion("weixin_name =", value, "weixinName");
             return (Criteria) this;
         }
 
-        public Criteria andImgUrlGreaterThanOrEqualTo(String value) {
-            addCriterion("img_url >=", value, "imgUrl");
+        public Criteria andWeixinNameNotEqualTo(String value) {
+            addCriterion("weixin_name <>", value, "weixinName");
             return (Criteria) this;
         }
 
-        public Criteria andImgUrlLessThan(String value) {
-            addCriterion("img_url <", value, "imgUrl");
+        public Criteria andWeixinNameGreaterThan(String value) {
+            addCriterion("weixin_name >", value, "weixinName");
             return (Criteria) this;
         }
 
-        public Criteria andImgUrlLessThanOrEqualTo(String value) {
-            addCriterion("img_url <=", value, "imgUrl");
+        public Criteria andWeixinNameGreaterThanOrEqualTo(String value) {
+            addCriterion("weixin_name >=", value, "weixinName");
             return (Criteria) this;
         }
 
-        public Criteria andImgUrlLike(String value) {
-            addCriterion("img_url like", value, "imgUrl");
+        public Criteria andWeixinNameLessThan(String value) {
+            addCriterion("weixin_name <", value, "weixinName");
             return (Criteria) this;
         }
 
-        public Criteria andImgUrlNotLike(String value) {
-            addCriterion("img_url not like", value, "imgUrl");
+        public Criteria andWeixinNameLessThanOrEqualTo(String value) {
+            addCriterion("weixin_name <=", value, "weixinName");
             return (Criteria) this;
         }
 
-        public Criteria andImgUrlIn(List<String> values) {
-            addCriterion("img_url in", values, "imgUrl");
+        public Criteria andWeixinNameLike(String value) {
+            addCriterion("weixin_name like", value, "weixinName");
             return (Criteria) this;
         }
 
-        public Criteria andImgUrlNotIn(List<String> values) {
-            addCriterion("img_url not in", values, "imgUrl");
+        public Criteria andWeixinNameNotLike(String value) {
+            addCriterion("weixin_name not like", value, "weixinName");
             return (Criteria) this;
         }
 
-        public Criteria andImgUrlBetween(String value1, String value2) {
-            addCriterion("img_url between", value1, value2, "imgUrl");
+        public Criteria andWeixinNameIn(List<String> values) {
+            addCriterion("weixin_name in", values, "weixinName");
             return (Criteria) this;
         }
 
-        public Criteria andImgUrlNotBetween(String value1, String value2) {
-            addCriterion("img_url not between", value1, value2, "imgUrl");
+        public Criteria andWeixinNameNotIn(List<String> values) {
+            addCriterion("weixin_name not in", values, "weixinName");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeixinNameBetween(String value1, String value2) {
+            addCriterion("weixin_name between", value1, value2, "weixinName");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeixinNameNotBetween(String value1, String value2) {
+            addCriterion("weixin_name not between", value1, value2, "weixinName");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindDomainsIsNull() {
+            addCriterion("bind_domains is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindDomainsIsNotNull() {
+            addCriterion("bind_domains is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindDomainsEqualTo(String value) {
+            addCriterion("bind_domains =", value, "bindDomains");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindDomainsNotEqualTo(String value) {
+            addCriterion("bind_domains <>", value, "bindDomains");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindDomainsGreaterThan(String value) {
+            addCriterion("bind_domains >", value, "bindDomains");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindDomainsGreaterThanOrEqualTo(String value) {
+            addCriterion("bind_domains >=", value, "bindDomains");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindDomainsLessThan(String value) {
+            addCriterion("bind_domains <", value, "bindDomains");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindDomainsLessThanOrEqualTo(String value) {
+            addCriterion("bind_domains <=", value, "bindDomains");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindDomainsLike(String value) {
+            addCriterion("bind_domains like", value, "bindDomains");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindDomainsNotLike(String value) {
+            addCriterion("bind_domains not like", value, "bindDomains");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindDomainsIn(List<String> values) {
+            addCriterion("bind_domains in", values, "bindDomains");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindDomainsNotIn(List<String> values) {
+            addCriterion("bind_domains not in", values, "bindDomains");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindDomainsBetween(String value1, String value2) {
+            addCriterion("bind_domains between", value1, value2, "bindDomains");
+            return (Criteria) this;
+        }
+
+        public Criteria andBindDomainsNotBetween(String value1, String value2) {
+            addCriterion("bind_domains not between", value1, value2, "bindDomains");
+            return (Criteria) this;
+        }
+
+        public Criteria andDebugIsNull() {
+            addCriterion("debug is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDebugIsNotNull() {
+            addCriterion("debug is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDebugEqualTo(Boolean value) {
+            addCriterion("debug =", value, "debug");
+            return (Criteria) this;
+        }
+
+        public Criteria andDebugNotEqualTo(Boolean value) {
+            addCriterion("debug <>", value, "debug");
+            return (Criteria) this;
+        }
+
+        public Criteria andDebugGreaterThan(Boolean value) {
+            addCriterion("debug >", value, "debug");
+            return (Criteria) this;
+        }
+
+        public Criteria andDebugGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("debug >=", value, "debug");
+            return (Criteria) this;
+        }
+
+        public Criteria andDebugLessThan(Boolean value) {
+            addCriterion("debug <", value, "debug");
+            return (Criteria) this;
+        }
+
+        public Criteria andDebugLessThanOrEqualTo(Boolean value) {
+            addCriterion("debug <=", value, "debug");
+            return (Criteria) this;
+        }
+
+        public Criteria andDebugIn(List<Boolean> values) {
+            addCriterion("debug in", values, "debug");
+            return (Criteria) this;
+        }
+
+        public Criteria andDebugNotIn(List<Boolean> values) {
+            addCriterion("debug not in", values, "debug");
+            return (Criteria) this;
+        }
+
+        public Criteria andDebugBetween(Boolean value1, Boolean value2) {
+            addCriterion("debug between", value1, value2, "debug");
+            return (Criteria) this;
+        }
+
+        public Criteria andDebugNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("debug not between", value1, value2, "debug");
             return (Criteria) this;
         }
 
