@@ -16,4 +16,11 @@ public interface IOrderService<T> {
      * @return
      */
     List<T> queryAllOrder(String StartTime,String endTime);
+    /**
+     * 删除订单
+     * @param id
+     */
+    void delete(int id);
+
+
 }

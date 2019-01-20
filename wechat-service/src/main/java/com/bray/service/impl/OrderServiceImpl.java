@@ -1,10 +1,12 @@
 package com.bray.service.impl;
 
+import com.bray.dto.EffectiveType;
 import com.bray.mapper.WyOrderMapper;
 import com.bray.model.WyOrder;
 import com.bray.model.WyOrderExample;
 import com.bray.service.IOrderService;
 import com.bray.util.DateUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.List;
  * @Modified By:
  */
 @Service
+@Slf4j
 public class OrderServiceImpl implements IOrderService<WyOrder>{
 
     @Resource
@@ -32,9 +35,21 @@ public class OrderServiceImpl implements IOrderService<WyOrder>{
         WyOrderExample wyOrderExample = new WyOrderExample();
         wyOrderExample.createCriteria()
                 .andUpdateTimeBetween(DateUtil.parseDate(startDate,DateUtil.PATTERN_yyyy_MM_dd_HH_mm)
-                        ,DateUtil.parseDate(lastDate,DateUtil.PATTERN_yyyy_MM_dd_HH_mm));
+                        ,DateUtil.parseDate(lastDate,DateUtil.PATTERN_yyyy_MM_dd_HH_mm))
+                            .andStatusEqualTo(EffectiveType.EFFECTIVE_YES);
         wyOrderExample.setOrderByClause("update_time desc");
         List<WyOrder> wyOrders = wyOrderMapper.selectByExample(wyOrderExample);
         return wyOrders;
+    }
+    @Override
+    public void delete(int id) {
+        WyOrder wyOrder = wyOrderMapper.selectByPrimaryKey(id);
+        wyOrder.setStatus(EffectiveType.EFFECTIVE_NO);
+        try {
+            wyOrderMapper.updateByPrimaryKeySelective(wyOrder);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("更新失败！！");
+        }
     }
 }
