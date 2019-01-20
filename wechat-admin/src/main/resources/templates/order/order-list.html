@@ -69,9 +69,6 @@
             <th>商品类型</th>
             <th>尺码</th>
             <th>价格</th>
-            <th>省份</th>
-            <th>城市</th>
-            <th>区域</th>
             <th>详细地址</th>
             <th>订单状态</th>
             <th>下单时间</th>
@@ -86,10 +83,7 @@
             <td th:text="${wyOrder.title}"></td>
             <td th:text="${wyOrder.size}"></td>
             <td th:text="${wyOrder.price}"></td>
-            <td th:text="${wyOrder.province}"></td>
-            <td th:text="${wyOrder.city}"></td>
-            <td th:text="${wyOrder.county}"></td>
-            <td th:text="${wyOrder.address}"></td>
+            <td th:text="${wyOrder.province}+${wyOrder.city} + ${wyOrder.county} + ${wyOrder.address}"></td>
             <td th:if="${wyOrder.status} == 1">未发货</td>
             <td th:if="${wyOrder.status} == 2">已发货</td>
             <td th:if="${wyOrder.status} == 3">已付款</td>
@@ -99,7 +93,7 @@
               <a title="查看"  onclick="x_admin_show('编辑','order-view.html')" href="javascript:;">
                 <i class="layui-icon">&#xe63c;</i>
               </a>
-              <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+              <a title="删除" th:onclick= "'javascript:member_del(this,'+${wyOrder.id}+')'" href="javascript:;">
                 <i class="layui-icon">&#xe640;</i>
               </a>
             </td>
@@ -161,8 +155,21 @@
       function member_del(obj,id){
           layer.confirm('确认要删除吗？',function(index){
               //发异步删除数据
-              $(obj).parents("tr").remove();
-              layer.msg('已删除!',{icon:1,time:1000});
+              $.ajax({
+                 url: '/order/delete',
+                 async: false,
+                 data: {"id":id},
+                 dataType: "json",
+                 type: 'post',
+                 success: function (data) {
+                     $(obj).parents("tr").remove();
+                     layer.msg('已删除!', {icon: 1, time: 1000});
+                     location.reload(true);
+                 },
+                 error: function (XmlHttpRequest, textStatus, errorThrown) {
+                     layer.msg('error!', {icon: 1, time: 1000});
+                 }
+             });
           });
       }
 
