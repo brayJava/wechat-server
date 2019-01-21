@@ -1,5 +1,6 @@
 package com.bray.mapper;
 
+import com.bray.excel.modules.XFOrderModule;
 import com.bray.model.WyOrder;
 import com.bray.model.WyOrderExample;
 import java.util.List;
@@ -137,4 +138,65 @@ public interface WyOrderMapper {
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(WyOrder record);
+    @Select({
+            " SELECT ",
+            " '' as orderId, ",
+            " '' as consigneeCompany, ",
+            " d.`name` as addressee, ",
+            " '' AS phone, ",
+            " d.phone AS mobilephone, ",
+            " CONCAT(d.province,d.city,d.county,d.address) AS address, ",
+            " d.size as content, ",
+            "         1 AS num, ",
+            " 1 AS bgweight, ",
+            " '' AS jfbz, ",
+            " '寄付月结' AS yfdffs, ",
+            " '顺丰特惠' AS type, ",
+            " '' AS jnum, ",
+            " d.price AS dsmoney, ",
+            "         '' AS bjmoney, ",
+            " '' AS packingSpecification, ",
+            " '' AS gxhSpecification, ",
+            " '' AS qhd, ",
+            " '' AS zqj, ",
+            " '' AS ysx, ",
+            " '' AS dzqs, ",
+            " '' AS serverfee, ",
+            "  '' AS sendintime, ",
+            " '' AS psrq, ",
+            " '' AS pssd, ",
+            " '' AS kczd ",
+            "  FROM ",
+            " `wy_order` d; "
+    })
+    @Results({
+            @Result(column="orderId", property="orderId", jdbcType=JdbcType.VARCHAR),
+            @Result(column="consigneeCompany", property="consigneeCompany", jdbcType=JdbcType.VARCHAR),
+            @Result(column="addressee", property="addressee", jdbcType=JdbcType.VARCHAR),
+            @Result(column="phone", property="phone", jdbcType=JdbcType.VARCHAR),
+            @Result(column="mobilephone", property="mobilephone", jdbcType=JdbcType.VARCHAR),
+            @Result(column="address", property="address", jdbcType=JdbcType.DECIMAL),
+            @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR),
+            @Result(column="num", property="num", jdbcType=JdbcType.INTEGER),
+            @Result(column="bgweight", property="bgweight", jdbcType=JdbcType.INTEGER),
+            @Result(column="jfbz", property="jfbz", jdbcType=JdbcType.VARCHAR),
+            @Result(column="yfdffs", property="yfdffs", jdbcType=JdbcType.VARCHAR),
+            @Result(column="type", property="type", jdbcType=JdbcType.VARCHAR),
+            @Result(column="jnum", property="jnum", jdbcType=JdbcType.VARCHAR),
+            @Result(column="idnumber", property="jnum", jdbcType=JdbcType.VARCHAR),
+            @Result(column="dsmoney", property="dsmoney", jdbcType=JdbcType.INTEGER),
+            @Result(column="bjmoney", property="bjmoney", jdbcType=JdbcType.VARCHAR),
+            @Result(column="packingSpecification", property="packingSpecification", jdbcType=JdbcType.VARCHAR),
+            @Result(column="gxhSpecification", property="gxhSpecification", jdbcType=JdbcType.VARCHAR),
+            @Result(column="qhd", property="qhd", jdbcType=JdbcType.VARCHAR),
+            @Result(column="zqj", property="zqj", jdbcType=JdbcType.VARCHAR),
+            @Result(column="ysx", property="ysx", jdbcType=JdbcType.VARCHAR),
+            @Result(column="dzqs", property="dzqs", jdbcType=JdbcType.VARCHAR),
+            @Result(column="serverfee", property="serverfee", jdbcType=JdbcType.VARCHAR),
+            @Result(column="sendintime", property="sendintime", jdbcType=JdbcType.VARCHAR),
+            @Result(column="psrq", property="psrq", jdbcType=JdbcType.VARCHAR),
+            @Result(column="pssd", property="pssd", jdbcType=JdbcType.VARCHAR),
+            @Result(column="kczd", property="kczd", jdbcType=JdbcType.VARCHAR)
+    })
+    List<XFOrderModule> selectOfOrders();
 }

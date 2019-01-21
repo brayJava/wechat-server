@@ -413,12 +413,18 @@ public class WechatAritcleController {
         if(article.getWyArticle().getIsOrderImg()) {
             if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
         }
+        //数据迁移
         if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getDataTransferUrl())) {
-            model.addAttribute("article", article);
-            SpringWebContext ctx = new SpringWebContext(request,response,
-                    request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
-            String qyhtml = thymeleafViewResolver.getTemplateEngine().process("html/wode/qy", ctx);
+            String qyhtml = transferUrl(request, model, response, article);
             return qyhtml;
+        }
+        //多链数据分流
+        if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getNoShareDomain())) {
+            String[] flurl = article.getWyArticle().getNoShareDomain().split(",");
+            //随机跳一个url
+            int v = (int)Math.floor(Math.random() * flurl.length);
+            article.getWyArticle().setDataTransferUrl(flurl[v]);
+            return transferUrl(request, model, response, article);
         }
         //1.从redis缓存中查询
         String showhtml = String.valueOf(redisObj.getRedisValueByKey("articlenew_list:"+articleId));
@@ -474,10 +480,7 @@ public class WechatAritcleController {
         if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
         ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
         if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getDataTransferUrl())) {
-            model.addAttribute("article", article);
-            SpringWebContext ctx = new SpringWebContext(request,response,
-                    request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
-            String qyhtml = thymeleafViewResolver.getTemplateEngine().process("html/wode/qy", ctx);
+            String qyhtml = transferUrl(request, model, response, article);
             return qyhtml;
         }
         //1.从redis缓存中查询
@@ -539,11 +542,16 @@ public class WechatAritcleController {
             if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
         }
         if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getDataTransferUrl())) {
-            model.addAttribute("article", article);
-            SpringWebContext ctx = new SpringWebContext(request,response,
-                    request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
-            String qyhtml = thymeleafViewResolver.getTemplateEngine().process("html/wode/qy", ctx);
+            String qyhtml = transferUrl(request, model, response, article);
             return qyhtml;
+        }
+        //多链数据分流
+        if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getNoShareDomain())) {
+            String[] flurl = article.getWyArticle().getNoShareDomain().split(",");
+            //随机跳一个url
+            int v = (int)Math.floor(Math.random() * flurl.length);
+            article.getWyArticle().setDataTransferUrl(flurl[v]);
+            return transferUrl(request, model, response, article);
         }
         //1.从redis缓存中查询
         String showhtml = String.valueOf(redisObj.getRedisValueByKey("article_list:"+articleId));
@@ -692,5 +700,11 @@ public class WechatAritcleController {
         }
         /******************防封缓存界面只能访问一次，end***************/
         return islog;
+    }
+    private String transferUrl(HttpServletRequest request, Model model, HttpServletResponse response, ArticleWithImages article) {
+        model.addAttribute("article", article);
+        SpringWebContext ctx = new SpringWebContext(request,response,
+                request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+        return thymeleafViewResolver.getTemplateEngine().process("html/wode/qy", ctx);
     }
 }

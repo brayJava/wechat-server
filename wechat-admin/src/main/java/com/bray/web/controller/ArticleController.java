@@ -6,10 +6,12 @@ import com.bray.model.Bo.ArticleWithImages;
 import com.bray.model.Bo.RestResponseBo;
 import com.bray.model.Vo.ArticleModelVo;
 import com.bray.model.Vo.ArticleOtherModelVo;
+import com.bray.model.Vo.SearchModelVo;
 import com.bray.model.WyArticle;
 import com.bray.service.IArticleAdminService;
 import com.bray.service.IArticleService;
 import com.bray.util.ArticleUtil;
+import com.bray.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +23,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -82,6 +88,14 @@ public class ArticleController {
     public String articleList(Model model) {
         List<WyArticle> wyArticles = iArticleService.queryAllEffectiveArticle();
         model.addAttribute("wyArticles",wyArticles);
+        //起始时间为00:00:00
+        String startDate  = LocalDateTime.of(LocalDate.now(), LocalTime.MIN)
+                .format(DateTimeFormatter.ofPattern(DateUtil.PATTERN_yyyy_MM_dd_HH_mm_ss));
+        //结束时间为晚上23:59:59
+        String endDate = LocalDateTime.of(LocalDate.now(), LocalTime.MAX)
+                .format(DateTimeFormatter.ofPattern(DateUtil.PATTERN_yyyy_MM_dd_HH_mm_ss));
+        model.addAttribute("startDate",startDate);
+        model.addAttribute("endDate",endDate);
         return "article/article-list";
     }
     /**

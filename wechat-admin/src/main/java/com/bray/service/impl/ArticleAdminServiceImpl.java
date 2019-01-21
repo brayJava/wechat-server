@@ -448,6 +448,8 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
             redisCache.deleteDataOfRedis(ConstatFinal.IFRAMELIST+":"+articleId);
 
             redisCache.deleteDataOfRedis(ConstatFinal.ORDERVAL99);
+
+            redisCache.deleteDataOfRedis(ConstatFinal.ARTICLE_H5_1);
         } catch (Exception e) {
             log.error("-------文章redis更新");
             e.printStackTrace();
