@@ -35,6 +35,8 @@ public interface ConstatFinal {
     String IFRAMELIST = "iframe_list";
 
     String ORDERVAL99 = "ORDERVAL99";
+    //h5文章
+    String ARTICLE_H5_1 = "article_h5_1";
 
 
 }

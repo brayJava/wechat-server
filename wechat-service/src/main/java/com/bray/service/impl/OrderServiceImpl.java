@@ -2,12 +2,15 @@ package com.bray.service.impl;
 
 import com.bray.dto.EffectiveType;
 import com.bray.mapper.WyOrderMapper;
+import com.bray.model.Vo.SearchModelVo;
 import com.bray.model.WyOrder;
 import com.bray.model.WyOrderExample;
 import com.bray.service.IOrderService;
 import com.bray.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import javax.annotation.Resource;
 import java.util.List;
 /**
@@ -51,5 +54,28 @@ public class OrderServiceImpl implements IOrderService<WyOrder>{
             e.printStackTrace();
             log.error("更新失败！！");
         }
+    }
+    /**
+     * 根据条件查询订单
+     */
+    @Override
+    public List<WyOrder> queryOrderByCondition(SearchModelVo searchModelVo) {
+
+        WyOrderExample wyOrderExample = new WyOrderExample();
+        WyOrderExample.Criteria criteria = wyOrderExample.createCriteria();
+        criteria.andCreateTimeBetween(
+                DateUtil.parseDate(searchModelVo.getStartTime(),DateUtil.PATTERN_yyyy_MM_dd_HH_mm),
+                DateUtil.parseDate(searchModelVo.getEndTime(),DateUtil.PATTERN_yyyy_MM_dd_HH_mm));
+        if(StringUtils.isEmpty(searchModelVo.getUsername()) && StringUtils.isEmpty(searchModelVo.getPhone())) {
+            criteria.andNameLike(searchModelVo.getUsername()).andPhoneEqualTo(searchModelVo.getPhone());
+        }
+        if(StringUtils.isEmpty(searchModelVo.getUsername())) {
+            criteria.andNameLike(searchModelVo.getUsername());
+        }
+        if(StringUtils.isEmpty(searchModelVo.getPhone())) {
+            criteria.andPhoneEqualTo(searchModelVo.getPhone());
+        }
+        List<WyOrder> wyOrders = wyOrderMapper.selectByExample(wyOrderExample);
+        return wyOrders;
     }
 }

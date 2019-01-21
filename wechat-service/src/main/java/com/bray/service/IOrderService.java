@@ -1,5 +1,8 @@
 package com.bray.service;
 
+import com.bray.model.Vo.SearchModelVo;
+import com.bray.model.WyOrder;
+
 import java.util.List;
 
 /**
@@ -21,6 +24,12 @@ public interface IOrderService<T> {
      * @param id
      */
     void delete(int id);
+    /**
+     * 根据条件查询
+     * @param searchModelVo
+     * @return
+     */
+    List<T> queryOrderByCondition(SearchModelVo searchModelVo);
 
 
 }

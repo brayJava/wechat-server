@@ -46,6 +46,10 @@ public class OrderModelVo {
      */
     private int num;
     /**
+     * 订单类型
+     */
+    private int nid;
+    /**
      * 县级
      */
     private String county;

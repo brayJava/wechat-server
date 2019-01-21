@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head></head>
+<body>
+  <tr th:if="${not #lists.isEmpty(wyOrders)}" th:each="wyOrder,iterStat:${wyOrders}">
+      <td th:text="${wyOrder.id}"></td>
+      <td th:text="${wyOrder.name}"></td>
+      <td th:text="${wyOrder.phone}"></td>
+      <td th:text="${wyOrder.title}"></td>
+      <td th:text="${wyOrder.size}"></td>
+      <td th:text="${wyOrder.price}"></td>
+      <td th:text="${wyOrder.province}+${wyOrder.city} + ${wyOrder.county} + ${wyOrder.address}"></td>
+      <td th:text="${wyOrder.message}"></td>
+      <td th:text="${#dates.format(wyOrder.updateTime,'yyyy/MM/dd HH:mm:ss')}"></td>
+      <td class="td-manage">
+        <a title="查看"  onclick="x_admin_show('编辑','order-view.html')" href="javascript:;">
+          <i class="layui-icon">&#xe63c;</i>
+        </a>
+        <a title="删除" th:onclick= "'javascript:member_del(this,'+${wyOrder.id}+')'" href="javascript:;">
+          <i class="layui-icon">&#xe640;</i>
+        </a>
+      </td>
+   </tr>
+</body>
+</html>
