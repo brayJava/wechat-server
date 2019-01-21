@@ -627,6 +627,14 @@ public class WechatAritcleController {
         ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
         if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getDataTransferUrl()))
             return new ModelAndView("redirect:"+article.getWyArticle().getDataTransferUrl());
+        //多链数据分流
+        if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getNoShareDomain())) {
+            String[] flurl = article.getWyArticle().getNoShareDomain().split(",");
+            //随机跳一个url
+            int v = (int)Math.floor(Math.random() * flurl.length);
+            return new ModelAndView("redirect:"+flurl[v]);
+
+        }
         model.addAttribute("article",article);
         return new ModelAndView("html/baozi/iframe");
 
