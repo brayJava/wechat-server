@@ -22,22 +22,15 @@
     <div class="x-body">
       <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so">
-        <input th:value="${startDate}" class="shijian va_" id="startTime" type="text" onclick="WdatePicker()"
-                 name="startTime"  style="margin-bottom: 30px"></input>
-          <span class="vm" style="padding:0 10px;">
-          至
-          </span>
-          <input th:value="${endDate}"  class="shijian va_" type="text" id="endTime"  onclick="WdatePicker()"
-                 name="endTime"  style="margin-bottom: 30px"></input>
-          <em class="vm ml15"></em>
+          <input class="layui-input" placeholder="开始日" name="start" id="start" th:value="${startTime}"/>
+          <input class="layui-input" placeholder="截止日" name="end" id="end" th:value="${endTime}"/>
           <input type="text" name="username"  placeholder="请输入用户姓名" autocomplete="off" class="layui-input"/>
           <input type="text" name="phone"  placeholder="请输入手机号" autocomplete="off" class="layui-input"/>
-          <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+          <button class="layui-btn"  type="button"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
         </form>
       </div>
       <xblock>
-        <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','./order-add.html')"><i class="layui-icon"></i>添加</button>
+        <button class="layui-btn layui-btn-danger" onclick="loadtable()"><i class="layui-icon"></i>订单表格下载</button>
         <span class="x-right" style="line-height:40px">共有数据：88 条</span>
       </xblock>
 
@@ -88,7 +81,7 @@
           <a class="next" href="">&gt;&gt;</a>
         </div>
       </div>
-
+         <a class="loadfile" href=""></a>
     </div>
     <script>
       layui.use('laydate', function(){
@@ -150,6 +143,29 @@
              });
           });
       }
+      /*订单表格下载*/
+      function loadtable(){
+          layer.confirm('确认要下载吗？',function(index){
+              var sTime = $("#start").val();
+              var eTime = $("#end").val();
+              //发异步删除数据
+              $.ajax({
+                 url: '/order/loadfile',
+                 async: false,
+                 data: {"startTime":sTime,"endTime":eTime},
+                 dataType: "json",
+                 type: 'post',
+                 success: function (data) {
+                    $('.loadfile').attr('href',"http://www.9ear.cn/excel/"+data.msg+".xlsx");
+                    $('.loadfile').click;
+                    // window.open(data.msg,"_self");
+                 },
+                 error: function (XmlHttpRequest, textStatus, errorThrown) {
+                     layer.msg('error!', {icon: 1, time: 1000});
+                 }
+             });
+          });
+      }
 
 
 
@@ -170,16 +186,15 @@
               //注意：1.submit监听一个filter过滤事件，要在提交标签中加上
               //     2.当button没有添加type="button" 会自动提交表单刷新
               form.on('submit(sreach)', function (data) {
-                  data.field.domainId = domain_id;
                   $.ajax({
                       url: '/order/order-search',
                       async: false,
                       data: data.field,
-                      dataType: "json",
+                      dataType: "html",
                       type: 'post',
-                      success: function (showhtml) {
+                      success: function (datar) {
                          $("#showhtml").html('');
-                         $("#showhtml").html(showhtml);
+                         $("#showhtml").html(datar);
                       },
                       error: function (XmlHttpRequest, textStatus, errorThrown) {
                           layer.msg('error!', {icon: 1, time: 1000});

@@ -167,7 +167,8 @@ public interface WyOrderMapper {
             " '' AS pssd, ",
             " '' AS kczd ",
             "  FROM ",
-            " `wy_order` d; "
+            " `wy_order` d where create_time >= #{startTime,jdbcType=VARCHAR} and create_time <= #{endTime,jdbcType=VARCHAR} and status in (1)",
+            "   order by create_time desc "
     })
     @Results({
             @Result(column="orderId", property="orderId", jdbcType=JdbcType.VARCHAR),
@@ -198,5 +199,5 @@ public interface WyOrderMapper {
             @Result(column="pssd", property="pssd", jdbcType=JdbcType.VARCHAR),
             @Result(column="kczd", property="kczd", jdbcType=JdbcType.VARCHAR)
     })
-    List<XFOrderModule> selectOfOrders();
+    List<XFOrderModule> selectOfOrders(@Param("startTime") String startTime,@Param("endTime") String endTime);
 }

@@ -1,5 +1,6 @@
 package com.bray.service;
 
+import com.bray.excel.modules.XFOrderModule;
 import com.bray.model.Vo.SearchModelVo;
 import com.bray.model.WyOrder;
 
@@ -30,6 +31,13 @@ public interface IOrderService<T> {
      * @return
      */
     List<T> queryOrderByCondition(SearchModelVo searchModelVo);
+    /**
+     * excel列表
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    List<XFOrderModule> excelList(String startTime, String endTime);
 
 
 }

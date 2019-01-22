@@ -11,9 +11,9 @@ import lombok.Data;
 @Data
 public class SearchModelVo {
 
-    private String startTime;
+    private String start;
 
-    private String endTime;
+    private String end;
 
     private String username;
 

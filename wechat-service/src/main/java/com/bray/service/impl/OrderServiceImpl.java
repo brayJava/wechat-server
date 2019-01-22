@@ -1,6 +1,7 @@
 package com.bray.service.impl;
 
 import com.bray.dto.EffectiveType;
+import com.bray.excel.modules.XFOrderModule;
 import com.bray.mapper.WyOrderMapper;
 import com.bray.model.Vo.SearchModelVo;
 import com.bray.model.WyOrder;
@@ -27,18 +28,16 @@ public class OrderServiceImpl implements IOrderService<WyOrder>{
     private WyOrderMapper wyOrderMapper;
     /**
      * 查询订单时间
-     * @param StartTime
+     * @param startTime
      * @param endTime
      * @return
      */
     @Override
-    public List<WyOrder> queryAllOrder(String StartTime, String endTime) {
-        String startDate = DateUtil.getStartDate(StartTime);
-        String lastDate = DateUtil.getLastDate(endTime);
+    public List<WyOrder> queryAllOrder(String startTime, String endTime) {
         WyOrderExample wyOrderExample = new WyOrderExample();
         wyOrderExample.createCriteria()
-                .andUpdateTimeBetween(DateUtil.parseDate(startDate,DateUtil.PATTERN_yyyy_MM_dd_HH_mm)
-                        ,DateUtil.parseDate(lastDate,DateUtil.PATTERN_yyyy_MM_dd_HH_mm))
+                .andUpdateTimeBetween(DateUtil.parseDate(startTime,DateUtil.PATTERN_yyyy_MM_dd_HH_mm)
+                        ,DateUtil.parseDate(endTime,DateUtil.PATTERN_yyyy_MM_dd_HH_mm))
                             .andStatusEqualTo(EffectiveType.EFFECTIVE_YES);
         wyOrderExample.setOrderByClause("update_time desc");
         List<WyOrder> wyOrders = wyOrderMapper.selectByExample(wyOrderExample);
@@ -63,19 +62,38 @@ public class OrderServiceImpl implements IOrderService<WyOrder>{
 
         WyOrderExample wyOrderExample = new WyOrderExample();
         WyOrderExample.Criteria criteria = wyOrderExample.createCriteria();
+        String startDate = DateUtil.getStartDate(searchModelVo.getStart());
+        String lastDate = DateUtil.getLastDate(searchModelVo.getEnd());
         criteria.andCreateTimeBetween(
-                DateUtil.parseDate(searchModelVo.getStartTime(),DateUtil.PATTERN_yyyy_MM_dd_HH_mm),
-                DateUtil.parseDate(searchModelVo.getEndTime(),DateUtil.PATTERN_yyyy_MM_dd_HH_mm));
-        if(StringUtils.isEmpty(searchModelVo.getUsername()) && StringUtils.isEmpty(searchModelVo.getPhone())) {
+                DateUtil.parseDate(startDate,DateUtil.PATTERN_yyyy_MM_dd_HH_mm),
+                DateUtil.parseDate(lastDate,DateUtil.PATTERN_yyyy_MM_dd_HH_mm))
+                .andStatusEqualTo(EffectiveType.EFFECTIVE_YES);
+        if(!StringUtils.isEmpty(searchModelVo.getUsername()) && !StringUtils.isEmpty(searchModelVo.getPhone())) {
             criteria.andNameLike(searchModelVo.getUsername()).andPhoneEqualTo(searchModelVo.getPhone());
         }
-        if(StringUtils.isEmpty(searchModelVo.getUsername())) {
+        if(!StringUtils.isEmpty(searchModelVo.getUsername())) {
             criteria.andNameLike(searchModelVo.getUsername());
         }
-        if(StringUtils.isEmpty(searchModelVo.getPhone())) {
+        if(!StringUtils.isEmpty(searchModelVo.getPhone())) {
             criteria.andPhoneEqualTo(searchModelVo.getPhone());
         }
+        wyOrderExample.setOrderByClause("update_time desc");
         List<WyOrder> wyOrders = wyOrderMapper.selectByExample(wyOrderExample);
         return wyOrders;
     }
+    /**
+     * excel列表
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    @Override
+    public List<XFOrderModule> excelList(String startTime,String endTime) {
+        String startDate = DateUtil.getStartDate(startTime);
+        String lastDate = DateUtil.getLastDate(endTime);
+        List<XFOrderModule> xfOrderModules = wyOrderMapper.selectOfOrders(startDate,lastDate);
+        return xfOrderModules;
+
+    }
+
 }

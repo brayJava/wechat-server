@@ -212,8 +212,8 @@ public class DateUtil {
         return age;
     }
     public static String getStartDate(String startDate){
-        String addTime = addTime(startDate, -1, PATTERN_yyyy_MM_dd, PATTERN_yyyy_MM_dd_HH_mm_ss, Calendar.DATE);
-        return addTime(addTime, 1, PATTERN_yyyy_MM_dd, PATTERN_yyyy_MM_dd_HH_mm_ss, Calendar.SECOND);
+        // String addTime = addTime(startDate, , PATTERN_yyyy_MM_dd, PATTERN_yyyy_MM_dd_HH_mm_ss, Calendar.DATE);
+        return addTime(startDate, -1, PATTERN_yyyy_MM_dd, PATTERN_yyyy_MM_dd_HH_mm_ss, Calendar.SECOND);
     }
     public static String getEndDate(String endDate){
         return addTime(endDate, 86399, PATTERN_yyyy_MM_dd, PATTERN_yyyy_MM_dd_HH_mm_ss, Calendar.SECOND);
