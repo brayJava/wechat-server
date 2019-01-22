@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
+import java.util.List;
+
 /**
  * @Author:wuzhiyuan
  * @Description: 处理redis数据
@@ -57,6 +59,27 @@ public class RedisPoolCache {
         Jedis jedis = this.getJedis();
         Long del = jedis.del(redisKey);
         return del;
+    }
+    /**
+     * 存储数据到redis
+     * @param redisKey
+     * @param orderStr
+     * @return
+     */
+    public Long lpushRedis(String redisKey,String orderStr) {
+        Jedis jedis = this.getJedis();
+        Long orderlist = jedis.lpush(redisKey, orderStr);
+        return orderlist;
+    }
+    /**
+     * 在redis取出数据
+     * @param redisKey
+     * @return
+     */
+    public List<String> lrangeRedis(String redisKey,int start,int end) {
+        Jedis jedis = this.getJedis();
+        List<String> lrange = jedis.lrange(redisKey, start, end);
+        return lrange;
     }
     /**
      * 更新redis数据

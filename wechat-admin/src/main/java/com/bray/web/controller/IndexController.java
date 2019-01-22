@@ -1,5 +1,6 @@
 package com.bray.web.controller;
 
+import com.bray.aop.cache.RedisPoolCache;
 import com.bray.model.WyOrderLog;
 import com.bray.service.IOrderAdminService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,9 @@ public class IndexController {
     @Resource
     private IOrderAdminService iOrderAdminService;
 
+    @Resource
+    private RedisPoolCache redisObj;
+
     @RequestMapping("/wzylm")
     public String home() {
         return "index/index";
@@ -34,8 +38,10 @@ public class IndexController {
     @RequestMapping("/welcome")
     public String welcome(Model model) {
         List<WyOrderLog> wyOrderLogs = iOrderAdminService.queryOrderLogData();
+        List<String> list = redisObj.lrangeRedis("orderlist", -1, -10);
         model.addAttribute("wyOrderLogs",wyOrderLogs);
         model.addAttribute("currentTime",new Date());
+        model.addAttribute("orderlist",list);
         return "index/welcome";
     }
 }
