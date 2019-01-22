@@ -30,7 +30,7 @@
         </form>
       </div>
       <xblock>
-        <button class="layui-btn layui-btn-danger" onclick="loadtable()"><i class="layui-icon"></i>订单表格下载</button>
+        <button class="layui-btn layui-btn-danger" onclick="loadtable()">订单表格下载</button>
         <span class="x-right" style="line-height:40px">共有数据：88 条</span>
       </xblock>
 
@@ -145,7 +145,7 @@
       }
       /*订单表格下载*/
       function loadtable(){
-          layer.confirm('确认要下载吗？',function(index){
+          layer.msg('正在为您下载....',function(index){
               var sTime = $("#start").val();
               var eTime = $("#end").val();
               //发异步删除数据
@@ -156,9 +156,7 @@
                  dataType: "json",
                  type: 'post',
                  success: function (data) {
-                    $('.loadfile').attr('href',"http://www.9ear.cn/excel/"+data.msg+".xlsx");
-                    $('.loadfile').click;
-                    // window.open(data.msg,"_self");
+                    window.open("http://www.9ear.cn/excel/"+data.msg+".xlsx");
                  },
                  error: function (XmlHttpRequest, textStatus, errorThrown) {
                      layer.msg('error!', {icon: 1, time: 1000});

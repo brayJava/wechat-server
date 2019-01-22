@@ -23,6 +23,7 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -90,12 +91,12 @@ public class OrderController {
     @ResponseBody
     public RestResponseBo loadfile(String startTime,String endTime) {
         String startDate  = LocalDateTime.of(LocalDate.now(), LocalTime.MIN)
-                .format(DateTimeFormatter.ofPattern(DateUtil.PATTERN_yyyyMMddHHmmssSSS));
-        String excelPath = "order_"+startDate;
+                .format(DateTimeFormatter.ofPattern(DateUtil.PATTERN_yyyyMMdd));
+        String excelPath = "order_"+startDate+ Clock.systemDefaultZone().millis();
         //生称excel
         List<XFOrderModule> xfOrderModules = iOrderService.excelList(startTime,endTime);
         try {
-            ModuleToExcel.ObjectToExcel(xfOrderModules,XFOrderModule.class,"/home/ftpuser/wechat/excel"+excelPath+".xlsx");
+            ModuleToExcel.ObjectToExcel(xfOrderModules,XFOrderModule.class,"/home/ftpuser/wechat/excel/"+excelPath+".xlsx");
         } catch (Exception e) {
             log.error("生成excel失败。。。");
             e.printStackTrace();
