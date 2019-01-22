@@ -33,7 +33,7 @@ public class OrderAdminServiceImpl implements IOrderAdminService {
         try {
             WyOrderLogExample wyOrderLogExample = new WyOrderLogExample();
             wyOrderLogExample.createCriteria().andTypeEqualTo(2);
-            wyOrderLogExample.setOrderByClause("create_time desc limit 20");
+            wyOrderLogExample.setOrderByClause("create_time desc limit 15");
             wyOrderLogs = wyOrderLogMapper.selectByExample(wyOrderLogExample);
         } catch (Exception e) {
             e.printStackTrace();
