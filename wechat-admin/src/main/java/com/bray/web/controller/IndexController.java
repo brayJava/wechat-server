@@ -1,11 +1,14 @@
 package com.bray.web.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bray.aop.cache.RedisPoolCache;
+import com.bray.model.Vo.OrderModelVo;
 import com.bray.model.WyOrderLog;
 import com.bray.service.IOrderAdminService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
@@ -38,10 +41,17 @@ public class IndexController {
     @RequestMapping("/welcome")
     public String welcome(Model model) {
         List<WyOrderLog> wyOrderLogs = iOrderAdminService.queryOrderLogData();
-        List<String> list = redisObj.lrangeRedis("orderlist", -1, -10);
+        List<String> list = redisObj.lrangeRedis("orderlist", 0, 10);
+        List<OrderModelVo> orderlist = new ArrayList<>();
+        if(!CollectionUtils.isEmpty(list)) {
+            list.stream().forEach(x ->{
+                OrderModelVo orderModelVo = JSONObject.parseObject(x, OrderModelVo.class);
+                orderlist.add(orderModelVo);
+            });
+        }
         model.addAttribute("wyOrderLogs",wyOrderLogs);
         model.addAttribute("currentTime",new Date());
-        model.addAttribute("orderlist",list);
+        model.addAttribute("orderlist",orderlist);
         return "index/welcome";
     }
 }

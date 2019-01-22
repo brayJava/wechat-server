@@ -24,11 +24,12 @@
             </div>
              <div class="layui-field-box">
                 <table class="layui-table" lay-skin="line">
-                    <tbody th:if="${not #lists.isEmpty(orderlist)}" th:each="orderlog,iterStat:${orderlist}">
+                    <tbody th:if="${not #lists.isEmpty(orderlist)}" th:each="order,iterStat:${orderlist}">
                         <tr>
                             <td >
-                                <span> 订单日志：</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><span style="color: #1AA093" th:text="${#dates.format(wyOrderLog.createTime,'yyyy/MM/dd HH:mm:ss')}"></span>
-                                        <br/><span th:text="${orderlog}"></span>
+                                <span> 订单日志：</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><span style="color: #1AA093" th:text="${#dates.format(order.orderDate,'yyyy/MM/dd HH:mm:ss')}"></span>
+                                        <br/><span th:text="${order.name}" style="color: #c81623"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c81623" th:text="${order.phone}"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c81623" th:text="${order.province} + ${order.city}+ ${order.county}+${order.address}"></span>
+                                        &nbsp;<span style="color: #c81623" th:text="${order.size}"></span>&nbsp;&nbsp;&nbsp;<span style="color: #c81623" th:text="${order.title}"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c81623" th:text="${order.message}"></span>
                                 </strong>
                             </td>
                         </tr>
