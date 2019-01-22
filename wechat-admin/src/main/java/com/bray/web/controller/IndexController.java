@@ -6,6 +6,7 @@ import com.bray.model.Vo.OrderModelVo;
 import com.bray.model.WyOrderLog;
 import com.bray.service.IOrderAdminService;
 import lombok.extern.slf4j.Slf4j;
+import org.omg.CORBA.Object;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
@@ -15,6 +16,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @Author:wuzhiyuan
@@ -46,6 +48,9 @@ public class IndexController {
         if(!CollectionUtils.isEmpty(list)) {
             list.stream().forEach(x ->{
                 OrderModelVo orderModelVo = JSONObject.parseObject(x, OrderModelVo.class);
+                if(Objects.isNull(orderModelVo.getOrderDate())) {
+                    orderModelVo.setOrderDate(new Date());
+                }
                 orderlist.add(orderModelVo);
             });
         }
