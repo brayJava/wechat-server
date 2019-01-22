@@ -1,6 +1,7 @@
 package com.bray.web.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bray.aop.cache.RedisPoolCache;
 import com.bray.mapper.WyOrderCopyMapper;
 import com.bray.model.Bo.RestResponseBo;
 import com.bray.model.Vo.OrderModelVo;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * @Author:wuzhiyuan
@@ -54,6 +56,7 @@ public class PublisherController {
     @RequestMapping("order")
     @ResponseBody
     public RestResponseBo order(OrderModelVo orderModelVo) {
+        orderModelVo.setOrderDate(new Date());
         //插入订单备用表
         iOrderWebService.insertCopy(orderModelVo);
         orderSender.send(JSONObject.toJSONString(orderModelVo));

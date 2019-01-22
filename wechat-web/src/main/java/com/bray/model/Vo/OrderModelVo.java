@@ -1,6 +1,9 @@
 package com.bray.model.Vo;
 
 import lombok.Data;
+
+import java.util.Date;
+
 /**
  * @Author:wuzhiyuan
  * @Description: 订单实体类
@@ -61,6 +64,10 @@ public class OrderModelVo {
      * 留言
      */
     private String message;
+    /**
+     * 时间
+     */
+    private Date orderDate;
     private String sid;
     private int age;
     private String height;
