@@ -22,35 +22,16 @@
     <div class="x-body">
       <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so">
-          <input class="layui-input" placeholder="开始日" name="start" id="start" />
-          <input class="layui-input" placeholder="截止日" name="end" id="end" />
-          <div class="layui-input-inline">
-            <select name="contrller">
-              <option>支付状态</option>
-              <option>已支付</option>
-              <option>未支付</option>
-            </select>
-          </div>
-          <div class="layui-input-inline">
-            <select name="contrller">
-              <option>支付方式</option>
-              <option>支付宝</option>
-              <option>微信</option>
-              <option>货到付款</option>
-            </select>
-          </div>
-          <div class="layui-input-inline">
-            <select name="contrller">
-              <option value="">订单状态</option>
-              <option value="0">待确认</option>
-              <option value="1">已确认</option>
-              <option value="2">已收货</option>
-              <option value="3">已取消</option>
-              <option value="4">已完成</option>
-              <option value="5">已作废</option>
-            </select>
-          </div>
-          <input type="text" name="username"  placeholder="请输入订单号" autocomplete="off" class="layui-input"/>
+        <input th:value="${startDate}" class="shijian va_" id="startTime" type="text" onclick="WdatePicker()"
+                 name="startTime"  style="margin-bottom: 30px"></input>
+          <span class="vm" style="padding:0 10px;">
+          至
+          </span>
+          <input th:value="${endDate}"  class="shijian va_" type="text" id="endTime"  onclick="WdatePicker()"
+                 name="endTime"  style="margin-bottom: 30px"></input>
+          <em class="vm ml15"></em>
+          <input type="text" name="username"  placeholder="请输入用户姓名" autocomplete="off" class="layui-input"/>
+          <input type="text" name="phone"  placeholder="请输入手机号" autocomplete="off" class="layui-input"/>
           <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
         </form>
       </div>
@@ -70,12 +51,12 @@
             <th>尺码</th>
             <th>价格</th>
             <th>详细地址</th>
-            <th>订单状态</th>
+            <th>顾客留言</th>
             <th>下单时间</th>
             <th >操作</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="showhtml">
           <tr th:if="${not #lists.isEmpty(wyOrders)}" th:each="wyOrder,iterStat:${wyOrders}">
             <td th:text="${wyOrder.id}"></td>
             <td th:text="${wyOrder.name}"></td>
@@ -84,10 +65,7 @@
             <td th:text="${wyOrder.size}"></td>
             <td th:text="${wyOrder.price}"></td>
             <td th:text="${wyOrder.province}+${wyOrder.city} + ${wyOrder.county} + ${wyOrder.address}"></td>
-            <td th:if="${wyOrder.status} == 1">未发货</td>
-            <td th:if="${wyOrder.status} == 2">已发货</td>
-            <td th:if="${wyOrder.status} == 3">已付款</td>
-            <td th:if="${wyOrder.status} == 4">已退款</td>
+            <td th:text="${wyOrder.message}"></td>
             <td th:text="${#dates.format(wyOrder.updateTime,'yyyy/MM/dd HH:mm:ss')}"></td>
             <td class="td-manage">
               <a title="查看"  onclick="x_admin_show('编辑','order-view.html')" href="javascript:;">
@@ -185,6 +163,30 @@
             $(".layui-form-checked").not('.header').parents('tr').remove();
         });
       }
+      layui.use(['form','layer'], function() {
+              $ = layui.jquery;
+              var form = layui.form
+                  ,layer = layui.layer;
+              //注意：1.submit监听一个filter过滤事件，要在提交标签中加上
+              //     2.当button没有添加type="button" 会自动提交表单刷新
+              form.on('submit(sreach)', function (data) {
+                  data.field.domainId = domain_id;
+                  $.ajax({
+                      url: '/order/order-search',
+                      async: false,
+                      data: data.field,
+                      dataType: "json",
+                      type: 'post',
+                      success: function (showhtml) {
+                         $("#showhtml").html('');
+                         $("#showhtml").html(showhtml);
+                      },
+                      error: function (XmlHttpRequest, textStatus, errorThrown) {
+                          layer.msg('error!', {icon: 1, time: 1000});
+                      }
+                  });
+              });
+          });
     </script>
   </body>
 

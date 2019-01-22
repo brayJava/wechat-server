@@ -22,6 +22,19 @@
                     </tbody>
                 </table>
             </div>
+             <div class="layui-field-box">
+                <table class="layui-table" lay-skin="line">
+                    <tbody th:if="${not #lists.isEmpty(orderlist)}" th:each="orderlog,iterStat:${orderlist}">
+                        <tr>
+                            <td >
+                                <span> 订单日志：</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><span style="color: #1AA093" th:text="${#dates.format(wyOrderLog.createTime,'yyyy/MM/dd HH:mm:ss')}"></span>
+                                        <br/><span th:text="${orderlog}"></span>
+                                </strong>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </fieldset>
         <fieldset class="layui-elem-field">
             <legend>开发团队</legend>
