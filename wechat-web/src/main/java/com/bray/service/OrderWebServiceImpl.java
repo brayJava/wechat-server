@@ -64,7 +64,7 @@ public class OrderWebServiceImpl implements IOrderWebService {
                 wyOrder.setSize(sizenum + " 1");
                 break;
         }
-        wyOrder.setSize(orderModelVo.getSize());
+        // wyOrder.setSize(orderModelVo.getSize());
         wyOrder.setWechat(orderModelVo.getWechat());
         wyOrder.setNum(orderModelVo.getNum());
         wyOrder.setNumber(orderModelVo.getNumber());

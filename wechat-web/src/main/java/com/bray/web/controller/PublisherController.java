@@ -56,7 +56,6 @@ public class PublisherController {
     public RestResponseBo order(OrderModelVo orderModelVo) {
         //插入订单备用表
         iOrderWebService.insertCopy(orderModelVo);
-        // SendEmailUtil.sendEmail(javaMailSender,orderModelVo);
         orderSender.send(JSONObject.toJSONString(orderModelVo));
         return RestResponseBo.ok();
     }

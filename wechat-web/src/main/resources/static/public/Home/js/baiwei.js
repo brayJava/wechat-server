@@ -87,7 +87,7 @@
 			var sid = $('input[name="sid"]').val();
             var size = $('input[name="size"]').val();
             var message = $('#message').val();
-            var nid = $('#nid').val();
+            var nid = $('input[name="nid"]').val();
 			var namereg = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
 			var phonereg = /^1[3|4|5|7|8][0-9]{9}$/;
 			var emailreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
