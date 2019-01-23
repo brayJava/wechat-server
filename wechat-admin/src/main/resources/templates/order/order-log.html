@@ -4,6 +4,8 @@
       layout:decorate="~{layouts/layout}">
 <head></head>
 <body>
+    <br/>
+   <div style="font-size: 35px;text-align: center"><span style="text-align: center">订单实时查询</span></div>
    <tr th:if="${not #lists.isEmpty(orderlist)}" th:each="order,iterStat:${orderlist}">
       <td>
            <span> 订单日志：</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><span style="color: #1AA093"  th:text="${#dates.format(order.orderDate,'yyyy/MM/dd HH:mm:ss')}"></span>
