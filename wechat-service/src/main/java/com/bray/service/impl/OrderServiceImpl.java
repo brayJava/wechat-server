@@ -69,13 +69,17 @@ public class OrderServiceImpl implements IOrderService<WyOrder>{
                 DateUtil.parseDate(lastDate,DateUtil.PATTERN_yyyy_MM_dd_HH_mm))
                 .andStatusEqualTo(EffectiveType.EFFECTIVE_YES);
         if(!StringUtils.isEmpty(searchModelVo.getUsername()) && !StringUtils.isEmpty(searchModelVo.getPhone())) {
-            criteria.andNameLike(searchModelVo.getUsername()).andPhoneEqualTo(searchModelVo.getPhone());
+            String namet = "%" + searchModelVo.getUsername() + "%";
+            String phonet = "%" + searchModelVo.getPhone() + "%";
+            criteria.andNameLike(namet).andPhoneLike(phonet);
         }
         if(!StringUtils.isEmpty(searchModelVo.getUsername())) {
-            criteria.andNameLike(searchModelVo.getUsername());
+            String name = "%" + searchModelVo.getUsername() + "%";
+            criteria.andNameLike(name);
         }
         if(!StringUtils.isEmpty(searchModelVo.getPhone())) {
-            criteria.andPhoneEqualTo(searchModelVo.getPhone());
+            String phone = "%" + searchModelVo.getPhone() + "%";
+            criteria.andPhoneLike(phone);
         }
         wyOrderExample.setOrderByClause("update_time desc");
         List<WyOrder> wyOrders = wyOrderMapper.selectByExample(wyOrderExample);
