@@ -145,7 +145,7 @@
       }
       /*订单表格下载*/
       function loadtable(){
-          layer.msg('正在为您下载....',function(index){
+          layer.msg('正在为您下载....',{icon: 1, time: 1500},function(index){
               var sTime = $("#start").val();
               var eTime = $("#end").val();
               //发异步删除数据
