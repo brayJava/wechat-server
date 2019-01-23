@@ -16,7 +16,7 @@
                     <tbody th:if="${not #lists.isEmpty(wyOrderLogs)}" th:each="wyOrderLog,iterStat:${wyOrderLogs}">
                         <tr>
                             <td >
-                                <span> 点击下单界面时间：</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><span style="color: #331de3" th:text="${#dates.format(wyOrderLog.createTime,'yyyy/MM/dd HH:mm:ss')}"></span></strong>
+                                <span> 点击下单界面时间：</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><span style="color: #1AA093" th:text="${#dates.format(wyOrderLog.createTime,'yyyy/MM/dd HH:mm:ss')}"></span></strong>
                             </td>
                         </tr>
                     </tbody>
@@ -27,9 +27,9 @@
                     <tbody th:if="${not #lists.isEmpty(orderlist)}" th:each="order,iterStat:${orderlist}">
                         <tr>
                             <td >
-                                <span> 订单日志：</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><span style="color: #331de3"  th:text="${#dates.format(order.orderDate,'yyyy/MM/dd HH:mm:ss')}"></span>
-                                        <br/><br/><span th:text="${order.name}" style="color: #c81623;font-size: 25px"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c81623" th:text="${order.phone}"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c81623" th:text="${order.province} + ${order.city}+ ${order.county}+${order.address}"></span>
-                                        &nbsp;<span style="color: #c81623" th:text="${order.size}"></span>&nbsp;&nbsp;&nbsp;<span style="color: #c81623" th:text="${order.title}"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c81623" th:text="${order.message}"></span>
+                                <span> 订单日志：</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><span style="color: #1AA093"  th:text="${#dates.format(order.orderDate,'yyyy/MM/dd HH:mm:ss')}"></span>
+                                        <br/><br/><span th:text="${order.name}" style="color: #c81623;font-size: 25px"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #331de3" th:text="${order.phone}"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#331de3" th:text="${order.province} + ${order.city}+ ${order.county}+${order.address}"></span>
+                                        &nbsp;<span style="color: #331de3" th:text="${order.size}"></span>&nbsp;&nbsp;&nbsp;<span style="color: #331de3" th:text="${order.title}"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #331de3" th:text="${order.message}"></span>
                                 </strong>
                             </td>
                         </tr>
