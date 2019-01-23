@@ -5,12 +5,15 @@
 <head></head>
 <body>
     <br/>
-   <div style="font-size: 35px;text-align: center"><span style="text-align: center">订单实时查询</span></div>
+    <br/>
+    <br/>
+   <div style="font-size: 50px;text-align: center"><span style="text-align: center">订单实时查询</span></div>
    <tr th:if="${not #lists.isEmpty(orderlist)}" th:each="order,iterStat:${orderlist}">
+      <br/>
       <td>
            <span> 订单日志：</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><span style="color: #1AA093"  th:text="${#dates.format(order.orderDate,'yyyy/MM/dd HH:mm:ss')}"></span>
                   <br/><span th:text="${order.name}" style="color: #c81623;font-size: 25px"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #331de3;font-size: 17px" th:text="${order.phone}"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#331de3;font-size: 17px" th:text="${order.province} + ${order.city}+ ${order.county}+${order.address}"></span>
-                  &nbsp;<span style="color: #331de3;font-size: 17px" th:text="${order.size}"></span>&nbsp;&nbsp;&nbsp;<span style="color: #331de3;font-size: 17px" th:text="${order.title}"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #331de3;font-size: 17px" th:text="${order.message}"></span><br/>
+                  &nbsp;<span style="color: #331de3;font-size: 17px" th:text="${order.size}"></span>&nbsp;&nbsp;&nbsp;<span style="color: #331de3;font-size: 17px" th:text="${order.title}"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #331de3;font-size: 17px" th:text="${order.message}"></span>
            </strong>
       </td>
    </tr>
