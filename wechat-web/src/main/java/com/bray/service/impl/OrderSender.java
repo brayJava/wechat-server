@@ -26,7 +26,7 @@ public class OrderSender {
     private RedisPoolCache redisObj;
 
     public void send(String sendmsg) {
-        // redisObj.lpushRedis("orderlist",sendmsg);
+        redisObj.lpushRedis("orderlist",sendmsg);
         log.info("发送信息："+sendmsg);
         this.rabbitTemplate.convertAndSend("order", sendmsg);
     }
