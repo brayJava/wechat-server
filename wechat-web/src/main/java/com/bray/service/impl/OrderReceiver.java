@@ -8,6 +8,9 @@ import com.bray.model.WyOrder;
 import com.bray.model.WyOrderExample;
 import com.bray.model.WySafedomain;
 import com.bray.service.IOrderWebService;
+import com.bray.service.wechat.WechatTemplateMessageServcie;
+import com.bray.service.wechat.bean.OrderTemplateKeyParam;
+import com.bray.util.DateUtil;
 import com.bray.util.SendEmailUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
@@ -21,11 +24,10 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.util.List;
 
 /**
  * @Author:wuzhiyuan
- * @Description:
+ * @Description: rabbit消息队列
  * @Date: Created in 1:38 2019/1/17
  * @Modified By:
  */
@@ -43,6 +45,9 @@ public class OrderReceiver {
     @Resource
     private WySafedomainMapper wySafedomainMapper;
 
+    @Resource
+    private WechatTemplateMessageServcie wechatTemplateMessageServcie;
+
 
     @RabbitHandler
     public void process(String receiverMsg) {
@@ -55,38 +60,23 @@ public class OrderReceiver {
             log.error("插入订单失败...");
         }
         try {
-            //发送email
-            sendEmailWithOrder(orderModelVo);
+            //发送微信下行通知
+            wechatTemplateMessageServcie.sendTemplateMessage(getOrderTemplateKeyParam(orderModelVo));
         } catch (Exception e) {
             log.error("---------email发送错误");
             e.printStackTrace();
         }
     }
-    private void sendEmailWithOrder(OrderModelVo orderModelVo) {
-        StringBuilder orderBuf = new StringBuilder();
-//        orderBuf.append("------------新的订单------------- \n");
-        orderBuf.append("姓名：" + orderModelVo.getName() + "\n");
-        orderBuf.append("电话：" + orderModelVo.getPhone() + "\n");
-        orderBuf.append("城市：" + orderModelVo.getProvince() + orderModelVo
-                .getCity() + orderModelVo.getCounty() + "\n");
-        orderBuf.append("地址：" + orderModelVo.getAddress() + "\n");
-        orderBuf.append("商品类型：" + orderModelVo.getTitle() + "\n");
-        orderBuf.append("尺寸大小：" + orderModelVo.getSize() + "\n");
-        if (!StringUtils.isEmpty(orderModelVo.getMessage()))
-            orderBuf.append("顾客留言：" + orderModelVo.getMessage());
-        MimeMessage msg = javaMailSender.createMimeMessage();
-        MimeMessageHelper helper = null;
-        try {
-            helper = new MimeMessageHelper(msg, true, "utf-8");
-            helper.setFrom("1318134732@qq.com");
-            helper.setCc("1318134732@qq.com");
-            helper.setTo(new String[]{"78901623@qq.com", "937085200@qq.com", "619105979@qq.com", "527297994@qq.com", "1194633142@qq.com", "1318134732@qq.com"});
-            helper.setText(orderBuf.toString().replace("￥",""));
-            helper.setSubject("新年前的冲刺!!【" + orderModelVo.getName() + "】");
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
-        javaMailSender.send(msg);
+    private OrderTemplateKeyParam getOrderTemplateKeyParam(OrderModelVo orderModelVo) {
+        OrderTemplateKeyParam orderTemplateKeyParam = new OrderTemplateKeyParam();
+        orderTemplateKeyParam.setFirst("来了新的订单啦！ 【" + orderModelVo.getName() + "】");
+        orderTemplateKeyParam.setOrderID(orderModelVo.getPhone());
+        orderTemplateKeyParam.setOrderMoneySum(orderModelVo.getTotal());
+        orderTemplateKeyParam.setBackupFieldName("商品信息:  ");
+        orderTemplateKeyParam.setBackupFieldData(DateUtil.formatDate(orderModelVo.getOrderDate(), DateUtil.PATTERN_yyyy_MM_dd_HH_mm) + "\n地址:  " +
+                orderModelVo.getProvince() + orderModelVo.getCity() + "\n尺寸:  " + orderModelVo.getSize()+"\n");
+        orderTemplateKeyParam.setRemark(StringUtils.isEmpty(orderModelVo.getMessage().trim()) ? "客户未留言!!" : orderModelVo.getMessage());
+        return orderTemplateKeyParam;
     }
 
 }

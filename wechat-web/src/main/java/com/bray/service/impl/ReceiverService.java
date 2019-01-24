@@ -8,6 +8,9 @@ import com.bray.model.WyOrder;
 import com.bray.model.WyOrderExample;
 import com.bray.model.WySafedomain;
 import com.bray.service.IOrderWebService;
+import com.bray.service.wechat.WechatTemplateMessageServcie;
+import com.bray.service.wechat.bean.DataInfo;
+import com.bray.service.wechat.bean.OrderTemplateKeyParam;
 import com.bray.util.SendEmailUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,6 +56,9 @@ public class ReceiverService  implements MessageListener {
     @Resource
     private JavaMailSenderImpl javaMailSender;
 
+    @Resource
+    private WechatTemplateMessageServcie wechatTemplateMessageServcie;
+
     @Override
     public void onMessage(Message message, byte[] pattern) {
         RedisSerializer<String> valueSerializer = redisTemplate.getStringSerializer();
@@ -69,6 +75,8 @@ public class ReceiverService  implements MessageListener {
             WySafedomain wySafedomain = wySafedomainMapper.selectByPrimaryKey(1);
             //发送email
             SendEmailUtil.sendEmail(javaMailSender,orderModelVo,wySafedomain.getMail());
+
+            //发送微信下行通知
         } catch (Exception e) {
             logger.error("---------email发送错误");
             e.printStackTrace();
