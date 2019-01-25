@@ -68,6 +68,17 @@ public class WechatAritcleH5Contorller {
         return "html/cjh5/cj3/index";
     }
     /**
+     * 易企秀
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/yqx/{articleId}")
+    public String yqx(HttpServletRequest request, Model model,@PathVariable int articleId) {
+        // getArticleWithImages(model, articleId);
+        return "html/cjh5/cj4/yqx";
+    }
+    /**
      * 单张图片翻阅式h5
      * @param request
      * @param model
