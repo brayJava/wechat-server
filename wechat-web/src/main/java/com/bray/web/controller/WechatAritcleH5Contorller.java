@@ -98,10 +98,7 @@ public class WechatAritcleH5Contorller {
      */
     private String getArticleWithImages(Model model, @PathVariable int articleId,String redisType,String htmlpath,HttpServletRequest request, HttpServletResponse response) {
         ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
-        // if("article_h5_2".equals(redisType)) {
-        //     String cjContent = String.valueOf(redisObj.getRedisValueByKey("article_h5_2_val:" + articleId));
-        //     article.getWyArticle().setCjContent(cjContent.getBytes());
-        // }
+
         model.addAttribute("article",article.getWyArticle());
         model.addAttribute("contentHtml",article.getContentHtml());
         model.addAttribute("articleImgs",article.getArticleSubImages());
@@ -122,6 +119,9 @@ public class WechatAritcleH5Contorller {
             return transferUrl(htmlpath,request, model, response, article);
         }
         String showhtml = String.valueOf(redisObj.getRedisValueByKey(redisType+":"+articleId));
+        if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
+            return  showhtml;
+        }
         //手动渲染
         SpringWebContext ctx = new SpringWebContext(request,response,
                 request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
