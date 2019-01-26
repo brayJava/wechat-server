@@ -114,10 +114,15 @@ public class ArticleServiceImpl implements IArticleService{
             //获取文章属性
             List<WyArticle> wyArticles = wyArticleMapper.selectByExample(wyArticleExample);
             if(CollectionUtils.isEmpty(wyArticles)) return new ArticleWithImages();
-            articleWithImages.setWyArticle(wyArticles.get(0));
+            WyArticle wyArticle = wyArticles.get(0);
+            Object redisValueByKey = redisCache.getRedisValueByKey(ConstatFinal.ARTICLE_H5_2_VAL + ":" + articleId);
+            if(!Objects.isNull(redisValueByKey)) {
+                articleWithImages.setContentHtml(String.valueOf(redisValueByKey));
+            }
+            articleWithImages.setWyArticle(wyArticle);
             //获取文章对应图片
             WyArticleImgExample wyArticleImgExample = new WyArticleImgExample();
-            wyArticleImgExample.createCriteria().andArticleIdEqualTo(articleId).andStatusEqualTo(EffectiveType.EFFECTIVE_YES);
+                wyArticleImgExample.createCriteria().andArticleIdEqualTo(articleId).andStatusEqualTo(EffectiveType.EFFECTIVE_YES);
             List<WyArticleImg> wyArticleImgs = wyArticleImgMapper.selectByExample(wyArticleImgExample);
             wyArticleImgs.stream().forEach(wyArticleImg -> {
                 ArticleSubImages articleSubImages = new ArticleSubImages();

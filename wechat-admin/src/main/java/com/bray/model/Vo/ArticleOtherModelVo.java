@@ -51,5 +51,7 @@ public class ArticleOtherModelVo {
 
     private String imagesUrl;
 
+    private String cjContent;
+
     private String hcj;
 }

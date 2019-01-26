@@ -37,6 +37,10 @@ public interface ConstatFinal {
     String ORDERVAL99 = "ORDERVAL99";
     //h5文章
     String ARTICLE_H5_1 = "article_h5_1";
+    //h5兔展文章
+    String ARTICLE_H5_2 = "article_h5_2";
+    //h5兔展文章
+    String ARTICLE_H5_2_VAL = "article_h5_2_val";
 
 
 }

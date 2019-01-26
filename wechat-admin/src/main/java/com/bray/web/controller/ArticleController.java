@@ -1,6 +1,8 @@
 package com.bray.web.controller;
 
+import com.bray.aop.cache.RedisPoolCache;
 import com.bray.dto.ConstFinal;
+import com.bray.dto.ConstatFinal;
 import com.bray.model.Bo.ArticleImgModelVo;
 import com.bray.model.Bo.ArticleWithImages;
 import com.bray.model.Bo.RestResponseBo;
@@ -45,6 +47,8 @@ public class ArticleController {
     @Resource
     private IArticleService iArticleService;
 
+    @Resource
+    private RedisPoolCache redisObj;
 
     @RequestMapping("/jump")
     public String jump() {
@@ -87,6 +91,11 @@ public class ArticleController {
     @RequestMapping("/article-list")
     public String articleList(Model model) {
         List<WyArticle> wyArticles = iArticleService.queryAllEffectiveArticle();
+        wyArticles.stream().forEach(wyArticle -> {
+            Object redisValueByKey = redisObj.getRedisValueByKey(ConstatFinal.ARTICLE_H5_2_VAL + ":" + wyArticle.getId());
+            wyArticle.setCjContentTemp(String.valueOf(redisValueByKey));
+        });
+
         model.addAttribute("wyArticles",wyArticles);
         //起始时间为00:00:00
         String startDate  = LocalDateTime.of(LocalDate.now(), LocalTime.MIN)
@@ -153,7 +162,7 @@ public class ArticleController {
     @RequestMapping("/refresh-prod")
     @ResponseBody
     public RestResponseBo articleRefresh(int articleId){
-        iArticleAdminService.articleRefresh(articleId);
+        iArticleAdminService.articleRefresh(articleId,"");
         return RestResponseBo.ok();
     }
     /**

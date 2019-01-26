@@ -133,6 +133,51 @@ public class WyArticleSqlProvider {
             VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
         }
         
+        if (record.getCjContent() != null) {
+            VALUES("cj_content", "#{cjContent,jdbcType=LONGVARBINARY}");
+        }
+        
+        return SQL();
+    }
+
+    public String selectByExampleWithBLOBs(WyArticleExample example) {
+        BEGIN();
+        if (example != null && example.isDistinct()) {
+            SELECT_DISTINCT("id");
+        } else {
+            SELECT("id");
+        }
+        SELECT("title");
+        SELECT("bgm_url");
+        SELECT("author");
+        SELECT("share_title");
+        SELECT("share_describe");
+        SELECT("share_img_url");
+        SELECT("is_order_img");
+        SELECT("data_transfer_url");
+        SELECT("goback_url");
+        SELECT("read_original_url");
+        SELECT("image_goback_url");
+        SELECT("order_img_url");
+        SELECT("order_copy_url");
+        SELECT("share_success_fail_url");
+        SELECT("statistical");
+        SELECT("connect_primary_domain");
+        SELECT("connect_common_domain");
+        SELECT("is_publish");
+        SELECT("forced_share");
+        SELECT("no_share_domain");
+        SELECT("status");
+        SELECT("create_time");
+        SELECT("update_time");
+        SELECT("cj_content");
+        FROM("wy_article");
+        applyWhere(example, false);
+        
+        if (example != null && example.getOrderByClause() != null) {
+            ORDER_BY(example.getOrderByClause());
+        }
+        
         return SQL();
     }
 
@@ -279,6 +324,45 @@ public class WyArticleSqlProvider {
             SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         }
         
+        if (record.getCjContent() != null) {
+            SET("cj_content = #{record.cjContent,jdbcType=LONGVARBINARY}");
+        }
+        
+        applyWhere(example, true);
+        return SQL();
+    }
+
+    public String updateByExampleWithBLOBs(Map<String, Object> parameter) {
+        BEGIN();
+        UPDATE("wy_article");
+        
+        SET("id = #{record.id,jdbcType=INTEGER}");
+        SET("title = #{record.title,jdbcType=VARCHAR}");
+        SET("bgm_url = #{record.bgmUrl,jdbcType=VARCHAR}");
+        SET("author = #{record.author,jdbcType=VARCHAR}");
+        SET("share_title = #{record.shareTitle,jdbcType=VARCHAR}");
+        SET("share_describe = #{record.shareDescribe,jdbcType=VARCHAR}");
+        SET("share_img_url = #{record.shareImgUrl,jdbcType=VARCHAR}");
+        SET("is_order_img = #{record.isOrderImg,jdbcType=BIT}");
+        SET("data_transfer_url = #{record.dataTransferUrl,jdbcType=VARCHAR}");
+        SET("goback_url = #{record.gobackUrl,jdbcType=VARCHAR}");
+        SET("read_original_url = #{record.readOriginalUrl,jdbcType=VARCHAR}");
+        SET("image_goback_url = #{record.imageGobackUrl,jdbcType=VARCHAR}");
+        SET("order_img_url = #{record.orderImgUrl,jdbcType=VARCHAR}");
+        SET("order_copy_url = #{record.orderCopyUrl,jdbcType=VARCHAR}");
+        SET("share_success_fail_url = #{record.shareSuccessFailUrl,jdbcType=VARCHAR}");
+        SET("statistical = #{record.statistical,jdbcType=VARCHAR}");
+        SET("connect_primary_domain = #{record.connectPrimaryDomain,jdbcType=VARCHAR}");
+        SET("connect_common_domain = #{record.connectCommonDomain,jdbcType=VARCHAR}");
+        SET("is_publish = #{record.isPublish,jdbcType=BIT}");
+        SET("forced_share = #{record.forcedShare,jdbcType=BIT}");
+        SET("no_share_domain = #{record.noShareDomain,jdbcType=VARCHAR}");
+        SET("status = #{record.status,jdbcType=INTEGER}");
+        SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
+        SET("cj_content = #{record.cjContent,jdbcType=LONGVARBINARY}");
+        
+        WyArticleExample example = (WyArticleExample) parameter.get("example");
         applyWhere(example, true);
         return SQL();
     }
@@ -411,6 +495,10 @@ public class WyArticleSqlProvider {
         
         if (record.getUpdateTime() != null) {
             SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getCjContent() != null) {
+            SET("cj_content = #{cjContent,jdbcType=LONGVARBINARY}");
         }
         
         WHERE("id = #{id,jdbcType=INTEGER}");

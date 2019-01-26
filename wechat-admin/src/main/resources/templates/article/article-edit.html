@@ -122,9 +122,16 @@
         <div class="row cl">
              <br/>
             <label>&nbsp;&nbsp;&nbsp;<strong>h5场景：</strong>
-                <input type="radio" name="hcj" lay-filter="erweima" value="1" title="是" checked=""/>是
-                <input type="radio" name="hcj" lay-filter="erweima" value="0" title="否" />否
+                <input type="radio" name="hcj" onchange="h5forcedChange(this)" lay-filter="erweima" value="1" title="是" checked=""/>是
+                <input type="radio" name="hcj" onchange="h5forcedChange(this)" lay-filter="erweima" value="0" title="否" />否
             </label>
+            <br/>
+            <br/>
+            <div class="formControls col-2 cjContent" style="display: none">
+               <strong>h5场景内容：</strong>
+               <textarea  placeholder="请输入h5编译后的base64编码....."  rows="30" cols="80" id="cjContent" name="cjContent" lay-verify="required"></textarea>
+               <br/>
+            </div>
             <br/>
             <br/>
             <label>&nbsp;&nbsp;&nbsp;<strong>开启防盗代码：</strong>
@@ -259,6 +266,7 @@
         $("#orderImgUrl").val(arcitle.orderImgUrl);
         $("#orderCopyUrl").val(arcitle.orderCopyUrl);
         $("#statistical").val(arcitle.statistical);
+        $("#cjContent").val(arcitle.cjContentTemp);
         if(arcitle.isOrderImg) {
             $("input[name='orderImg'][value='1']").attr("checked",true);
         } else {
@@ -266,8 +274,10 @@
         }
         if(arcitle.isPublish) {
             $("input[name='hcj'][value='1']").attr("checked",true);
+            $(".cjContent").show();
         } else {
             $("input[name='hcj'][value='0']").attr("checked",true);
+            $(".cjContent").hide();
         }
         if(arcitle.forcedShare) {
             $("input[name='forcedShare'][value='1']").attr("checked",true);
@@ -292,6 +302,15 @@
              $('.noShareDomain').show();
         }
      }
+    function h5forcedChange(_this) {
+         var forcedVal = $(_this).val();
+         if(forcedVal == '0') {
+             $('.cjContent').hide();
+             $('#cjContent').val('');
+         } else if(forcedVal == '1') {
+              $('.cjContent').show();
+         }
+      }
     /**
     * 图片修改
     */

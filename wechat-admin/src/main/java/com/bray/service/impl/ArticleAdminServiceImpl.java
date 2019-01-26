@@ -24,6 +24,9 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import javax.sql.rowset.serial.SerialBlob;
+import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -130,6 +133,9 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
         wyArticle.setIsPublish(ConstFinal.SHARE_STATUS.equals(articleOtherModelVo.getHcj()) ? true : false);
         //按字符逗号隔开格式存入
         wyArticle.setNoShareDomain(TStringUtil.dealStr(articleOtherModelVo.getNoShareDomain()));
+        // if(!StringUtils.isEmpty(articleOtherModelVo.getCjContent()))
+        //     wyArticle.setCjContent(articleOtherModelVo.getCjContent().getBytes());
+        redisCache.saveDataToRedis(ConstatFinal.ARTICLE_H5_2_VAL+":"+articleOtherModelVo.getArticleId(),articleOtherModelVo.getCjContent());
         wyArticle.setStatus(EffectiveType.EFFECTIVE_YES);
         wyArticle.setCreateTime(new Date());
         wyArticle.setUpdateTime(new Date());
@@ -170,8 +176,11 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
         //是否是h5平台
         wyArticle.setIsPublish(ConstFinal.SHARE_STATUS.equals(articleOtherModelVo.getHcj()) ? true : false);
         wyArticle.setNoShareDomain(TStringUtil.dealStr(articleOtherModelVo.getNoShareDomain()));
+        // if(!StringUtils.isEmpty(articleOtherModelVo.getCjContent()))
+        //     wyArticle.setCjContent(articleOtherModelVo.getCjContent().getBytes());
         wyArticle.setUpdateTime(new Date());
-        this.articleRefresh(articleOtherModelVo.getArticleId());
+
+        redisCache.updateDataOfRedis(ConstatFinal.ARTICLE_H5_2_VAL+":"+articleOtherModelVo.getArticleId(),articleOtherModelVo.getCjContent());
         try {
             wyArticleMapper.updateByPrimaryKeySelective(wyArticle);
         } catch (RuntimeException e) {
@@ -193,23 +202,23 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
 
         }
     }
-    /**
-     * 刷新文章
-     */
-    public void articleRefresh(String articleId) {
-        try {
-            redisCache.deleteDataOfRedis(ConstatFinal.AUTHOR+":"+articleId);
-            //删除图片相关内容
-            redisCache.deleteDataOfRedis(ConstatFinal.IMAGES_LIST+":"+articleId);
-            //删除新防封文案相关内容
-            redisCache.deleteDataOfRedis(ConstatFinal.NEW_ARTICLE_LIST+":"+articleId);
-
-            redisCache.deleteDataOfRedis(ConstatFinal.IMAGES_CONTENT+":"+articleId);
-        } catch (Exception e) {
-            log.error("-------文章redis更新");
-            e.printStackTrace();
-        }
-    }
+    // /**
+    //  * 刷新文章
+    //  */
+    // public void articleRefresh(String articleId) {
+    //     try {
+    //         redisCache.deleteDataOfRedis(ConstatFinal.AUTHOR+":"+articleId);
+    //         //删除图片相关内容
+    //         redisCache.deleteDataOfRedis(ConstatFinal.IMAGES_LIST+":"+articleId);
+    //         //删除新防封文案相关内容
+    //         redisCache.deleteDataOfRedis(ConstatFinal.NEW_ARTICLE_LIST+":"+articleId);
+    //
+    //         redisCache.deleteDataOfRedis(ConstatFinal.IMAGES_CONTENT+":"+articleId);
+    //     } catch (Exception e) {
+    //         log.error("-------文章redis更新");
+    //         e.printStackTrace();
+    //     }
+    // }
     /**
      * 插入新的文章图片
      * @param articleId
@@ -431,7 +440,7 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
     /**
      * 刷新文章
      */
-    public void articleRefresh(int articleId) {
+    public void articleRefresh(int articleId,String othervalue) {
         try {
             redisCache.deleteDataOfRedis(ConstatFinal.AUTHOR+":"+articleId);
             //删除图片相关内容
@@ -449,8 +458,10 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
 
             redisCache.deleteDataOfRedis(ConstatFinal.ORDERVAL99);
 
-            redisCache.deleteDataOfRedis(ConstatFinal.ARTICLE_H5_1);
-        } catch (Exception e) {
+            redisCache.deleteDataOfRedis(ConstatFinal.ARTICLE_H5_1+":"+articleId);
+
+            redisCache.deleteDataOfRedis(ConstatFinal.ARTICLE_H5_2+":"+articleId);
+            } catch (Exception e) {
             log.error("-------文章redis更新");
             e.printStackTrace();
         }

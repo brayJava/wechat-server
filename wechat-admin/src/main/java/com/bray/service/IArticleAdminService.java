@@ -32,7 +32,7 @@ public interface IArticleAdminService {
     /**
      * 更新文章至线上
      */
-    void articleRefresh(int id);
+    void articleRefresh(int id,String othervalue);
     /**
      * 文章图片删除
      * @Param articleImgId 文章图片id

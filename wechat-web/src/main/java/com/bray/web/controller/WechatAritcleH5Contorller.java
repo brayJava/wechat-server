@@ -68,15 +68,16 @@ public class WechatAritcleH5Contorller {
         return "html/cjh5/cj3/index";
     }
     /**
-     * 易企秀
+     * 快展平台
      * @param request
      * @param model
      * @return
      */
-    @RequestMapping("/yqx/{articleId}")
-    public String yqx(HttpServletRequest request, Model model,@PathVariable int articleId) {
-        // getArticleWithImages(model, articleId);
-        return "html/cjh5/cj4/yqx";
+    @RequestMapping(value="/kzh/{articleId}",produces = "text/html;charset=utf-8")
+    @ResponseBody
+    public String yqx(HttpServletRequest request, HttpServletResponse response,Model model,@PathVariable int articleId) {
+        String showhtml = getArticleWithImages(model, articleId, "article_h5_2","html/cjh5/cj4/kzh", request, response);
+        return showhtml;
     }
     /**
      * 单张图片翻阅式h5
@@ -97,7 +98,12 @@ public class WechatAritcleH5Contorller {
      */
     private String getArticleWithImages(Model model, @PathVariable int articleId,String redisType,String htmlpath,HttpServletRequest request, HttpServletResponse response) {
         ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
+        // if("article_h5_2".equals(redisType)) {
+        //     String cjContent = String.valueOf(redisObj.getRedisValueByKey("article_h5_2_val:" + articleId));
+        //     article.getWyArticle().setCjContent(cjContent.getBytes());
+        // }
         model.addAttribute("article",article.getWyArticle());
+        model.addAttribute("contentHtml",article.getContentHtml());
         model.addAttribute("articleImgs",article.getArticleSubImages());
         if(article.getWyArticle().getIsOrderImg()) {
             if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";

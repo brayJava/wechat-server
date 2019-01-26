@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class WyArticle implements Serializable{
+
+
+    private static final long serialVersionUID = 6293509963165879323L;
+
     private Integer id;
 
     private String title;
@@ -51,6 +55,18 @@ public class WyArticle implements Serializable{
     private Date createTime;
 
     private Date updateTime;
+
+    private byte[] cjContent;
+
+    private String cjContentTemp;
+
+    public String getCjContentTemp() {
+        return cjContentTemp;
+    }
+
+    public void setCjContentTemp(String cjContentTemp) {
+        this.cjContentTemp = cjContentTemp;
+    }
 
     public Integer getId() {
         return id;
@@ -242,5 +258,13 @@ public class WyArticle implements Serializable{
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public byte[] getCjContent() {
+        return cjContent;
+    }
+
+    public void setCjContent(byte[] cjContent) {
+        this.cjContent = cjContent;
     }
 }

@@ -51,6 +51,8 @@ public class WyArticle {
 
     private Date updateTime;
 
+    private byte[] cjContent;
+
     public Integer getId() {
         return id;
     }
@@ -241,5 +243,13 @@ public class WyArticle {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public byte[] getCjContent() {
+        return cjContent;
+    }
+
+    public void setCjContent(byte[] cjContent) {
+        this.cjContent = cjContent;
     }
 }
