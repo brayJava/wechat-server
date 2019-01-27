@@ -118,8 +118,11 @@ public class HttpRequestDeviceUtils {
         if (mobileFlag == true && pcFlag == false) {
             b = true;
         }
-        if(userAgentWX.indexOf("micromessenger")>-1) {
+        //判断是否是微信或者qq端打开
+        if(userAgentWX.indexOf("micromessenger")>-1 || userAgentWX.indexOf("qq/") > -1) {
             b = true;
+        } else {
+            b = false;
         }
         //微信工具也无法打开
         if(userAgentWX.contains("wechatdevtool")) {
