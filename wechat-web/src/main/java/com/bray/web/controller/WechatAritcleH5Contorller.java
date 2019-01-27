@@ -107,7 +107,7 @@ public class WechatAritcleH5Contorller {
         model.addAttribute("article",article.getWyArticle());
         model.addAttribute("contentHtml",article.getContentHtml());
         model.addAttribute("articleImgs",article.getArticleSubImages());
-        if(article.getWyArticle().getIsOrderImg()) {
+        if(article.getWyArticle().getIsOrderImg() || "article_h5_2".equals(redisType)) {
             if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
         }
         //数据迁移
