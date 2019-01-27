@@ -85,16 +85,6 @@
     <ul id="page-list" class="page-list"></ul>
     <ul id="slide-progress" class="slide-progress"></ul>
     <!--<div id="app-bottom" class="app-bottom">-->
-        <!--<a href="javascript:void(0);" class="link link-report-abuse">举报</a>-->
-        <!--<p class="free-show"><a href="/mobile.html" rel="nofollow" class="j-free-show-link">&nbsp;&nbsp;<span class="j-free-show-span">免费创作这样的展示</span> >> <span class="link">飞鸿</span></a></p>-->
-        <!--<p class="view-count-paragraph">阅读数:<span class="view-count">0</span></p>-->
-    <!--</div>-->
-    <!--<div id="desktop-entrance" class="desktop-entrance">-->
-        <!--<a href="http://www.rabbitpre.com/" class="link" target="_blank">-->
-            <!--&lt;!&ndash;<img src="img/desktop-rabbit.png" alt="" class="rabbit"/>&ndash;&gt;-->
-            <!--<span class="rabbit"></span>-->
-        <!--</a>-->
-    <!--</div>-->
     <div id="deeplink-tip">
         <img src="//oss3.rabbitpre.com/mspa/img/arrows.png" />
         <div id="deeplink-open">点击选择“在浏览器中打开”</div>
@@ -102,7 +92,11 @@
     </div>
 </div>
 <div id="total" style="display: none">
-    <script th:inline="javascript"> var article = [[${article}]];/*<![CDATA[*/document.write(article.statistical)/*]]>*/</script>
+    <script th:inline="javascript">
+        var article = [[${article}]];
+        $('title').html(article.title);
+        /*<![CDATA[*/document.write(article.statistical)/*]]>*/
+    </script>
  </div>
 <!-- <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=e2cad13fd9a89339f9a07c7758c42623"></script> -->
 <script th:inline="javascript"> /*<![CDATA[*/var require,define;!function(e){function r(e){if(!(e in u)){u[e]=!0;var n=document.createElement("script");return n.onerror=function(){if(f.traceBack){var n=e.replace(f.cdnDomain,f.mainDomain);if(n==e)return;r(n)}},n.type="text/javascript",n.src=e,t.appendChild(n),n}}function n(e,n,t){var a=i[e]||(i[e]=[]);a.push(n);var o,u=s[e]||{},f=u.pkg;o=f?c[f].url:u.url||e,r(o,t&&function(){t(e)})}var t=document.getElementsByTagName("head")[0],i={},a={},o={},u={},s={},c={},f={};window.loadingMap=i,define=function(e,r){a[e]=r;var n=i[e];if(n){for(var t=0,o=n.length;o>t;t++)n[t]();delete i[e]}},require=function(e){if(e&&e.splice)return require.async.apply(this,arguments);e=require.alias(e);var r=o[e];if(r)return r.exports;var n=a[e];if(!n)throw"[ModJS] Cannot find module `"+e+"`";r=o[e]={exports:{}};var t="function"==typeof n?n.apply(r,[require,r.exports,r]):n;return t&&(r.exports=t),r.exports},require.async=function(r,t,i){function o(e){for(var r=0,t=e.length;t>r;r++){var c=e[r];if(c in a){var f=s[c];f&&"deps"in f&&o(f.deps)}else if(!(c in p)){p[c]=!0,l++,n(c,u,i);var f=s[c];f&&"deps"in f&&o(f.deps)}}}function u(){if(0==l--){for(var n=[],i=0,a=r.length;a>i;i++)n[i]=require(r[i]);t&&t.apply(e,n)}}"string"==typeof r&&(r=[r]);for(var c=0,f=r.length;f>c;c++)r[c]=require.alias(r[c]);var p={},l=0;o(r),u()},require.resourceMap=function(e){var r,n;n=e.res;for(r in n)n.hasOwnProperty(r)&&(s[r]=n[r]);n=e.pkg;for(r in n)n.hasOwnProperty(r)&&(c[r]=n[r])},require.config=function(e){f=e||{}},require.loadJs=function(e){r(e)},require.loadCss=function(e){if(e.content){var r=document.createElement("style");r.type="text/css",r.styleSheet?r.styleSheet.cssText=e.content:r.innerHTML=e.content,t.appendChild(r)}else if(e.url){var n=document.createElement("link");n.href=e.url,n.rel="stylesheet",n.type="text/css",t.appendChild(n)}},require.alias=function(e){return e},require.timeout=5e3}(this);/*]]>*/</script>
