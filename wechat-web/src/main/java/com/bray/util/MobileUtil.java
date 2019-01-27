@@ -63,7 +63,7 @@ public class MobileUtil {
             redisObj.lpushRedis("fromIphone",nowtime+":"+xinhao);
         }
         else if(userAgentWX.contains("android")) {
-            String linuxgo = xinhao.substring(xinhao.indexOf("linux") + 1, endIndex);
+            String linuxgo = xinhao.substring(xinhao.indexOf("linux;") + 1, endIndex);
             redisObj.lpushRedis("fromAndroid",nowtime+":"+linuxgo);
         } else {
             redisObj.lpushRedis("fromOther",nowtime+":"+xinhao);
