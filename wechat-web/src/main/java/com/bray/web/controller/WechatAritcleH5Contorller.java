@@ -3,7 +3,9 @@ package com.bray.web.controller;
 import com.bray.aop.cache.RedisPoolCache;
 import com.bray.model.Bo.ArticleWithImages;
 import com.bray.service.IArticleService;
+import com.bray.util.DateUtil;
 import com.bray.util.HttpRequestDeviceUtils;
+import com.bray.util.MobileUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -19,6 +21,9 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.Clock;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /**
@@ -97,8 +102,8 @@ public class WechatAritcleH5Contorller {
      * @param articleId
      */
     private String getArticleWithImages(Model model, @PathVariable int articleId,String redisType,String htmlpath,HttpServletRequest request, HttpServletResponse response) {
+        MobileUtil.analysisMobileFrom(request,redisObj);
         ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
-
         model.addAttribute("article",article.getWyArticle());
         model.addAttribute("contentHtml",article.getContentHtml());
         model.addAttribute("articleImgs",article.getArticleSubImages());
@@ -130,7 +135,6 @@ public class WechatAritcleH5Contorller {
         log.info("日志输出：{}",request.getRequestURI().toString());
         return showhtml;
     }
-
     private String transferUrl(String htmlpath,HttpServletRequest request, Model model, HttpServletResponse response, ArticleWithImages article) {
         model.addAttribute("article", article);
         SpringWebContext ctx = new SpringWebContext(request,response,

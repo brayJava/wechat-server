@@ -1,5 +1,10 @@
 package com.bray.util;
 
+import com.bray.aop.cache.RedisPoolCache;
+
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,6 +50,22 @@ public class MobileUtil {
             return true;
         } else {
             return false;
+        }
+    }
+
+    public static void analysisMobileFrom(HttpServletRequest request, RedisPoolCache redisObj) {
+        String nowtime = LocalDateTime.now().format(DateTimeFormatter.ofPattern(DateUtil.PATTERN_yyyy_MM_dd_HH_mm_ss));
+        String userAgentWX = request.getHeader("user-agent").toLowerCase();
+        int startIndex = userAgentWX.indexOf("(");
+        int endIndex = userAgentWX.indexOf(")");
+        String xinhao = userAgentWX.substring(startIndex+1, endIndex);
+        if(userAgentWX.contains("iphone") || userAgentWX.contains("ipad")) {
+            redisObj.lpushRedis("fromIphone",nowtime+":"+xinhao);
+        }
+        else if(userAgentWX.contains("android")) {
+            redisObj.lpushRedis("fromAndroid",nowtime+":"+xinhao);
+        } else {
+            redisObj.lpushRedis("fromOther",nowtime+":"+xinhao);
         }
     }
 }

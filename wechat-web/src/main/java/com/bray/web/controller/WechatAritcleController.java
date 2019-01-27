@@ -11,6 +11,7 @@ import com.bray.service.IArticleService;
 import com.bray.service.IDomainWebService;
 import com.bray.util.Base64Util;
 import com.bray.util.HttpRequestDeviceUtils;
+import com.bray.util.MobileUtil;
 import com.bray.util.WechatUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -622,6 +623,7 @@ public class WechatAritcleController {
      */
     @RequestMapping("/article/find/{articleId}")
     public ModelAndView  iframe(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable int articleId) {
+        MobileUtil.analysisMobileFrom(request,redisObj);
         if (!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("");
         //获取图片相关信息
         ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
