@@ -20,6 +20,7 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -66,6 +67,22 @@ public class IndexController {
                 orderlist.add(orderModelVo);
             });
         }
+        NumberFormat numberFormat = NumberFormat.getInstance();
+        numberFormat.setMaximumFractionDigits(2);
+        //获取手机型号
+        List<String> fromAndroidList = redisObj.lrangeRedis("fromAndroid", 0, 30);
+        List<String> fromIphoneList = redisObj.lrangeRedis("fromIphone", 0, 10);
+        List<String> fromOtherList = redisObj.lrangeRedis("fromOther", 0, 10);
+        List<String> sizelAndroid = redisObj.lrangeRedis("fromAndroid", 0,1000000000);
+        List<String> sizelIphone = redisObj.lrangeRedis("fromIphone", 0,1000000000);
+        List<String> sizelOther = redisObj.lrangeRedis("fromOther", 0,1000000000);
+        model.addAttribute("percentAndroid",numberFormat.format((float)Integer.valueOf(sizelAndroid.size()) / (float)(sizelAndroid.size()+sizelIphone.size()+sizelOther.size())*100));
+        model.addAttribute("percentIos",numberFormat.format((float)Integer.valueOf(sizelIphone.size()) / (float)(sizelAndroid.size()+sizelIphone.size()+sizelOther.size())*100));
+        model.addAttribute("percentOther",numberFormat.format((float)Integer.valueOf(sizelOther.size()) / (float)(sizelAndroid.size()+sizelIphone.size()+sizelOther.size())*100));
+        model.addAttribute("totalVisit",sizelAndroid.size()+sizelIphone.size());
+        model.addAttribute("fromAndroidList",fromAndroidList);
+        model.addAttribute("fromIphoneList",fromIphoneList);
+        model.addAttribute("fromOtherList",fromOtherList);
         model.addAttribute("wyOrderLogs",wyOrderLogs);
         model.addAttribute("currentTime",new Date());
         model.addAttribute("orderlist",orderlist);
