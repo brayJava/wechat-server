@@ -60,13 +60,13 @@ public class MobileUtil {
         int endIndex = userAgentWX.indexOf(")");
         String xinhao = userAgentWX.substring(startIndex+1, endIndex);
         if(userAgentWX.contains("iphone") || userAgentWX.contains("ipad")) {
-            redisObj.lpushRedis("fromIphone",nowtime+":"+xinhao);
+            redisObj.lpushRedis("fromIphone",nowtime+": "+xinhao);
         }
         else if(userAgentWX.contains("android")) {
-            String linuxgo = xinhao.substring(xinhao.indexOf("linux;") + 1, xinhao.indexOf("build"));
-            redisObj.lpushRedis("fromAndroid",nowtime+":"+linuxgo);
+            String linuxgo = xinhao.substring(xinhao.indexOf("linux;") + 6, xinhao.indexOf("build"));
+            redisObj.lpushRedis("fromAndroid",nowtime+": "+linuxgo);
         } else {
-            redisObj.lpushRedis("fromOther",nowtime+":"+xinhao);
+            redisObj.lpushRedis("fromOther",nowtime+": "+xinhao);
         }
     }
 }
