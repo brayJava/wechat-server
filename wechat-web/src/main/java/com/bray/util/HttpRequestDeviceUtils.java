@@ -7,8 +7,10 @@ package com.bray.util;
  * @Modified By:
  */
 
-import javax.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 
+import javax.servlet.http.HttpServletRequest;
+@Slf4j
 public class HttpRequestDeviceUtils {
     /**
      * Wap网关Via头信息中特有的描述信息
@@ -94,6 +96,7 @@ public class HttpRequestDeviceUtils {
         String via = request.getHeader("Via");
         String userAgent = request.getHeader("user-agent");
         String userAgentWX = request.getHeader("user-agent").toLowerCase();
+        log.info("浏览器访问内核参数："+userAgentWX);
         for (int i = 0; via != null && !via.trim().equals("") && i < mobileGateWayHeaders.length; i++) {
             if (via.contains(mobileGateWayHeaders[i])) {
                 mobileFlag = true;
