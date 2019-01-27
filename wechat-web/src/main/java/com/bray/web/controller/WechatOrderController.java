@@ -111,6 +111,7 @@ public class WechatOrderController {
                 request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
         showhtml = thymeleafViewResolver.getTemplateEngine().process("order/order", ctx);
         redisObj.saveDataToRedis("ORDERVAL99",showhtml);
+
         return showhtml;
     }
     /**

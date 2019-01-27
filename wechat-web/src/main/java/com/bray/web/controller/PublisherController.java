@@ -7,6 +7,7 @@ import com.bray.service.IOrderWebService;
 import com.bray.service.impl.OrderSender;
 import com.bray.service.impl.PublisherService;
 import com.bray.service.wechat.WechatTemplateMessageServcie;
+import com.bray.util.MobileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 /**
@@ -49,7 +51,8 @@ public class PublisherController {
 
     @RequestMapping("order")
     @ResponseBody
-    public RestResponseBo order(OrderModelVo orderModelVo) {
+    public RestResponseBo order(HttpServletRequest request,OrderModelVo orderModelVo) {
+        orderModelVo.setIp(MobileUtil.getIpAddr(request));
         orderModelVo.setOrderDate(new Date());
         //插入订单备用表
         iOrderWebService.insertCopy(orderModelVo);

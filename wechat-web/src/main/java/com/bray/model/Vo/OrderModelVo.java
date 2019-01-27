@@ -68,6 +68,7 @@ public class OrderModelVo {
      * 时间
      */
     private Date orderDate;
+    private String ip;
     private String sid;
     private int age;
     private String height;
