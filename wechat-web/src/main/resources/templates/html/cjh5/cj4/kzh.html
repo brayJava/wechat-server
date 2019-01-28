@@ -142,7 +142,7 @@
             history.pushState(history.length + 1, "app", "#pt_" + new Date().getTime());
         }
         function jp() {
-            location.href = 'http://'+domain+'/order/jump-story2'
+            window.top.location.href = article.gobackUrl;
         }
         history.pushState(history.length + 1, "app", "#pt_" + new Date().getTime());
 
