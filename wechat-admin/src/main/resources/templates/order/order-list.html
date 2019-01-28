@@ -53,7 +53,7 @@
           <tr th:if="${not #lists.isEmpty(wyOrders)}" th:each="wyOrder,iterStat:${wyOrders}">
             <td th:text="${wyOrder.id}"></td>
             <td th:text="${wyOrder.name}"></td>
-            <a th:href="'http://www.ip138.com:8080/search.asp?mobile='+${order.phone}+'&amp;action=mobile'" target="_blank" style="text-decoration:underline">
+            <a th:href="'http://www.ip138.com:8080/search.asp?mobile='+${wyOrder.phone}+'&amp;action=mobile'" target="_blank" style="text-decoration:underline">
                 <td th:text="${wyOrder.phone}"></td>
             </a>
             <td th:text="${wyOrder.title}"></td>
