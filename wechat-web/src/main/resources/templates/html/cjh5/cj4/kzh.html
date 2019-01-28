@@ -113,10 +113,14 @@
         src='https://oss3.rabbitpre.com/rp2/apps/static/widget/music/music_off_8d94020.png' style='width: 30px;'/>
 
 </div>
+<div id="statistical" style="display: none">
 
+</div>
 <script th:inline="javascript">
    var article = [[${article}]];
   $('title').html(article.title);
+  $("#statistical").empty();
+  $("#statistical").append(article.statistical);
   /*<![CDATA[*/
     // $('title').html(article.title);
     var domain = "";
@@ -189,8 +193,5 @@
     }
     /*]]>*/
 </script>
-<div id="statistical" style="display: none">
-     <script>document.write(article.statistical)</script>
-</div>
 </body>
 </html>
