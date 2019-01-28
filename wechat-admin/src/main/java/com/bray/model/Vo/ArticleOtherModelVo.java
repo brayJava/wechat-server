@@ -54,4 +54,6 @@ public class ArticleOtherModelVo {
     private String cjContent;
 
     private String hcj;
+
+    private int userId;
 }

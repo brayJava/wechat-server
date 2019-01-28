@@ -10,6 +10,7 @@ import com.bray.model.Vo.ArticleModelVo;
 import com.bray.model.Vo.ArticleOtherModelVo;
 import com.bray.model.Vo.SearchModelVo;
 import com.bray.model.WyArticle;
+import com.bray.model.WyUser;
 import com.bray.service.IArticleAdminService;
 import com.bray.service.IArticleService;
 import com.bray.util.ArticleUtil;
@@ -25,6 +26,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -89,8 +91,10 @@ public class ArticleController {
      * @return
      */
     @RequestMapping("/article-list")
-    public String articleList(Model model) {
-        List<WyArticle> wyArticles = iArticleService.queryAllEffectiveArticle();
+    public String articleList(Model model,HttpServletRequest httpServletRequest) {
+        HttpSession session = httpServletRequest.getSession();
+        WyUser wyUser = (WyUser)session.getAttribute(ConstFinal.USER_NAME);
+        List<WyArticle> wyArticles = iArticleService.queryAllEffectiveArticle(wyUser.getId());
         wyArticles.stream().forEach(wyArticle -> {
             Object redisValueByKey = redisObj.getRedisValueByKey(ConstatFinal.ARTICLE_H5_2_VAL + ":" + wyArticle.getId());
             wyArticle.setCjContentTemp(String.valueOf(redisValueByKey));
@@ -112,7 +116,10 @@ public class ArticleController {
      * @return
      */
     @RequestMapping("/article-edit")
-    public RestResponseBo articleEdit(ArticleOtherModelVo articleOtherModelVo) {
+    public RestResponseBo articleEdit(ArticleOtherModelVo articleOtherModelVo,HttpServletRequest httpServletRequest) {
+        HttpSession session = httpServletRequest.getSession();
+        WyUser wyUser = (WyUser)session.getAttribute(ConstFinal.USER_NAME);
+        articleOtherModelVo.setUserId(wyUser.getId());
         iArticleAdminService.updateArticle(articleOtherModelVo);
         return RestResponseBo.ok();
     }
@@ -150,7 +157,10 @@ public class ArticleController {
      */
     @PostMapping("/article-add-other")
     @ResponseBody
-    public RestResponseBo articleAddOther(ArticleOtherModelVo articleOtherModelVo) {
+    public RestResponseBo articleAddOther(ArticleOtherModelVo articleOtherModelVo,HttpServletRequest httpServletRequest) {
+        HttpSession session = httpServletRequest.getSession();
+        WyUser wyUser = (WyUser)session.getAttribute(ConstFinal.USER_NAME);
+        articleOtherModelVo.setUserId(wyUser.getId());
         //添加文章和图片连接
         iArticleAdminService.insertOtherArticleImg(articleOtherModelVo);
         return new RestResponseBo(true);

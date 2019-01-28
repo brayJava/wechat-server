@@ -1,8 +1,10 @@
 package com.bray.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class WyUser {
+public class WyUser implements Serializable{
+    private static final long serialVersionUID = -1809028344590022067L;
     private Integer id;
 
     private String username;

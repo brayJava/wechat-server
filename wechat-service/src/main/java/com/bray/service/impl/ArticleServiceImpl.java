@@ -91,10 +91,11 @@ public class ArticleServiceImpl implements IArticleService{
      * @return
      */
     @Override
-    public  List<WyArticle> queryAllEffectiveArticle() {
+    public  List<WyArticle> queryAllEffectiveArticle(int userId) {
 
         WyArticleExample wyArticleExample = new WyArticleExample();
-        wyArticleExample.createCriteria().andStatusEqualTo(EffectiveType.EFFECTIVE_YES);
+        wyArticleExample.createCriteria().andStatusEqualTo(EffectiveType.EFFECTIVE_YES)
+                .andUserIdEqualTo(userId);
         wyArticleExample.setOrderByClause("create_time desc");
         List<WyArticle> wyArticles = wyArticleMapper.selectByExample(wyArticleExample);
         if(CollectionUtils.isEmpty(wyArticles)) return new ArrayList<WyArticle>();

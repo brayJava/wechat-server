@@ -133,6 +133,7 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
         wyArticle.setIsPublish(ConstFinal.SHARE_STATUS.equals(articleOtherModelVo.getHcj()) ? true : false);
         //按字符逗号隔开格式存入
         wyArticle.setNoShareDomain(TStringUtil.dealStr(articleOtherModelVo.getNoShareDomain()));
+        wyArticle.setUserId(articleOtherModelVo.getUserId());
         // if(!StringUtils.isEmpty(articleOtherModelVo.getCjContent()))
         //     wyArticle.setCjContent(articleOtherModelVo.getCjContent().getBytes());
         redisCache.saveDataToRedis(ConstatFinal.ARTICLE_H5_2_VAL+":"+articleOtherModelVo.getArticleId(),articleOtherModelVo.getCjContent());
@@ -176,6 +177,7 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
         //是否是h5平台
         wyArticle.setIsPublish(ConstFinal.SHARE_STATUS.equals(articleOtherModelVo.getHcj()) ? true : false);
         wyArticle.setNoShareDomain(TStringUtil.dealStr(articleOtherModelVo.getNoShareDomain()));
+        wyArticle.setUserId(articleOtherModelVo.getUserId());
         // if(!StringUtils.isEmpty(articleOtherModelVo.getCjContent()))
         //     wyArticle.setCjContent(articleOtherModelVo.getCjContent().getBytes());
         wyArticle.setUpdateTime(new Date());

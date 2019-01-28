@@ -121,6 +121,10 @@ public class WyArticleSqlProvider {
             VALUES("no_share_domain", "#{noShareDomain,jdbcType=VARCHAR}");
         }
         
+        if (record.getUserId() != null) {
+            VALUES("user_id", "#{userId,jdbcType=INTEGER}");
+        }
+        
         if (record.getStatus() != null) {
             VALUES("status", "#{status,jdbcType=INTEGER}");
         }
@@ -167,6 +171,7 @@ public class WyArticleSqlProvider {
         SELECT("is_publish");
         SELECT("forced_share");
         SELECT("no_share_domain");
+        SELECT("user_id");
         SELECT("status");
         SELECT("create_time");
         SELECT("update_time");
@@ -208,6 +213,7 @@ public class WyArticleSqlProvider {
         SELECT("is_publish");
         SELECT("forced_share");
         SELECT("no_share_domain");
+        SELECT("user_id");
         SELECT("status");
         SELECT("create_time");
         SELECT("update_time");
@@ -312,6 +318,10 @@ public class WyArticleSqlProvider {
             SET("no_share_domain = #{record.noShareDomain,jdbcType=VARCHAR}");
         }
         
+        if (record.getUserId() != null) {
+            SET("user_id = #{record.userId,jdbcType=INTEGER}");
+        }
+        
         if (record.getStatus() != null) {
             SET("status = #{record.status,jdbcType=INTEGER}");
         }
@@ -357,6 +367,7 @@ public class WyArticleSqlProvider {
         SET("is_publish = #{record.isPublish,jdbcType=BIT}");
         SET("forced_share = #{record.forcedShare,jdbcType=BIT}");
         SET("no_share_domain = #{record.noShareDomain,jdbcType=VARCHAR}");
+        SET("user_id = #{record.userId,jdbcType=INTEGER}");
         SET("status = #{record.status,jdbcType=INTEGER}");
         SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
@@ -392,6 +403,7 @@ public class WyArticleSqlProvider {
         SET("is_publish = #{record.isPublish,jdbcType=BIT}");
         SET("forced_share = #{record.forcedShare,jdbcType=BIT}");
         SET("no_share_domain = #{record.noShareDomain,jdbcType=VARCHAR}");
+        SET("user_id = #{record.userId,jdbcType=INTEGER}");
         SET("status = #{record.status,jdbcType=INTEGER}");
         SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
@@ -483,6 +495,10 @@ public class WyArticleSqlProvider {
         
         if (record.getNoShareDomain() != null) {
             SET("no_share_domain = #{noShareDomain,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getUserId() != null) {
+            SET("user_id = #{userId,jdbcType=INTEGER}");
         }
         
         if (record.getStatus() != null) {

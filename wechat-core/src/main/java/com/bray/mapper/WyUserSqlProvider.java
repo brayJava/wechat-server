@@ -41,10 +41,6 @@ public class WyUserSqlProvider {
         BEGIN();
         INSERT_INTO("wy_user");
         
-        if (record.getId() != null) {
-            VALUES("id", "#{id,jdbcType=INTEGER}");
-        }
-        
         if (record.getUsername() != null) {
             VALUES("username", "#{username,jdbcType=VARCHAR}");
         }

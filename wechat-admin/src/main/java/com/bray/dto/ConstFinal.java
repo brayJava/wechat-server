@@ -22,4 +22,6 @@ public interface ConstFinal {
     String SHARE_STATUS = "1";
 
     String DOMAIN_MAP = "domain_map";
+
+    String USER_NAME = "user_name";
 }

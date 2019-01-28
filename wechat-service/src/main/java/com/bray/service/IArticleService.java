@@ -28,7 +28,7 @@ public interface IArticleService {
      * 查询所有文章
      * @return
      */
-    List<WyArticle> queryAllEffectiveArticle();
+    List<WyArticle> queryAllEffectiveArticle(int userId);
     /**
      * 通过文章id获取非分享唯一域名
      * @return

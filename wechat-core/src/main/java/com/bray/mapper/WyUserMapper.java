@@ -3,8 +3,18 @@ package com.bray.mapper;
 import com.bray.model.WyUser;
 import com.bray.model.WyUserExample;
 import java.util.List;
-
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.DeleteProvider;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
 public interface WyUserMapper {
@@ -21,18 +31,16 @@ public interface WyUserMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into wy_user (id, username, ",
-        "password, create_time, ",
-        "update_time)",
-        "values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, ",
-        "#{password,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{updateTime,jdbcType=TIMESTAMP})"
+        "insert into wy_user (username, password, ",
+        "create_time, update_time)",
+        "values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, ",
+        "#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})"
     })
-    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(WyUser record);
 
     @InsertProvider(type=WyUserSqlProvider.class, method="insertSelective")
-    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insertSelective(WyUser record);
 
     @SelectProvider(type=WyUserSqlProvider.class, method="selectByExample")

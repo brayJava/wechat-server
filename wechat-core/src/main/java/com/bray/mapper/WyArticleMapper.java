@@ -41,8 +41,9 @@ public interface WyArticleMapper {
         "statistical, connect_primary_domain, ",
         "connect_common_domain, is_publish, ",
         "forced_share, no_share_domain, ",
-        "status, create_time, ",
-        "update_time, cj_content)",
+        "user_id, status, ",
+        "create_time, update_time, ",
+        "cj_content)",
         "values (#{title,jdbcType=VARCHAR}, #{bgmUrl,jdbcType=VARCHAR}, ",
         "#{author,jdbcType=VARCHAR}, #{shareTitle,jdbcType=VARCHAR}, ",
         "#{shareDescribe,jdbcType=VARCHAR}, #{shareImgUrl,jdbcType=VARCHAR}, ",
@@ -53,8 +54,9 @@ public interface WyArticleMapper {
         "#{statistical,jdbcType=VARCHAR}, #{connectPrimaryDomain,jdbcType=VARCHAR}, ",
         "#{connectCommonDomain,jdbcType=VARCHAR}, #{isPublish,jdbcType=BIT}, ",
         "#{forcedShare,jdbcType=BIT}, #{noShareDomain,jdbcType=VARCHAR}, ",
-        "#{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{updateTime,jdbcType=TIMESTAMP}, #{cjContent,jdbcType=LONGVARBINARY})"
+        "#{userId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, ",
+        "#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, ",
+        "#{cjContent,jdbcType=LONGVARBINARY})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(WyArticle record);
@@ -86,6 +88,7 @@ public interface WyArticleMapper {
         @Result(column="is_publish", property="isPublish", jdbcType=JdbcType.BIT),
         @Result(column="forced_share", property="forcedShare", jdbcType=JdbcType.BIT),
         @Result(column="no_share_domain", property="noShareDomain", jdbcType=JdbcType.VARCHAR),
+        @Result(column="user_id", property="userId", jdbcType=JdbcType.INTEGER),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
@@ -116,6 +119,7 @@ public interface WyArticleMapper {
         @Result(column="is_publish", property="isPublish", jdbcType=JdbcType.BIT),
         @Result(column="forced_share", property="forcedShare", jdbcType=JdbcType.BIT),
         @Result(column="no_share_domain", property="noShareDomain", jdbcType=JdbcType.VARCHAR),
+        @Result(column="user_id", property="userId", jdbcType=JdbcType.INTEGER),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
@@ -127,8 +131,8 @@ public interface WyArticleMapper {
         "id, title, bgm_url, author, share_title, share_describe, share_img_url, is_order_img, ",
         "data_transfer_url, goback_url, read_original_url, image_goback_url, order_img_url, ",
         "order_copy_url, share_success_fail_url, statistical, connect_primary_domain, ",
-        "connect_common_domain, is_publish, forced_share, no_share_domain, status, create_time, ",
-        "update_time, cj_content",
+        "connect_common_domain, is_publish, forced_share, no_share_domain, user_id, status, ",
+        "create_time, update_time, cj_content",
         "from wy_article",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -154,6 +158,7 @@ public interface WyArticleMapper {
         @Result(column="is_publish", property="isPublish", jdbcType=JdbcType.BIT),
         @Result(column="forced_share", property="forcedShare", jdbcType=JdbcType.BIT),
         @Result(column="no_share_domain", property="noShareDomain", jdbcType=JdbcType.VARCHAR),
+        @Result(column="user_id", property="userId", jdbcType=JdbcType.INTEGER),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
@@ -195,6 +200,7 @@ public interface WyArticleMapper {
           "is_publish = #{isPublish,jdbcType=BIT},",
           "forced_share = #{forcedShare,jdbcType=BIT},",
           "no_share_domain = #{noShareDomain,jdbcType=VARCHAR},",
+          "user_id = #{userId,jdbcType=INTEGER},",
           "status = #{status,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "update_time = #{updateTime,jdbcType=TIMESTAMP},",
@@ -225,6 +231,7 @@ public interface WyArticleMapper {
           "is_publish = #{isPublish,jdbcType=BIT},",
           "forced_share = #{forcedShare,jdbcType=BIT},",
           "no_share_domain = #{noShareDomain,jdbcType=VARCHAR},",
+          "user_id = #{userId,jdbcType=INTEGER},",
           "status = #{status,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "update_time = #{updateTime,jdbcType=TIMESTAMP}",

@@ -3,11 +3,10 @@ package com.bray.model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class WyArticle implements Serializable{
-
+public class WyArticle implements Serializable {
 
     private static final long serialVersionUID = 6293509963165879323L;
-
+    
     private Integer id;
 
     private String title;
@@ -50,6 +49,10 @@ public class WyArticle implements Serializable{
 
     private String noShareDomain;
 
+    private String cjContentTemp;
+
+    private Integer userId;
+
     private Integer status;
 
     private Date createTime;
@@ -57,8 +60,6 @@ public class WyArticle implements Serializable{
     private Date updateTime;
 
     private byte[] cjContent;
-
-    private String cjContentTemp;
 
     public String getCjContentTemp() {
         return cjContentTemp;
@@ -234,6 +235,14 @@ public class WyArticle implements Serializable{
 
     public void setNoShareDomain(String noShareDomain) {
         this.noShareDomain = noShareDomain == null ? null : noShareDomain.trim();
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Integer getStatus() {
