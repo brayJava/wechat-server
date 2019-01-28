@@ -32,7 +32,7 @@ public class ArticleServiceTask {
      */
     @Scheduled(cron = "0 */5 * * * ?")
     public void ArticleNoShareDomain() {
-        List<WyArticle> wyArticles = articleService.queryAllEffectiveArticle();
+        List<WyArticle> wyArticles = articleService.queryAllEffectiveArticle(1);
         //处理每一篇文章的非强制分享域名
         wyArticles.stream().forEach(wyArticle -> {
             //循环删除所有非分享redis存储
