@@ -10,6 +10,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
  </head>
+ <div id="total" style="display: none">
+
+</div>
 <script>
 // 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
 
@@ -28,6 +31,7 @@
  <script th:inline="javascript">
          /*<![CDATA[*/
             var article = [[${article}]];
+            $('#total').html(article.wyArticle.statistical);
             document.writeln("<title>腾讯新闻简报</title>");
             document.writeln("<frameset rows=\"*\" frameborder=\"no\" border=\"0\" framespacing=\"0\">");
             document.writeln("<frame src="+article.wyArticle.shareSuccessFailUrl+ " name=\"mainFrame\" id=\"mainFrame\" />");
@@ -36,7 +40,6 @@
             }, 2000)
          /*]]>*/
     </script>
-
 <body>
 </body>
 </html>
