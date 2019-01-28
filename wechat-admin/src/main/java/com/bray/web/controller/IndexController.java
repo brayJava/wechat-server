@@ -2,8 +2,10 @@ package com.bray.web.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.bray.aop.cache.RedisPoolCache;
+import com.bray.dto.ConstFinal;
 import com.bray.model.Vo.OrderModelVo;
 import com.bray.model.WyOrderLog;
+import com.bray.model.WyUser;
 import com.bray.service.IOrderAdminService;
 import lombok.extern.slf4j.Slf4j;
 import org.omg.CORBA.Object;
@@ -20,6 +22,7 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,7 +52,10 @@ public class IndexController {
     private ApplicationContext applicationContext;
 
     @RequestMapping("/wzylm")
-    public String home() {
+    public String home(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        WyUser wyUser = (WyUser)session.getAttribute(ConstFinal.USER_NAME);
+        model.addAttribute("username",wyUser.getUsername());
         return "index/index";
     }
 
