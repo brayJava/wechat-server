@@ -123,6 +123,8 @@
 </div>
 <script th:inline="javascript">
   $('title').html(article.title);
+  /*<![CDATA[*/
+    // $('title').html(article.title);
     var domain = "";
     $.ajax({
         url: '/domain/safe-domain',
