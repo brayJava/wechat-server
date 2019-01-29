@@ -8,7 +8,10 @@ spring:
     suffix: .html
     encoding: utf-8
     content-type: text/html
-
+  http:
+    multipart:
+      max-file-size: 10000000kb
+      max-request-size: 10000000kb
 # 本地环境
 #    active: dev       # 环境
 #    active: test      # 开发测试环境
