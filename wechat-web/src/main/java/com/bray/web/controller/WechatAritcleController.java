@@ -623,10 +623,11 @@ public class WechatAritcleController {
      */
     @RequestMapping("/article/find/{articleId}")
     public ModelAndView  iframe(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable int articleId) {
-        MobileUtil.analysisMobileFrom(request,redisObj);
-        if (!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("");
         //获取图片相关信息
         ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
+        MobileUtil.analysisMobileFrom(request,redisObj,article.getWyArticle().getUserId());
+        if (!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("html/baozi/kb");
+
         if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getDataTransferUrl()))
             return new ModelAndView("redirect:"+article.getWyArticle().getDataTransferUrl());
         //多链数据分流
