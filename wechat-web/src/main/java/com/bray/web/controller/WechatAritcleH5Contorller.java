@@ -103,7 +103,6 @@ public class WechatAritcleH5Contorller {
      */
     private String getArticleWithImages(Model model, @PathVariable int articleId,String redisType,String htmlpath,HttpServletRequest request, HttpServletResponse response) {
         ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
-        MobileUtil.analysisMobileFrom(request,redisObj,article.getWyArticle().getUserId());
         model.addAttribute("article",article.getWyArticle());
         model.addAttribute("contentHtml",article.getContentHtml());
         model.addAttribute("articleImgs",article.getArticleSubImages());
@@ -123,6 +122,8 @@ public class WechatAritcleH5Contorller {
             article.getWyArticle().setDataTransferUrl(flurl[v]);
             return transferUrl(htmlpath,request, model, response, article);
         }
+        //迁移后记录
+        MobileUtil.analysisMobileFrom(request,redisObj,article.getWyArticle().getUserId());
         String showhtml = String.valueOf(redisObj.getRedisValueByKey(redisType+":"+articleId));
         if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
             return  showhtml;
