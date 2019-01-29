@@ -60,7 +60,9 @@ public class IndexController {
     }
 
     @RequestMapping("/welcome")
-    public String welcome(Model model) {
+    public String welcome(Model model,HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        WyUser wyUser = (WyUser)session.getAttribute(ConstFinal.USER_NAME);
         List<WyOrderLog> wyOrderLogs = iOrderAdminService.queryOrderLogData();
         List<String> list = redisObj.lrangeRedis("orderlist", 0, 10);
         List<OrderModelVo> orderlist = new ArrayList<>();
@@ -76,12 +78,28 @@ public class IndexController {
         NumberFormat numberFormat = NumberFormat.getInstance();
         numberFormat.setMaximumFractionDigits(2);
         //获取手机型号
-        List<String> fromAndroidList = redisObj.lrangeRedis("fromAndroid", 0, 30);
-        List<String> fromIphoneList = redisObj.lrangeRedis("fromIphone", 0, 10);
-        List<String> fromOtherList = redisObj.lrangeRedis("fromOther", 0, 10);
-        List<String> sizelAndroid = redisObj.lrangeRedis("fromAndroid", 0,1000000000);
-        List<String> sizelIphone = redisObj.lrangeRedis("fromIphone", 0,1000000000);
-        List<String> sizelOther = redisObj.lrangeRedis("fromOther", 0,1000000000);
+        List<String> fromAndroidList = new ArrayList<>();
+        List<String> fromIphoneList = new ArrayList<>();
+        List<String> fromOtherList = new ArrayList<>();
+        List<String> sizelAndroid = new ArrayList<>();
+        List<String> sizelIphone = new ArrayList<>();
+        List<String> sizelOther = new ArrayList<>();
+        if("admin".equals(wyUser.getUsername())) {
+            fromAndroidList = redisObj.lrangeRedis("fromAndroid", 0, 30);
+            fromIphoneList = redisObj.lrangeRedis("fromIphone", 0, 10);
+            fromOtherList = redisObj.lrangeRedis("fromOther", 0, 10);
+            sizelAndroid = redisObj.lrangeRedis("fromAndroid", 0,1000000000);
+            sizelIphone = redisObj.lrangeRedis("fromIphone", 0,1000000000);
+            sizelOther = redisObj.lrangeRedis("fromOther", 0,1000000000);
+        } else {
+            fromAndroidList = redisObj.lrangeRedis("fromAndroid_"+wyUser.getId(), 0, 30);
+            fromIphoneList = redisObj.lrangeRedis("fromIphone_"+wyUser.getId(), 0, 10);
+            fromOtherList = redisObj.lrangeRedis("fromOther_"+wyUser.getId(), 0, 10);
+            sizelAndroid = redisObj.lrangeRedis("fromAndroid_"+wyUser.getId(), 0,1000000000);
+            sizelIphone = redisObj.lrangeRedis("fromIphone_"+wyUser.getId(), 0,1000000000);
+            sizelOther = redisObj.lrangeRedis("fromOther_"+wyUser.getId(), 0,1000000000);
+        }
+
         model.addAttribute("percentAndroid",numberFormat.format((float)Integer.valueOf(sizelAndroid.size()) / (float)(sizelAndroid.size()+sizelIphone.size()+sizelOther.size())*100));
         model.addAttribute("percentIos",numberFormat.format((float)Integer.valueOf(sizelIphone.size()) / (float)(sizelAndroid.size()+sizelIphone.size()+sizelOther.size())*100));
         model.addAttribute("percentOther",numberFormat.format((float)Integer.valueOf(sizelOther.size()) / (float)(sizelAndroid.size()+sizelIphone.size()+sizelOther.size())*100));
