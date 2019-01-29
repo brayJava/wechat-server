@@ -81,7 +81,7 @@ public class WechatAritcleH5Contorller {
     @RequestMapping(value="/kzh/{articleId}",produces = "text/html;charset=utf-8")
     @ResponseBody
     public String yqx(HttpServletRequest request, HttpServletResponse response,Model model,@PathVariable int articleId) {
-        String showhtml = getArticleWithImages(model, articleId, "article_h5_2","html/cjh5/cj4/kzh", request, response);
+        String showhtml = getArticleWithImages(model, articleId, "article_h5_2","html/cjh5/cj4/tz-test", request, response);
         return showhtml;
     }
     /**
@@ -102,14 +102,14 @@ public class WechatAritcleH5Contorller {
      * @param articleId
      */
     private String getArticleWithImages(Model model, @PathVariable int articleId,String redisType,String htmlpath,HttpServletRequest request, HttpServletResponse response) {
-        MobileUtil.analysisMobileFrom(request,redisObj);
         ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
+        MobileUtil.analysisMobileFrom(request,redisObj,article.getWyArticle().getUserId());
         model.addAttribute("article",article.getWyArticle());
         model.addAttribute("contentHtml",article.getContentHtml());
         model.addAttribute("articleImgs",article.getArticleSubImages());
-        if(article.getWyArticle().getIsOrderImg() || "article_h5_2".equals(redisType)) {
-            if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
-        }
+        // if(article.getWyArticle().getIsOrderImg() || "article_h5_2".equals(redisType)) {
+        //     if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
+        // }
         //数据迁移
         if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getDataTransferUrl())) {
             String qyhtml = transferUrl(htmlpath,request, model, response, article);

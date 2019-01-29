@@ -62,21 +62,28 @@ public class MobileUtil {
      * @param request
      * @param redisObj
      */
-    public static void analysisMobileFrom(HttpServletRequest request, RedisPoolCache redisObj) {
+    public static void analysisMobileFrom(HttpServletRequest request, RedisPoolCache redisObj,int userId) {
         String ipAddr = MobileUtil.getIpAddr(request);
         log.info("访问真实ip为:"+ipAddr);
+        //存储ip值(set存储，保证唯一)
+        if(userId != 1)
+            redisObj.setRedis("request-ip-"+userId,ipAddr);
+        redisObj.setRedis("request-ip",ipAddr);
         String nowtime = LocalDateTime.now().format(DateTimeFormatter.ofPattern(DateUtil.PATTERN_yyyy_MM_dd_HH_mm_ss));
         String userAgentWX = request.getHeader("user-agent").toLowerCase();
         int startIndex = userAgentWX.indexOf("(");
         int endIndex = userAgentWX.indexOf(")");
         String xinhao = userAgentWX.substring(startIndex+1, endIndex);
         if(userAgentWX.contains("iphone") || userAgentWX.contains("ipad")) {
+            redisObj.lpushRedis("fromIphone_"+userId,nowtime+": "+xinhao+"ip["+ipAddr+"]");
             redisObj.lpushRedis("fromIphone",nowtime+": "+xinhao+"ip["+ipAddr+"]");
         }
         else if(userAgentWX.contains("android")) {
             String linuxgo = xinhao.substring(xinhao.indexOf("linux;") + 6, xinhao.indexOf("build"));
+            redisObj.lpushRedis("fromAndroid_"+userId,nowtime+": "+linuxgo+"ip["+ipAddr+"]");
             redisObj.lpushRedis("fromAndroid",nowtime+": "+linuxgo+"ip["+ipAddr+"]");
         } else {
+            redisObj.lpushRedis("fromOther_"+userId,nowtime+": "+xinhao+"ip["+ipAddr+"]");
             redisObj.lpushRedis("fromOther",nowtime+": "+xinhao+"ip["+ipAddr+"]");
         }
     }
