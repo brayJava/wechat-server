@@ -8,6 +8,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @Author:wuzhiyuan
@@ -61,7 +62,7 @@ public class RedisPoolCache {
         return del;
     }
     /**
-     * 存储数据到redis
+     * 存储数据到redis list
      * @param redisKey
      * @param orderStr
      * @return
@@ -80,6 +81,27 @@ public class RedisPoolCache {
         Jedis jedis = this.getJedis();
         List<String> lrange = jedis.lrange(redisKey, start, end);
         return lrange;
+    }
+    /**
+     * 设置set集合
+     * @param redisKey
+     * @param setValue
+     * @return
+     */
+    public long setRedis(String redisKey,String setValue) {
+        Jedis jedis = this.getJedis();
+        Long sadd = jedis.sadd(redisKey, setValue);
+        return sadd;
+    }
+    /**
+     * 获取set集合
+     * @param redisKey
+     * @return
+     */
+    public Set<String> smembersRedis(String redisKey) {
+        Jedis jedis = this.getJedis();
+        Set<String> smembers = jedis.smembers(redisKey);
+        return smembers;
     }
     /**
      * 更新redis数据

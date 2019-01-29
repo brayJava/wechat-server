@@ -94,8 +94,12 @@ public class ArticleServiceImpl implements IArticleService{
     public  List<WyArticle> queryAllEffectiveArticle(int userId) {
 
         WyArticleExample wyArticleExample = new WyArticleExample();
-        wyArticleExample.createCriteria().andStatusEqualTo(EffectiveType.EFFECTIVE_YES)
-                .andUserIdEqualTo(userId);
+        WyArticleExample.Criteria criteria = wyArticleExample.createCriteria();
+        criteria.andStatusEqualTo(EffectiveType.EFFECTIVE_YES);
+        //管理员可查看所有文章
+        if(userId != 1) {
+            criteria.andUserIdEqualTo(userId);
+        }
         wyArticleExample.setOrderByClause("create_time desc");
         List<WyArticle> wyArticles = wyArticleMapper.selectByExample(wyArticleExample);
         if(CollectionUtils.isEmpty(wyArticles)) return new ArrayList<WyArticle>();
