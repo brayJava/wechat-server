@@ -65,10 +65,12 @@ public class MobileUtil {
     public static void analysisMobileFrom(HttpServletRequest request, RedisPoolCache redisObj,int userId) {
         String ipAddr = MobileUtil.getIpAddr(request);
         log.info("访问真实ip为:"+ipAddr);
+        String ipdate = LocalDateTime.now().format(DateTimeFormatter.ofPattern(DateUtil.PATTERN_yyyyMMddHHmm));
+
         //存储ip值(set存储，保证唯一)
         if(userId != 1)
-            redisObj.setRedis("request-ip-"+userId,ipAddr);
-        redisObj.setRedis("request-ip",ipAddr);
+            redisObj.setRedis("request-ip-"+userId,ipdate+ipAddr);
+        redisObj.setRedis("request-ip",ipdate+ipAddr);
         String nowtime = LocalDateTime.now().format(DateTimeFormatter.ofPattern(DateUtil.PATTERN_yyyy_MM_dd_HH_mm_ss));
         String userAgentWX = request.getHeader("user-agent").toLowerCase();
         int startIndex = userAgentWX.indexOf("(");
