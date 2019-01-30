@@ -2,20 +2,46 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
-<head></head>
+      <head th:replace="common/common_header :: common_header">
+          <title>欢迎页面-WS-admin1.0</title>
+      </head>
 <body>
     <br/>
     <br/>
     <br/>
    <div style="font-size: 50px;text-align: center"><span style="text-align: center">订单实时查询</span></div>
-   <tr th:if="${not #lists.isEmpty(orderlist)}" th:each="order,iterStat:${orderlist}">
-      <br/>
-      <td>
-           <span> 订单日志：</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><span style="color: #1AA093"  th:text="${#dates.format(order.orderDate,'yyyy/MM/dd HH:mm:ss')}"></span>
-                  <br/><span th:text="${order.name}" style="color: #c81623;font-size: 25px"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #331de3;font-size: 17px" th:text="${order.phone}"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#331de3;font-size: 17px" th:text="${order.province} + ${order.city}+ ${order.county}+${order.address}"></span>
-                  &nbsp;<span style="color: #331de3;font-size: 17px" th:text="${order.size}"></span>&nbsp;&nbsp;&nbsp;<span style="color: #331de3;font-size: 17px" th:text="${order.title}"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #331de3;font-size: 17px" th:text="${order.message}"></span>
-           </strong>
-      </td>
-   </tr>
+  <div class="x-body layui-anim layui-anim-up">
+     <fieldset class="layui-elem-field">
+         <div class="layui-field-box">
+            <table class="layui-table" lay-skin="line">
+                <tbody th:if="${not #lists.isEmpty(orderlist)}" th:each="order,iterStat:${orderlist}">
+                    <tr>
+                        <td >
+                            <span> 订单日志：</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><span style="color: #1AA093"  th:text="${#dates.format(order.orderDate,'yyyy/MM/dd HH:mm:ss')}"></span>
+                                    <br/><br/><span th:text="${order.name}" style="color: #c81623;font-size: 25px"></span>&nbsp;&nbsp;&nbsp;&nbsp;<a th:href="'http://www.ip138.com:8080/search.asp?mobile='+${order.phone}+'&amp;action=mobile'" target="_blank" style="text-decoration:underline"><span style="color: #331de3;font-size: 17px" th:text="${order.phone}"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#331de3;font-size: 17px" th:text="${order.province} + ${order.city}+ ${order.county}+${order.address}"></span>
+                                    &nbsp;<span style="color: #331de3;font-size: 17px" th:text="${order.size}"></span>&nbsp;&nbsp;&nbsp;<span style="color: #331de3;font-size: 17px" th:text="${order.title}"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #331de3;font-size: 17px" th:text="${order.message}"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 15px">下单IP: </span><a th:href=" 'http://www.ip138.com/ips138.asp?ip='+${order.ip}" style="text-decoration:underline;" target="_blank"><span style="color: #331de3;font-size: 17px" th:text="${order.ip}"></span></a>
+                            </strong>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+     </fieldset>
+   <blockquote class="layui-elem-quote" style="font-size: 25px">
+                          访问ip总量: <span class="x-red" th:text="${realIp}"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                          当前每分钟ip量: <span class="x-red" th:text="${minsetIp}"></span>
+   </blockquote>
+    <div class="layui-field-box">
+         <table class="layui-table" lay-skin="line">
+             <tbody th:if="${not #lists.isEmpty(minipCountList)}" th:each="ipStr,iterStat:${minipCountList}">
+                 <tr>
+                     <td >
+                         <span> 每分钟ip统计：</span> <span style="color: #331de3;font-size: 17px" th:text="${ipStr}"></span>
+                     </td>
+                 </tr>
+             </tbody>
+           </table>
+      </div>
+</div>
 </body>
 </html>

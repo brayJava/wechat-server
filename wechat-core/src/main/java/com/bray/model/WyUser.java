@@ -4,12 +4,17 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class WyUser implements Serializable{
-    private static final long serialVersionUID = -1809028344590022067L;
+
+
+    private static final long serialVersionUID = 5422263352219218487L;
+
     private Integer id;
 
     private String username;
 
     private String password;
+
+    private Integer status;
 
     private Date createTime;
 
@@ -37,6 +42,14 @@ public class WyUser implements Serializable{
 
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Date getCreateTime() {

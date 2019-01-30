@@ -38,9 +38,24 @@
             </div>
 
         </fieldset>
+         <blockquote class="layui-elem-quote" style="font-size: 25px">
+                        访问总量: <span class="x-red" th:text="${totalVisit}"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        访问ip量: <span class="x-red" th:text="${realIp}"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        当前每分钟ip量: <span class="x-red" th:text="${minsetIp}"></span>
+          </blockquote>
+          <div class="layui-field-box">
+              <table class="layui-table" lay-skin="line">
+                  <tbody th:if="${not #lists.isEmpty(minipCountList)}" th:each="ipStr,iterStat:${minipCountList}">
+                      <tr>
+                          <td >
+                              <span> 每分钟ip统计：</span> <span style="color: #331de3;font-size: 17px" th:text="${ipStr}"></span>
+                          </td>
+                      </tr>
+                  </tbody>
+                </table>
+           </div>
+          <br/>
           <blockquote class="layui-elem-quote" style="font-size: 25px">
-                访问总量: <span class="x-red" th:text="${totalVisit}"></span>
-                访问ip量: <span class="x-red" th:text="${realIp}"></span>
                 &nbsp;&nbsp;安卓设备占比:<span style="color: #c62b26;font-size: 25px" th:text="${percentAndroid}+'%' "></span>
                 &nbsp;&nbsp;苹果设备占比:<span style="color: #c62b26;font-size: 25px" th:text="${percentIos}+'%' "></span>
                 &nbsp;&nbsp;其他设备占比:<span style="color: #c62b26;font-size: 25px" th:text="${percentOther}+'%' "></span>

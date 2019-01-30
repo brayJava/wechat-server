@@ -3,8 +3,17 @@ package com.bray.mapper;
 import com.bray.model.WyUserRole;
 import com.bray.model.WyUserRoleExample;
 import java.util.List;
-
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.DeleteProvider;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
 public interface WyUserRoleMapper {
@@ -28,11 +37,9 @@ public interface WyUserRoleMapper {
         "#{roleId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
         "#{updateTime,jdbcType=TIMESTAMP})"
     })
-    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     int insert(WyUserRole record);
 
     @InsertProvider(type=WyUserRoleSqlProvider.class, method="insertSelective")
-    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     int insertSelective(WyUserRole record);
 
     @SelectProvider(type=WyUserRoleSqlProvider.class, method="selectByExample")

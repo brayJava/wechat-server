@@ -1,0 +1,42 @@
+spring:
+  profiles:
+    active: dev
+#  thymeleaf属性定义
+  thymeleaf:
+#    mode: LEGACYHTML5
+    cache: false
+    suffix: .html
+    encoding: utf-8
+    content-type: text/html
+  http:
+    multipart:
+      max-file-size: 10000000kb
+      max-request-size: 10000000kb
+# 本地环境
+#    active: dev       # 环境
+#    active: test      # 开发测试环境
+#    active: pre       # 预发环境
+#    active: online    # 生产环境
+
+# health monitor
+info:
+  app:
+    name: "@project.name@"
+    description: "@project.description@"
+    version: "@project.version@"
+    spring-boot-version: "@spring.boot.version@"
+
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    root: info
+    com:
+      bray: DEBUG
+    org:
+      mybatis:
+         spring: DEBUG
+#微信授权接口
+weixin4j:
+  id: wxfdd42e830e431893
+  secret: e390a7cc4140aef29dddf7dbe816b52e
+  cache: FILE

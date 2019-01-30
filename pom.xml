@@ -13,6 +13,7 @@
         <module>wechat-core</module>
         <module>wechat-admin</module>
         <module>wechat-service</module>
+        <module>wechat-task</module>
     </modules>
     <name>wechat-root</name>
 
