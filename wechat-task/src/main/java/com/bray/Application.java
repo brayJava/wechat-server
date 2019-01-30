@@ -14,10 +14,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @Configuration
 @EnableScheduling
-public class TaskBootApplication {
+public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(TaskBootApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
 }
