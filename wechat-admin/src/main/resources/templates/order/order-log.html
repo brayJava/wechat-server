@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
       <head th:replace="common/common_header :: common_header">
-          <title>欢迎页面-WS-admin1.0</title>
+          <title>订单列表</title>
       </head>
 <body>
     <br/>
@@ -28,8 +28,8 @@
         </div>
      </fieldset>
    <blockquote class="layui-elem-quote" style="font-size: 25px">
-                          访问ip总量: <span class="x-red" th:text="${realIp}"></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                          当前每分钟ip量: <span class="x-red" th:text="${minsetIp}"></span>
+                          访问ip总量: <span class="x-red" th:text="${realIp}"></span>&nbsp;&nbsp;
+                          当前ip量: <span class="x-red" th:text="${minsetIp}"></span>
    </blockquote>
     <div class="layui-field-box">
          <table class="layui-table" lay-skin="line">
