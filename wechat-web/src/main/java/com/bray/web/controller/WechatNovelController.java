@@ -55,7 +55,25 @@ public class WechatNovelController {
         return showhtml;
     }
     /**
-     * 12345小说文案跳转
+     * 12345小说文案跳转-无返回
+     */
+    @RequestMapping(value="/nofh-12345",produces = "text/html;charset=utf-8")
+    @ResponseBody
+    String jumpNoHFnv(HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
+        String showhtml = String.valueOf(redisObj.getRedisValueByKey("novel:nofh-12345"));
+        if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
+            return  showhtml;
+        }
+        //手动渲染
+        SpringWebContext ctx = new SpringWebContext(request,response,
+                request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+        showhtml = thymeleafViewResolver.getTemplateEngine().process("novel/nofh-12345", ctx);
+        redisObj.saveDataToRedis("novel:nofh-12345",showhtml);
+        return showhtml;
+    }
+    /**
+     * jdqb小说文案跳转
      */
     @RequestMapping(value="/jdqb",produces = "text/html;charset=utf-8")
     @ResponseBody
@@ -73,7 +91,7 @@ public class WechatNovelController {
         return showhtml;
     }
     /**
-     * 12345小说文案跳转
+     * jdqb小说文案跳转-无返回
      */
     @RequestMapping(value="/nofh-jdqb",produces = "text/html;charset=utf-8")
     @ResponseBody
