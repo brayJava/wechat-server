@@ -72,5 +72,23 @@ public class WechatNovelController {
         redisObj.saveDataToRedis("novel:jdqb",showhtml);
         return showhtml;
     }
+    /**
+     * 12345小说文案跳转
+     */
+    @RequestMapping(value="/nofh-jdqb",produces = "text/html;charset=utf-8")
+    @ResponseBody
+    String jumpNoFHjdqb(HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
+        String showhtml = String.valueOf(redisObj.getRedisValueByKey("novel:nofh-jdqb"));
+        if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
+            return  showhtml;
+        }
+        //手动渲染
+        SpringWebContext ctx = new SpringWebContext(request,response,
+                request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+        showhtml = thymeleafViewResolver.getTemplateEngine().process("novel/nofh-jdqb", ctx);
+        redisObj.saveDataToRedis("novel:nofh-jdqb",showhtml);
+        return showhtml;
+    }
 
 }
