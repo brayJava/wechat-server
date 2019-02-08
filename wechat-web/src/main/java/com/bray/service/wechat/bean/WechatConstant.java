@@ -18,7 +18,7 @@ public class WechatConstant {
 
     public static final String WECHAT_URL = "http://www.whiteplanet.com.cn/appoint-info.html?orderId=";
 
-    public static final String IM_WECHAT_URL = "http://hcxgm.cn:1010/index/ssckOrder";
+    public static final String IM_WECHAT_URL = "http://jtydbxa.cn:1010/index/ssckOrder";
 
     public static final String DEFULAT_TOUSER = "oE2ON5vIGbsrYMCroDpy93yqvYjc";
 
