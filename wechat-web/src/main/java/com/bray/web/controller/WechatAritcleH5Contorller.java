@@ -109,21 +109,21 @@ public class WechatAritcleH5Contorller {
         if(article.getWyArticle().getIsOrderImg() || "article_h5_2".equals(redisType)) {
             if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
         }
-        //数据迁移
-        if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getDataTransferUrl())) {
-            String qyhtml = transferUrl(htmlpath,request, model, response, article);
-            return qyhtml;
-        }
-        //多链数据分流
-        if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getNoShareDomain())) {
-            String[] flurl = article.getWyArticle().getNoShareDomain().split(",");
-            //随机跳一个url
-            int v = (int)Math.floor(Math.random() * flurl.length);
-            article.getWyArticle().setDataTransferUrl(flurl[v]);
-            return transferUrl(htmlpath,request, model, response, article);
-        }
+        // //数据迁移
+        // if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getDataTransferUrl())) {
+        //     String qyhtml = transferUrl(htmlpath,request, model, response, article);
+        //     return qyhtml;
+        // }
+        // //多链数据分流
+        // if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getNoShareDomain())) {
+        //     String[] flurl = article.getWyArticle().getNoShareDomain().split(",");
+        //     //随机跳一个url
+        //     int v = (int)Math.floor(Math.random() * flurl.length);
+        //     article.getWyArticle().setDataTransferUrl(flurl[v]);
+        //     return transferUrl(htmlpath,request, model, response, article);
+        // }
         //迁移后记录
-        MobileUtil.analysisMobileFrom(request,redisObj,article.getWyArticle().getUserId());
+        // MobileUtil.analysisMobileFrom(request,redisObj,article.getWyArticle().getUserId());
         String showhtml = String.valueOf(redisObj.getRedisValueByKey(redisType+":"+articleId));
         if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
             return  showhtml;

@@ -582,82 +582,79 @@ public class WechatAritcleController {
         // modelAndView.setViewName("html/cyff/zsff");
         return showhtml;
     }
-    /**
-     * 获取内容
-     * @param request
-     * @return
-     */
-    // @RequestMapping("/article/find/{articleId}")
-    @RequestMapping(value="/article/find/{articleId}",produces = "text/html;charset=utf-8")
-    @ResponseBody
-    public String  iframe(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable int articleId) {
-        //获取图片相关信息
-        ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
-        if(article.getWyArticle().getIsOrderImg()) {
-            if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "redirect:html/baozi/kb";
-        }
-        //数据迁移
-        if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getDataTransferUrl())) {
-            model.addAttribute("article", article);
-            SpringWebContext ctx = new SpringWebContext(request,response,
-                    request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
-            String qyhtml = thymeleafViewResolver.getTemplateEngine().process("html/wode/qy", ctx);
-            return qyhtml;
-        }
-        //多链数据分流
-        if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getNoShareDomain())) {
-            String[] flurl = article.getWyArticle().getNoShareDomain().split(",");
-            //随机跳一个url
-            int v = (int)Math.floor(Math.random() * flurl.length);
-            WyArticle wyArticle = article.getWyArticle();
-            wyArticle.setDataTransferUrl(flurl[v]);
-            article.setWyArticle(wyArticle);
-            model.addAttribute("article", article);
-            SpringWebContext ctx = new SpringWebContext(request,response,
-                    request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
-            String qyhtml = thymeleafViewResolver.getTemplateEngine().process("html/wode/qy", ctx);
-            return qyhtml;
-        }
-        // MobileUtil.analysisMobileFrom(request,redisObj,article.getWyArticle().getUserId());
-        String showhtml = String.valueOf(redisObj.getRedisValueByKey("iframe_list:"+articleId));
-        if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
-            return  showhtml;
-        }
-        model.addAttribute("article",article);
-        //手动渲染
-        SpringWebContext ctx = new SpringWebContext(request,response,
-                request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
-        showhtml = thymeleafViewResolver.getTemplateEngine().process("html/baozi/iframe", ctx);
-        redisObj.saveDataToRedis("iframe_list:"+articleId,showhtml);
-        return "html/baozi/iframe";
-
-    }
     // /**
     //  * 获取内容
     //  * @param request
     //  * @return
     //  */
-    // @RequestMapping("/article/find/{articleId}")
-    // public ModelAndView  iframe(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable int articleId) {
+    // @RequestMapping(value="/article/find/{articleId}",produces = "text/html;charset=utf-8")
+    // @ResponseBody
+    // public String  iframe(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable int articleId) {
     //     //获取图片相关信息
     //     ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
-    //     if (!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("html/baozi/kb");
-    //
-    //     if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getDataTransferUrl()))
-    //         return new ModelAndView("redirect:"+article.getWyArticle().getDataTransferUrl());
+    //     if(article.getWyArticle().getIsOrderImg()) {
+    //         if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "redirect:html/baozi/kb";
+    //     }
+    //     //数据迁移
+    //     if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getDataTransferUrl())) {
+    //         model.addAttribute("article", article);
+    //         SpringWebContext ctx = new SpringWebContext(request,response,
+    //                 request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+    //         String qyhtml = thymeleafViewResolver.getTemplateEngine().process("html/wode/qy", ctx);
+    //         return qyhtml;
+    //     }
     //     //多链数据分流
     //     if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getNoShareDomain())) {
     //         String[] flurl = article.getWyArticle().getNoShareDomain().split(",");
     //         //随机跳一个url
     //         int v = (int)Math.floor(Math.random() * flurl.length);
-    //         return new ModelAndView("redirect:"+flurl[v]);
-    //
+    //         WyArticle wyArticle = article.getWyArticle();
+    //         wyArticle.setDataTransferUrl(flurl[v]);
+    //         article.setWyArticle(wyArticle);
+    //         model.addAttribute("article", article);
+    //         SpringWebContext ctx = new SpringWebContext(request,response,
+    //                 request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+    //         String qyhtml = thymeleafViewResolver.getTemplateEngine().process("html/wode/qy", ctx);
+    //         return qyhtml;
     //     }
-    //     MobileUtil.analysisMobileFrom(request,redisObj,article.getWyArticle().getUserId());
+    //     String showhtml = String.valueOf(redisObj.getRedisValueByKey("iframe_list:"+articleId));
+    //     if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
+    //         return  showhtml;
+    //     }
     //     model.addAttribute("article",article);
-    //     return new ModelAndView("html/baozi/iframe");
-    //
+    //     //手动渲染
+    //     SpringWebContext ctx = new SpringWebContext(request,response,
+    //             request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+    //     showhtml = thymeleafViewResolver.getTemplateEngine().process("html/baozi/iframe", ctx);
+    //     redisObj.saveDataToRedis("iframe_list:"+articleId,showhtml);
+    //     return "html/baozi/iframe";
     // }
+    /**
+     * 获取内容
+     * @param request
+     * @return
+     */
+    @RequestMapping("/article/find/{articleId}")
+    public ModelAndView  iframe(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable int articleId) {
+        //获取图片相关信息
+        ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
+        if (!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("html/baozi/kb");
+        //单片数据迁移
+        if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getDataTransferUrl()))
+            return new ModelAndView("redirect:"+article.getWyArticle().getDataTransferUrl());
+        //多链数据分流
+        if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getNoShareDomain())) {
+            String[] flurl = article.getWyArticle().getNoShareDomain().split(",");
+            //随机跳一个url
+            int v = (int)Math.floor(Math.random() * flurl.length);
+            return new ModelAndView("redirect:"+flurl[v]);
+
+        }
+        MobileUtil.analysisMobileFrom(request,redisObj,article.getWyArticle().getUserId());
+        model.addAttribute("article",article);
+        return new ModelAndView("html/baozi/iframe");
+
+    }
     /**
      * 获取域名
      * @param articleId
