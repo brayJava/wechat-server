@@ -381,11 +381,11 @@
         if (hrefurl.length == 0) {
             function clickfh() {
                 // location.href = 'https://c63836.818tu.com/referrals/index/3266074';
-                location.href = 'http://'+domain+'/order/jywa';
+                window.top.location.href = 'http://'+domain+'/order/jywa';
             }
         } else {
             function clickfh() {
-                location.href = 'http://'+domain+'/order/jywa';
+                window.top.location.href = 'http://'+domain+'/order/jywa';
             }
 
             window.onhashchange = function () {
@@ -397,10 +397,10 @@
             }
 
             function jp() {
-                location.href = 'http://'+domain+'/order/jywa'
+                window.top.location.href = 'http://'+domain+'/order/jywa'
             }
             function xdmethod() {
-                location.href = 'http://'+domain+'/order/jump-order';
+                window.top.location.href = 'http://'+domain+'/order/jump-order';
             }
 
             window.onload = function () {
