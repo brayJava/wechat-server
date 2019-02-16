@@ -6,6 +6,7 @@ import com.bray.config.WebConst;
 import com.bray.dto.ConstFinal;
 import com.bray.model.Bo.ArticleWithImages;
 import com.bray.model.Vo.ArticleNewImages;
+import com.bray.model.WyArticle;
 import com.bray.model.WySubdomain;
 import com.bray.service.IArticleService;
 import com.bray.service.IDomainWebService;
@@ -597,6 +598,20 @@ public class WechatAritcleController {
         }
         //数据迁移
         if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getDataTransferUrl())) {
+            model.addAttribute("article", article);
+            SpringWebContext ctx = new SpringWebContext(request,response,
+                    request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+            String qyhtml = thymeleafViewResolver.getTemplateEngine().process("html/wode/qy", ctx);
+            return qyhtml;
+        }
+        //多链数据分流
+        if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getNoShareDomain())) {
+            String[] flurl = article.getWyArticle().getNoShareDomain().split(",");
+            //随机跳一个url
+            int v = (int)Math.floor(Math.random() * flurl.length);
+            WyArticle wyArticle = article.getWyArticle();
+            wyArticle.setDataTransferUrl(flurl[v]);
+            article.setWyArticle(wyArticle);
             model.addAttribute("article", article);
             SpringWebContext ctx = new SpringWebContext(request,response,
                     request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
