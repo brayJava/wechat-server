@@ -113,8 +113,10 @@ public class ArticleController {
         WyUser wyUser = (WyUser)session.getAttribute(ConstFinal.USER_NAME);
         List<WyArticle> wyArticles = iArticleService.queryAllEffectiveArticle(wyUser.getId());
         wyArticles.stream().forEach(wyArticle -> {
-            Object redisValueByKey = redisObj.getRedisValueByKey(ConstatFinal.ARTICLE_H5_2_VAL + ":" + wyArticle.getId());
-            wyArticle.setCjContentTemp(String.valueOf(redisValueByKey));
+            if(wyArticle.getIsPublish()) {
+                Object redisValueByKey = redisObj.getRedisValueByKey(ConstatFinal.ARTICLE_H5_2_VAL + ":" + wyArticle.getId());
+                wyArticle.setCjContentTemp(String.valueOf(redisValueByKey));
+            }
         });
 
         model.addAttribute("wyArticles",wyArticles);
