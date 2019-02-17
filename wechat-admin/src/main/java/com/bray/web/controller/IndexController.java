@@ -131,7 +131,7 @@ public class IndexController {
         // model.addAttribute("fromOtherList",fromOtherList);
         model.addAttribute("wyOrderLogs",wyOrderLogs);
         model.addAttribute("currentTime",new Date());
-        // model.addAttribute("orderlist",orderlist);
+        model.addAttribute("orderlist",orderlist);
     }
 
     /**
