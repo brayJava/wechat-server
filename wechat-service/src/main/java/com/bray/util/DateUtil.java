@@ -20,6 +20,7 @@ public class DateUtil {
     public static final String PATTERN_yyMMdd = "yy/MM/dd";
     public static final String PATTERN_yyyyMMddHHmmss = "yyyyMMddHHmmss";
     public static final String PATTERN_yyyyMMddHHmm = "yyyyMMddHHmm";
+    public static final String PATTERN_yyyyMMddHH = "yyyyMMddHH";
     public static final String PATTERN_yyyyMMddHHmmssSSS = "yyyyMMddHHmmssSSS";
     public static final String PATTERN_yyyy_MM_dd_HH_mm_ss = "yyyy-MM-dd HH:mm:ss";
     public static final String PATTERN_yyyy_MM_dd_HH_mm = "yyyy-MM-dd HH:mm";
