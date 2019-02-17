@@ -97,38 +97,38 @@ public class IndexController {
         Set<String> setstrs = new HashSet<>(); //总ip数量
         int  minsetIp = 0;//每分钟ip数量
         if("admin".equals(wyUser.getUsername())) {
-            fromAndroidList = redisObj.lrangeRedis("fromAndroid", 0, 30);
-            fromIphoneList = redisObj.lrangeRedis("fromIphone", 0, 10);
-            fromOtherList = redisObj.lrangeRedis("fromOther", 0, 10);
-            sizelAndroid = redisObj.lrangeRedis("fromAndroid", 0,1000000000);
-            sizelIphone = redisObj.lrangeRedis("fromIphone", 0,1000000000);
-            sizelOther = redisObj.lrangeRedis("fromOther", 0,1000000000);
+            // fromAndroidList = redisObj.lrangeRedis("fromAndroid", 0, 30);
+            // fromIphoneList = redisObj.lrangeRedis("fromIphone", 0, 10);
+            // fromOtherList = redisObj.lrangeRedis("fromOther", 0, 10);
+            // sizelAndroid = redisObj.lrangeRedis("fromAndroid", 0,1000000000);
+            // sizelIphone = redisObj.lrangeRedis("fromIphone", 0,1000000000);
+            // sizelOther = redisObj.lrangeRedis("fromOther", 0,1000000000);
             setstrs = redisObj.smembersRedis("request-ip");
-            fromIphoneList = redisObj.lrangeRedis("fromIphone", 0, 10);
+            // fromIphoneList = redisObj.lrangeRedis("fromIphone", 0, 10);
             minipCountList = redisObj.lrangeRedis("minipCountList", 0, 5);
             minsetIp = Integer.valueOf(String.valueOf(redisObj.getRedisValueByKey("minipCount")));
 
         } else {
-            fromAndroidList = redisObj.lrangeRedis("fromAndroid_"+wyUser.getId(), 0, 30);
-            fromIphoneList = redisObj.lrangeRedis("fromIphone_"+wyUser.getId(), 0, 10);
-            fromOtherList = redisObj.lrangeRedis("fromOther_"+wyUser.getId(), 0, 10);
-            sizelAndroid = redisObj.lrangeRedis("fromAndroid_"+wyUser.getId(), 0,1000000000);
-            sizelIphone = redisObj.lrangeRedis("fromIphone_"+wyUser.getId(), 0,1000000000);
-            sizelOther = redisObj.lrangeRedis("fromOther_"+wyUser.getId(), 0,1000000000);
+            // fromAndroidList = redisObj.lrangeRedis("fromAndroid_"+wyUser.getId(), 0, 30);
+            // fromIphoneList = redisObj.lrangeRedis("fromIphone_"+wyUser.getId(), 0, 10);
+            // fromOtherList = redisObj.lrangeRedis("fromOther_"+wyUser.getId(), 0, 10);
+            // sizelAndroid = redisObj.lrangeRedis("fromAndroid_"+wyUser.getId(), 0,1000000000);
+            // sizelIphone = redisObj.lrangeRedis("fromIphone_"+wyUser.getId(), 0,1000000000);
+            // sizelOther = redisObj.lrangeRedis("fromOther_"+wyUser.getId(), 0,1000000000);
             setstrs = redisObj.smembersRedis("request-ip-"+wyUser.getId());
             // minsetIp = Integer.valueOf(String.valueOf(redisObj.getRedisValueByKey("request-ip-min-"+wyUser.getId())));
         }
 
-        model.addAttribute("percentAndroid",numberFormat.format((float)Integer.valueOf(sizelAndroid.size()) / (float)(sizelAndroid.size()+sizelIphone.size()+sizelOther.size())*100));
-        model.addAttribute("percentIos",numberFormat.format((float)Integer.valueOf(sizelIphone.size()) / (float)(sizelAndroid.size()+sizelIphone.size()+sizelOther.size())*100));
-        model.addAttribute("percentOther",numberFormat.format((float)Integer.valueOf(sizelOther.size()) / (float)(sizelAndroid.size()+sizelIphone.size()+sizelOther.size())*100));
-        model.addAttribute("totalVisit",sizelAndroid.size()+sizelIphone.size());
+        // model.addAttribute("percentAndroid",numberFormat.format((float)Integer.valueOf(sizelAndroid.size()) / (float)(sizelAndroid.size()+sizelIphone.size()+sizelOther.size())*100));
+        // model.addAttribute("percentIos",numberFormat.format((float)Integer.valueOf(sizelIphone.size()) / (float)(sizelAndroid.size()+sizelIphone.size()+sizelOther.size())*100));
+        // model.addAttribute("percentOther",numberFormat.format((float)Integer.valueOf(sizelOther.size()) / (float)(sizelAndroid.size()+sizelIphone.size()+sizelOther.size())*100));
+        // model.addAttribute("totalVisit",sizelAndroid.size()+sizelIphone.size());
         model.addAttribute("realIp",setstrs.size());
         model.addAttribute("minsetIp",minsetIp);
         model.addAttribute("minipCountList",minipCountList);
-        model.addAttribute("fromAndroidList",fromAndroidList);
-        model.addAttribute("fromIphoneList",fromIphoneList);
-        model.addAttribute("fromOtherList",fromOtherList);
+        // model.addAttribute("fromAndroidList",fromAndroidList);
+        // model.addAttribute("fromIphoneList",fromIphoneList);
+        // model.addAttribute("fromOtherList",fromOtherList);
         model.addAttribute("wyOrderLogs",wyOrderLogs);
         model.addAttribute("currentTime",new Date());
         // model.addAttribute("orderlist",orderlist);

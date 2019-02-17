@@ -42,5 +42,7 @@ public interface ConstatFinal {
     //h5兔展文章
     String ARTICLE_H5_2_VAL = "article_h5_2_val";
 
+    String ALL_ARTICLES = "all_articles";
+
 
 }

@@ -16,12 +16,17 @@ import com.bray.service.IArticleService;
 import com.bray.util.ArticleUtil;
 import com.bray.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.thymeleaf.spring4.context.SpringWebContext;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -51,6 +56,12 @@ public class ArticleController {
 
     @Resource
     private RedisPoolCache redisObj;
+
+    @Autowired
+    private ThymeleafViewResolver thymeleafViewResolver;
+
+    @Autowired
+    private ApplicationContext applicationContext;
 
     @RequestMapping("/jump")
     public String jump() {
@@ -90,9 +101,15 @@ public class ArticleController {
      * 文章列表展示
      * @return
      */
-    @RequestMapping("/article-list")
-    public String articleList(Model model,HttpServletRequest httpServletRequest) {
-        HttpSession session = httpServletRequest.getSession();
+    @RequestMapping(value="/article-list",produces = "text/html;charset=utf-8")
+    @ResponseBody
+    public String articleList(Model model,HttpServletRequest request, HttpServletResponse response) {
+        //1.从redis缓存中查询
+        String showhtml = String.valueOf(redisObj.getRedisValueByKey("all_articles"));
+        if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
+            return  showhtml;
+        }
+        HttpSession session = request.getSession();
         WyUser wyUser = (WyUser)session.getAttribute(ConstFinal.USER_NAME);
         List<WyArticle> wyArticles = iArticleService.queryAllEffectiveArticle(wyUser.getId());
         wyArticles.stream().forEach(wyArticle -> {
@@ -109,7 +126,12 @@ public class ArticleController {
                 .format(DateTimeFormatter.ofPattern(DateUtil.PATTERN_yyyy_MM_dd_HH_mm_ss));
         model.addAttribute("startDate",startDate);
         model.addAttribute("endDate",endDate);
-        return "article/article-list";
+        //手动渲染
+        SpringWebContext ctx = new SpringWebContext(request,response,
+                request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+        showhtml = thymeleafViewResolver.getTemplateEngine().process("article/article-list", ctx);
+        redisObj.saveDataToRedis("all_articles",showhtml);
+        return showhtml;
     }
     /**
      * 文章修改
