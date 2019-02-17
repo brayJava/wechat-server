@@ -65,7 +65,7 @@ public class MobileUtil {
     public static void analysisMobileFrom(HttpServletRequest request, RedisPoolCache redisObj,int userId) {
         String ipAddr = MobileUtil.getIpAddr(request);
         log.info("访问真实ip为:"+ipAddr);
-        String ipdate = LocalDateTime.now().format(DateTimeFormatter.ofPattern(DateUtil.PATTERN_yyyyMMddHHmm));
+        String ipdate = LocalDateTime.now().format(DateTimeFormatter.ofPattern(DateUtil.PATTERN_yyyyMMddHH));
 
         //存储ip值(set存储，保证唯一)
         if(userId != 1)
