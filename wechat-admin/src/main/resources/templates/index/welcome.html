@@ -39,7 +39,6 @@
 
         </fieldset>
          <blockquote class="layui-elem-quote" style="font-size: 25px">
-                        访问总量: <span class="x-red" th:text="${totalVisit}"></span>&nbsp;&nbsp;&nbsp;&nbsp;
                         访问ip量: <span class="x-red" th:text="${realIp}"></span>&nbsp;&nbsp;&nbsp;&nbsp;
                         当前每分钟ip量: <span class="x-red" th:text="${minsetIp}"></span>
           </blockquote>
@@ -55,45 +54,6 @@
                 </table>
            </div>
           <br/>
-          <blockquote class="layui-elem-quote" style="font-size: 25px">
-                &nbsp;&nbsp;安卓设备占比:<span style="color: #c62b26;font-size: 25px" th:text="${percentAndroid}+'%' "></span>
-                &nbsp;&nbsp;苹果设备占比:<span style="color: #c62b26;font-size: 25px" th:text="${percentIos}+'%' "></span>
-                &nbsp;&nbsp;其他设备占比:<span style="color: #c62b26;font-size: 25px" th:text="${percentOther}+'%' "></span>
-          </blockquote>
-          <br/>
-          <div class="layui-field-box">
-              <table class="layui-table" lay-skin="line">
-                  <tbody th:if="${not #lists.isEmpty(fromAndroidList)}" th:each="androidStr,iterStat:${fromAndroidList}">
-                      <tr>
-                          <td >
-                              <span>安卓访问日志：</span> <span style="color: #331de3;font-size: 17px" th:text="${androidStr}"></span>
-                          </td>
-                      </tr>
-                  </tbody>
-              </table>
-          </div>
-          <div class="layui-field-box">
-            <table class="layui-table" lay-skin="line">
-                <tbody th:if="${not #lists.isEmpty(fromIphoneList)}" th:each="iosStr,iterStat:${fromIphoneList}">
-                    <tr>
-                        <td >
-                            <span> 苹果访问日志：</span> <span style="color: #331de3;font-size: 17px" th:text="${iosStr}"></span>
-                        </td>
-                    </tr>
-                </tbody>
-              </table>
-         </div>
-         <div class="layui-field-box">
-             <table class="layui-table" lay-skin="line">
-                 <tbody th:if="${not #lists.isEmpty(fromOtherList)}" th:each="otherStr,iterStat:${fromOtherList}">
-                     <tr>
-                         <td >
-                             <span> 其他访问日志：</span> <span style="color: #331de3;font-size: 17px" th:text="${otherStr}"></span>
-                         </td>
-                     </tr>
-                 </tbody>
-               </table>
-          </div>
         <fieldset class="layui-elem-field">
             <legend>开发团队</legend>
             <div class="layui-field-box">

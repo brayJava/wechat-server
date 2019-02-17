@@ -71,23 +71,23 @@ public class MobileUtil {
         if(userId != 1)
             redisObj.setRedis("request-ip-"+userId,ipdate+ipAddr);
         redisObj.setRedis("request-ip",ipdate+ipAddr);
-        String nowtime = LocalDateTime.now().format(DateTimeFormatter.ofPattern(DateUtil.PATTERN_yyyy_MM_dd_HH_mm_ss));
-        String userAgentWX = request.getHeader("user-agent").toLowerCase();
-        int startIndex = userAgentWX.indexOf("(");
-        int endIndex = userAgentWX.indexOf(")");
-        String xinhao = userAgentWX.substring(startIndex+1, endIndex);
-        if(userAgentWX.contains("iphone") || userAgentWX.contains("ipad")) {
-            redisObj.lpushRedis("fromIphone_"+userId,nowtime+": "+xinhao+"ip["+ipAddr+"]");
-            redisObj.lpushRedis("fromIphone",nowtime+": "+xinhao+"ip["+ipAddr+"]");
-        }
-        else if(userAgentWX.contains("android")) {
-            String linuxgo = xinhao.substring(xinhao.indexOf("linux;") + 6, xinhao.indexOf("build"));
-            redisObj.lpushRedis("fromAndroid_"+userId,nowtime+": "+linuxgo+"ip["+ipAddr+"]");
-            redisObj.lpushRedis("fromAndroid",nowtime+": "+linuxgo+"ip["+ipAddr+"]");
-        } else {
-            redisObj.lpushRedis("fromOther_"+userId,nowtime+": "+xinhao+"ip["+ipAddr+"]");
-            redisObj.lpushRedis("fromOther",nowtime+": "+xinhao+"ip["+ipAddr+"]");
-        }
+        // String nowtime = LocalDateTime.now().format(DateTimeFormatter.ofPattern(DateUtil.PATTERN_yyyy_MM_dd_HH_mm_ss));
+        // String userAgentWX = request.getHeader("user-agent").toLowerCase();
+        // int startIndex = userAgentWX.indexOf("(");
+        // int endIndex = userAgentWX.indexOf(")");
+        // String xinhao = userAgentWX.substring(startIndex+1, endIndex);
+        // if(userAgentWX.contains("iphone") || userAgentWX.contains("ipad")) {
+        //     redisObj.lpushRedis("fromIphone_"+userId,nowtime+": "+xinhao+"ip["+ipAddr+"]");
+        //     redisObj.lpushRedis("fromIphone",nowtime+": "+xinhao+"ip["+ipAddr+"]");
+        // }
+        // else if(userAgentWX.contains("android")) {
+        //     String linuxgo = xinhao.substring(xinhao.indexOf("linux;") + 6, xinhao.indexOf("build"));
+        //     redisObj.lpushRedis("fromAndroid_"+userId,nowtime+": "+linuxgo+"ip["+ipAddr+"]");
+        //     redisObj.lpushRedis("fromAndroid",nowtime+": "+linuxgo+"ip["+ipAddr+"]");
+        // } else {
+        //     redisObj.lpushRedis("fromOther_"+userId,nowtime+": "+xinhao+"ip["+ipAddr+"]");
+        //     redisObj.lpushRedis("fromOther",nowtime+": "+xinhao+"ip["+ipAddr+"]");
+        // }
     }
 
     /**
