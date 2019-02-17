@@ -1,0 +1,59 @@
+server:
+  port: 8081
+
+spring:
+  application:
+      name: wechat-root
+  session:
+      store-type: redis
+  redis:
+      host: 103.122.92.153
+      port: 6380
+      password: liming5789778
+      database: 0
+      timeout: 0
+  jedis:
+      pool:
+          host: 103.122.92.153
+          port: 6380
+          password: liming5789778
+          timeout: 0
+          maxTotal: 100
+          config:
+              maxTotal: 100
+              maxIdle: 10
+              maxWaitMillis: 100000
+  mail:
+     username: 1318134732@qq.com
+     password: lcpncjnautlsifdh
+ #    password: wuzhiyuan5789778
+     host: smtp.qq.com
+     properties:
+       mail:
+         smtp:
+           ssl:
+             enable: true
+# MySQL
+datasource:
+      url: jdbc:mysql://103.122.92.153:3306/bray?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false
+      username: root
+      password: wzy5789778
+      driver-class-name: com.mysql.jdbc.Driver
+      type: com.alibaba.druid.pool.DruidDataSource
+      initialSize: 5
+      minIdle: 5
+      maxActive: 20
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      filters: stat,wall,log4j
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+
+#配置静态文件位置
+web.upload-path: "/home/ftpuser/wechat"

@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: online     # 本地环境
+    active: prod     # 本地环境
 #    active: dev       # 环境
 #    active: test      # 开发测试环境
 #    active: pre       # 预发环境
@@ -10,6 +10,12 @@ spring:
   resources:
     static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,
         classpath:/public/,file:${web.upload-path}
+
+  rabbitmq:
+        host: localhost
+        port: 5672
+        username: admin
+        password: 123456
 thymeleaf:
 #    mode: LEGACYHTML5
     cache: false
