@@ -1,33 +1,23 @@
 package com.bray.web.controller;
-import com.alibaba.fastjson.JSONObject;
+
 import com.bray.aop.cache.RedisPoolCache;
 import com.bray.dto.OrderLogType;
-import com.bray.model.Bo.RestResponseBo;
-import com.bray.model.Vo.OrderModelVo;
 import com.bray.service.IOrderWebService;
 import com.bray.util.HttpRequestDeviceUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.spring4.context.SpringWebContext;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
-
 import javax.annotation.Resource;
-import javax.mail.MessagingException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Properties;
 
 /**
  * @Author:wuzhiyuan

@@ -21,27 +21,27 @@ var pic;
 var total;
 var music_url;
 var move_url;
-if(article.wyArticle.noShareDomain != '') {
-    var ranNum="";
-    var ranNum1="";
-    var $chars = 'ABCDEFGHJKMNPQRSTWXYZ1234567890abcdefhijkmnprstwxyz';
-    var maxPos = $chars.length;
-    for (var i=0;i < 10;i++){
-        ranNum+=Math.floor(Math.random()*10);
-    }
-    for (var i=0;i < 8;i++){
-        ranNum1 += $chars.charAt(Math.floor(Math.random() * maxPos));
-    }
-    var currentDomain=document.domain;
-    var contentUrl = article.wyArticle.noShareDomain;
-    var curfirst=currentDomain.split(".")[1];
-    var contentfirst=contentUrl.split(".")[0];
-    var jumpurl=document.referrer;
-    if(contentfirst==curfirst && jumpurl.length!==0){}else{
-        // window.location.href = 'http://nff'+ranNum+'wzyz.'+contentUrl+'/jzff/newff/'+article.wyArticle.id+"?cid="+Date.parse(new Date());
-        window.location.href = 'http://'+ranNum1+'.'+contentUrl+'/1111/5555/'+article.wyArticle.id+"?cid="+Date.parse(new Date());
-    }
-}
+// if(article.wyArticle.noShareDomain != '') {
+//     var ranNum="";
+//     var ranNum1="";
+//     var $chars = 'ABCDEFGHJKMNPQRSTWXYZ1234567890abcdefhijkmnprstwxyz';
+//     var maxPos = $chars.length;
+//     for (var i=0;i < 10;i++){
+//         ranNum+=Math.floor(Math.random()*10);
+//     }
+//     for (var i=0;i < 8;i++){
+//         ranNum1 += $chars.charAt(Math.floor(Math.random() * maxPos));
+//     }
+//     var currentDomain=document.domain;
+//     var contentUrl = article.wyArticle.noShareDomain;
+//     var curfirst=currentDomain.split(".")[1];
+//     var contentfirst=contentUrl.split(".")[0];
+//     var jumpurl=document.referrer;
+//     if(contentfirst==curfirst && jumpurl.length!==0){}else{
+//         // window.location.href = 'http://nff'+ranNum+'wzyz.'+contentUrl+'/jzff/newff/'+article.wyArticle.id+"?cid="+Date.parse(new Date());
+//         window.location.href = 'http://'+ranNum1+'.'+contentUrl+'/1111/5555/'+article.wyArticle.id+"?cid="+Date.parse(new Date());
+//     }
+// }
 window.PREFIX_URL = "http://" + window.location.host + "/";
 content = article.contentHtml;
 title1 = article.wyArticle.title;
