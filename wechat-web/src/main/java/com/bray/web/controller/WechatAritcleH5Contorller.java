@@ -124,8 +124,11 @@ public class WechatAritcleH5Contorller {
         // }
         //迁移后记录
         MobileUtil.analysisMobileFrom(request,redisObj,article.getWyArticle().getUserId());
+        long startTime = Clock.systemDefaultZone().millis();
         String showhtml = String.valueOf(redisObj.getRedisValueByKey(redisType+":"+articleId));
         if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
+            long endTime = Clock.systemDefaultZone().millis();
+            log.info("h5场景后台访问时间====>>"+(endTime-startTime)+"ms");
             return  showhtml;
         }
         //手动渲染
