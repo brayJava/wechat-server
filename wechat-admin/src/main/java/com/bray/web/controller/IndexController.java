@@ -165,6 +165,8 @@ public class IndexController {
         model.addAttribute("realIp",setstrs.size());
         model.addAttribute("minsetIp",minsetIp);
         model.addAttribute("minipCountList",minipCountList);
+        List<WyOrderLog> wyOrderLogs = iOrderAdminService.queryOrderLogData();
+        model.addAttribute("wyOrderLogs",wyOrderLogs);
         //手动渲染
         SpringWebContext ctx = new SpringWebContext(request,response,
                 request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );

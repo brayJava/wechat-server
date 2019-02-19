@@ -27,6 +27,17 @@
             </table>
         </div>
      </fieldset>
+     <div class="layui-field-box">
+            <table class="layui-table" lay-skin="line">
+                <tbody th:if="${not #lists.isEmpty(wyOrderLogs)}" th:each="wyOrderLog,iterStat:${wyOrderLogs}">
+                    <tr>
+                        <td >
+                            <span> 点击下单界面时间：</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><span style="color: #1AA093" th:text="${#dates.format(wyOrderLog.createTime,'yyyy/MM/dd HH:mm:ss')}"></span></strong>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+     </div>
    <blockquote class="layui-elem-quote" style="font-size: 25px">
                           访问ip总量: <span class="x-red" th:text="${realIp}"></span>&nbsp;&nbsp;
                           当前ip量: <span class="x-red" th:text="${minsetIp}"></span>
