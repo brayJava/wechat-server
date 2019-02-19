@@ -119,7 +119,8 @@
    var article = [[${article}]];
     $('title').html(article.title);
     $("#statistical").empty();
-    $("#statistical").html(article.statistical);
+    $("#statistical").append(article.statistical);
+  /*<![CDATA[*/
     var domain = "";
     $.ajax({
         url: '/domain/safe-domain',
