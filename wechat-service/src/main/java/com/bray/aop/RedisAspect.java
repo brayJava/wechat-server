@@ -45,7 +45,7 @@ public class RedisAspect {
         if(!Objects.isNull(obj)) {
             logger.info(">>>>>>>>>>>>>>>>开始从redis读取数据>>>>>>>>>>>>>>");
             logger.info(">>>>>>>>>>>>>>>>Redis的KEY值为:{}",redisKey);
-            logger.info(">>>>>>>>>>>>>>>>Redis的VALUE值为:{}",obj.toString());
+            // logger.info(">>>>>>>>>>>>>>>>Redis的VALUE值为:{}",obj.toString());
             logger.info(">>>>>>>>>>>>>>>>从redis读取数据完毕>>>>>>>>>>>>>>");
             long endTime = Clock.systemDefaultZone().millis();
             logger.info(">>>>>>>>>>>>>>>>从redis读取数据所耗时 {}ms",endTime-startTime);
@@ -67,7 +67,7 @@ public class RedisAspect {
             logger.info(">>>>>>>>>>>>>>>>开始从mysql读取数据>>>>>>>>>>>>>>");
             logger.info(">>>>>>>>>>>>>>>>数据成功保存到Redis缓存!!!>>>>>>>>>>>>>>>>");
             logger.info("Redis的KEY值:"+redisKey);
-            logger.info("Redis的VALUE值:"+obj.toString());
+            // logger.info("Redis的VALUE值:"+obj.toString());
             long endMysqlTime = Clock.systemDefaultZone().millis();
             logger.info(">>>>>>>>>>>>>>>>将数据存入redis耗时 {}ms",endMysqlTime-startTime);
         }
