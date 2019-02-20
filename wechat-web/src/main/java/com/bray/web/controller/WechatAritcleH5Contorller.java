@@ -123,7 +123,7 @@ public class WechatAritcleH5Contorller {
         //     return transferUrl(htmlpath,request, model, response, article);
         // }
         //迁移后记录
-        // MobileUtil.analysisMobileFrom(request,redisObj,article.getWyArticle().getUserId());
+        MobileUtil.analysisMobileFrom(request,redisObj,article.getWyArticle().getUserId());
         String showhtml = String.valueOf(redisObj.getRedisValueByKey(redisType+":"+articleId));
         if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
             return  showhtml;
