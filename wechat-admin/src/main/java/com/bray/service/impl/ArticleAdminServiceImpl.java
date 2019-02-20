@@ -3,6 +3,7 @@ package com.bray.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bray.aop.cache.RedisPoolCache;
+import com.bray.config.MemcachedRunner;
 import com.bray.dto.ConstFinal;
 import com.bray.dto.ConstatFinal;
 import com.bray.dto.EffectiveType;
@@ -18,6 +19,7 @@ import com.bray.service.IArticleAdminService;
 import com.bray.util.GUIDUtil;
 import com.bray.util.TStringUtil;
 import lombok.extern.slf4j.Slf4j;
+import net.spy.memcached.MemcachedClient;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -27,6 +29,7 @@ import javax.annotation.Resource;
 import javax.sql.rowset.serial.SerialBlob;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
+import java.time.Clock;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -181,8 +184,9 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
         // if(!StringUtils.isEmpty(articleOtherModelVo.getCjContent()))
         //     wyArticle.setCjContent(articleOtherModelVo.getCjContent().getBytes());
         wyArticle.setUpdateTime(new Date());
-
+        //将h5场景内容放入redis中
         redisCache.updateDataOfRedis(ConstatFinal.ARTICLE_H5_2_VAL+":"+articleOtherModelVo.getArticleId(),articleOtherModelVo.getCjContent());
+        this.articleRefresh(articleOtherModelVo.getArticleId(),"");
         try {
             wyArticleMapper.updateByPrimaryKeySelective(wyArticle);
         } catch (RuntimeException e) {
