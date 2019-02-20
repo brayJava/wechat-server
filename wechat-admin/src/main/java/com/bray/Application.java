@@ -27,7 +27,7 @@ public class Application {
     @Bean
      public EmbeddedServletContainerCustomizer containerCustomizer(){
          return container -> {
-                 container.setSessionTimeout(60*30);/*单位为S*/
+                 container.setSessionTimeout(60*60*5);/*单位为S*/
          };
      }
 }
