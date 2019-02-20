@@ -33,14 +33,9 @@ spring:
          smtp:
            ssl:
              enable: true
-  rabbitmq:
-      host: localhost
-      port: 5672
-      username: admin
-      password: 123456
 # MySQL
 datasource:
-      url: jdbc:mysql://localhost:3306/bray?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false
+      url: jdbc:mysql://103.122.92.153:3306/bray?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false
       username: root
       password: wzy5789778
       driver-class-name: com.mysql.jdbc.Driver
