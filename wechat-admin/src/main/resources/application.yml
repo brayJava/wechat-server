@@ -1,3 +1,8 @@
+# 本地环境
+#    active: dev       # 环境
+#    active: test      # 开发测试环境
+#    active: pre       # 预发环境
+#    active: online    # 生产环境
 spring:
   profiles:
     active: online
@@ -12,12 +17,6 @@ spring:
     multipart:
       max-file-size: 10000000kb
       max-request-size: 10000000kb
-# 本地环境
-#    active: dev       # 环境
-#    active: test      # 开发测试环境
-#    active: pre       # 预发环境
-#    active: online    # 生产环境
-
 # health monitor
 info:
   app:
