@@ -31,7 +31,9 @@
       </div>
       <xblock>
         <button class="layui-btn layui-btn-danger" onclick="loadtable()">订单表格下载</button>
-        <span class="x-right" style="line-height:40px">共有数据：88 条</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;共有数据&nbsp;<span th:text="${#lists.size(wyOrders)}" style="font-size: 20px;color: #c81623" id="count">0</span> &nbsp;条 &nbsp;&nbsp;
+        总金额为：￥&nbsp;<span style="font-size: 20px;color: #c81623" th:text="${money}" id="money">0</span>&nbsp;元
+        &nbsp;&nbsp;&nbsp;&nbsp;预估收益：￥&nbsp;<span style="font-size: 20px;color: #c81623" th:text="${money * 0.75}" id="expectMoney">0</span>&nbsp;元
       </xblock>
 
       <table class="layui-table">
@@ -73,17 +75,7 @@
           </tr>
         </tbody>
       </table>
-      <div class="page">
-        <div>
-          <a class="prev" href="">&lt;&lt;</a>
-          <a class="num" href="">1</a>
-          <span class="current">2</span>
-          <a class="num" href="">3</a>
-          <a class="num" href="">489</a>
-          <a class="next" href="">&gt;&gt;</a>
-        </div>
-      </div>
-         <a class="loadfile" href=""></a>
+      <a class="loadfile" href=""></a>
     </div>
     <script>
       layui.use('laydate', function(){
@@ -190,11 +182,14 @@
                       url: '/order/order-search',
                       async: false,
                       data: data.field,
-                      dataType: "html",
+                      dataType: "json",
                       type: 'post',
                       success: function (datar) {
                          $("#showhtml").html('');
-                         $("#showhtml").html(datar);
+                         $("#showhtml").html(datar.showHtml);
+                         $("#count").text(datar.count);
+                         $("#money").text(datar.money);
+                         $("#expectMoney").text(datar.money * 0.75);
                       },
                       error: function (XmlHttpRequest, textStatus, errorThrown) {
                           layer.msg('error!', {icon: 1, time: 1000});

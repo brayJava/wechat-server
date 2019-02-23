@@ -14,6 +14,8 @@ import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
+
 /**
  * @Author:wuzhiyuan
  * @Description: 订单接口实现类
@@ -98,6 +100,22 @@ public class OrderServiceImpl implements IOrderService<WyOrder>{
         List<XFOrderModule> xfOrderModules = wyOrderMapper.selectOfOrders(startDate,lastDate);
         return xfOrderModules;
 
+    }
+    /**
+     * 查询总金额
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    @Override
+    public double queryMoney(String startTime,String endTime) {
+        String startDate = DateUtil.getStartDate(startTime);
+        String lastDate = DateUtil.getLastDate(endTime);
+        double money = wyOrderMapper.queryMoney(startDate, lastDate);
+        if(Objects.isNull(money)) {
+            money = 0.00;
+        }
+        return money;
     }
 
 }

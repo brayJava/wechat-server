@@ -5,6 +5,7 @@ import com.bray.aop.cache.RedisPoolCache;
 import com.bray.excel.handler.ModuleToExcel;
 import com.bray.excel.modules.XFOrderModule;
 import com.bray.model.Bo.RestResponseBo;
+import com.bray.model.Vo.OrderDetailVo;
 import com.bray.model.Vo.SearchModelVo;
 import com.bray.model.WyOrder;
 import com.bray.service.IOrderService;
@@ -63,6 +64,8 @@ public class OrderController {
         model.addAttribute("wyOrders",wyOrders);
         model.addAttribute("startTime",DateUtil.formatDate(DateUtil.parseDate(startDate),DateUtil.PATTERN_yyyy_MM_dd));
         model.addAttribute("endTime",DateUtil.formatDate(DateUtil.parseDate(endDate),DateUtil.PATTERN_yyyy_MM_dd));
+        double money = iOrderService.queryMoney(startDate, endDate);
+        model.addAttribute("money",money);
         log.info("-------订单数据为：{}", JSONObject.toJSONString(wyOrders));
         return "order/order-list";
     }
@@ -77,15 +80,21 @@ public class OrderController {
      * @return
      */
     @PostMapping("/order-search")
-    public String articleSearch(HttpServletRequest request, HttpServletResponse response, SearchModelVo searchModelVo, Model model) {
+    @ResponseBody
+    public OrderDetailVo articleSearch(HttpServletRequest request, HttpServletResponse response, SearchModelVo searchModelVo, Model model) {
 
         List<WyOrder> wyOrders = (List<WyOrder>)iOrderService.queryOrderByCondition(searchModelVo);
+        double money = iOrderService.queryMoney(searchModelVo.getStart(), searchModelVo.getEnd());
         model.addAttribute("wyOrders", wyOrders);
         //手动渲染
-        // SpringWebContext ctx = new SpringWebContext(request,response,
-        //         request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
-        // String showhtml = thymeleafViewResolver.getTemplateEngine().process("order/order-body", ctx);
-        return "order/order-body";
+        SpringWebContext ctx = new SpringWebContext(request,response,
+                request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+        String showhtml = thymeleafViewResolver.getTemplateEngine().process("order/order-body", ctx);
+        OrderDetailVo orderDetailVo = new OrderDetailVo();
+        orderDetailVo.setShowHtml(showhtml);
+        orderDetailVo.setMoney(money);
+        orderDetailVo.setCount(wyOrders.size());
+        return orderDetailVo;
     }
     @RequestMapping("/loadfile")
     @ResponseBody

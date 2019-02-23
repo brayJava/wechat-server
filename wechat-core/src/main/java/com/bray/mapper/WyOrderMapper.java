@@ -138,6 +138,12 @@ public interface WyOrderMapper {
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(WyOrder record);
+    /**
+     * 下载excel表格
+     * @param startTime
+     * @param endTime
+     * @return
+     */
     @Select({
             " SELECT ",
             " '' as orderId, ",
@@ -200,4 +206,19 @@ public interface WyOrderMapper {
             @Result(column="kczd", property="kczd", jdbcType=JdbcType.VARCHAR)
     })
     List<XFOrderModule> selectOfOrders(@Param("startTime") String startTime,@Param("endTime") String endTime);
+    /**
+     * 查询收益
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    @Select({
+            " SELECT " ,
+            " sum(price) " ,
+            " FROM " ,
+            " wy_order " ,
+            " WHERE " ,
+            " create_time >= #{startTime,jdbcType=VARCHAR} and create_time <= #{endTime,jdbcType=VARCHAR} and status in (1) "
+    })
+    double queryMoney(@Param("startTime") String startTime,@Param("endTime") String endTime);
 }

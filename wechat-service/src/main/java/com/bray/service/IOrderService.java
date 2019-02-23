@@ -38,6 +38,13 @@ public interface IOrderService<T> {
      * @return
      */
     List<XFOrderModule> excelList(String startTime, String endTime);
+    /**
+     * excel列表
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    double queryMoney(String startTime, String endTime);
 
 
 }
