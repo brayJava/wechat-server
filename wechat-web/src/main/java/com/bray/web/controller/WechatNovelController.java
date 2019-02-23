@@ -108,5 +108,112 @@ public class WechatNovelController {
         redisObj.saveDataToRedis("novel:nofh-jdqb",showhtml);
         return showhtml;
     }
-
+    /**
+     * 最佳女婿小说文案跳转
+     */
+    @RequestMapping(value="/zjnx",produces = "text/html;charset=utf-8")
+    @ResponseBody
+    String jumpzjnx(HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
+        String showhtml = String.valueOf(redisObj.getRedisValueByKey("novel:zjnx"));
+        if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
+            return  showhtml;
+        }
+        //手动渲染
+        SpringWebContext ctx = new SpringWebContext(request,response,
+                request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+        showhtml = thymeleafViewResolver.getTemplateEngine().process("novel/zjnx", ctx);
+        redisObj.saveDataToRedis("novel:zjnx",showhtml);
+        return showhtml;
+    }
+    /**
+     * 最佳女婿小说文案跳转-无返回
+     */
+    @RequestMapping(value="/nofh-zjnx",produces = "text/html;charset=utf-8")
+    @ResponseBody
+    String jumpNoFHzjnx(HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
+        String showhtml = String.valueOf(redisObj.getRedisValueByKey("novel:nofh-zjnx"));
+        if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
+            return  showhtml;
+        }
+        //手动渲染
+        SpringWebContext ctx = new SpringWebContext(request,response,
+                request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+        showhtml = thymeleafViewResolver.getTemplateEngine().process("novel/nofh-zjnx", ctx);
+        redisObj.saveDataToRedis("novel:nofh-zjnx",showhtml);
+        return showhtml;
+    }
+    /**
+     * 终极兵神小说文案跳转
+     */
+    @RequestMapping(value="/zjbs",produces = "text/html;charset=utf-8")
+    @ResponseBody
+    String jumpzjbs(HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
+        String showhtml = String.valueOf(redisObj.getRedisValueByKey("novel:zjbs"));
+        if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
+            return  showhtml;
+        }
+        //手动渲染
+        SpringWebContext ctx = new SpringWebContext(request,response,
+                request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+        showhtml = thymeleafViewResolver.getTemplateEngine().process("novel/zjbs", ctx);
+        redisObj.saveDataToRedis("novel:zjbs",showhtml);
+        return showhtml;
+    }
+    /**
+     * 终极兵神小说文案跳转-无返回
+     */
+    @RequestMapping(value="/nofh-zjbs",produces = "text/html;charset=utf-8")
+    @ResponseBody
+    String jumpNoFHzjbs(HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
+        String showhtml = String.valueOf(redisObj.getRedisValueByKey("novel:nofh-zjbs"));
+        if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
+            return  showhtml;
+        }
+        //手动渲染
+        SpringWebContext ctx = new SpringWebContext(request,response,
+                request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+        showhtml = thymeleafViewResolver.getTemplateEngine().process("novel/nofh-zjbs", ctx);
+        redisObj.saveDataToRedis("novel:nofh-zjbs",showhtml);
+        return showhtml;
+    }
+    /**
+     * 古术医修小说文案跳转
+     */
+    @RequestMapping(value="/gsyx",produces = "text/html;charset=utf-8")
+    @ResponseBody
+    String jumpgsyx(HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
+        String showhtml = String.valueOf(redisObj.getRedisValueByKey("novel:gsyx"));
+        if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
+            return  showhtml;
+        }
+        //手动渲染
+        SpringWebContext ctx = new SpringWebContext(request,response,
+                request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+        showhtml = thymeleafViewResolver.getTemplateEngine().process("novel/gsyx", ctx);
+        redisObj.saveDataToRedis("novel:gsyx",showhtml);
+        return showhtml;
+    }
+    /**
+     * 古术医修小说文案跳转-无返回
+     */
+    @RequestMapping(value="/nofh-gsyx",produces = "text/html;charset=utf-8")
+    @ResponseBody
+    String jumpNoFHgsyx(HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
+        String showhtml = String.valueOf(redisObj.getRedisValueByKey("novel:nofh-gsyx"));
+        if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
+            return  showhtml;
+        }
+        //手动渲染
+        SpringWebContext ctx = new SpringWebContext(request,response,
+                request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+        showhtml = thymeleafViewResolver.getTemplateEngine().process("novel/nofh-gsyx", ctx);
+        redisObj.saveDataToRedis("novel:nofh-gsyx",showhtml);
+        return showhtml;
+    }
 }
