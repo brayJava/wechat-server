@@ -22,6 +22,9 @@
                     </tbody>
                 </table>
             </div>
+             <blockquote class="layui-elem-quote" style="font-size: 25px">
+                      订单日志列表: <span style="color: #c09853;cursor:pointer" onclick="clearOrder()">&nbsp;&nbsp;清除订单信息</span>
+             </blockquote>
              <div class="layui-field-box">
                 <table class="layui-table" lay-skin="line">
                     <tbody th:if="${not #lists.isEmpty(orderlist)}" th:each="order,iterStat:${orderlist}">
@@ -39,7 +42,7 @@
 
         </fieldset>
          <blockquote class="layui-elem-quote" style="font-size: 25px">
-                        访问ip量: <span class="x-red" th:text="${realIp}"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        访问ip量: <span class="x-red" th:text="${realIp}"></span>&nbsp;&nbsp; <span style="color: #c09853;cursor:pointer" onclick="clearIps()">清空</span>&nbsp;&nbsp;&nbsp;&nbsp;
                         当前每分钟ip量: <span class="x-red" th:text="${minsetIp}"></span>
           </blockquote>
           <div class="layui-field-box">
@@ -47,7 +50,7 @@
                   <tbody th:if="${not #lists.isEmpty(minipCountList)}" th:each="ipStr,iterStat:${minipCountList}">
                       <tr>
                           <td >
-                              <span> 每分钟ip统计：</span> <span style="color: #331de3;font-size: 17px" th:text="${ipStr}"></span>
+                              <span> 每分钟ip统计：</span> <span style="color: #1AA093;font-size: 17px" th:text="${ipStr}"></span>
                           </td>
                       </tr>
                   </tbody>
@@ -73,5 +76,42 @@
         </fieldset>
         <blockquote class="layui-elem-quote layui-quote-nm">感谢layui,百度Echarts,jquery,本系统由x-admin提供技术支持。</blockquote>
     </div>
+    <script>
+        function clearIps() {
+             $.ajax({
+                    url: '/index/clear-ip',
+                    async: false,
+                    dataType: "json",
+                    type: 'post',
+                    success: function (data) {
+                        // alert('chnegogn')
+                        layer.msg("清除完毕...", {icon: 1}, function (index) {
+                            layer.close(index);
+                            //关闭当前frame
+                            parent.layer.close(index);
+                            window.parent.location.reload(true);
+                        });
+                    },
+                });
+        }
+        function clearOrder() {
+             $.ajax({
+                    url: '/index/clear-order',
+                    async: false,
+                    dataType: "json",
+                    type: 'post',
+                    success: function (data) {
+                        // alert('chnegogn')
+                        layer.msg("清除完毕...", {icon: 1}, function (index) {
+                            layer.close(index);
+                            //关闭当前frame
+                            parent.layer.close(index);
+                            window.parent.location.reload(true);
+                        });
+                    },
+                });
+        }
+
+</script>
     </body>
 </html>

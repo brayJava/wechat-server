@@ -3,6 +3,7 @@ package com.bray.web.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.bray.aop.cache.RedisPoolCache;
 import com.bray.dto.ConstFinal;
+import com.bray.model.Bo.RestResponseBo;
 import com.bray.model.Vo.OrderModelVo;
 import com.bray.model.WyOrderLog;
 import com.bray.model.WyUser;
@@ -105,7 +106,7 @@ public class IndexController {
             // sizelOther = redisObj.lrangeRedis("fromOther", 0,1000000000);
             setstrs = redisObj.smembersRedis("request-ip");
             // fromIphoneList = redisObj.lrangeRedis("fromIphone", 0, 10);
-            minipCountList = redisObj.lrangeRedis("minipCountList", 0, 5);
+            minipCountList = redisObj.lrangeRedis("minipCountList", 0, 10);
             minsetIp = Integer.valueOf(String.valueOf(redisObj.getRedisValueByKey("minipCount")));
 
         } else {
@@ -173,5 +174,32 @@ public class IndexController {
         String html = thymeleafViewResolver.getTemplateEngine().process("order/order-log", ctx);
         return html;
     }
-
+    /**
+     * 清除reids中ip的量
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/clear-ip")
+    @ResponseBody
+    public RestResponseBo clearIp(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        WyUser wyUser = (WyUser) session.getAttribute(ConstFinal.USER_NAME);
+        if(!Objects.isNull(wyUser) && "admin".equals(wyUser.getUsername())) {
+            redisObj.deleteDataOfRedis("request-ip");
+        } else if (!Objects.isNull(wyUser)) {
+            redisObj.deleteDataOfRedis("request-ip-"+wyUser.getUsername());
+        }
+        return RestResponseBo.ok();
+    }
+    /**
+     * 清除reids中订单的量
+     * @return
+     */
+    @RequestMapping("/clear-order")
+    @ResponseBody
+    public RestResponseBo clearOrder() {
+        redisObj.deleteDataOfRedis("orderlist");
+        return RestResponseBo.ok();
+    }
 }
