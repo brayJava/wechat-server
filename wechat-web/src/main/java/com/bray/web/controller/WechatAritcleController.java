@@ -143,8 +143,8 @@ public class WechatAritcleController {
     @RequestMapping("/6666/{articleId}")
     public ModelAndView shareConent(HttpServletRequest request, Model model,@PathVariable int articleId) {
         ModelAndView modelAndView = new ModelAndView();
-        if ( !HttpRequestDeviceUtils.isMobileDevice(request) )
-            return new ModelAndView("redirect:http://www.baidu.com");
+        // if ( !HttpRequestDeviceUtils.isMobileDevice(request) )
+        //     return new ModelAndView("redirect:http://www.baidu.com");
         ArticleWithImages articleWithImages = iArticleService.queryCurrentArticle(articleId);
         if(!Objects.isNull(articleWithImages) && !StringUtils.isEmpty(articleWithImages.getWyArticle().getDataTransferUrl()))
             return new ModelAndView("redirect:"+articleWithImages.getWyArticle().getDataTransferUrl());
@@ -452,10 +452,39 @@ public class WechatAritcleController {
     public ModelAndView wxy(HttpServletRequest request, HttpServletResponse response, Model model,int id) {
         ModelAndView modelAndView = new ModelAndView();
 
-        if (!HttpRequestDeviceUtils.isMobileDevice(request))
-            return new ModelAndView("redirect:http://www.baidu.com");
+        // if (!HttpRequestDeviceUtils.isMobileDevice(request))
+        //     return new ModelAndView("redirect:http://www.baidu.com");
         modelAndView.setViewName("html/h5/wxy");
         return modelAndView;
+
+    }
+    /**
+     * 获取内容
+     * @param request
+     * @return
+     */
+    @RequestMapping("/getArticle/{articleId}")
+    @ResponseBody
+    public ArticleWithImages newlove(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable int articleId) {
+
+        //获取图片相关信息
+        ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
+        //取缓存
+        String html = String.valueOf(redisObj.getRedisValueByKey("images_content:"+articleId));
+        if(StringUtils.isEmpty(html) || "null".equals(html)) {
+            model.addAttribute("article", article);
+            log.info("返回连接：{}",article.getWyArticle().getGobackUrl());
+            //手动渲染
+            SpringWebContext ctx = new SpringWebContext(request,response,
+                    request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+            html = thymeleafViewResolver.getTemplateEngine().process("html/wode/image_content", ctx);
+            redisObj.saveDataToRedis("images_content:"+articleId,html);
+        }
+        article.setContentHtml(html);
+        String noShareDomain = article.getWyArticle().getNoShareDomain();
+        noShareDomain = getString(noShareDomain);
+        article.getWyArticle().setNoShareDomain(noShareDomain);
+        return article;
 
     }
     /**
