@@ -85,7 +85,8 @@
                     type: 'post',
                     success: function (data) {
                         // alert('chnegogn')
-                        layer.msg("清除完毕...", {icon: 1}, function (index) {
+                        layer.confirm("是否清除ip?", function (index) {
+                            layer.msg('已清除...',{icon:1,time:1000});
                             layer.close(index);
                             //关闭当前frame
                             parent.layer.close(index);
@@ -102,7 +103,8 @@
                     type: 'post',
                     success: function (data) {
                         // alert('chnegogn')
-                        layer.msg("清除完毕...", {icon: 1}, function (index) {
+                        layer.confirm("是否清除订单记录?", function (index) {
+                            layer.msg('已清除...',{icon:1,time:1000});
                             layer.close(index);
                             //关闭当前frame
                             parent.layer.close(index);
