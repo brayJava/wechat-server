@@ -78,6 +78,7 @@
     </div>
     <script>
         function clearIps() {
+          layer.confirm("是否清除ip?", function (index) {
              $.ajax({
                     url: '/index/clear-ip',
                     async: false,
@@ -85,17 +86,18 @@
                     type: 'post',
                     success: function (data) {
                         // alert('chnegogn')
-                        layer.confirm("是否清除ip?", function (index) {
                             layer.msg('已清除...',{icon:1,time:1000});
                             layer.close(index);
                             //关闭当前frame
                             parent.layer.close(index);
                             window.parent.location.reload(true);
-                        });
                     },
-                });
+               });
+          });
+
         }
         function clearOrder() {
+           layer.confirm("是否清除订单记录?", function (index) {
              $.ajax({
                     url: '/index/clear-order',
                     async: false,
@@ -103,15 +105,14 @@
                     type: 'post',
                     success: function (data) {
                         // alert('chnegogn')
-                        layer.confirm("是否清除订单记录?", function (index) {
                             layer.msg('已清除...',{icon:1,time:1000});
                             layer.close(index);
                             //关闭当前frame
                             parent.layer.close(index);
                             window.parent.location.reload(true);
-                        });
                     },
                 });
+           });
         }
 
 </script>
