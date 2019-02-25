@@ -14523,13 +14523,15 @@
                                             [n("img", {
                                                 attrs: {
                                                     src: "//p.qpic.cn/pic_wework/3153013172/6365946f00034fcdceae3f374092a3826ac0d192f9d80e49/0",
-                                                    height: "90px",
+                                                    height: "85px",
                                                     id: "music_btn",
                                                     border: "0"
                                                 }
                                             })]), t._v(" "), n("a", {
                                                 staticStyle: {
-                                                    position: "fixed"
+                                                    position: "fixed",
+                                                    height: "110px" ,
+                                                    "margin-left": "-20px",
                                                 },
                                                 on: {
                                                     click: function(e) {
@@ -14540,7 +14542,7 @@
                                             [n("img", {
                                                 staticClass: "div3",
                                                 staticStyle: {
-                                                    width: "95px",
+                                                    width: "90px",
                                                     "margin-top": "50px",
                                                     "margin-left": "15px",
 
