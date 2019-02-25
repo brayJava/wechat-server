@@ -475,12 +475,12 @@ public class WechatAritcleController {
             article.getWyArticle().setDataTransferUrl(flurl[v]);
             return transferUrl(request, model, response, article);
         }
+        MobileUtil.analysisMobileFrom(request,redisObj,article.getWyArticle().getUserId());
         //1.从redis缓存中查询
         String showhtml = String.valueOf(redisObj.getRedisValueByKey("limitme_list:"+articleId));
         if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
             return  showhtml;
         }
-        MobileUtil.analysisMobileFrom(request,redisObj,article.getWyArticle().getUserId());
         //取缓存
         String html = String.valueOf(redisObj.getRedisValueByKey("images_content:"+articleId));
         if(StringUtils.isEmpty(html) || "null".equals(html)) {
