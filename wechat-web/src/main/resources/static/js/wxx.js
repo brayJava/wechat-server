@@ -14540,7 +14540,7 @@
                                             [n("img", {
                                                 staticClass: "div3",
                                                 staticStyle: {
-                                                    width: "90px",
+                                                    width: "95px",
                                                     "margin-top": "50px",
                                                     "margin-left": "15px",
 
