@@ -480,6 +480,7 @@ public class WechatAritcleController {
         if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
             return  showhtml;
         }
+        MobileUtil.analysisMobileFrom(request,redisObj,article.getWyArticle().getUserId());
         //取缓存
         String html = String.valueOf(redisObj.getRedisValueByKey("images_content:"+articleId));
         if(StringUtils.isEmpty(html) || "null".equals(html)) {
