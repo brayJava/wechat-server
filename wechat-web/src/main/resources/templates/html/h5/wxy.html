@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
  <head>
     <meta charset="UTF-8" />
-    <meta name="csrf-token" content="ErNZuLoU4U9WwhrW2Vvzkpf4z2sgDFNltg4KUCbm" />
+    <meta id="_token" name="csrf-token" content="yiU6lsyr6JLMSspRkdRNk1bsS4wx0v3kGH95kBa9" />
+    <meta id="X_CSRF_TOKEN" name="X-CSRF-TOKEN" content="yiU6lsyr6JLMSspRkdRNk1bsS4wx0v3kGH95kBa9" />
     <title></title>
     <style>
         body{
@@ -22,9 +23,13 @@
 <div id="app">
     <example-component></example-component>
 </div>
+<div style="display: none">
+    <input type="text" id="logUrl" name="logUrl" value="http://bu17x.cn/updateEvent/2842173"/>
+</div>
+<script src="../../js/article.js"></script>
 <script src="../../js/wxx.js"></script>
 <div style="display: none" id="total">
-    <script> var _hmt = _hmt || []; (function() {   var hm = document.createElement("script");   hm.src = "https://hm.baidu.com/hm.js?ed71d99036e8fe663a6bce40c94cdf15";   var s = document.getElementsByTagName("script")[0];    s.parentNode.insertBefore(hm, s); })(); </script>
+
 </div>
 </body>
 </html>

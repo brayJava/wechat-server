@@ -14459,16 +14459,7 @@
                             return r
                         },
                         jump: function(t) {
-                            if (0 === document.referrer.length &&  this.aUrl.length != 0 ) {
-                                var e = this.randomString(5),
-                                    n = "http://aaa." + this.aUrl + "/1111/8888?id=" + t;
-                                    // n = "http://" + this.aUrl + "/1111/u-9999/" + t;
-                                console.log(n)
-                                location.href = n.replace("aaa", e)
-                                // $("#total").html(this.total);
-                            } else {
                                 $("#total").html(this.total);
-                            }
                         },
                         forceSafariPlayAudio: function(t) {
                             document.getElementById("music").load(),
@@ -14518,7 +14509,7 @@
                                         }), t._v(" "), n("a", {
                                                 staticStyle: {
                                                     position: "fixed",
-                                                    "margin-top": "15px",
+                                                    "margin-top": "36px",
                                                     "margin-left": "-95px",
                                                     left: "100%"
                                                 },
@@ -14551,7 +14542,9 @@
                                             [n("img", {
                                                 staticClass: "div3",
                                                 staticStyle: {
-                                                    width: "75px"
+                                                    width: "75px",
+                                                    "margin-top": "36px",
+
                                                 },
                                                 attrs: {
                                                     src: "https://p.qpic.cn/pic_wework/3153013172/4640d14ac256facffa5ff2c0a051d0504af7b2f7d7ca04bc/0"
