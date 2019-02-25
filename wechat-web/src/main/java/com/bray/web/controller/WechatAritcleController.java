@@ -512,9 +512,6 @@ public class WechatAritcleController {
             redisObj.saveDataToRedis("images_content:"+articleId,html);
         }
         article.setContentHtml(html);
-        String noShareDomain = article.getWyArticle().getNoShareDomain();
-        noShareDomain = getString(noShareDomain);
-        article.getWyArticle().setNoShareDomain(noShareDomain);
         return article;
 
     }
