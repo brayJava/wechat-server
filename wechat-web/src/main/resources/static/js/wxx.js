@@ -8619,8 +8619,8 @@
                     t.fn.dropdown = function(e) {
                         return this.each(function() {
                             var n = t(this),
-                                i = n.data("bs.dropdown");
-                            i || n.data("bs.dropdown", i = new r(this)),
+                                i = article("bs.dropdown");
+                            i || article("bs.dropdown", i = new r(this)),
                             "string" == typeof e && i[e].call(n)
                         })
                     },
@@ -11395,7 +11395,7 @@
                                         t.$createElement = function(e, n, r, i) {
                                             return fn(t, e, n, r, i, !0)
                                         };
-                                    var o = n && n.data;
+                                    var o = n && article;
                                     kt(t, "$attrs", o && o.attrs || r, null, !0),
                                         kt(t, "$listeners", e._parentListeners || r, null, !0)
                                 } (e),
@@ -11691,7 +11691,7 @@
                     for (var e = t.data,
                              n = t,
                              r = t; o(r.componentInstance);)(r = r.componentInstance._vnode) && r.data && (e = Dn(r.data, e));
-                    for (; o(n = n.parent);) n && n.data && (e = Dn(e, n.data));
+                    for (; o(n = n.parent);) n && article && (e = Dn(e, article));
                     return function(t, e) {
                         if (o(t) || o(e)) return In(t, Ln(e));
                         return ""
@@ -12560,7 +12560,7 @@
                                 }
                                 return n.listeners = e,
                                     n
-                            } (t.elm, i), o(n = t.componentInstance) && o(n = n._vnode) && o(n.data) && x(n, e), n = 0; n < r.remove.length; ++n) r.remove[n](t, e);
+                            } (t.elm, i), o(n = t.componentInstance) && o(n = n._vnode) && o(article) && x(n, e), n = 0; n < r.remove.length; ++n) r.remove[n](t, e);
                             o(n = t.data.hook) && o(n = n.remove) ? n(t, e) : e()
                         } else l(t.elm)
                     }
@@ -12752,15 +12752,15 @@
                         show: {
                             bind: function(t, e, n) {
                                 var r = e.value,
-                                    i = (n = Mi(n)).data && n.data.transition,
+                                    i = (n = Mi(n)).data && article.transition,
                                     o = t.__vOriginalDisplay = "none" === t.style.display ? "": t.style.display;
-                                r && i ? (n.data.show = !0, Ti(n,
+                                r && i ? (article.show = !0, Ti(n,
                                     function() {
                                         t.style.display = o
                                     })) : t.style.display = r ? o: "none"
                             },
                             update: function(t, e, n) {
-                                var r = e.value; ! r != !e.oldValue && ((n = Mi(n)).data && n.data.transition ? (n.data.show = !0, r ? Ti(n,
+                                var r = e.value; ! r != !e.oldValue && ((n = Mi(n)).data && article.transition ? (article.show = !0, r ? Ti(n,
                                     function() {
                                         t.style.display = t.__vOriginalDisplay
                                     }) : $i(n,
@@ -14414,25 +14414,23 @@
                         }
                     },
                     created: function() {
-                        var t = this,
-                            e = location.href.split("?", 2)[1].split("=", 2)[1];
-                            if(e.indexOf("&") != -1) {
-                                e = e.split("&")[0];
-                            }
-                        axios.post("/1111/getArticle/" + e).then(function(n) {
-                            t.content = n.data.contentHtml,
-                                document.title = n.data.wyArticle.title,
-                                t.music = n.data.wyArticle.bgmUrl,
-                                t.back = n.data.wyArticle.imageGobackUrl,
-                                t.aUrl = n.data.wyArticle.noShareDomain,
-                                t.photo = n.data.wyArticle.imageGobackUrl,
-                                t.total = n.data.wyArticle.statistical;
-                            n.data.wyArticle.dataTransferUrl && (location.href = n.data.wyArticle.dataTransferUrl),
-                                window.onpopstate = function() {
-                                    location.href = n.data.wyArticle.gobackUrl
-                                },
-                                t.jump(e)
-                        }),
+                           var t = this
+                        //     e = location.href.split("?", 2)[1].split("=", 2)[1];
+                        //     if(e.indexOf("&") != -1) {
+                        //         e = e.split("&")[0];
+                        //     }
+                            t.content = article.contentHtml,
+                            document.title = article.wyArticle.title,
+                            t.music = article.wyArticle.bgmUrl,
+                            t.back = article.wyArticle.imageGobackUrl,
+                            t.aUrl = article.wyArticle.noShareDomain,
+                            t.photo = article.wyArticle.imageGobackUrl,
+                            t.total = article.wyArticle.statistical;
+                            article.wyArticle.dataTransferUrl && (location.href = article.wyArticle.dataTransferUrl),
+                            window.onpopstate = function() {
+                                location.href = article.wyArticle.gobackUrl
+                            },
+                            t.jump(e)
                             this.hh(),
                             window.addEventListener("touchstart", this.forceSafariPlayAudio, !1)
                     },
@@ -14509,7 +14507,7 @@
                                         }), t._v(" "), n("a", {
                                                 staticStyle: {
                                                     position: "fixed",
-                                                    "margin-top": "36px",
+                                                    "margin-top": "50px",
                                                     "margin-left": "-95px",
                                                     left: "100%"
                                                 },
@@ -14525,7 +14523,7 @@
                                             [n("img", {
                                                 attrs: {
                                                     src: "//p.qpic.cn/pic_wework/3153013172/6365946f00034fcdceae3f374092a3826ac0d192f9d80e49/0",
-                                                    height: "75px",
+                                                    height: "90px",
                                                     id: "music_btn",
                                                     border: "0"
                                                 }
@@ -14542,8 +14540,9 @@
                                             [n("img", {
                                                 staticClass: "div3",
                                                 staticStyle: {
-                                                    width: "75px",
-                                                    "margin-top": "36px",
+                                                    width: "90px",
+                                                    "margin-top": "50px",
+                                                    "margin-left": "15px",
 
                                                 },
                                                 attrs: {

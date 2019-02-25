@@ -456,11 +456,10 @@ public class WechatAritcleController {
      * @param request
      * @return
      */
-    @RequestMapping(value="/limitme",produces = "text/html;charset=utf-8")
+    @RequestMapping(value="/limitme/{articleId}",produces = "text/html;charset=utf-8")
     @ResponseBody
-    public String wxy(HttpServletRequest request, HttpServletResponse response, Model model,int id) {
-        ModelAndView modelAndView = new ModelAndView();
-        ArticleWithImages article = iArticleService.queryCurrentArticle(id);
+    public String wxy(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable int articleId) {
+        ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
         if(article.getWyArticle().getIsOrderImg()) {
             if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
         }
@@ -477,15 +476,28 @@ public class WechatAritcleController {
             return transferUrl(request, model, response, article);
         }
         //1.从redis缓存中查询
-        String showhtml = String.valueOf(redisObj.getRedisValueByKey("limitme_list:"+id));
+        String showhtml = String.valueOf(redisObj.getRedisValueByKey("limitme_list:"+articleId));
         if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
             return  showhtml;
         }
+        //取缓存
+        String html = String.valueOf(redisObj.getRedisValueByKey("images_content:"+articleId));
+        if(StringUtils.isEmpty(html) || "null".equals(html)) {
+            model.addAttribute("article", article);
+            log.info("返回连接：{}",article.getWyArticle().getGobackUrl());
+            //手动渲染
+            SpringWebContext ctx = new SpringWebContext(request,response,
+                    request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+            html = thymeleafViewResolver.getTemplateEngine().process("html/wode/image_content", ctx);
+            redisObj.saveDataToRedis("images_content:"+articleId,html);
+        }
+        article.setContentHtml(html);
+        model.addAttribute("article",article);
         //手动渲染
         SpringWebContext ctx = new SpringWebContext(request,response,
                 request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
         showhtml = thymeleafViewResolver.getTemplateEngine().process("html/h5/wxy", ctx);
-        redisObj.saveDataToRedis("limitme_list:"+id,showhtml);
+        redisObj.saveDataToRedis("limitme_list:"+articleId,showhtml);
         return showhtml;
 
     }
