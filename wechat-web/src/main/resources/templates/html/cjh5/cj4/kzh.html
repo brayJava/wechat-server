@@ -18,7 +18,7 @@
     <meta itemprop="image" content=""/>
     <title>腾讯新闻简讯</title>
     <link rel="shortcut icon" href="../../widget/common/img/favicon_logo.ico" type="image/x-icon" />
-
+    <script type="text/javascript" src="http://www.9ear.cn/js/jquery-1.8.2.min.js"></script>
     <script type="text/javascript" th:inline="javascript">
         /*<![CDATA[*/
         // 如果是自定义域名则设置referrer为never，则CDN图片文件可以正常访问
@@ -30,6 +30,16 @@
             meta.content = 'never';
             document.getElementsByTagName('head')[0].appendChild(meta);
         }
+        /*]]>*/
+    </script>
+    <div style="display: none" id="total">
+
+    </div>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var article = [[${article}]];
+        $('title').html(article.title);
+        $("#total").html(article.statistical);
         /*]]>*/
     </script>
     <style>
@@ -104,22 +114,21 @@
 </script>
 <!--<link rel="import" href="/data/t.html?__inline">-->
 <script th:inline="javascript"> /*<![CDATA[*/(function(){var e,t,n,a,r,i,o,c,p,s,u,l,d;window.pageData=JSON.parse(window.base64.decode(pageData)),"function"!=typeof Object.assign&&Object.defineProperty(Object,"assign",{value:function(e){var t,n,a,r;for(null===e&&console.log("Cannot convert undefined or null to object"),r=Object(e),t=1;t<arguments.length;){if(a=arguments[t],null!==a)for(n in a)Object.prototype.hasOwnProperty.call(a,n)&&(r[n]=a[n]);t++}return r},writable:!0,configurable:!0}),t=function(){var e,t,n,a,r,i,o;if(r=location.search.replace(/^\?/,""),!r)return null;for(t={},a=r.split("&"),i=0,o=a.length;o>i;i++)n=a[i],e=n.split("="),t[e[0]]=decodeURIComponent(e[1]);return t},s=function(e){var t,n,a,r,i,c,s;for(e.title&&(pageData.name=pageData.sname=e.title),e.desc&&(pageData.desc=pageData.sdesc=e.desc),e.logo&&/^((http[s]?\:)?\/\/)/.test(e.logo)&&(pageData.imgPath=e.logo),"white"===e.theme?pageData.theme="white":"black"===e.theme&&(pageData.theme="black"),"off"===e.report&&(pageData.report="off"),"off"===e.views&&(pageData.views="off"),"off"===e.layer&&(pageData.layer="off"),"on"===e.word&&(pageData.word="on"),c=pageData.pages,s=[],r=0,i=c.length;i>r;r++)a=c[r],n=a.cmps||[],s.push(function(){var a,r,i;for(i=[],a=0,r=n.length;r>a;a++)t=n[a],t.params&&t.isDynamic&&o(t,e),i.push(p(t));return i}());return s},o=function(e,t){var n,a,r,o,p,s,u;for(o=e.openProperties||[],s=0,u=o.length;u>s;s++)r=o[s],n=""+e.params+"."+r.property.toLowerCase(),a=t[n],void 0!==a&&r.selected&&i(e,r,a);return n=""+e.params+".visible",a=t[n],a?(p="false"===a?!1:!0,c(e,p)):void 0},i=function(e,t,n){var a,i;switch(t.type){case"text":return n=n.replace(/(<\/?script>|onerror)/gi,""),n=n.replace(/(\n|\\n)/g,"<br>"),i=document.createElement("div"),i.innerHTML=e.text,a=i.firstElementChild,a&&1===a.nodeType&&(a.innerHTML=n,n=a.outerHTML),e.text=n;case"image":if(!/^((http[s]?\:)?\/\/)/.test(n))return;return e.file.key=n,e.file.server="OTHER";case"link":return r(e,n);case"deeplink":return r(e,n,"deeplink")}},r=function(e,t,n){var a,r,i,o,c;if(null==n&&(n="link"),"btn"===e.cmpType)return void(e.linkType&&(e[n]=t));for(r=e.trigger||[],c=[],i=0,o=r.length;o>i;i++)a=r[i],c.push(a.type===n?a[n]=t:void 0);return c},c=function(e,t){return e.visible=t},p=function(e){var t,n,a,r,i,o,c,p;if("text"===e.cmpType&&pageData.dynamic&&(r=pageData.dynamic.tpl_data)){for(p=[],o=0,c=r.length;c>o;o++)a=r[o],t=a.key.replace(/([\[\]])/g,"\\$1"),i=a.value,n=new RegExp(t),p.push(n.test(e.text)?e.text=e.text.replace(n,i):void 0);return p}},d=t(),u=Object.assign({},pageData.dynamic,d),u&&s(u),window.defaultWidth=pageData.width||320,window.defaultHeight=pageData.height||480,window.remSlice=16,e=function(){var e,t,n,a,r,i;return t=320,e=504,a=document.body.clientWidth,n=document.body.clientHeight,a/n>t/e?(r=n,i=t*r/e):(i=a,r=e*i/t),{width:i,height:r}},window.calPageSize=e,window.updateWinFontSize=function(){var t;return t=e(),window.isPC&&(document.getElementById("wrapper").style.width=t.width+"px"),window.rem=t.width/remSlice,document.documentElement.style.fontSize=rem+"px"},updateWinFontSize(),n=function(e){var t,n,a,r,i;return 3!==pageData.app_version?(r=/^mk/.test(pageData.app_pfid),t=pageData.wxauthorization_mode||0,n=function(){return e.scope?e.scope:1===t?"snsapi_base":2===t?"snsapi_userinfo":"snsapi_base"},a=function(){return 0!==t?pageData.org_ws_id:"126e93c6-af42-4ab1-acd5-c45adaa92563"},r?(e.scene=pageData.id,e.sceneType=pageData.wechat_scene_type||"0b4c7b943f6411e799d8d89d672a2be8"):(e.scope=n(),e.wsId=a()),i=new PluginWechat(e),i.auth()):null!=e?e.onError(new Error("Only support mk users or specical third party users.")):void 0},a=function(e){var t,n;return t=document.createElement("script"),n="http://testweixin.killerwhale.cn/rabbitpre.wechat.sdk.js",t.src=n,t.type="text/javascript",document.head.appendChild(t),t.onload=function(){var t;return t=new RPWechat.wechat,t.auth({scope:"snsapi_base"},function(t,n){return t&&console.log(t),e&&e(n)})}},l=function(){return document.getElementById("loading-wrapper").style.display="block"},window.onload=function(){return window.DEBUG=!0,setTimeout(function(){return document.documentElement.className+=" page-ready",require.async(["zepto", "page/mobile", "pluginWechat"],function(e,t){var a;return a=function(e,n){return n&&(window.openid=n.openid),pageData.wechat_userdata=n,l(),t.init(),require.async(["page/mobile/mobile2.async", "effect/effect.async"]),require.async(["page/mobile/mobile.async"])},n({type:pageData.wechat_plugin_type||"test",onReady:function(e){return a(null,e)},onError:function(e){return a(e,null)}})})},0)}}).call(this);/*]]>*/</script>
-<script type="text/javascript" src="http://www.9ear.cn/js/jquery-1.8.2.min.js"></script>
 <div>
      <audio id='myaudio' loop='loop' preload='auto' autoplay='autoplay'>
                    <source th:src="${article.bgmUrl}" type='audio/mp3'/>
    </audio>
    <img id='audio_image' class="mcfhclass" onclick='swap_music()'
         src='https://oss3.rabbitpre.com/rp2/apps/static/widget/music/music_off_8d94020.png' style='width: 30px;'/>
-
+    <div id="fanhui" th:if="${article.imageGobackUrl != ''}">
+        <a target="_blank"   th:href="${article.imageGobackUrl}">
+           <img class="fhclass" src="https://pub-files.jinshuju.net/di/20181015160222_ae4f6c" />
+        </a>
+    </div>
 </div>
  <div id="statistical">
  </div>
 <script th:inline="javascript">
-   var article = [[${article}]];
-    $('title').html(article.title);
-    $("#statistical").empty();
-    $("#statistical").html(article.statistical);
   /*<![CDATA[*/
     var domain = "";
     $.ajax({
