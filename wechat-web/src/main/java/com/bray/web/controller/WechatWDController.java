@@ -50,7 +50,7 @@ public class WechatWDController {
      * @param model
      * @return
      */
-    @RequestMapping(value="/abc/{articleId}",produces = "text/html;charset=utf-8")
+    @RequestMapping(value="/a/{articleId}",produces = "text/html;charset=utf-8")
     @ResponseBody
     public String wd(HttpServletRequest request, Model model, HttpServletResponse response, @PathVariable int articleId) {
 
