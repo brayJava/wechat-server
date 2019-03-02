@@ -472,6 +472,10 @@ public class ArticleAdminServiceImpl implements IArticleAdminService {
 
             redisCache.deleteDataOfRedis("wd_1_article:"+articleId);
 
+            redisCache.deleteDataOfRedis("wd_2_content:"+articleId);
+
+            redisCache.deleteDataOfRedis("wd_2_article:"+articleId);
+
             redisCache.deleteDataOfRedis(ConstatFinal.ORDERVAL99);
 
             redisCache.deleteDataOfRedis(ConstatFinal.ARTICLE_H5_1+":"+articleId);
