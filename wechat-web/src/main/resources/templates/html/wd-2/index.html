@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link rel="shortcut icon" href="//www.baidu.com/favicon.ico?t=20171027" type="image/x-icon"/>
+     <link href="/wd-2/css/t1.css" rel="stylesheet"/>
+    <title th:text="${article.wyArticle.title}">腾讯新闻简报-加载中...</title>
+</head>
+<body style="">
+    <div class="article-box">
+            <div class="rich_media_title">
+                <h2 th:text="${article.wyArticle.title}"></h2>
+            </div>
+            <div class="rich_media_meta_list">
+                <span class="rich_media_meta author">请传递下去，让更多人知道</span>
+                <span class="rich_media_meta time">今天</span>
+            </div>
+        <div class="context" th:attr="data-value=${article.contentHtml}"></div>
+        <div class="rich_media_meta_list">
+                <span class="rich_media_meta read-push">阅读 100000+</span>
+                            <span class="rich_media_meta like-push"><span class="like"></span> <i>100000+</i></span>
+            <a class="report" href="/ts.html">举报</a>
+        </div>
+        <div style="clear:both"></div>
+        <div class="music">
+            <span id="musicControl">
+                <a id="mc_play" class="on" onclick="play_music();">
+                    <audio id="musicfx" loop="loop" th:src="${article.wyArticle.bgmUrl}" preload="auto"></audio>
+                </a>
+            </span>
+            <span id="backControl">
+                <a id="" class="on" th:href="${article.wyArticle.imageGobackUrl}">
+                </a>
+            </span>
+        </div>
+        <input class="callback" type="hidden" th:value="${article.wyArticle.gobackUrl}"/>
+    </div>
+    <div style="display: none" class="hide"  th:attr="data-value=${article.wyArticle.statistical}">
+
+    </div>
+
+
+<script src="/wd-2/js/jquery-1.10.2.min.js"></script>
+<script src="/wd-2/js/t1.js"></script>
+<script>
+    $(function () {
+        $(".context").html($(".context").attr("data-value"));
+        $(".hide").html($(".hide").attr("data-value"));
+        pushHistory();
+        autoPlayMusic();
+    });
+</script></body></html>
