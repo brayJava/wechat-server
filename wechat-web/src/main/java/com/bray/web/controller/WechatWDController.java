@@ -137,7 +137,7 @@ public class WechatWDController {
             SpringWebContext ctx = new SpringWebContext(request,response,
                     request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
             html = thymeleafViewResolver.getTemplateEngine().process("html/wd-2/image_content", ctx);
-            // redisObj.saveDataToRedis("wd_2_content:"+articleId,html);
+            redisObj.saveDataToRedis("wd_2_content:"+articleId,html);
         }
         article.setContentHtml(html);
         model.addAttribute("article", article);
@@ -145,7 +145,7 @@ public class WechatWDController {
         SpringWebContext ctx = new SpringWebContext(request,response,
                 request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
         showhtml = thymeleafViewResolver.getTemplateEngine().process("html/wd-2/index", ctx);
-        // redisObj.saveDataToRedis("wd_2_article:"+articleId,showhtml);
+        redisObj.saveDataToRedis("wd_2_article:"+articleId,showhtml);
         log.info("日志输出：{}",request.getRequestURI().toString());
         return showhtml;
     }
