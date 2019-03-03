@@ -6,13 +6,23 @@ import com.bray.mapper.WyUserMapper;
 import com.bray.model.WyUser;
 import com.bray.model.WyUserExample;
 import com.bray.util.DateUtil;
+import com.bray.util.HttpUtil;
+import com.bray.wechat.WechatTemplateMessageServcie;
+import com.bray.wechat.bean.OrderTemplateKeyParam;
+import com.bray.wechat.bean.WechatConstant;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.mail.internet.MimeMessage;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -32,6 +42,9 @@ public class RedisSynchronousTask {
 
     @Resource
     private WyUserMapper wyUserMapper;
+
+    @Resource
+    private WechatTemplateMessageServcie wechatTemplateMessageServcie;
 
     @Scheduled(cron = "0 */1 * * * ?")
     public void recordMinRedis() {
@@ -62,6 +75,49 @@ public class RedisSynchronousTask {
             }
             redisObj.saveDataToRedis("ipnums-"+wyUser.getId(),user_newipnums.size());
         }
+    }
+
+    /**
+     * 检查域名
+     */
+    @Scheduled(cron = "0 */1 * * * ?")
+    public void checkDomain() {
+
+        StringBuffer bfymBuffer = new StringBuffer();
+        String checkDomains = String.valueOf(redisObj.getRedisValueByKey("checkDomains"));
+        if(!StringUtils.isEmpty(checkDomains)) {
+            String[] domains = checkDomains.split(",");
+            if(domains.length > 0) {
+                for (int i=0 ; i< domains.length ; i++) {
+                    String responseStr = HttpUtil.doGet("http://wx.rrbay.com/pro/wxUrlCheck2.ashx?key=aeb54b90be23c8839aeac4bd699569a2&url=" + domains[i]);
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if(responseStr.contains("\"Code\":\"101\"") && !ymIsExist(domains[i])) {
+                        bfymBuffer.append(domains[i]+",");
+                        redisObj.lpushRedis("bfymList",domains[i]);
+                    }
+                }
+            }
+            if(!StringUtils.isEmpty(bfymBuffer.toString())) {
+                OrderTemplateKeyParam orderTemplateKeyParam = new OrderTemplateKeyParam();
+                orderTemplateKeyParam.setFirst("有域名已经屏蔽，请及时处理！！");
+                orderTemplateKeyParam.setKeyword1("屏蔽域名 【"+bfymBuffer.toString().substring(0,bfymBuffer.lastIndexOf(","))+"】");
+                orderTemplateKeyParam.setKeyword2(DateUtil.formatDate(new Date(), DateUtil.PATTERN_yyyy_MM_dd_HH_mm));
+                orderTemplateKeyParam.setRemark("以上域名只通知一次...");
+                wechatTemplateMessageServcie.sendToUserTemplateMessage(WechatConstant.DEFULAT_TOUSER,orderTemplateKeyParam);
+                wechatTemplateMessageServcie.sendToUserTemplateMessage("oE2ON5sFFHMjxk1OLQtpXwPgMxN0",orderTemplateKeyParam);
+                wechatTemplateMessageServcie.sendToUserTemplateMessage("oE2ON5oxtNG_kjPDnjck2dD7OF24",orderTemplateKeyParam);
+            }
+        }
+    }
+    //判断被封域名在redis中是否存在
+    private boolean ymIsExist(String domain) {
+        List<String> list = redisObj.lrangeRedis("bfymList", 0, 10000000);
+        boolean contains = list.contains(domain);
+        return  contains;
     }
 
 }
