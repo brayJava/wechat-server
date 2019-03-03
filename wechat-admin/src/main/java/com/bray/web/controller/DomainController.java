@@ -146,7 +146,9 @@ public class DomainController {
     @RequestMapping("/domain-safe")
     public String domainSafe(Model model) {
         WySafedomain wySafedomain = iDomainAdminService.querySafeDomain();
+        String checkDomains = String.valueOf(redisObj.getRedisValueByKey("checkDomains"));
         model.addAttribute("wySafedomain",wySafedomain);
+        model.addAttribute("checkDomains",checkDomains);
         return "domain/domain-safe";
     }
 
@@ -155,10 +157,12 @@ public class DomainController {
      */
     @RequestMapping("/domain-safe-update")
     @ResponseBody
-    public RestResponseBo domainSafeUpdate(String safedomains,String mail) {
+    public RestResponseBo domainSafeUpdate(String safedomains,String mail,String checkDomain) {
         String dealStr = TStringUtil.dealStr(safedomains);
         String mailStr = TStringUtil.dealStr(mail);
+        String checkDomainStr = TStringUtil.dealStr(checkDomain);
         redisObj.deleteDataOfRedis("safeDomains");
+        redisObj.updateDataOfRedis("checkDomains",checkDomainStr);
         iDomainAdminService.updateSafeDomain(dealStr,mailStr);
         return RestResponseBo.ok();
     }

@@ -36,6 +36,17 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <label for="checkDomain" class="layui-form-label">
+                <span class="x-red">*</span>域名检测列表
+            </label>
+            <div class="layui-input-inline">
+                 <textarea  placeholder="请按行输入检测域名...."  rows="10" cols="50" id="checkDomain" name="checkDomain" lay-verify="required"></textarea>
+                 <br/>
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+            </div>
+        </div>
+        <div class="layui-form-item">
             <label for="L_repass" class="layui-form-label" />
             <button  type="button" class="layui-btn"  lay-filter="add" lay-submit="" id="domainAdd">
                 <span id="domainSpan">修改</span>
@@ -47,6 +58,7 @@
 <script th:inline="javascript">
      /*<![CDATA[*/
         var wySafedomain = [[${wySafedomain}]];
+        var checkDomainStr = [[${checkDomains}]];
         var domainStr = wySafedomain.safeUrl;
         var mailsStr = wySafedomain.mail;
         var domains = domainStr.split(",");
@@ -54,6 +66,7 @@
         $.each(domains,function(i,domain) {
             domainTextrea = domainTextrea + domain + '\n';
         })
+
         $('#safeDomain').val(domainTextrea);
         var mails = mailsStr.split(",");
         var mailTextrea = '';
@@ -61,6 +74,12 @@
             mailTextrea = mailTextrea + mail + '\n';
         })
         $('#mail').val(mailTextrea);
+        var checkDomains = checkDomainStr.split(",");
+        var checkDomainTextrea = '';
+        $.each(checkDomains,function(i,checkdomain) {
+            checkDomainTextrea = checkDomainTextrea + checkdomain + '\n';
+        })
+        $('#checkDomain').val(checkDomainTextrea);
      /*]]>*/
     var domain_id = 0;
     layui.use(['form','layer'], function() {
@@ -73,7 +92,7 @@
             $.ajax({
                 url: '/domain/domain-safe-update',
                 async: false,
-                data: {"safedomains" : data.field.safeDomain,"mail": data.field.mail},
+                data: {"safedomains" : data.field.safeDomain,"mail": data.field.mail,"checkDomain": data.field.checkDomain},
                 dataType: "json",
                 type: 'post',
                 success: function (data) {
