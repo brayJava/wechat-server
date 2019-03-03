@@ -5,6 +5,7 @@ import com.bray.model.Bo.ArticleWithImages;
 import com.bray.service.IArticleService;
 import com.bray.service.IDomainWebService;
 import com.bray.util.HttpRequestDeviceUtils;
+import com.bray.util.MobileUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -72,6 +73,7 @@ public class WechatWDController {
             article.getWyArticle().setDataTransferUrl(flurl[v]);
             return transferUrl(request, model, response, article);
         }
+        MobileUtil.analysisMobileFrom(request,redisObj,article.getWyArticle().getUserId());
         //1.从redis缓存中查询
         String showhtml = String.valueOf(redisObj.getRedisValueByKey("wd_1_article:" + articleId));
         if (!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)) {
@@ -126,6 +128,7 @@ public class WechatWDController {
             article.getWyArticle().setDataTransferUrl(flurl[v]);
             return transferUrl(request, model, response, article);
         }
+        MobileUtil.analysisMobileFrom(request,redisObj,article.getWyArticle().getUserId());
         //1.从redis缓存中查询
         String showhtml = String.valueOf(redisObj.getRedisValueByKey("wd_2_article:" + articleId));
         if (!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)) {
