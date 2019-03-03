@@ -4,12 +4,16 @@
  </head>
  <body>
     <div th:if="${not #lists.isEmpty(article.articleSubImages)}" th:each="articleimg,iterStat:${article.articleSubImages}">
-     <p style="margin:0px 0px 11px;line-height:1.6;max-width:100%;box-sizing:border-box;">
+     <p th:if="${articleimg.wyArticleImg.imgUrl != ''}" style="margin:0px 0px 11px;line-height:1.6;max-width:100%;box-sizing:border-box;">
           <a th:href="${articleimg.wyArticleImg.imgUrl}" target="_parent">
               <img th:src="${articleimg.wyArticleImg.thirdImgPath}" style="border:0px currentColor;border-image:none;vertical-align:middle;max-width:100%;box-sizing:border-box;"
               alt="" src="https://pub-files.jinshuju.net/di/20190216112037_d8f2ee" />
           </a>
      </p>
+     <p th:unless="${articleimg.wyArticleImg.imgUrl != ''}" style="margin:0px 0px 11px;line-height:1.6;max-width:100%;box-sizing:border-box;">
+           <img th:src="${articleimg.wyArticleImg.thirdImgPath}" style="border:0px currentColor;border-image:none;vertical-align:middle;max-width:100%;box-sizing:border-box;"
+           alt="" src="https://pub-files.jinshuju.net/di/20190216112037_d8f2ee" />
+      </p>
     </div>
  </body>
 </html>

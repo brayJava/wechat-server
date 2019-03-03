@@ -4,13 +4,22 @@
  </head>
  <body>
      <p th:if="${not #lists.isEmpty(article.articleSubImages)}" th:each="articleimg,iterStat:${article.articleSubImages}">
-          <a th:href="${articleimg.wyArticleImg.imgUrl}" target="_parent">
-              <img
-              alt="" th:data-cke-saved-src="${articleimg.wyArticleImg.thirdImgPath}"
-              th:src="${articleimg.wyArticleImg.thirdImgPath}"
-              data-cke-widget-data="%7B%22hasCaption%22%3Afalse%2C%22src%22%3A%22https%3A%2F%2Fpub-files.jinshuju.net%2Fdi%2F20190301171435_047001%22%2C%22alt%22%3A%22%22%2C%22width%22%3A%22%22%2C%22height%22%3A%22%22%2C%22lock%22%3Atrue%2C%22align%22%3A%22none%22%2C%22classes%22%3Anull%7D"
-              data-cke-widget-upcasted="1" data-cke-widget-keep-attr="0" data-widget="image" class="cke_widget_element" />
-          </a>
+          <span th:if="${articleimg.wyArticleImg.imgUrl != ''}">
+              <a th:href="${articleimg.wyArticleImg.imgUrl}" target="_parent">
+                  <img
+                  alt="" th:data-cke-saved-src="${articleimg.wyArticleImg.thirdImgPath}"
+                  th:src="${articleimg.wyArticleImg.thirdImgPath}"
+                  data-cke-widget-data="%7B%22hasCaption%22%3Afalse%2C%22src%22%3A%22https%3A%2F%2Fpub-files.jinshuju.net%2Fdi%2F20190301171435_047001%22%2C%22alt%22%3A%22%22%2C%22width%22%3A%22%22%2C%22height%22%3A%22%22%2C%22lock%22%3Atrue%2C%22align%22%3A%22none%22%2C%22classes%22%3Anull%7D"
+                  data-cke-widget-upcasted="1" data-cke-widget-keep-attr="0" data-widget="image" class="cke_widget_element" />
+              </a>
+          </span>
+          <span th:unless="${articleimg.wyArticleImg.imgUrl != ''}">
+                <img
+                alt="" th:data-cke-saved-src="${articleimg.wyArticleImg.thirdImgPath}"
+                th:src="${articleimg.wyArticleImg.thirdImgPath}"
+                data-cke-widget-data="%7B%22hasCaption%22%3Afalse%2C%22src%22%3A%22https%3A%2F%2Fpub-files.jinshuju.net%2Fdi%2F20190301171435_047001%22%2C%22alt%22%3A%22%22%2C%22width%22%3A%22%22%2C%22height%22%3A%22%22%2C%22lock%22%3Atrue%2C%22align%22%3A%22none%22%2C%22classes%22%3Anull%7D"
+                data-cke-widget-upcasted="1" data-cke-widget-keep-attr="0" data-widget="image" class="cke_widget_element" />
+          </span>
      </p>
  </body>
 </html>
