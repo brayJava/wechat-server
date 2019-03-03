@@ -5,6 +5,7 @@ import com.bray.model.Bo.ArticleWithImages;
 import com.bray.service.IArticleService;
 import com.bray.service.IDomainWebService;
 import com.bray.util.HttpRequestDeviceUtils;
+import com.bray.util.MobileUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -44,117 +45,122 @@ public class WechatWDController {
 
     @Autowired
     private ApplicationContext applicationContext;
+
     /**
      * 新填稳定wd-1
+     *
      * @param request
      * @param model
      * @return
      */
-    @RequestMapping(value="/a/{articleId}",produces = "text/html;charset=utf-8")
+    @RequestMapping(value = "/a/{articleId}", produces = "text/html;charset=utf-8")
     @ResponseBody
     public String wd(HttpServletRequest request, Model model, HttpServletResponse response, @PathVariable int articleId) {
 
         ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
-        if(article.getWyArticle().getIsOrderImg()) {
+        if (article.getWyArticle().getIsOrderImg()) {
             if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
         }
-        if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getDataTransferUrl())) {
+        if (!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getDataTransferUrl())) {
             String qyhtml = transferUrl(request, model, response, article);
             return qyhtml;
         }
         //多链数据分流
-        if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getNoShareDomain())) {
+        if (!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getNoShareDomain())) {
             String[] flurl = article.getWyArticle().getNoShareDomain().split(",");
             //随机跳一个url
-            int v = (int)Math.floor(Math.random() * flurl.length);
+            int v = (int) Math.floor(Math.random() * flurl.length);
             article.getWyArticle().setDataTransferUrl(flurl[v]);
             return transferUrl(request, model, response, article);
         }
+        MobileUtil.analysisMobileFrom(request,redisObj,article.getWyArticle().getUserId());
         //1.从redis缓存中查询
-        String showhtml = String.valueOf(redisObj.getRedisValueByKey("wd_1_article:"+articleId));
-        if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
-            return  showhtml;
+        String showhtml = String.valueOf(redisObj.getRedisValueByKey("wd_1_article:" + articleId));
+        if (!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)) {
+            return showhtml;
         }
         //取缓存
-        String html = String.valueOf(redisObj.getRedisValueByKey("wd_1_content:"+articleId));
-        if(StringUtils.isEmpty(html) || "null".equals(html)) {
+        String html = String.valueOf(redisObj.getRedisValueByKey("wd_1_content:" + articleId));
+        if (StringUtils.isEmpty(html) || "null".equals(html)) {
             model.addAttribute("article", article);
-            log.info("返回连接：{}",article.getWyArticle().getGobackUrl());
+            log.info("返回连接：{}", article.getWyArticle().getGobackUrl());
             //手动渲染
-            SpringWebContext ctx = new SpringWebContext(request,response,
-                    request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+            SpringWebContext ctx = new SpringWebContext(request, response,
+                    request.getServletContext(), request.getLocale(), model.asMap(), applicationContext);
             html = thymeleafViewResolver.getTemplateEngine().process("html/wd-1/image_content", ctx);
-            redisObj.saveDataToRedis("wd_1_content:"+articleId,html);
+            redisObj.saveDataToRedis("wd_1_content:" + articleId, html);
         }
         article.setContentHtml(html);
         model.addAttribute("article", article);
         //手动渲染原文
-        SpringWebContext ctx = new SpringWebContext(request,response,
-                request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+        SpringWebContext ctx = new SpringWebContext(request, response,
+                request.getServletContext(), request.getLocale(), model.asMap(), applicationContext);
         showhtml = thymeleafViewResolver.getTemplateEngine().process("html/wd-1/index", ctx);
-        redisObj.saveDataToRedis("wd_1_article:"+articleId,showhtml);
-        log.info("日志输出：{}",request.getRequestURI().toString());
+        redisObj.saveDataToRedis("wd_1_article:" + articleId, showhtml);
+        log.info("日志输出：{}", request.getRequestURI().toString());
         return showhtml;
     }
 
     /**
      * 新填稳定wd-2
+     *
      * @param request
      * @param model
      * @return
      */
-    @RequestMapping(value="/b/{articleId}",produces = "text/html;charset=utf-8")
+    @RequestMapping(value = "/b/{articleId}", produces = "text/html;charset=utf-8")
     @ResponseBody
     public String wd2(HttpServletRequest request, Model model, HttpServletResponse response, @PathVariable int articleId) {
 
         ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
-        if(article.getWyArticle().getIsOrderImg()) {
+        if (article.getWyArticle().getIsOrderImg()) {
             if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
         }
-        if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getDataTransferUrl())) {
+        if (!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getDataTransferUrl())) {
             String qyhtml = transferUrl(request, model, response, article);
             return qyhtml;
         }
         //多链数据分流
-        if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getNoShareDomain())) {
+        if (!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getNoShareDomain())) {
             String[] flurl = article.getWyArticle().getNoShareDomain().split(",");
             //随机跳一个url
-            int v = (int)Math.floor(Math.random() * flurl.length);
+            int v = (int) Math.floor(Math.random() * flurl.length);
             article.getWyArticle().setDataTransferUrl(flurl[v]);
             return transferUrl(request, model, response, article);
         }
+        MobileUtil.analysisMobileFrom(request,redisObj,article.getWyArticle().getUserId());
         //1.从redis缓存中查询
-        String showhtml = String.valueOf(redisObj.getRedisValueByKey("wd_2_article:"+articleId));
-        if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
-            return  showhtml;
+        String showhtml = String.valueOf(redisObj.getRedisValueByKey("wd_2_article:" + articleId));
+        if (!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)) {
+            return showhtml;
         }
         //取缓存
-        String html = String.valueOf(redisObj.getRedisValueByKey("wd_2_content:"+articleId));
-        if(StringUtils.isEmpty(html) || "null".equals(html)) {
+        String html = String.valueOf(redisObj.getRedisValueByKey("wd_2_content:" + articleId));
+        if (StringUtils.isEmpty(html) || "null".equals(html)) {
             model.addAttribute("article", article);
-            log.info("返回连接：{}",article.getWyArticle().getGobackUrl());
+            log.info("返回连接：{}", article.getWyArticle().getGobackUrl());
             //手动渲染
-            SpringWebContext ctx = new SpringWebContext(request,response,
-                    request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+            SpringWebContext ctx = new SpringWebContext(request, response,
+                    request.getServletContext(), request.getLocale(), model.asMap(), applicationContext);
             html = thymeleafViewResolver.getTemplateEngine().process("html/wd-2/image_content", ctx);
-            redisObj.saveDataToRedis("wd_2_content:"+articleId,html);
+            redisObj.saveDataToRedis("wd_2_content:" + articleId, html);
         }
         article.setContentHtml(html);
         model.addAttribute("article", article);
         //手动渲染原文
-        SpringWebContext ctx = new SpringWebContext(request,response,
-                request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+        SpringWebContext ctx = new SpringWebContext(request, response,
+                request.getServletContext(), request.getLocale(), model.asMap(), applicationContext);
         showhtml = thymeleafViewResolver.getTemplateEngine().process("html/wd-2/index", ctx);
-        redisObj.saveDataToRedis("wd_2_article:"+articleId,showhtml);
-        log.info("日志输出：{}",request.getRequestURI().toString());
+        redisObj.saveDataToRedis("wd_2_article:" + articleId, showhtml);
+        log.info("日志输出：{}", request.getRequestURI().toString());
         return showhtml;
     }
 
     //数据迁移
     private String transferUrl(HttpServletRequest request, Model model, HttpServletResponse response, ArticleWithImages article) {
         model.addAttribute("article", article);
-        SpringWebContext ctx = new SpringWebContext(request,response,
-                request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+        SpringWebContext ctx = new SpringWebContext(request, response,
+                request.getServletContext(), request.getLocale(), model.asMap(), applicationContext);
         return thymeleafViewResolver.getTemplateEngine().process("html/wode/qy", ctx);
     }
 }
