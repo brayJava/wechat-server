@@ -2,7 +2,9 @@ package com.bray.quartz;
 
 import com.bray.aop.cache.RedisPoolCache;
 import com.bray.dto.EffectiveType;
+import com.bray.mapper.WySafedomainMapper;
 import com.bray.mapper.WyUserMapper;
+import com.bray.model.WySafedomain;
 import com.bray.model.WyUser;
 import com.bray.model.WyUserExample;
 import com.bray.util.DateUtil;
@@ -46,6 +48,9 @@ public class RedisSynchronousTask {
     @Resource
     private WechatTemplateMessageServcie wechatTemplateMessageServcie;
 
+    @Resource
+    private WySafedomainMapper wySafedomainMapper;
+
     @Scheduled(cron = "0 */1 * * * ?")
     public void recordMinRedis() {
         String nowtime = LocalDateTime.now().format(DateTimeFormatter.ofPattern(DateUtil.PATTERN_yyyy_MM_dd_HH_mm_ss));
@@ -85,6 +90,9 @@ public class RedisSynchronousTask {
 
         StringBuffer bfymBuffer = new StringBuffer();
         String checkDomains = String.valueOf(redisObj.getRedisValueByKey("checkDomains"));
+        //查询所有安全域名
+        WySafedomain wySafedomain = wySafedomainMapper.selectByPrimaryKey(1);
+        String safeUrl = wySafedomain.getSafeUrl();
         if(!StringUtils.isEmpty(checkDomains)) {
             String[] domains = checkDomains.split(",");
             if(domains.length > 0) {
@@ -96,7 +104,12 @@ public class RedisSynchronousTask {
                         e.printStackTrace();
                     }
                     if(responseStr.contains("\"Code\":\"101\"") && !ymIsExist(domains[i])) {
-                        bfymBuffer.append(domains[i]+",");
+                        if(safeUrl.contains(domains[i])) {
+                            bfymBuffer.append(domains[i]+"(订单域名被封)"+",");
+                            //删除被封的下单域名
+                        } else {
+                            bfymBuffer.append(domains[i]+",");
+                        }
                         redisObj.lpushRedis("bfymList",domains[i]);
                     }
                 }
