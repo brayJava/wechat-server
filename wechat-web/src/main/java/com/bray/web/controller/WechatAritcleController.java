@@ -640,7 +640,7 @@ public class WechatAritcleController {
         return showhtml;
     }
     /**
-     * 获取内容
+     * 获取内容 article find形式
      * @param request
      * @return
      */
@@ -663,6 +663,32 @@ public class WechatAritcleController {
         MobileUtil.analysisMobileFrom(request,redisObj,article.getWyArticle().getUserId());
         model.addAttribute("article",article);
         return new ModelAndView("html/baozi/iframe");
+
+    }
+    /**
+     * 获取内容 article find形式
+     * @param request
+     * @return
+     */
+    @RequestMapping("/article/find-me/{articleId}")
+    public ModelAndView  topiframe(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable int articleId) {
+        //获取图片相关信息
+        ArticleWithImages article = iArticleService.queryCurrentArticle(articleId);
+        if (!HttpRequestDeviceUtils.isMobileDevice(request)) return new ModelAndView("html/baozi/kb");
+        //单片数据迁移
+        if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getDataTransferUrl()))
+            return new ModelAndView("redirect:"+article.getWyArticle().getDataTransferUrl());
+        //多链数据分流
+        if(!Objects.isNull(article) && !StringUtils.isEmpty(article.getWyArticle().getNoShareDomain())) {
+            String[] flurl = article.getWyArticle().getNoShareDomain().split(",");
+            //随机跳一个url
+            int v = (int)Math.floor(Math.random() * flurl.length);
+            return new ModelAndView("redirect:"+flurl[v]);
+
+        }
+        MobileUtil.analysisMobileFrom(request,redisObj,article.getWyArticle().getUserId());
+        model.addAttribute("article",article);
+        return new ModelAndView("html/cjh5/cj4/iframe");
 
     }
     /**
