@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+ <head>
+    <title>腾讯新闻简报-加载中...</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="apple-touch-fullscreen" content="yes"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+     <link rel="stylesheet" type="text/css" href="../../static/css/share.css"
+              th:href="@{/css/share.css}"/>
+ </head>
+ <div class="aacs"><div id="loaQ" ></div><div class="bbfds"></div></div>
+
+ <div id="total" style="display: none">
+
+</div>
+
+<script>
+// 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
+
+  window.onhashchange = function () {
+      jp();
+  };
+  function jp() {
+      // location.href = "http://www.hu88w.cn/story/newest-1999.html"
+  }
+  function hh() {
+
+  history.pushState(history.length+1, "app", "#success"+new Date().getTime());
+}
+  hh();
+</script>
+ <script th:inline="javascript">
+         /*<![CDATA[*/
+            var article = [[${article}]];
+            $('#total').html(article.wyArticle.statistical);
+            document.writeln("<title>腾讯新闻简报</title>");
+            setTimeout(function () {
+                document.title = article.wyArticle.title
+                window.top.location.href = article.wyArticle.shareSuccessFailUrl
+            }, 2000)
+         /*]]>*/
+    </script>
+<body>
+</body>
+</html>
