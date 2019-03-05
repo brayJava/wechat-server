@@ -10,6 +10,7 @@ import com.bray.model.WySafedomain;
 import com.bray.service.IOrderWebService;
 import com.bray.service.wechat.WechatTemplateMessageServcie;
 import com.bray.service.wechat.bean.OrderTemplateKeyParam;
+import com.bray.service.wechat.bean.WechatConstant;
 import com.bray.util.DateUtil;
 import com.bray.util.SendEmailUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -48,7 +49,6 @@ public class OrderReceiver {
     @Resource
     private WechatTemplateMessageServcie wechatTemplateMessageServcie;
 
-
     @RabbitHandler
     public void process(String receiverMsg) {
 
@@ -60,10 +60,20 @@ public class OrderReceiver {
             log.error("插入订单失败...");
         }
         try {
-            //发送微信下行通知
-            wechatTemplateMessageServcie.sendTemplateMessage(getOrderTemplateKeyParam(orderModelVo));
+            //查询所有openid
+            WySafedomain wySafedomain = wySafedomainMapper.selectByPrimaryKey(1);
+            if(StringUtils.isEmpty(wySafedomain.getMail())){
+                wySafedomain.setMail(WechatConstant.DEFULAT_TOUSER);
+            }
+            String[] wechats = wySafedomain.getMail().split(",");
+            for(String openid: wechats) {
+                Thread.sleep(1000);
+                //发送微信下行通知
+                wechatTemplateMessageServcie.sendWechatMsg(openid,getOrderTemplateKeyParam(orderModelVo));
+            }
+
         } catch (Exception e) {
-            log.error("---------email发送错误");
+            log.error("---------微信下行通知发送错误");
             e.printStackTrace();
         }
     }

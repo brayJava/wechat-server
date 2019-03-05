@@ -12,6 +12,7 @@ public interface WechatTemplateMessageServcie {
 
     /**
      * @param orderTemplateKeyParam  模板参数值
+     * @param appid  appid数值
      */
-    void sendTemplateMessage(OrderTemplateKeyParam orderTemplateKeyParam);
+    void sendWechatMsg(String appid,OrderTemplateKeyParam orderTemplateKeyParam);
 }

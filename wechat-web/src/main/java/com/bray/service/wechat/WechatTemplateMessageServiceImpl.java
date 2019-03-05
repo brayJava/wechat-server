@@ -49,7 +49,7 @@ public class WechatTemplateMessageServiceImpl implements WechatTemplateMessageSe
      * @param openid
      * @param orderTemplateKeyParam
      */
-    private void sendWechatMsg(String openid, OrderTemplateKeyParam orderTemplateKeyParam) {
+    public void sendWechatMsg(String openid, OrderTemplateKeyParam orderTemplateKeyParam) {
 
         DataInfo first = new DataInfo(orderTemplateKeyParam.getFirst(), "#c81623");
         DataInfo keyword1 = new DataInfo(orderTemplateKeyParam.getOrderID(), "");
