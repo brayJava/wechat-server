@@ -24,15 +24,19 @@ spring:
               maxIdle: 10
               maxWaitMillis: 100000
   mail:
-     username: 1318134732@qq.com
-     password: lcpncjnautlsifdh
- #    password: wuzhiyuan5789778
-     host: smtp.qq.com
-     properties:
-       mail:
-         smtp:
-           ssl:
-             enable: true
+       username: goodboy_bray@163.com
+       password: WZYwzy5789778
+       host: smtp.163.com
+       properties:
+         mail:
+           smtp:
+             ssl:
+               enable: true
+  rabbitmq:
+        host: localhost
+        port: 5672
+        username: admin
+        password: 123456
 # MySQL
 datasource:
       url: jdbc:mysql://localhost:3306/bray?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false
