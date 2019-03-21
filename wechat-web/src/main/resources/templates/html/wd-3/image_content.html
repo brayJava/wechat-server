@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+ <head>
+ </head>
+ <body>
+     <p th:if="${not #lists.isEmpty(article.articleSubImages)}" th:each="articleimg,iterStat:${article.articleSubImages}" style="box-sizing:border-box;margin:0px !important;text-indent:0px;line-height:1.6;max-width:100%;">
+          <span th:if="${articleimg.wyArticleImg.imgUrl != ''}">
+              <a th:href="${articleimg.wyArticleImg.imgUrl}" target="_parent">
+                 <img th:src="${articleimg.wyArticleImg.thirdImgPath}" alt = "" style="background-color:#ffffff;border:0px;box-sizing:border-box;color:#505050;font-family:font-size:14px;font-style:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-weight:400;letter-spacing:normal;max-width:100%;orphans:2;text-align:start;text-decoration-color:initial;text-decoration-style:initial;text-indent:0px;text-transform:none;vertical-align:middle;white-space:normal;widows:2;word-spacing:0px;"/>
+              </a>
+          </span>
+          <span th:unless="${articleimg.wyArticleImg.imgUrl != ''}">
+                <img th:src="${articleimg.wyArticleImg.thirdImgPath}" dalt = "" style="background-color:#ffffff;border:0px;box-sizing:border-box;color:#505050;font-family:font-size:14px;font-style:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-weight:400;letter-spacing:normal;max-width:100%;orphans:2;text-align:start;text-decoration-color:initial;text-decoration-style:initial;text-indent:0px;text-transform:none;vertical-align:middle;white-space:normal;widows:2;word-spacing:0px;"/>
+          </span>
+     </p>
+ </body>
+</html>

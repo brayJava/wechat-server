@@ -66,8 +66,8 @@
 
      </div>
     </div>
-    <div class="nr_bot">
-     <span> 阅读 <em id="readNum">100000+</em> </span>
+    <div class="nr_bot" th:if="${article.wyArticle.readOriginalUrl != ''} ">
+      <span>  <a th:href="${article.wyArticle.readOriginalUrl}">阅读原文</a>  阅读 <em id="readNum">100000+</em> </span>
      <a class="dianzan" id="dianzan_btn" href="javascript:void(0)"> <i class="icon-dianzan"></i> <em id="likeNum"></em> </a>
      <a href="/ts.html" style="float:right;margin-right:30px;"> 投诉 </a>
      <div class="clear"></div>

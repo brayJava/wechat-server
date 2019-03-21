@@ -116,7 +116,7 @@ body {
 
 #musicControl a {
     display: inline-block;
-    width: 32px;
+    width: 36px;
     height: 32px;
     overflow: hidden;
     background-image: url('/wd-2/images/play.png');

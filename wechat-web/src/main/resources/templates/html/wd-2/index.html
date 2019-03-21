@@ -19,8 +19,8 @@
                 <span class="rich_media_meta time">今天</span>
             </div>
         <div class="context" th:attr="data-value=${article.contentHtml}"></div>
-        <div class="rich_media_meta_list">
-                <span class="rich_media_meta read-push">阅读 100000+</span>
+        <div class="rich_media_meta_list" th:if="${article.wyArticle.readOriginalUrl != ''}">
+                <span class="rich_media_meta read-push"><a th:href="${article.wyArticle.readOriginalUrl}" style="color: #0a6aa1">阅读</a> 100000+</span>
                             <span class="rich_media_meta like-push"><span class="like"></span> <i>100000+</i></span>
             <a class="report" href="/ts.html">举报</a>
         </div>
