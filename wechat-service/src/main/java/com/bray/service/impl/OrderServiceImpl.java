@@ -111,9 +111,14 @@ public class OrderServiceImpl implements IOrderService<WyOrder>{
     public double queryMoney(String startTime,String endTime) {
         String startDate = DateUtil.getStartDate(startTime);
         String lastDate = DateUtil.getLastDate(endTime);
-        double money = wyOrderMapper.queryMoney(startDate, lastDate);
-        if(Objects.isNull(money)) {
-            money = 0.00;
+        double money = 0;
+        try {
+            money = wyOrderMapper.queryMoney(startDate, lastDate);
+            if(Objects.isNull(money)) {
+                money = 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return money;
     }
