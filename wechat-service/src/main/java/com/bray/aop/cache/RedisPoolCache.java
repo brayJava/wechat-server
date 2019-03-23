@@ -104,6 +104,24 @@ public class RedisPoolCache {
         return smembers;
     }
     /**
+     * 设置map集合
+     * @return
+     */
+    public Long setMapRedis(String mapName,String redisKey,String setValue) {
+        Jedis jedis = this.getJedis();
+        Long hset = jedis.hset(mapName, redisKey, setValue);
+        return hset;
+    }
+    /**
+     * 获取map中的参数
+     * @return
+     */
+    public String getMapRedis(String mapName,String redisKey) {
+        Jedis jedis = this.getJedis();
+        String hget = jedis.hget(mapName, redisKey);
+        return hget;
+    }
+    /**
      * 更新redis数据
      * @param redisKey
      * @param object
