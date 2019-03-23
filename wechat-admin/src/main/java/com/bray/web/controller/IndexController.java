@@ -8,6 +8,7 @@ import com.bray.model.Vo.OrderModelVo;
 import com.bray.model.WyOrderLog;
 import com.bray.model.WyUser;
 import com.bray.service.IOrderAdminService;
+import com.bray.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.omg.CORBA.Object;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.text.NumberFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -87,6 +90,7 @@ public class IndexController {
     private void setModel(Model model, WyUser wyUser, List<WyOrderLog> wyOrderLogs, List<OrderModelVo> orderlist) {
         NumberFormat numberFormat = NumberFormat.getInstance();
         numberFormat.setMaximumFractionDigits(2);
+        String nowday = LocalDateTime.now().format(DateTimeFormatter.ofPattern(DateUtil.PATTERN_yyyy_MM_dd));
         //获取手机型号
         List<String> fromAndroidList = new ArrayList<>();
         List<String> fromIphoneList = new ArrayList<>();
@@ -96,6 +100,7 @@ public class IndexController {
         List<String> sizelOther = new ArrayList<>();
         List<String> minipCountList = new ArrayList<>(); //历史ip统计
         Set<String> setstrs = new HashSet<>(); //总ip数量
+        String[] maxIpNumStr = new String[2];
         int  minsetIp = 0;//每分钟ip数量
         if("admin".equals(wyUser.getUsername())) {
             // fromAndroidList = redisObj.lrangeRedis("fromAndroid", 0, 30);
@@ -108,6 +113,8 @@ public class IndexController {
             // fromIphoneList = redisObj.lrangeRedis("fromIphone", 0, 10);
             minipCountList = redisObj.lrangeRedis("minipCountList", 0, 10);
             minsetIp = Integer.valueOf(String.valueOf(redisObj.getRedisValueByKey("minipCount")));
+            String maxIpNum = redisObj.getMapRedis("maxIpNum", nowday);
+            maxIpNumStr = maxIpNum.split("#");
 
         } else {
             // fromAndroidList = redisObj.lrangeRedis("fromAndroid_"+wyUser.getId(), 0, 30);
@@ -133,6 +140,8 @@ public class IndexController {
         model.addAttribute("wyOrderLogs",wyOrderLogs);
         model.addAttribute("currentTime",new Date());
         model.addAttribute("orderlist",orderlist);
+        model.addAttribute("maxIpNum",maxIpNumStr[1]);
+        model.addAttribute("maxIpNumTime",maxIpNumStr[0]);
     }
 
     /**
@@ -145,6 +154,7 @@ public class IndexController {
     @RequestMapping(value="/ssckOrder",produces = "text/html;charset=utf-8")
     @ResponseBody
     public String ssckOrder(HttpServletRequest request, HttpServletResponse response, Model model) {
+        String nowday = LocalDateTime.now().format(DateTimeFormatter.ofPattern(DateUtil.PATTERN_yyyy_MM_dd));
         List<String> minipCountList = new ArrayList<>(); //历史ip统计
         Set<String> setstrs = new HashSet<>(); //总ip数量
         int  minsetIp = 0;//每分钟ip数量
@@ -163,9 +173,13 @@ public class IndexController {
         setstrs = redisObj.smembersRedis("request-ip");
         minipCountList = redisObj.lrangeRedis("minipCountList", 0, 10);
         minsetIp = Integer.valueOf(String.valueOf(redisObj.getRedisValueByKey("minipCount")));
+        String maxIpNum = redisObj.getMapRedis("maxIpNum", nowday);
+        String[] maxIpNumStr = maxIpNum.split("#");
         model.addAttribute("realIp",setstrs.size());
         model.addAttribute("minsetIp",minsetIp);
         model.addAttribute("minipCountList",minipCountList);
+        model.addAttribute("maxIpNum",maxIpNumStr[1]);
+        model.addAttribute("maxIpNumTime",maxIpNumStr[0]);
         List<WyOrderLog> wyOrderLogs = iOrderAdminService.queryOrderLogData();
         model.addAttribute("wyOrderLogs",wyOrderLogs);
         //手动渲染
