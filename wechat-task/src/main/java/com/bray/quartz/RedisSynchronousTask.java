@@ -54,6 +54,7 @@ public class RedisSynchronousTask {
     @Scheduled(cron = "0 */1 * * * ?")
     public void recordMinRedis() {
         String nowtime = LocalDateTime.now().format(DateTimeFormatter.ofPattern(DateUtil.PATTERN_yyyy_MM_dd_HH_mm_ss));
+        String nowday = LocalDateTime.now().format(DateTimeFormatter.ofPattern(DateUtil.PATTERN_yyyy_MM_dd));
         Set<String> newipnums = redisObj.smembersRedis("request-ip");
         Object ipobj = redisObj.getRedisValueByKey("ipnums");
         if(!Objects.isNull(ipobj)) {
@@ -62,6 +63,9 @@ public class RedisSynchronousTask {
             redisObj.saveDataToRedis("minipCount",minipCount);
             log.info("每分钟ip量为：" + minipCount);
             redisObj.lpushRedis("minipCountList",nowtime+" --> "+minipCount);
+            String maxIpNum = redisObj.getMapRedis("maxIpNum", nowday);
+            if(StringUtils.isEmpty(maxIpNum) || Integer.valueOf(maxIpNum.split("#")[1]) < minipCount)
+                redisObj.setMapRedis("maxIpNum",nowday,nowtime+"#"+minipCount);
         }
         redisObj.saveDataToRedis("ipnums",newipnums.size());
         //每个用户ip统计
