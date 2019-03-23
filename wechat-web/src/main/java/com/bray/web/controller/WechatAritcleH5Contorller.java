@@ -97,6 +97,30 @@ public class WechatAritcleH5Contorller {
         return showhtml;
     }
     /**
+     * 单张图片翻阅式h5
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping(value="/h12306/{articleId}",produces = "text/html;charset=utf-8")
+    @ResponseBody
+    public String h12306(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable int articleId) {
+        String showhtml = getArticleWithImages(model, articleId, "article_h5_2","html/cjh5/yqx/index", request, response);
+        return showhtml;
+    }
+    /**
+     * 单张图片翻阅式h5
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping(value="/hwx/{articleId}",produces = "text/html;charset=utf-8")
+    @ResponseBody
+    public String hwx(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable int articleId) {
+        String showhtml = getArticleWithImages(model, articleId, "article_h5_2","html/cjh5/yqx/index-1", request, response);
+        return showhtml;
+    }
+    /**
      * 获取图文信息
      * @param model
      * @param articleId
