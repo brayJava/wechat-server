@@ -41,8 +41,9 @@
    <blockquote class="layui-elem-quote" style="font-size: 25px">
                           访问ip总量: <span class="x-red" th:text="${realIp}"></span>&nbsp;&nbsp;
                           当前ip量: <span class="x-red" th:text="${minsetIp}"></span> &nbsp;&nbsp;
-                          当日最大ip量: <span class="x-red" th:text="${maxIpNumTime}"></span>  【<span class="x-red" th:text="${maxIpNum}"></span>】
-
+   </blockquote>
+   <blockquote class="layui-elem-quote" style="font-size: 25px">
+        今日最高:  <span class="x-red" th:text="${maxIpNumTime}"></span>  (发生时间：<span class="x-red" th:text="${maxIpNum}"></span>)
    </blockquote>
     <div class="layui-field-box">
          <table class="layui-table" lay-skin="line">
