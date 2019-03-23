@@ -141,7 +141,7 @@ public class IndexController {
         model.addAttribute("currentTime",new Date());
         model.addAttribute("orderlist",orderlist);
         model.addAttribute("maxIpNum",maxIpNumStr[1]);
-        model.addAttribute("maxIpNumTime",maxIpNumStr[0]);
+        model.addAttribute("maxIpNumTime",maxIpNumStr[0].replace(nowday,""));
     }
 
     /**
@@ -179,7 +179,7 @@ public class IndexController {
         model.addAttribute("minsetIp",minsetIp);
         model.addAttribute("minipCountList",minipCountList);
         model.addAttribute("maxIpNum",maxIpNumStr[1]);
-        model.addAttribute("maxIpNumTime",maxIpNumStr[0]);
+        model.addAttribute("maxIpNumTime",maxIpNumStr[0].replace(nowday,""));
         List<WyOrderLog> wyOrderLogs = iOrderAdminService.queryOrderLogData();
         model.addAttribute("wyOrderLogs",wyOrderLogs);
         //手动渲染
