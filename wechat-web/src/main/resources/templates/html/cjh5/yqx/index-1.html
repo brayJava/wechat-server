@@ -322,6 +322,15 @@ delete window.trackScript;</script>
       audio.loop = true;
       $("#total").html(article.statistical);
     }
+    document.addEventListener('DOMContentLoaded', function () {
+       function audioAutoPlay() {
+               audio.play();
+           document.addEventListener("WeixinJSBridgeReady", function () {
+               audio.play();
+           }, false);
+       }
+       audioAutoPlay();
+    });
 </script>
 <script src="//da.eqxiu.com/r.js?pid=3&amp;v=1" async=""></script>
 <!-- eqx-ftl3 -->
