@@ -216,4 +216,40 @@ public class WechatNovelController {
         redisObj.saveDataToRedis("novel:nofh-gsyx",showhtml);
         return showhtml;
     }
+    /**
+     * 金牌人生小说文案跳转
+     */
+    @RequestMapping(value="/jprs",produces = "text/html;charset=utf-8")
+    @ResponseBody
+    String jumpjprs(HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
+        String showhtml = String.valueOf(redisObj.getRedisValueByKey("novel:jprs"));
+        if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
+            return  showhtml;
+        }
+        //手动渲染
+        SpringWebContext ctx = new SpringWebContext(request,response,
+                request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+        showhtml = thymeleafViewResolver.getTemplateEngine().process("novel/jprs", ctx);
+        redisObj.saveDataToRedis("novel:jprs",showhtml);
+        return showhtml;
+    }
+    /**
+     * 金牌人生小说文案跳转-无返回
+     */
+    @RequestMapping(value="/nofh-jprs",produces = "text/html;charset=utf-8")
+    @ResponseBody
+    String jumpNoFHjprs(HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (!HttpRequestDeviceUtils.isMobileDevice(request)) return "";
+        String showhtml = String.valueOf(redisObj.getRedisValueByKey("novel:nofh-jprs"));
+        if(!StringUtils.isEmpty(showhtml) && !"null".equals(showhtml)){
+            return  showhtml;
+        }
+        //手动渲染
+        SpringWebContext ctx = new SpringWebContext(request,response,
+                request.getServletContext(),request.getLocale(), model.asMap(), applicationContext );
+        showhtml = thymeleafViewResolver.getTemplateEngine().process("novel/nofh-jprs", ctx);
+        redisObj.saveDataToRedis("novel:nofh-jprs",showhtml);
+        return showhtml;
+    }
 }
