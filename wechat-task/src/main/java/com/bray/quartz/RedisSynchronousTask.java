@@ -138,6 +138,8 @@ public class RedisSynchronousTask {
                         orderTemplateKeyParam.setRemark("以上警告只发送一次...");
                         try {
                             sendWechatMessage(wySafedomain, orderTemplateKeyParam);
+                            wySafedomain.setSafeUrl("");
+                            wySafedomainMapper.updateByPrimaryKeySelective(wySafedomain);
                         } catch (Exception e) {
                             log.error("---------微信下行通知发送错误");
                             e.printStackTrace();
