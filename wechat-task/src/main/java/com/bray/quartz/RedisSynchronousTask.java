@@ -101,6 +101,7 @@ public class RedisSynchronousTask {
                     String responseStr = HttpUtil.doGet("http://wx.rrbay.com/pro/wxUrlCheck2.ashx?key=aeb54b90be23c8839aeac4bd699569a2&url=" + domains[i]);
                     try {
                         Thread.sleep(2000);
+                        log.info("正在检测域名----> "+domains[i]);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
