@@ -41,8 +41,6 @@ public class WechatTemplateMessageServiceImpl implements WechatTemplateMessageSe
             sendWechatMsg(openid, orderTemplateKeyParam);
         }
     }
-
-    @Override
     public void sendToUserTemplateMessage(String userid, OrderTemplateKeyParam orderTemplateKeyParam) {
         this.sendWechatMsg(userid,orderTemplateKeyParam);
     }
@@ -51,7 +49,8 @@ public class WechatTemplateMessageServiceImpl implements WechatTemplateMessageSe
      * @param openid
      * @param orderTemplateKeyParam
      */
-    private void sendWechatMsg(String openid, OrderTemplateKeyParam orderTemplateKeyParam) {
+    @Override
+    public void sendWechatMsg(String openid, OrderTemplateKeyParam orderTemplateKeyParam) {
 
         DataInfo first = new DataInfo(orderTemplateKeyParam.getFirst(), "#c81623");
         DataInfo keyword1 = new DataInfo(orderTemplateKeyParam.getKeyword1(), "");
