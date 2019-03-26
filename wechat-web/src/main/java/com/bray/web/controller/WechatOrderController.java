@@ -2,8 +2,12 @@ package com.bray.web.controller;
 
 import com.bray.aop.cache.RedisPoolCache;
 import com.bray.dto.OrderLogType;
+import com.bray.model.Bo.RestResponseBo;
+import com.bray.model.WySafedomain;
 import com.bray.service.IOrderWebService;
+import com.bray.service.impl.DomainWebServiceImpl;
 import com.bray.util.HttpRequestDeviceUtils;
+import com.bray.util.TStringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -13,11 +17,13 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.spring4.context.SpringWebContext;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Objects;
 
 /**
  * @Author:wuzhiyuan
@@ -34,6 +40,10 @@ public class WechatOrderController {
 
     @Resource
     private JavaMailSenderImpl javaMailSender;
+
+    @Resource
+    private DomainWebServiceImpl domainWebService;
+
     @Autowired
     private ThymeleafViewResolver thymeleafViewResolver;
 
@@ -53,10 +63,18 @@ public class WechatOrderController {
     /**
      * 订单文案跳转
      */
-    @RequestMapping("/pleasantly")
-    String pleasantlyOrder() {
-        // iOrderWebService.insertOrderLog(OrderLogType.STORY_TYPE);
-        return "order/story";
+    @RequestMapping("/rondom-order")
+    ModelAndView rondomOrder() {
+        String safeDomain = "";
+        Object safeDomains = redisObj.getRedisValueByKey("safeDomains");
+        if(!Objects.isNull(safeDomains)) {
+            safeDomain = TStringUtil.getDomainOfOne(String.valueOf(safeDomains));
+            return new ModelAndView("redirect:http://"+safeDomain+"/order/jump-story2");
+        }
+        WySafedomain safeDomainObj = domainWebService.getSafeDomain();
+        safeDomain = TStringUtil.getDomainOfOne(safeDomainObj.getSafeUrl());
+        redisObj.saveDataToRedis("safeDomains",safeDomainObj.getSafeUrl());
+        return new ModelAndView("redirect:http://"+safeDomain+"/order/jump-story2");
     }
     /**
      * 订单文案跳转
@@ -65,6 +83,14 @@ public class WechatOrderController {
     String orderStory() {
         // iOrderWebService.insertOrderLog(OrderLogType.STORY_TYPE);
         return "order/story1";
+    }
+    /**
+     * 订单文案跳转
+     */
+    @RequestMapping("/pleasantly")
+    String pleasantlyOrder() {
+        // iOrderWebService.insertOrderLog(OrderLogType.STORY_TYPE);
+        return "order/story";
     }
     /**
      * 小说文案跳转
