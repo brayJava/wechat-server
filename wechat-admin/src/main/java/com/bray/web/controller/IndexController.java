@@ -76,7 +76,11 @@ public class IndexController {
                 orderlist.add(orderModelVo);
             });
         }
-        setModel(model, wyUser, wyOrderLogs, orderlist);
+        try {
+            setModel(model, wyUser, wyOrderLogs, orderlist);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "index/welcome";
     }
 
@@ -113,8 +117,8 @@ public class IndexController {
             // fromIphoneList = redisObj.lrangeRedis("fromIphone", 0, 10);
             minipCountList = redisObj.lrangeRedis("minipCountList", 0, 10);
             minsetIp = Integer.valueOf(String.valueOf(redisObj.getRedisValueByKey("minipCount")));
-            String maxIpNum = redisObj.getMapRedis("maxIpNum", nowday);
-            maxIpNumStr = maxIpNum.split("#");
+            // String maxIpNum = redisObj.getMapRedis("maxIpNum", nowday);
+            // maxIpNumStr = maxIpNum.split("#");
 
         } else {
             // fromAndroidList = redisObj.lrangeRedis("fromAndroid_"+wyUser.getId(), 0, 30);
@@ -140,8 +144,8 @@ public class IndexController {
         model.addAttribute("wyOrderLogs",wyOrderLogs);
         model.addAttribute("currentTime",new Date());
         model.addAttribute("orderlist",orderlist);
-        model.addAttribute("maxIpNum",maxIpNumStr[1]);
-        model.addAttribute("maxIpNumTime",maxIpNumStr[0].replace(nowday,""));
+        // model.addAttribute("maxIpNum",maxIpNumStr[1]);
+        // model.addAttribute("maxIpNumTime",maxIpNumStr[0].replace(nowday,""));
     }
 
     /**
@@ -173,13 +177,13 @@ public class IndexController {
         setstrs = redisObj.smembersRedis("request-ip");
         minipCountList = redisObj.lrangeRedis("minipCountList", 0, 10);
         minsetIp = Integer.valueOf(String.valueOf(redisObj.getRedisValueByKey("minipCount")));
-        String maxIpNum = redisObj.getMapRedis("maxIpNum", nowday);
-        String[] maxIpNumStr = maxIpNum.split("#");
+        // String maxIpNum = redisObj.getMapRedis("maxIpNum", nowday);
+        // String[] maxIpNumStr = maxIpNum.split("#");
         model.addAttribute("realIp",setstrs.size());
         model.addAttribute("minsetIp",minsetIp);
         model.addAttribute("minipCountList",minipCountList);
-        model.addAttribute("maxIpNum",maxIpNumStr[1]);
-        model.addAttribute("maxIpNumTime",maxIpNumStr[0].replace(nowday,""));
+        // model.addAttribute("maxIpNum",maxIpNumStr[1]);
+        // model.addAttribute("maxIpNumTime",maxIpNumStr[0].replace(nowday,""));
         List<WyOrderLog> wyOrderLogs = iOrderAdminService.queryOrderLogData();
         model.addAttribute("wyOrderLogs",wyOrderLogs);
         //手动渲染
