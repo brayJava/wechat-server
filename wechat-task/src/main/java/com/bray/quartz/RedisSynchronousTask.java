@@ -126,6 +126,7 @@ public class RedisSynchronousTask {
                         wySafedomain.setSafeUrl(updateBuffer.toString().substring(0,updateBuffer.lastIndexOf(",")));
                         try {
                             wySafedomainMapper.updateByPrimaryKeySelective(wySafedomain);
+                            redisObj.deleteDataOfRedis("safeDomains");
                         } catch (Exception e) {
                             e.printStackTrace();
                             log.error("安全域名更新失败。。。");
@@ -140,6 +141,7 @@ public class RedisSynchronousTask {
                             sendWechatMessage(wySafedomain, orderTemplateKeyParam);
                             wySafedomain.setSafeUrl("");
                             wySafedomainMapper.updateByPrimaryKeySelective(wySafedomain);
+                            redisObj.deleteDataOfRedis("safeDomains");
                         } catch (Exception e) {
                             log.error("---------微信下行通知发送错误");
                             e.printStackTrace();
