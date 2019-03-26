@@ -42,9 +42,6 @@
                           访问ip总量: <span class="x-red" th:text="${realIp}"></span>&nbsp;&nbsp;
                           当前ip量: <span class="x-red" th:text="${minsetIp}"></span> &nbsp;&nbsp;
    </blockquote>
-   <blockquote class="layui-elem-quote" style="font-size: 25px">
-                   今日最高:  <span class="x-red" th:text="${maxIpNum}"></span>  (发生时间：<span class="x-red" th:text="${maxIpNumTime}"></span>)
-                   </blockquote>
     <div class="layui-field-box">
          <table class="layui-table" lay-skin="line">
              <tbody th:if="${not #lists.isEmpty(minipCountList)}" th:each="ipStr,iterStat:${minipCountList}">
